@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hellocock/screens/home/home.dart';
-import 'package:hellocock/screens/profile/profile_screen.dart';
+import 'package:hellocock/screens/home/home_screen.dart';
 
 import '../size_config.dart';
 
@@ -25,7 +24,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   List<Map<String, dynamic>> _navitems = [
     {"icon": "assets/icons/home.svg", "title": "Home"},
     {"icon": "assets/icons/search.svg", "title": "Search"},
-    {"icon": "assets/icons/order.svg", "title": "Orders"},
+    {"icon": "assets/icons/order.svg", "title": "Like"},
     {"icon": "assets/icons/profile.svg", "title": "My cock"},
   ];
 
@@ -33,13 +32,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
   List<Widget> _screens = [
     HomeScreen(),
     null, //SearchScreen(),
-    null, //OrderDetailsScreen(),
-    ProfileScreen(),
+    null, //DetailsScreen(),
+    null, //ProfileScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    /// If you set your home screen as first screen make sure call [SizeConfig().init(context)]
     SizeConfig().init(context);
     return Scaffold(
       body: _screens[_selectedIndex],
@@ -50,17 +48,17 @@ class _BottomNavBarState extends State<BottomNavBar> {
           });
         },
         currentIndex: _selectedIndex,
+        backgroundColor: Colors.white,
         activeColor: kActiveColor,
         inactiveColor: kBodyTextColor,
         items: List.generate(
           _navitems.length,
           (index) => BottomNavigationBarItem(
+            backgroundColor: Colors.white,
             icon: buildSvgIcon(
                 src: _navitems[index]['icon'],
                 isActive: _selectedIndex == index),
-            title: Text(
-              _navitems[index]["title"],
-            ),
+            //label: _navitems[index]["title"],
           ),
         ),
       ),
@@ -70,8 +68,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
   SvgPicture buildSvgIcon({@required String src, bool isActive = false}) {
     return SvgPicture.asset(
       src,
-      height: 30,
-      width: 30,
+      height: 20,
+      width: 20,
       color: isActive ? kActiveColor : kBodyTextColor,
     );
   }
