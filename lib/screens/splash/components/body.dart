@@ -39,10 +39,13 @@ class _BodyState extends State<Body> {
           Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(demoData.length,
-                (index) => DotIndicator(isActive: index == currentPage)),
+            children: List.generate(
+                demoData.length,
+                (index) => DotIndicator(
+                      isActive: index == currentPage,
+                    )),
           ),
-          Spacer(flex: 2),
+          Spacer(flex: 1),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: PrimaryButton(
@@ -65,17 +68,17 @@ class _BodyState extends State<Body> {
 List<Map<String, dynamic>> demoData = [
   {
     "illustration": "assets/icons/logo1.png",
-    "title": "더 재밌게",
-    "text": "오늘은 내가 주인공",
+    "title": "빠르게 주문, 빠르게 픽업 ",
+    "text": "집에 가기 전 스마트 오더 서비스로 \n 미리 주문하는 서비스",
   },
   {
     "illustration": "assets/icons/logo1.png",
-    "title": "더 다양하게",
-    "text": "당신을 위로하는 단 하나의 칵테일",
+    "title": "달콤하게 취하고 싶은 오늘밤",
+    "text": "내일이 두려운 소주말고 \n 배부른 맥주말고 달콤하게 취해요",
   },
   {
     "illustration": "assets/icons/logo1.png",
-    "title": "더 편하게",
-    "text": "제발 소주 좀 그만 마시자",
+    "title": "집에서 한 잔으로 즐기는 칵테일",
+    "text": "전문 칵테일바가 아닌 내 집에서 \n 마실 수 있는 칵테일 한 잔",
   },
 ];

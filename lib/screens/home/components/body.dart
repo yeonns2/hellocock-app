@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:hellocock/components/cards/card.dart';
-import 'package:hellocock/screens/detail_screen.dart';
+import 'package:hellocock/screens/detail/detail_screen.dart';
 import 'package:hellocock/size_config.dart';
 
 class Body extends StatelessWidget {
