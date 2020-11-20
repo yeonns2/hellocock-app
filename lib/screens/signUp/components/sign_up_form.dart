@@ -9,8 +9,8 @@ import '../../../size_config.dart';
 import '../../../components/buttons/primary_button.dart';
 
 class SignUpForm extends StatefulWidget {
-  final BaseAuth auth;
-  const SignUpForm({Key key, this.auth}) : super(key: key);
+  //final BaseAuth auth;
+  //const SignUpForm({Key key, this.auth}) : super(key: key);
   @override
   _SignUpFormState createState() => _SignUpFormState();
 }
@@ -152,7 +152,7 @@ class _SignUpFormState extends State<SignUpForm> {
             press: () async {
               if (_formKey.currentState.validate()) {
                 // If all data are correct then save data to out variables
-                await Auth().signUp(_email, _password);
+                //await Auth().signUp(_email, _password);
                 _formKey.currentState.save();
                 Navigator.push(
                   context,

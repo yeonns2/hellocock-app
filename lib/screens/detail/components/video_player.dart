@@ -8,7 +8,7 @@ class VideoPlayer extends StatefulWidget {
 
 class _VideoPlayerState extends State<VideoPlayer> {
   YoutubePlayerController _controller;
-  String videoId = YoutubePlayer.convertUrlToId("https://youtu.be/BpwH0lvoJa8");
+  String videoId = YoutubePlayer.convertUrlToId("https://youtu.be/WEI0Id7QYUw");
 
   @override
   void initState() {

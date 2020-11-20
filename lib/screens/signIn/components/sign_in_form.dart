@@ -95,7 +95,7 @@ class _SignInFormState extends State<SignInForm> {
             press: () async {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                await Auth().signIn(_email, _password);
+                //await Auth().signIn(_email, _password);
                 Navigator.push(
                     context,
                     MaterialPageRoute(

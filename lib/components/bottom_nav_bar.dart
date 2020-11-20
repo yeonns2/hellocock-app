@@ -54,11 +54,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
         items: List.generate(
           _navitems.length,
           (index) => BottomNavigationBarItem(
-            backgroundColor: Colors.white,
             icon: buildSvgIcon(
                 src: _navitems[index]['icon'],
                 isActive: _selectedIndex == index),
-            //label: _navitems[index]["title"],
+            label: _navitems[index]["title"],
           ),
         ),
       ),

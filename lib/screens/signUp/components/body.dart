@@ -19,7 +19,7 @@ class Body extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 150.0),
+              SizedBox(height: 200.0),
               // Sign Up Form
               SignUpForm(),
               VerticalSpacing(of: 20),

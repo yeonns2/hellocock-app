@@ -1,8 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hellocock/components/buttons/primary_button.dart';
-
 import '../../../components/buttons/socal_button.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -19,9 +17,10 @@ class Body extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 200.0,
+              height: 300.0,
             ),
             // SignInForm contains forget password
+
             SignInForm(),
             VerticalSpacing(of: 20),
             // Create new account
@@ -51,8 +50,8 @@ class Body extends StatelessWidget {
 
             VerticalSpacing(of: 20),
 
-            // kOrText,
-            // VerticalSpacing(of: 20),
+            //kOrText,
+            VerticalSpacing(of: 20),
 
             // // Facebook
             // SocalButton(
@@ -66,16 +65,16 @@ class Body extends StatelessWidget {
             // ),
             // VerticalSpacing(),
 
-            // // Google
-            // SocalButton(
-            //   press: () {},
-            //   text: "Google 계정으로 로그인",
-            //   color: Color(0xFF4285F4),
-            //   icon: SvgPicture.asset(
-            //     'assets/icons/google.svg',
-            //   ),
-            // ),
-            // VerticalSpacing(),
+            // Google
+            SocalButton(
+              press: () {},
+              text: "Google 계정으로 로그인",
+              color: Color(0xFF4285F4),
+              icon: SvgPicture.asset(
+                'assets/icons/google.svg',
+              ),
+            ),
+            VerticalSpacing(),
           ],
         ),
       ),

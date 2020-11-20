@@ -1,3 +1,4 @@
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hellocock">
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
@@ -9,6 +10,9 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="hellocock"
         android:icon="@mipmap/ic_launcher">
+
+         <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyDcvfj75KT9k_jhGjai_j1cNLbuHN2weWE"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

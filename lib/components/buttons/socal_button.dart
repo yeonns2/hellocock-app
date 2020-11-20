@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../size_config.dart';
+
 class SocalButton extends StatelessWidget {
   final Color color;
   final String text;
@@ -52,7 +54,7 @@ class SocalButton extends StatelessWidget {
           ),
           child: icon,
         ),
-        // HorizontalSpacing(of: 40),
+        HorizontalSpacing(of: 40),
         Spacer(flex: 2),
         Text(
           text.toUpperCase(),

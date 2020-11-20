@@ -1,3 +1,4 @@
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/screens/signIn/sign_in_screen.dart';
 
@@ -36,14 +37,30 @@ class _BodyState extends State<Body> {
               ),
             ),
           ),
-          Spacer(),
+          Spacer(
+            flex: 1,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            // children: [
+            //   DotsIndicator(
+            //     dotsCount: demoData.length,
+            //     //position: currentPage,
+            //     decorator: DotsDecorator(
+            //       spacing: const EdgeInsets.all(6.0),
+            //       color: Colors.black26,
+            //       activeColor: kActiveColor,
+            //       size: const Size.square(10.0),
+            //       activeSize: const Size.square(10.0),
+            //     ),
+            //   ),
+            // ],
             children: List.generate(
-                demoData.length,
-                (index) => DotIndicator(
-                      isActive: index == currentPage,
-                    )),
+              demoData.length,
+              (index) => DotIndicator(
+                isActive: index == currentPage,
+              ),
+            ),
           ),
           Spacer(flex: 1),
           Padding(

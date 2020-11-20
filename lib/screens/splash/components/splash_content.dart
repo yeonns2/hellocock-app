@@ -23,12 +23,12 @@ class OnboardContent extends StatelessWidget {
             child: Image.asset(illustration),
           ),
         ),
-        VerticalSpacing(of: 50),
+        VerticalSpacing(of: 30),
         Text(
           title,
           style: kHeadlineTextStyle,
         ),
-        VerticalSpacing(of: 8),
+        VerticalSpacing(of: 20),
         Text(
           text,
           style: kBodyTextStyle,

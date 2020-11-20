@@ -4,7 +4,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:hellocock/size_config.dart';
 
 // clolors that we use in our app
-const kMainColor = Color(0xFF010F07);
+const kMainColor = Colors.black54;
 const kActiveColor = Color(0xFF00C8FF);
 const kAccentColor = Color(0xFFEF9920);
 const kBodyTextColor = Color(0xFF868686);
@@ -13,6 +13,7 @@ const kBgColor = Colors.white;
 
 // Text Styles
 final TextStyle kH1TextStyle = TextStyle(
+  fontFamily: 'NotoSans',
   fontSize: getProportionateScreenWidth(34),
   fontWeight: FontWeight.w500,
   letterSpacing: 0.22,
@@ -30,21 +31,23 @@ final TextStyle kH3TextStyle = kH2TextStyle.copyWith(
 );
 
 final TextStyle kHeadlineTextStyle = TextStyle(
-  fontSize: getProportionateScreenWidth(30),
+  fontFamily: 'NotoSans',
+  fontSize: getProportionateScreenWidth(18),
+  color: kMainColor,
   fontWeight: FontWeight.bold,
 );
 
 final TextStyle kSubHeadTextStyle = TextStyle(
-  fontSize: getProportionateScreenWidth(20),
+  fontSize: getProportionateScreenWidth(18),
   fontWeight: FontWeight.w500,
   color: kMainColor,
   letterSpacing: 0.44,
 );
 
 final TextStyle kBodyTextStyle = TextStyle(
-  fontSize: getProportionateScreenWidth(16),
+  fontSize: getProportionateScreenWidth(15),
   color: kBodyTextColor,
-  height: 1.5,
+  //height: 1.5,
 );
 
 final TextStyle kSecondaryBodyTextStyle = TextStyle(

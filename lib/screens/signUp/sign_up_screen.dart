@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hellocock/size_config.dart';
 
 import 'components/body.dart';
 
 class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text("회원가입"),
-      ),
       body: Body(),
     );
   }

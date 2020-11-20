@@ -8,7 +8,6 @@ import 'components/body.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    /// If you set your home screen as first screen make sure call [SizeConfig().init(context)]
     SizeConfig().init(context);
     return Scaffold(
       appBar: buildAppBar(context),
@@ -22,7 +21,8 @@ class HomeScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back),
           color: kActiveColor,
           onPressed: () => Navigator.pop(context)),
-      title: Text("hellocock", style: TextStyle(color: kActiveColor)),
+      title: Text("hellocock",
+          style: TextStyle(color: kActiveColor, fontFamily: 'NotoSans')),
       actions: [
         FlatButton(
           onPressed: () {},

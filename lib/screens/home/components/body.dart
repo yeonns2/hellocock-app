@@ -9,34 +9,30 @@ class Body extends StatelessWidget {
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(30.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //VerticalSpacing(of: 35),
-              const Text.rich(
-                TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: ' #청량한 ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black54)),
-                    TextSpan(
-                        text: ' #달콤한',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black54)),
-                    TextSpan(
-                        text: ' #입문자추천',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black54)),
-                  ],
-                ),
+              Row(
+                children: <Widget>[
+                  Text(' #청량한 ',
+                      style: TextStyle(
+                          fontFamily: 'NotoSans',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black54)),
+                  Text(' #청량한 ',
+                      style: TextStyle(
+                          fontFamily: 'NotoSans',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black54)),
+                  Text(' #청량한 ',
+                      style: TextStyle(
+                          fontFamily: 'NotoSans',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black54)),
+                ],
               ),
               VerticalSpacing(of: 20),
-
               InkWellCard(
                 onTap: () => Navigator.push(
                   context,
