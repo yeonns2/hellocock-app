@@ -21,8 +21,8 @@ class DotIndicator extends StatelessWidget {
     return AnimatedContainer(
       duration: kDefaultDuration,
       margin: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(5)),
-      height: 5,
-      width: 8,
+      height: 10,
+      width: 10,
       decoration: BoxDecoration(
         color: isActive ? activeColor : inActiveColor.withOpacity(0.25),
         borderRadius: const BorderRadius.all(Radius.circular(20)),

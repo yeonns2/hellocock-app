@@ -7,7 +7,7 @@ import 'package:hellocock/size_config.dart';
 const kMainColor = Colors.black54;
 const kActiveColor = Color(0xFF00C8FF);
 const kAccentColor = Color(0xFFEF9920);
-const kBodyTextColor = Color(0xFF868686);
+const kBodyTextColor = Color(0xFF6F6F6F);
 const kInputColor = Color(0xFFFBFBFB);
 const kBgColor = Colors.white;
 
@@ -70,7 +70,7 @@ final TextStyle kCaptionTextStyle = TextStyle(
 );
 
 // padding
-const double kDefaultPadding = 20.0;
+const double kDefaultPadding = 40.0;
 final EdgeInsets kTextFieldPadding = EdgeInsets.symmetric(
   horizontal: kDefaultPadding,
   vertical: getProportionateScreenHeight(kDefaultPadding),

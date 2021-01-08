@@ -1,11 +1,12 @@
-<svg id="그룹_9" data-name="그룹 9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14.787" height="14.569" viewBox="0 0 14.787 14.569">
-  <defs>
-    <clipPath id="clip-path">
-      <rect id="사각형_9" data-name="사각형 9" width="14.787" height="14.569" fill="none"/>
-    </clipPath>
-  </defs>
-  <g id="그룹_8" data-name="그룹 8" transform="translate(0 0)" clip-path="url(#clip-path)">
-    <path id="패스_16" data-name="패스 16" d="M19.519,7.5a.57.57,0,0,1-.535-.767A10.5,10.5,0,0,1,27.07.009a.57.57,0,0,1,.19,1.124,9.362,9.362,0,0,0-7.206,5.993.57.57,0,0,1-.535.373" transform="translate(-12.949 0)" fill="#00c8ff"/>
-    <path id="패스_17" data-name="패스 17" d="M5.662,21.572a5.662,5.662,0,1,1,5.662-5.662,5.668,5.668,0,0,1-5.662,5.662m0-10.183a4.522,4.522,0,1,0,4.521,4.521,4.526,4.526,0,0,0-4.521-4.521" transform="translate(0 -7.004)" fill="#00c8ff"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="19" height="20" viewBox="0 0 19 20">
+  <g id="마이페이지_아이콘" data-name="마이페이지 아이콘" transform="translate(-343 -741)">
+    <g id="타원_11" data-name="타원 11" transform="translate(348 741)" fill="none" stroke="#00c8ff" stroke-width="1.5">
+      <circle cx="4.5" cy="4.5" r="4.5" stroke="none"/>
+      <circle cx="4.5" cy="4.5" r="3.75" fill="none"/>
+    </g>
+    <g id="사각형_66" data-name="사각형 66" transform="translate(343 752)" fill="none" stroke="#00c8ff" stroke-width="1.5">
+      <rect width="19" height="9" rx="4.5" stroke="none"/>
+      <rect x="0.75" y="0.75" width="17.5" height="7.5" rx="3.75" fill="none"/>
+    </g>
   </g>
 </svg>

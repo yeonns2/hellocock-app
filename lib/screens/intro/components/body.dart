@@ -1,11 +1,11 @@
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/screens/signIn/sign_in_screen.dart';
+import 'package:hellocock/size_config.dart';
 
 import '../../../constants.dart';
-import '../../../components/buttons/primary_button.dart';
-import '../../../components/dot_indicators.dart';
-import 'splash_content.dart';
+import '../../../widgets/buttons/primary_button.dart';
+import '../../../widgets/dot_indicators.dart';
+import 'content.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -42,19 +42,6 @@ class _BodyState extends State<Body> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            // children: [
-            //   DotsIndicator(
-            //     dotsCount: demoData.length,
-            //     //position: currentPage,
-            //     decorator: DotsDecorator(
-            //       spacing: const EdgeInsets.all(6.0),
-            //       color: Colors.black26,
-            //       activeColor: kActiveColor,
-            //       size: const Size.square(10.0),
-            //       activeSize: const Size.square(10.0),
-            //     ),
-            //   ),
-            // ],
             children: List.generate(
               demoData.length,
               (index) => DotIndicator(
@@ -62,7 +49,9 @@ class _BodyState extends State<Body> {
               ),
             ),
           ),
-          Spacer(flex: 1),
+          VerticalSpacing(
+            of: 40,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: PrimaryButton(
@@ -84,18 +73,18 @@ class _BodyState extends State<Body> {
 
 List<Map<String, dynamic>> demoData = [
   {
-    "illustration": "assets/icons/logo1.png",
-    "title": "빠르게 주문, 빠르게 픽업 ",
-    "text": "집에 가기 전 스마트 오더 서비스로 \n 미리 주문하는 서비스",
-  },
-  {
-    "illustration": "assets/icons/logo1.png",
+    "illustration": "assets/images/splash1.svg",
     "title": "달콤하게 취하고 싶은 오늘밤",
     "text": "내일이 두려운 소주말고 \n 배부른 맥주말고 달콤하게 취해요",
   },
   {
-    "illustration": "assets/icons/logo1.png",
+    "illustration": "assets/images/splash1.svg",
     "title": "집에서 한 잔으로 즐기는 칵테일",
     "text": "전문 칵테일바가 아닌 내 집에서 \n 마실 수 있는 칵테일 한 잔",
+  },
+  {
+    "illustration": "assets/images/splash3.svg",
+    "title": "돌아가는 길, 데려가는 칵테일",
+    "text": "집에 가기 전 스마트 오더 서비스로 \n 미리 주문하는 칵테일 키트",
   },
 ];

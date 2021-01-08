@@ -9,7 +9,7 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      //appBar: buildAppBar(context),
+      appBar: buildAppBar(context),
       body: Body(),
     );
   }
@@ -21,15 +21,6 @@ class DetailScreen extends StatelessWidget {
           color: kActiveColor,
           onPressed: () => Navigator.pop(context)),
       title: Text("hellocock", style: TextStyle(color: kActiveColor)),
-      actions: [
-        FlatButton(
-          onPressed: () {},
-          child: Icon(
-            Icons.menu,
-            color: kActiveColor,
-          ),
-        ),
-      ],
     );
   }
 }

@@ -14,20 +14,13 @@ class MapScreen extends StatelessWidget {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0.0,
       leading: IconButton(
           icon: Icon(Icons.arrow_back),
           color: kActiveColor,
           onPressed: () => Navigator.pop(context)),
       title: Text("hellocock", style: TextStyle(color: kActiveColor)),
-      actions: [
-        FlatButton(
-          onPressed: () {},
-          child: Icon(
-            Icons.menu,
-            color: kActiveColor,
-          ),
-        ),
-      ],
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
 
 import '../../../size_config.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class OnboardContent extends StatelessWidget {
   const OnboardContent({
@@ -20,10 +21,9 @@ class OnboardContent extends StatelessWidget {
         Expanded(
           child: AspectRatio(
             aspectRatio: 1,
-            child: Image.asset(illustration),
+            child: SvgPicture.asset(illustration),
           ),
         ),
-        VerticalSpacing(of: 30),
         Text(
           title,
           style: kHeadlineTextStyle,

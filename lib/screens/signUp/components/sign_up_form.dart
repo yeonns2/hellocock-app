@@ -1,175 +1,311 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:hellocock/widgets/buttons/mybutton.dart';
+
+import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/signIn/sign_in_screen.dart';
-import 'package:hellocock/services/auth.dart';
+import 'package:hellocock/size_config.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hellocock/widgets/buttons/primary_button.dart';
 
-import '../../../constants.dart';
-import '../../../size_config.dart';
-import '../../../components/buttons/primary_button.dart';
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
+/// Entrypoint example for registering via Email/Password.
 class SignUpForm extends StatefulWidget {
-  //final BaseAuth auth;
-  //const SignUpForm({Key key, this.auth}) : super(key: key);
+  /// The page title.
+  final String title = 'Registration';
+
   @override
-  _SignUpFormState createState() => _SignUpFormState();
+  State<StatefulWidget> createState() => _SignUpFormState();
 }
 
 class _SignUpFormState extends State<SignUpForm> {
-  // Note: This is a `GlobalKey<FormState>`,
-  // not a GlobalKey<MyCustomFormState>.
-  final _formKey = GlobalKey<FormState>();
-  bool _autoValidate = false;
-  bool _obscureText = true;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  FocusNode _emaildNode;
-  FocusNode _passwordNode;
-  FocusNode _conformPasswordNode;
-
-  String _fullName, _email, _password, _conformPassword;
-
-  @override
-  void initState() {
-    super.initState();
-    _passwordNode = FocusNode();
-    _emaildNode = FocusNode();
-    _conformPasswordNode = FocusNode();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _passwordNode.dispose();
-    _emaildNode.dispose();
-    _conformPasswordNode.dispose();
-  }
+  bool _success;
+  String _userEmail;
 
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
       child: Column(
-        children: [
-          // Full Name Field
-          TextFormField(
-            autovalidate: _autoValidate,
-            validator: requiredValidator,
-            onSaved: (value) => _fullName = value,
-            textInputAction: TextInputAction.next,
-            onEditingComplete: () {
-              // Once user click on Next then it go to email field
-              _emaildNode.requestFocus();
-            },
-            style: kSecondaryBodyTextStyle,
-            cursorColor: kActiveColor,
-            decoration: InputDecoration(
-              hintText: "Name",
-              contentPadding: kTextFieldPadding,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "이메일",
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
             ),
           ),
-          VerticalSpacing(),
-
-          // Email Field
           TextFormField(
-            focusNode: _emaildNode,
-            autovalidate: _autoValidate,
-            validator: emailValidator,
-            onSaved: (value) => _email = value,
-            textInputAction: TextInputAction.next,
-            onEditingComplete: () {
-              // Once user click on Next then it go to password field
-              _passwordNode.requestFocus();
-            },
-            style: kSecondaryBodyTextStyle,
-            cursorColor: kActiveColor,
             keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-              hintText: "Email",
-              contentPadding: kTextFieldPadding,
+            autofocus: false,
+            style: new TextStyle(
+              fontWeight: FontWeight.normal,
             ),
-          ),
-          VerticalSpacing(),
-
-          // Password Field
-          TextFormField(
-            focusNode: _passwordNode,
-            obscureText: _obscureText,
-            autovalidate: _autoValidate,
-            validator: passwordValidator,
-            textInputAction: TextInputAction.next,
-            onEditingComplete: () => _conformPasswordNode.requestFocus(),
-            // We need to validate our password
-            onChanged: (value) => _password = value,
-            onSaved: (value) => _password = value,
-            style: kSecondaryBodyTextStyle,
             cursorColor: kActiveColor,
+            controller: _emailController,
             decoration: InputDecoration(
-              hintText: "Password",
-              contentPadding: kTextFieldPadding,
-              suffixIcon: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _obscureText = !_obscureText;
-                  });
-                },
-                child: _obscureText
-                    ? const Icon(Icons.visibility_off, color: kBodyTextColor)
-                    : const Icon(Icons.visibility, color: kBodyTextColor),
-              ),
+              fillColor: Colors.grey[100],
+              contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
             ),
-          ),
-          VerticalSpacing(),
-
-          // Confirm Password Field
-          TextFormField(
-            focusNode: _conformPasswordNode,
-            obscureText: _obscureText,
-            autovalidate: _autoValidate,
-            validator: (value) =>
-                matchValidator.validateMatch(value, _password),
-            onSaved: (value) => _conformPassword = value,
-            style: kSecondaryBodyTextStyle,
-            cursorColor: kActiveColor,
-            decoration: InputDecoration(
-              hintText: "Confirm Password",
-              contentPadding: kTextFieldPadding,
-              suffixIcon: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _obscureText = !_obscureText;
-                  });
-                },
-                child: _obscureText
-                    ? const Icon(Icons.visibility_off, color: kBodyTextColor)
-                    : const Icon(Icons.visibility, color: kBodyTextColor),
-              ),
-            ),
-          ),
-          VerticalSpacing(),
-          // Sign Up Button
-          PrimaryButton(
-            text: "회원가입",
-            press: () async {
-              if (_formKey.currentState.validate()) {
-                // If all data are correct then save data to out variables
-                //await Auth().signUp(_email, _password);
-                _formKey.currentState.save();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SignInScreen(),
-                  ),
-                );
-              } else {
-                // If all data are not valid then start auto validation.
-                setState(() {
-                  _autoValidate = true;
-                });
+            validator: (String value) {
+              if (value.isEmpty) {
+                return '이메일을 입력해주세요.';
               }
+              return null;
             },
+          ),
+          VerticalSpacing(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "비밀번호",
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+            ),
+          ),
+          TextFormField(
+            cursorColor: kActiveColor,
+            controller: _passwordController,
+            decoration: InputDecoration(
+              fillColor: Colors.grey[100],
+              contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+              hintText: "6자리 이상 입력해주세요.",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(32.0),
+              ),
+            ),
+            validator: (String value) {
+              if (value.isEmpty) {
+                return '비밀번호를 입력해주세요';
+              }
+              return null;
+            },
+            obscureText: true,
+          ),
+          VerticalSpacing(
+            of: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "비밀번호 확인",
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+            ),
+          ),
+          TextFormField(
+            cursorColor: kActiveColor,
+            controller: _passwordController,
+            decoration: InputDecoration(
+              fillColor: Colors.grey[100],
+              contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+              hintText: "6자리 이상 입력해주세요.",
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+            ),
+            validator: (String value) {
+              if (value.isEmpty) {
+                return '비밀번호를 입력해주세요';
+              }
+              return null;
+            },
+            obscureText: true,
+          ),
+          VerticalSpacing(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "핸드폰 / 성인인증",
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: 190,
+                child: TextFormField(
+                  cursorColor: kActiveColor,
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey[100],
+                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32.0)),
+                  ),
+                  obscureText: true,
+                ),
+              ),
+              HorizontalSpacing(
+                of: 10,
+              ),
+              SizedBox(
+                  width: 90, child: PrimaryButton(text: "인증요청", press: () {}))
+            ],
+          ),
+          VerticalSpacing(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: 190,
+                child: TextFormField(
+                  cursorColor: kActiveColor,
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey[100],
+                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32.0)),
+                  ),
+                  obscureText: true,
+                ),
+              ),
+              SizedBox(
+                  width: 90, child: PrimaryButton(text: "인증완료", press: () {}))
+            ],
+          ),
+          VerticalSpacing(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "주소",
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: 190,
+                child: TextFormField(
+                  cursorColor: kActiveColor,
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey[100],
+                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32.0)),
+                  ),
+                  obscureText: true,
+                ),
+              ),
+              HorizontalSpacing(
+                of: 10,
+              ),
+              SizedBox(
+                  width: 90, child: PrimaryButton(text: "우편번호", press: () {}))
+            ],
+          ),
+          VerticalSpacing(),
+          TextFormField(
+            cursorColor: kActiveColor,
+            decoration: InputDecoration(
+              fillColor: Colors.grey[100],
+              contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+            ),
+            obscureText: true,
+          ),
+          VerticalSpacing(),
+          Center(
+            child: PrimaryButton(
+                text: "가입하기",
+                press: () async {
+                  if (_formKey.currentState.validate()) {
+                    _register();
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                  child: SvgPicture.asset(
+                                    "assets/icons/mycock.svg",
+                                  ),
+                                ),
+                                VerticalSpacing(
+                                  of: 20,
+                                ),
+                                Text(
+                                  "회원가입이 완료되었습니다.",
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      color: kBodyTextColor,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                            actions: <Widget>[
+                              new FlatButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => SignInScreen(),
+                                    ),
+                                  );
+                                },
+                                child: new Text(
+                                  "로그인하기",
+                                  style: TextStyle(color: kActiveColor),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 80,
+                              ),
+                            ],
+                          );
+                        });
+                  } else {
+                    //dispose();
+                  }
+                }),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is disposed
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  // Example code for registration.
+  void _register() async {
+    final User user = (await _auth.createUserWithEmailAndPassword(
+      email: _emailController.text,
+      password: _passwordController.text,
+    ))
+        .user;
+    if (user != null) {
+      setState(() {
+        _success = true;
+        _userEmail = user.email;
+      });
+    } else {
+      _success = false;
+      dispose();
+    }
   }
 }
