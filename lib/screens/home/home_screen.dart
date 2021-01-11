@@ -16,34 +16,54 @@ class HomeScreen extends StatelessWidget {
         width: 226,
         child: Drawer(
           child: ListView(
+            padding: EdgeInsets.zero,
             children: <Widget>[
-              Container(
+              SizedBox(
                 height: 246,
-                child: SvgPicture.asset("assets/images/drawer.svg"),
+                child: DrawerHeader(
+                  margin: EdgeInsets.zero,
+                  padding: EdgeInsets.zero,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage("assets/images/drawerheader.png"),
+                    ),
+                  ),
+                ),
               ),
-              VerticalSpacing(of: 20),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FlatButton(
-                    onPressed: () {},
-                    child: Text("data"),
-                  ),
-                  FlatButton(
-                    onPressed: () {},
-                    child: Text("data"),
-                  ),
-                  FlatButton(
-                    onPressed: () {},
-                    child: Text("data"),
-                  ),
-                  FlatButton(
-                    onPressed: () {},
-                    child: Text("data"),
-                  ),
-                ],
-              )
+              VerticalSpacing(of: 10),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    InkWell(
+                      onTap: () {},
+                      child: Text(
+                        "- 공지사항",
+                        style: TextStyle(fontSize: 14, color: kBodyTextColor),
+                      ),
+                    ),
+                    VerticalSpacing(of: 20),
+                    InkWell(
+                      onTap: () {},
+                      child: Text(
+                        "- 1:1 문의 ",
+                        style: TextStyle(fontSize: 14, color: kBodyTextColor),
+                      ),
+                    ),
+                    VerticalSpacing(of: 20),
+                    InkWell(
+                      onTap: () {},
+                      child: Text(
+                        "- 이용방법",
+                        style: TextStyle(fontSize: 14, color: kBodyTextColor),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -54,17 +74,15 @@ class HomeScreen extends StatelessWidget {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
+      // leading: FlatButton(
+      //   onPressed: () {},
+      //   child: Icon(
+      //     Icons.menu,
+      //     color: kActiveColor,
+      //   ),
+      // ),
       title: Text("hellocock",
           style: TextStyle(color: kActiveColor, fontFamily: 'NotoSans')),
-      // actions: [
-      //   FlatButton(
-      //     onPressed: () {},
-      //     child: Icon(
-      //       Icons.menu,
-      //       color: kActiveColor,
-      //     ),
-      //   ),
-      // ],
     );
   }
 }

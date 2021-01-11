@@ -4,7 +4,12 @@ import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/payment/payment_screen.dart';
 import 'package:hellocock/size_config.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   final _valueList = ['18:00', '19:00', '20:00', '21:00'];
   var _selectedValue = '19:00';
 
@@ -127,13 +132,56 @@ class Body extends StatelessWidget {
                       ),
                     ),
                   ),
-                  DropdownButton(
-                      value: _selectedValue,
-                      items: _valueList
-                          .map((value) => DropdownMenuItem(
-                              value: value, child: Text(value)))
-                          .toList(),
-                      onChanged: (value) {}),
+                  // Container(
+                  //   padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  //   decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(10.0),
+                  //       color: Colors.cyan,
+                  //       border: Border.all()),
+                  //   child: DropdownButtonHideUnderline(
+                  //     child: DropdownButton(
+                  //         value: _selectedValue,
+                  //         items: _valueList.map((value) => DropdownMenuItem(
+                  //             value: value, child: Text(value))),
+                  //         onChanged: (value) {
+                  //           setState(() {
+                  //             _selectedValue = value;
+                  //           });
+                  //         }),
+                  //   ),
+                  // ),
+                  Container(
+                    width: 97,
+                    height: 35,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 0.5,
+                          blurRadius: 3,
+                          offset: Offset(-1, 3), // changes position of shadow
+                        ),
+                      ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Center(
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                            iconEnabledColor: kActiveColor,
+                            value: _selectedValue,
+                            items: _valueList
+                                .map((value) => DropdownMenuItem(
+                                    value: value, child: Text(value)))
+                                .toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedValue = value;
+                              });
+                            }),
+                      ),
+                    ),
+                  ),
                 ],
               ),
               VerticalSpacing(),

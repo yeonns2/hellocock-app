@@ -65,19 +65,27 @@ class Body extends StatelessWidget {
             VerticalSpacing(
               of: 50,
             ),
-            SocialButton(
-                text: "페이스북 이메일로 로그인",
-                image: "assets/icons/facebook.svg",
-                press: () {},
-                color: Color(0xFF1877F2),
-                textcolor: Colors.white),
-            VerticalSpacing(),
-            SocialButton(
-                text: "구글 이메일로 로그인",
-                image: "assets/icons/google.svg",
-                press: () {},
-                color: Colors.white,
-                textcolor: Colors.grey),
+            SizedBox(
+              height: 40,
+              child: SocialButton(
+                  text: "페이스북 이메일로 로그인",
+                  image: "assets/icons/facebook.svg",
+                  press: () {},
+                  color: Color(0xFF1877F2),
+                  textcolor: Colors.white),
+            ),
+            VerticalSpacing(
+              of: 20,
+            ),
+            SizedBox(
+              height: 40,
+              child: SocialButton(
+                  text: "구글 이메일로 로그인",
+                  image: "assets/icons/google.svg",
+                  press: () {},
+                  color: Colors.white,
+                  textcolor: Colors.grey),
+            ),
             VerticalSpacing(
               of: 20,
             ),
