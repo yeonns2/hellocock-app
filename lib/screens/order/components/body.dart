@@ -157,9 +157,9 @@ class _BodyState extends State<Body> {
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 0.5,
+                          spreadRadius: 0.2,
                           blurRadius: 3,
-                          offset: Offset(-1, 3), // changes position of shadow
+                          offset: Offset(0, 3), // changes position of shadow
                         ),
                       ],
                       color: Colors.white,
@@ -172,7 +172,11 @@ class _BodyState extends State<Body> {
                             value: _selectedValue,
                             items: _valueList
                                 .map((value) => DropdownMenuItem(
-                                    value: value, child: Text(value)))
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      style: TextStyle(fontSize: 13),
+                                    )))
                                 .toList(),
                             onChanged: (value) {
                               setState(() {

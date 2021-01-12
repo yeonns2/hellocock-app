@@ -5,7 +5,35 @@ import 'package:hellocock/widgets/buttons/primary_button.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class Body extends StatelessWidget {
+class Item {
+  Item({
+    this.expandedValue,
+    this.headerValue,
+    this.isExpanded = false,
+  });
+
+  String expandedValue;
+  String headerValue;
+  bool isExpanded;
+}
+
+List<Item> generateItems(int numberOfItems) {
+  return List.generate(numberOfItems, (int index) {
+    return Item(
+      headerValue: 'Panel $index',
+      expandedValue: 'This is item number $index',
+    );
+  });
+}
+
+class Body extends StatefulWidget {
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  List<Item> _data = generateItems(8);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -73,20 +101,45 @@ class Body extends StatelessWidget {
                 style: TextStyle(fontSize: 11.0),
               ),
               VerticalSpacing(of: 50),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "결제수단 선택",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: kBodyTextColor,
-                    fontSize: 16,
-                  ),
+              Text(
+                "결제수단 선택",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: kBodyTextColor,
+                  fontSize: 16,
                 ),
               ),
-              Divider(),
+              VerticalSpacing(
+                of: 20,
+              ),
+              ExpansionTile(
+                initiallyExpanded: true,
+                title: Text(
+                  "결제수단 선택",
+                  style: TextStyle(fontSize: 13.0, color: Colors.black),
+                ),
+                children: <Widget>[
+                  ListView(
+                    shrinkWrap: true,
+                    children: [
+                      ListTile(title: Text('네이버페이')),
+                      ListTile(title: Text('네이버페이')),
+                      ListTile(title: Text('네이버페이')),
+                      ListTile(title: Text('네이버페이')),
+                    ],
+                  ),
+                ],
+              ),
               VerticalSpacing(),
-              Text("개인정보 제3자 제공"),
+              ExpansionTile(
+                childrenPadding: EdgeInsets.zero,
+                title: Text(
+                  "개인정보 제 3자 제공",
+                  style: TextStyle(fontSize: 13.0, color: Colors.black),
+                ),
+                children: <Widget>[],
+              ),
+              //Text("개인정보 제3자 제공"),
               VerticalSpacing(),
               Divider(),
               VerticalSpacing(),
@@ -106,6 +159,31 @@ class Body extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildPanel() {
+    return ExpansionPanelList(
+      expansionCallback: (int index, bool isExpanded) {
+        setState(() {
+          _data[index].isExpanded = !isExpanded;
+        });
+      },
+      children: _data.map<ExpansionPanel>((Item item) {
+        return ExpansionPanel(
+          headerBuilder: (BuildContext context, bool isExpanded) {
+            return ListTile(
+              title: Text(item.headerValue),
+            );
+          },
+          body: ListTile(
+              title: Text(item.expandedValue),
+              subtitle: Text('To delete this panel, tap the trash can icon'),
+              trailing: Icon(Icons.delete),
+              onTap: () {}),
+          isExpanded: item.isExpanded,
+        );
+      }).toList(),
     );
   }
 }

@@ -28,6 +28,7 @@ class _BodyState extends State<Body> {
               onPageChanged: (value) {
                 setState(() {
                   currentPage = value;
+                  print(currentPage);
                 });
               },
               itemBuilder: (context, index) => OnboardContent(

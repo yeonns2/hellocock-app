@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
-//import 'package:hellocock/screens/signIn/sign_in_screen.dart';
+
 import 'package:hellocock/size_config.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'components/body.dart';
 
@@ -21,14 +20,17 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 height: 246,
                 child: DrawerHeader(
+                  child: Image.asset("assets/images/drawerheader.png"),
                   margin: EdgeInsets.zero,
                   padding: EdgeInsets.zero,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage("assets/images/drawerheader.png"),
-                    ),
-                  ),
+                  // decoration: BoxDecoration(
+                  //   image: DecorationImage(
+                  //     fit: BoxFit.fill,
+
+                  //     image: AssetImage("assets/images/drawerheader.png"),
+                  //   ),
+
+                  //),
                 ),
               ),
               VerticalSpacing(of: 10),

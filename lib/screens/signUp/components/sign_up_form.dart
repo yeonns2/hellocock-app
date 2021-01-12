@@ -1,33 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:hellocock/widgets/buttons/mybutton.dart';
-
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/signIn/sign_in_screen.dart';
 import 'package:hellocock/size_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
+import 'package:kopo/kopo.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-/// Entrypoint example for registering via Email/Password.
 class SignUpForm extends StatefulWidget {
-  /// The page title.
-  final String title = 'Registration';
-
   @override
-  State<StatefulWidget> createState() => _SignUpFormState();
+  _SignUpFormState createState() => _SignUpFormState();
 }
 
 class _SignUpFormState extends State<SignUpForm> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   bool _success;
   String _userEmail;
-
+  String adressValue = " ";
+  KopoModel model;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -44,11 +46,9 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
           ),
           TextFormField(
+            style: TextStyle(fontSize: 13),
             keyboardType: TextInputType.emailAddress,
             autofocus: false,
-            style: new TextStyle(
-              fontWeight: FontWeight.normal,
-            ),
             cursorColor: kActiveColor,
             controller: _emailController,
             decoration: InputDecoration(
@@ -74,6 +74,7 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
           ),
           TextFormField(
+            style: TextStyle(fontSize: 13),
             cursorColor: kActiveColor,
             controller: _passwordController,
             decoration: InputDecoration(
@@ -104,6 +105,7 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
           ),
           TextFormField(
+            style: TextStyle(fontSize: 13),
             cursorColor: kActiveColor,
             controller: _passwordController,
             decoration: InputDecoration(
@@ -136,6 +138,7 @@ class _SignUpFormState extends State<SignUpForm> {
               SizedBox(
                 width: 190,
                 child: TextFormField(
+                  style: TextStyle(fontSize: 13),
                   cursorColor: kActiveColor,
                   decoration: InputDecoration(
                     fillColor: Colors.grey[100],
@@ -143,7 +146,6 @@ class _SignUpFormState extends State<SignUpForm> {
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32.0)),
                   ),
-                  obscureText: true,
                 ),
               ),
               HorizontalSpacing(
@@ -160,6 +162,7 @@ class _SignUpFormState extends State<SignUpForm> {
               SizedBox(
                 width: 190,
                 child: TextFormField(
+                  style: TextStyle(fontSize: 13),
                   cursorColor: kActiveColor,
                   decoration: InputDecoration(
                     fillColor: Colors.grey[100],
@@ -167,7 +170,6 @@ class _SignUpFormState extends State<SignUpForm> {
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32.0)),
                   ),
-                  obscureText: true,
                 ),
               ),
               SizedBox(
@@ -183,31 +185,56 @@ class _SignUpFormState extends State<SignUpForm> {
                   TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
             ),
           ),
+          //Text(this.model?.address ?? ""),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
                 width: 190,
                 child: TextFormField(
-                  cursorColor: kActiveColor,
+                  style: TextStyle(fontSize: 13),
+                  controller:
+                      TextEditingController(text: this.model?.address ?? ""),
+                  onTap: () async {
+                    this.model = await Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => Kopo()),
+                    );
+                    setState(() {});
+                  },
+                  readOnly: true,
                   decoration: InputDecoration(
                     fillColor: Colors.grey[100],
                     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32.0)),
                   ),
-                  obscureText: true,
                 ),
               ),
               HorizontalSpacing(
                 of: 10,
               ),
               SizedBox(
-                  width: 90, child: PrimaryButton(text: "우편번호", press: () {}))
+                width: 90,
+                child: PrimaryButton(
+                  text: "우편번호",
+                  press: () {},
+                  // press: () async {
+                  //   var result = await Navigator.of(context).push(
+                  //       MaterialPageRoute(builder: (context) => Kopo()));
+
+                  //   if (result != null) {
+                  //     setState(() {
+                  //       this.adressValue = result;
+                  //     });
+                  //   }
+                  // }
+                ),
+              )
             ],
           ),
           VerticalSpacing(),
           TextFormField(
+            style: TextStyle(fontSize: 13),
             cursorColor: kActiveColor,
             decoration: InputDecoration(
               fillColor: Colors.grey[100],
@@ -215,7 +242,6 @@ class _SignUpFormState extends State<SignUpForm> {
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
             ),
-            obscureText: true,
           ),
           VerticalSpacing(),
           Center(

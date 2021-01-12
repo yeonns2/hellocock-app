@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
-import 'package:hellocock/screens/map/components/menu.dart';
 import 'package:hellocock/screens/order/order_screen.dart';
 import 'package:hellocock/size_config.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class StorePanel extends StatefulWidget {
+class MenuPanel extends StatefulWidget {
   @override
-  _StorePanelState createState() => _StorePanelState();
+  _MenuPanelState createState() => _MenuPanelState();
 }
 
-class _StorePanelState extends State<StorePanel> {
+class _MenuPanelState extends State<MenuPanel> {
   @override
   Widget build(BuildContext context) {
     return SlidingUpPanel(
@@ -61,12 +60,6 @@ class _StorePanelState extends State<StorePanel> {
                 ),
               ],
             ),
-            store(),
-            store(),
-            store(),
-            store(),
-            store(),
-            store(),
           ],
         ));
   }

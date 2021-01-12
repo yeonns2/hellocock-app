@@ -1,11 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hellocock/screens/signIn/components/tap.dart';
 import 'package:hellocock/widgets/buttons/social_button.dart';
-import '../../../constants.dart';
 import '../../../size_config.dart';
 import '../../../screens/signUp/sign_up_screen.dart';
 import 'sign_in_form.dart';
 
 class Body extends StatelessWidget {
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -15,9 +19,7 @@ class Body extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 100.0),
-            // SignInForm contains forget password
             SignInForm(),
-
             Row(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -61,7 +63,6 @@ class Body extends StatelessWidget {
                     ))
               ],
             ),
-
             VerticalSpacing(
               of: 50,
             ),
@@ -82,7 +83,14 @@ class Body extends StatelessWidget {
               child: SocialButton(
                   text: "구글 이메일로 로그인",
                   image: "assets/icons/google.svg",
-                  press: () {},
+                  press: () {
+                    _handleSignIn().then((user) {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TabPage(user)));
+                    });
+                  },
                   color: Colors.white,
                   textcolor: Colors.grey),
             ),
@@ -93,5 +101,16 @@ class Body extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<FirebaseUser> _handleSignIn() async {
+    GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    FirebaseUser authResult = (await _firebaseAuth.signInWithCredential(
+            GoogleAuthProvider.getCredential(
+                idToken: googleAuth.idToken,
+                accessToken: googleAuth.accessToken)))
+        .user;
+    return authResult;
   }
 }
