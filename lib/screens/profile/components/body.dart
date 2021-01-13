@@ -71,7 +71,7 @@ class Body extends StatelessWidget {
                                 children: [
                                   Text("좋아요",
                                       style: TextStyle(
-                                          fontSize: 10,
+                                          fontSize: 11,
                                           fontWeight: FontWeight.bold,
                                           color: kActiveColor)),
                                   VerticalSpacing(),
@@ -87,7 +87,7 @@ class Body extends StatelessWidget {
                                 children: [
                                   Text("주문 내역",
                                       style: TextStyle(
-                                          fontSize: 10,
+                                          fontSize: 11,
                                           fontWeight: FontWeight.bold,
                                           color: kActiveColor)),
                                   VerticalSpacing(),
@@ -103,7 +103,7 @@ class Body extends StatelessWidget {
                                 children: [
                                   Text("수령 대기",
                                       style: TextStyle(
-                                          fontSize: 10,
+                                          fontSize: 11,
                                           fontWeight: FontWeight.bold,
                                           color: kActiveColor)),
                                   VerticalSpacing(),

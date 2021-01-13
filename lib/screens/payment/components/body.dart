@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hellocock/screens/order_completed/order_completed_screen.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
+import 'package:hellocock/widgets/cards/card.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -98,7 +99,7 @@ class _BodyState extends State<Body> {
               VerticalSpacing(of: 50),
               Text(
                 "위 내용을 확인하였으며 결제에 동의합니다.",
-                style: TextStyle(fontSize: 11.0),
+                style: TextStyle(fontSize: 11),
               ),
               VerticalSpacing(of: 50),
               Text(
@@ -112,37 +113,118 @@ class _BodyState extends State<Body> {
               VerticalSpacing(
                 of: 20,
               ),
-              ExpansionTile(
-                initiallyExpanded: true,
-                title: Text(
-                  "결제수단 선택",
-                  style: TextStyle(fontSize: 13.0, color: Colors.black),
-                ),
-                children: <Widget>[
-                  ListView(
-                    shrinkWrap: true,
-                    children: [
-                      ListTile(title: Text('네이버페이')),
-                      ListTile(title: Text('네이버페이')),
-                      ListTile(title: Text('네이버페이')),
-                      ListTile(title: Text('네이버페이')),
-                    ],
-                  ),
+              VerticalSpacing(),
+              Row(
+                children: [
+                  InkWellCard(
+                      circular: 10,
+                      onTap: () {},
+                      child: Container(
+                        width: 133,
+                        height: 86,
+                        child: Center(
+                          child: Text(
+                            "네이버 페이",
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: kActiveColor,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      )),
+                  InkWellCard(
+                      circular: 10,
+                      onTap: () {},
+                      child: Container(
+                        width: 133,
+                        height: 86,
+                        child: Center(
+                          child: Text(
+                            "토스 페이",
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: kActiveColor,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      )),
                 ],
               ),
               VerticalSpacing(),
-              ExpansionTile(
-                childrenPadding: EdgeInsets.zero,
-                title: Text(
-                  "개인정보 제 3자 제공",
-                  style: TextStyle(fontSize: 13.0, color: Colors.black),
-                ),
-                children: <Widget>[],
+              Row(
+                children: [
+                  InkWellCard(
+                      circular: 10,
+                      onTap: () {},
+                      child: Container(
+                        width: 133,
+                        height: 86,
+                        child: Center(
+                          child: Text(
+                            "페이코 페이",
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: kActiveColor,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      )),
+                  InkWellCard(
+                      circular: 10,
+                      onTap: () {},
+                      child: Container(
+                        width: 133,
+                        height: 86,
+                        child: Center(
+                          child: Text(
+                            "카카오 페이",
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: kActiveColor,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      )),
+                ],
               ),
-              //Text("개인정보 제3자 제공"),
               VerticalSpacing(),
-              Divider(),
-              VerticalSpacing(),
+              Row(
+                children: [
+                  InkWellCard(
+                      circular: 10,
+                      onTap: () {},
+                      child: Container(
+                        width: 133,
+                        height: 86,
+                        child: Center(
+                          child: Text(
+                            "핸드폰 결제",
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: kActiveColor,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      )),
+                  InkWellCard(
+                      circular: 10,
+                      onTap: () {},
+                      child: Container(
+                        width: 133,
+                        height: 86,
+                        child: Center(
+                          child: Text(
+                            "무통장 입금",
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: kActiveColor,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      )),
+                ],
+              ),
+              VerticalSpacing(of: 30),
               PrimaryButton(
                 press: () => Navigator.push(
                   context,

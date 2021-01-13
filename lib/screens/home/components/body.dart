@@ -85,6 +85,7 @@ class _BodyState extends State<Body> {
                   Padding(
                     padding: const EdgeInsets.only(left: 25.0),
                     child: InkWellCard(
+                      circular: 30,
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -132,6 +133,7 @@ class _BodyState extends State<Body> {
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 25),
                     child: InkWellCard(
+                      circular: 30,
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -197,6 +199,7 @@ class _BodyState extends State<Body> {
                   Padding(
                     padding: const EdgeInsets.only(left: 25.0),
                     child: InkWellCard(
+                      circular: 30,
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -242,6 +245,7 @@ class _BodyState extends State<Body> {
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 25),
                     child: InkWellCard(
+                      circular: 30,
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(

@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hellocock/screens/home/home_screen.dart';
+import 'package:hellocock/screens/inquiry/inquiry_screen.dart';
+import 'package:hellocock/screens/manual/manual_screen.dart';
 import 'package:hellocock/screens/mycock/mycock_screen.dart';
+import 'package:hellocock/screens/notice/notice_screen.dart';
 import 'package:hellocock/screens/profile/profile_screen.dart';
 import '../size_config.dart';
 import '../constants.dart';
@@ -64,7 +67,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     InkWell(
-                      onTap: () {},
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NoticeScreen(),
+                        ),
+                      ),
                       child: Text(
                         "- 공지사항",
                         style: TextStyle(fontSize: 14, color: kBodyTextColor),
@@ -72,7 +80,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     ),
                     VerticalSpacing(of: 20),
                     InkWell(
-                      onTap: () {},
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => InquiryScreen(),
+                        ),
+                      ),
                       child: Text(
                         "- 1:1 문의 ",
                         style: TextStyle(fontSize: 14, color: kBodyTextColor),
@@ -80,7 +93,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     ),
                     VerticalSpacing(of: 20),
                     InkWell(
-                      onTap: () {},
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ManualScreen(),
+                        ),
+                      ),
                       child: Text(
                         "- 이용방법",
                         style: TextStyle(fontSize: 14, color: kBodyTextColor),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hellocock/constants.dart';
 
+import '../../constants.dart';
 import 'components/body.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class MapScreen extends StatelessWidget {
+class InquiryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

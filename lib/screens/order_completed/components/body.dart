@@ -122,7 +122,7 @@ class Body extends StatelessWidget {
               Center(
                 child: Text(
                   "가게가 혼잡할 수 있으니 신분증을 미리 준비해주세요!",
-                  style: TextStyle(fontSize: 11),
+                  style: TextStyle(fontSize: 12),
                 ),
               ),
               VerticalSpacing(
