@@ -28,7 +28,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   bool _success;
   String _userEmail;
-  String adressValue = " ";
+
   KopoModel model;
   @override
   Widget build(BuildContext context) {
@@ -136,7 +136,7 @@ class _SignUpFormState extends State<SignUpForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: 190,
+                width: 180,
                 child: TextFormField(
                   style: TextStyle(fontSize: 13),
                   cursorColor: kActiveColor,
@@ -148,11 +148,8 @@ class _SignUpFormState extends State<SignUpForm> {
                   ),
                 ),
               ),
-              HorizontalSpacing(
-                of: 10,
-              ),
               SizedBox(
-                  width: 90, child: PrimaryButton(text: "인증요청", press: () {}))
+                  width: 95, child: PrimaryButton(text: "인증요청", press: () {}))
             ],
           ),
           VerticalSpacing(),
@@ -160,7 +157,7 @@ class _SignUpFormState extends State<SignUpForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: 190,
+                width: 180,
                 child: TextFormField(
                   style: TextStyle(fontSize: 13),
                   cursorColor: kActiveColor,
@@ -173,7 +170,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 ),
               ),
               SizedBox(
-                  width: 90, child: PrimaryButton(text: "인증완료", press: () {}))
+                  width: 95, child: PrimaryButton(text: "인증완료", press: () {}))
             ],
           ),
           VerticalSpacing(),
@@ -190,7 +187,7 @@ class _SignUpFormState extends State<SignUpForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: 190,
+                width: 183,
                 child: TextFormField(
                   style: TextStyle(fontSize: 13),
                   controller:
@@ -210,24 +207,16 @@ class _SignUpFormState extends State<SignUpForm> {
                   ),
                 ),
               ),
-              HorizontalSpacing(
-                of: 10,
-              ),
               SizedBox(
-                width: 90,
+                width: 94,
                 child: PrimaryButton(
                   text: "우편번호",
-                  press: () {},
-                  // press: () async {
-                  //   var result = await Navigator.of(context).push(
-                  //       MaterialPageRoute(builder: (context) => Kopo()));
-
-                  //   if (result != null) {
-                  //     setState(() {
-                  //       this.adressValue = result;
-                  //     });
-                  //   }
-                  // }
+                  press: () async {
+                    this.model = await Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => Kopo()),
+                    );
+                    setState(() {});
+                  },
                 ),
               )
             ],

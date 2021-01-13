@@ -70,7 +70,7 @@ final TextStyle kCaptionTextStyle = TextStyle(
 );
 
 // padding
-const double kDefaultPadding = 40.0;
+const double kDefaultPadding = 45.0;
 final EdgeInsets kTextFieldPadding = EdgeInsets.symmetric(
   horizontal: kDefaultPadding,
   vertical: getProportionateScreenHeight(kDefaultPadding),
