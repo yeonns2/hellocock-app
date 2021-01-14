@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hellocock/widgets/bottom_nav_bar.dart';
+import 'package:hellocock/screens/root.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -132,7 +131,7 @@ class Body extends StatelessWidget {
                 press: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BottomNavBar(),
+                    builder: (context) => RootPage(),
                   ),
                 ),
                 text: "홈으로 돌아가기",

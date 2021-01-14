@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hellocock/screens/home/home_screen.dart';
 import 'package:hellocock/screens/inquiry/inquiry_screen.dart';
 import 'package:hellocock/screens/manual/manual_screen.dart';
@@ -11,16 +13,15 @@ import '../size_config.dart';
 import '../constants.dart';
 
 class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({
-    Key key,
-  }) : super(key: key);
-
+  final User user;
+  BottomNavBar(this.user);
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 0;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   List<Map<String, dynamic>> _navitems = [
     {"icon": "assets/icons/home.svg", "title": "Home"},
@@ -111,7 +112,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ),
       ),
-
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: _onItemTapped,
@@ -131,26 +131,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ),
       ),
-      //CupertinoTabBar(
-      //   onTap: (value) {
-      //     setState(() {
-      //       _selectedIndex = value;
-      //     });
-      //   },
-      //   currentIndex: _selectedIndex,
-      //   backgroundColor: Colors.white,
-      //   activeColor: kActiveColor,
-      //   inactiveColor: kActiveColor,
-      //   items: List.generate(
-      //     _navitems.length,
-      //     (index) => BottomNavigationBarItem(
-      //       icon: buildSvgIcon(
-      //           src: _navitems[index]['icon'],
-      //           isActive: _selectedIndex == index),
-      //       //label: _navitems[index]["title"],
-      //     ),
-      //   ),
-      // ),
     );
   }
 
@@ -167,6 +147,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ),
       title: Text("hellocock",
           style: TextStyle(color: kActiveColor, fontFamily: 'NotoSans')),
+      actions: [
+        IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+              _googleSignIn.signOut();
+            })
+      ],
     );
   }
 

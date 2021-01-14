@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
-import 'package:hellocock/screens/map/components/menu.dart';
 import 'package:hellocock/screens/order/order_screen.dart';
 import 'package:hellocock/size_config.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hellocock/screens/signIn/components/tap.dart';
+import 'package:hellocock/widgets/bottom_nav_bar.dart';
 import 'package:hellocock/widgets/buttons/social_button.dart';
 import '../../../size_config.dart';
 import '../../../screens/signUp/sign_up_screen.dart';
@@ -88,7 +88,7 @@ class Body extends StatelessWidget {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TabPage(user)));
+                              builder: (context) => BottomNavBar(user)));
                     });
                   },
                   color: Colors.white,
@@ -103,14 +103,16 @@ class Body extends StatelessWidget {
     );
   }
 
-  Future<FirebaseUser> _handleSignIn() async {
+  Future<User> _handleSignIn() async {
     GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    FirebaseUser authResult = (await _firebaseAuth.signInWithCredential(
-            GoogleAuthProvider.getCredential(
+    User user = (await _firebaseAuth.signInWithCredential(
+            GoogleAuthProvider.credential(
                 idToken: googleAuth.idToken,
                 accessToken: googleAuth.accessToken)))
         .user;
-    return authResult;
+    // 로그인 정보를 출력하는 로그
+    print("signed in " + user.displayName);
+    return user;
   }
 }

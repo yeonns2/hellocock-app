@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hellocock/constants.dart';
-
 import 'package:hellocock/screens/map/components/panel.dart';
-
 import 'package:hellocock/size_config.dart';
 
 class Body extends StatefulWidget {

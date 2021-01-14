@@ -1,12 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hellocock/screens/home/home_screen.dart';
 import 'package:hellocock/widgets/bottom_nav_bar.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/size_config.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class SignInForm extends StatefulWidget {
   @override
@@ -17,6 +14,7 @@ class _SignInFormState extends State<SignInForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -90,12 +88,12 @@ class _SignInFormState extends State<SignInForm> {
             text: "로그인",
             press: () async {
               if (_formKey.currentState.validate()) {
-                _signInWithEmailAndPassword();
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BottomNavBar(),
-                    ));
+                _signInWithEmailAndPassword().then((user) {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BottomNavBar(user)));
+                });
               }
             },
           ),
@@ -112,13 +110,14 @@ class _SignInFormState extends State<SignInForm> {
   }
 
   // Example code of how to sign in with email and password.
-  void _signInWithEmailAndPassword() async {
+  Future<User> _signInWithEmailAndPassword() async {
     try {
       final User user = (await _auth.signInWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       ))
           .user;
+      return user;
     } catch (e) {
       Scaffold.of(context).showSnackBar(SnackBar(
         content: Text("Failed to sign in with Email & Password"),

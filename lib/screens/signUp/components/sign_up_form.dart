@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/signIn/sign_in_screen.dart';
 import 'package:hellocock/size_config.dart';
@@ -18,7 +17,6 @@ class SignUpForm extends StatefulWidget {
 class _SignUpFormState extends State<SignUpForm> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 

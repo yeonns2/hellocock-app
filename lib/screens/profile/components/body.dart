@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/size_config.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class Body extends StatelessWidget {
   @override

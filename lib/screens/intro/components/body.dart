@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hellocock/screens/signIn/sign_in_screen.dart';
+import 'package:hellocock/screens/root.dart';
 import 'package:hellocock/size_config.dart';
-
-import '../../../constants.dart';
 import '../../../widgets/buttons/primary_button.dart';
 import '../../../widgets/dot_indicators.dart';
 import 'content.dart';
@@ -57,7 +55,7 @@ class _BodyState extends State<Body> {
                           press: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SignInScreen(),
+                              builder: (context) => RootPage(),
                             ),
                           ),
                           text: "시작하기",
