@@ -20,7 +20,7 @@ class OnboardContent extends StatelessWidget {
       children: [
         Expanded(
           child: AspectRatio(
-            aspectRatio: 1,
+            aspectRatio: illustration == 'assets/icons/logo1.svg' ? 0.3 : 1,
             child: SvgPicture.asset(illustration),
           ),
         ),

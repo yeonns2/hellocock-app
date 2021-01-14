@@ -28,7 +28,6 @@ class _BodyState extends State<Body> {
               onPageChanged: (value) {
                 setState(() {
                   currentPage = value;
-                  print(currentPage);
                 });
               },
               itemBuilder: (context, index) => OnboardContent(
@@ -42,28 +41,31 @@ class _BodyState extends State<Body> {
             flex: 1,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              demoData.length,
-              (index) => DotIndicator(
-                isActive: index == currentPage,
-              ),
-            ),
-          ),
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: currentPage != 3
+                  ? List.generate(
+                      demoData.length,
+                      (index) => DotIndicator(
+                        isActive: index == currentPage,
+                      ),
+                    )
+                  : [
+                      SizedBox(
+                        width: 275,
+                        height: 40,
+                        child: PrimaryButton(
+                          press: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignInScreen(),
+                            ),
+                          ),
+                          text: "시작하기",
+                        ),
+                      ),
+                    ]),
           VerticalSpacing(
             of: 40,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            child: PrimaryButton(
-              press: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SignInScreen(),
-                ),
-              ),
-              text: "시작하기",
-            ),
           ),
           Spacer(),
         ],
@@ -87,5 +89,10 @@ List<Map<String, dynamic>> demoData = [
     "illustration": "assets/images/splash3.svg",
     "title": "돌아가는 길, 데려가는 칵테일",
     "text": "집에 가기 전 스마트 오더 서비스로 \n 미리 주문하는 칵테일 키트",
+  },
+  {
+    "illustration": "assets/icons/logo1.svg",
+    "title": "",
+    "text": "",
   },
 ];

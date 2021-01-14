@@ -43,6 +43,8 @@ dependencies:
   kopo: ^0.1.1 
   iamport_flutter: ^0.9.13
   google_sign_in: ^4.5.9
+  introduction_screen: ^1.0.9
+  shared_preferences: ^0.5.12+4
   
 
 dev_dependencies:
