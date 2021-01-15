@@ -123,5 +123,6 @@ class _SignInFormState extends State<SignInForm> {
         content: Text("Failed to sign in with Email & Password"),
       ));
     }
+    return null;
   }
 }

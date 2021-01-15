@@ -29,11 +29,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
     {"icon": "assets/icons/profile.svg", "title": "Profile"},
   ];
 
-  List<Widget> _screens = [
-    HomeScreen(),
-    MyCockScreen(),
-    ProfileScreen(),
-  ];
+  List<Widget> _screens;
+  @override
+  void initState() {
+    super.initState();
+    _screens = [
+      HomeScreen(),
+      MyCockScreen(),
+      ProfileScreen(widget.user),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -150,6 +155,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       actions: [
         IconButton(
             icon: Icon(Icons.exit_to_app),
+            color: kActiveColor,
             onPressed: () {
               FirebaseAuth.instance.signOut();
               _googleSignIn.signOut();

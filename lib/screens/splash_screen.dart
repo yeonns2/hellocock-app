@@ -14,17 +14,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(
-      Duration(seconds: 3),
-      () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => IntroScreen()),
-      ),
-    );
+    Timer(Duration(seconds: 3), () => checkFirstSeen());
   }
 
-  @override
-  void afterFirstLayout(BuildContext context) => checkFirstSeen();
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool _seen = (prefs.getBool('seen') ?? false);

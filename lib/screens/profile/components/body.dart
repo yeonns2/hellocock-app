@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/size_config.dart';
 
 class Body extends StatelessWidget {
+  final User user;
+  Body(this.user);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,11 +37,12 @@ class Body extends StatelessWidget {
                     ),
                     CircleAvatar(
                       radius: 56,
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.grey[200],
-                      // child: SvgPicture.asset(
-                      //   "assets/images/taejung.svg",
-                      // ),
+                      backgroundColor: kActiveColor,
+                      child: CircleAvatar(
+                          radius: 55,
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.grey[100],
+                          backgroundImage: NetworkImage(user.photoURL)),
                     ),
                     HorizontalSpacing(
                       of: 40,
@@ -51,13 +55,16 @@ class Body extends StatelessWidget {
                             of: 30,
                           ),
                           Text(
-                            "헬로 태정",
+                            "헬로 " + user.displayName,
                             style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: kBodyTextColor),
                           ),
                           VerticalSpacing(),
-                          Text("mojito@hellock.org",
+                          Text(user.email,
                               style: TextStyle(
+                                color: kBodyTextColor,
                                 fontSize: 14,
                               )),
                           VerticalSpacing(
