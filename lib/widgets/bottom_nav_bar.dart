@@ -34,7 +34,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   void initState() {
     super.initState();
     _screens = [
-      HomeScreen(),
+      HomeScreen(widget.user),
       MyCockScreen(),
       ProfileScreen(widget.user),
     ];

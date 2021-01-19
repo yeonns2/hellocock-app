@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/widgets/cards/card.dart';
@@ -7,6 +8,9 @@ import 'package:hellocock/size_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Body extends StatefulWidget {
+  final User user;
+
+  Body(this.user);
   @override
   _BodyState createState() => _BodyState();
 }
@@ -53,7 +57,7 @@ class _BodyState extends State<Body> {
                       scrollDirection: Axis.horizontal,
                       itemCount: snapshot.data.docs.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return _buildListItem(snapshot.data.docs[index]);
+                        return _buildListItem(snapshot.data.docs[index], index);
                       },
                     );
                   }),
@@ -71,6 +75,7 @@ class _BodyState extends State<Body> {
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('cocktail')
+                      .where('name', isEqualTo: '피치 크러쉬')
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -82,7 +87,7 @@ class _BodyState extends State<Body> {
                       scrollDirection: Axis.horizontal,
                       itemCount: snapshot.data.docs.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return _buildListItem(snapshot.data.docs[index]);
+                        return _buildListItem(snapshot.data.docs[index], index);
                       },
                     );
                   }),
@@ -96,15 +101,15 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget _buildListItem(DocumentSnapshot document) {
+  Widget _buildListItem(DocumentSnapshot document, int index) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10.0, right: 25),
+      padding: const EdgeInsets.only(left: 20.0),
       child: InkWellCard(
         circular: 30,
         onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailScreen(),
+            builder: (context) => DetailScreen(widget.user, index),
           ),
         ),
         child: Container(

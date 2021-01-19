@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/size_config.dart';
@@ -6,12 +7,16 @@ import 'components/body.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DetailScreen extends StatelessWidget {
+  final User user;
+  final int index;
+
+  DetailScreen(this.user, this.index);
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(),
+      body: Body(user, index),
     );
   }
 

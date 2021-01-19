@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
@@ -88,21 +89,33 @@ class Body extends StatelessWidget {
                                 ],
                               ),
                               HorizontalSpacing(),
-                              Column(
-                                children: [
-                                  Text("주문 내역",
-                                      style: TextStyle(
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.bold,
-                                          color: kActiveColor)),
-                                  VerticalSpacing(),
-                                  Text("200",
-                                      style: TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold,
-                                          color: kBodyTextColor)),
-                                ],
-                              ),
+                              StreamBuilder<QuerySnapshot>(
+                                  stream: FirebaseFirestore.instance
+                                      .collection("User")
+                                      .where('email', isEqualTo: user.email)
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    var like = 0;
+                                    if (snapshot.hasData) {
+                                      like =
+                                          snapshot.data.docs[0]['liked'].length;
+                                    }
+                                    return Column(
+                                      children: [
+                                        Text("주문 내역",
+                                            style: TextStyle(
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: kActiveColor)),
+                                        VerticalSpacing(),
+                                        Text("$like",
+                                            style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold,
+                                                color: kBodyTextColor)),
+                                      ],
+                                    );
+                                  }),
                               HorizontalSpacing(),
                               Column(
                                 children: [
