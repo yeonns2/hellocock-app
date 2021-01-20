@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
+import 'package:hellocock/screens/likelist/likelist_screen.dart';
+import 'package:hellocock/screens/orderlist/orderlist_screen.dart';
+import 'package:hellocock/screens/pickuplist/pickuplist_screen.dart';
 import 'package:hellocock/size_config.dart';
 
 class Body extends StatelessWidget {
@@ -73,21 +76,42 @@ class Body extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              Column(
-                                children: [
-                                  Text("좋아요",
-                                      style: TextStyle(
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.bold,
-                                          color: kActiveColor)),
-                                  VerticalSpacing(),
-                                  Text("5",
-                                      style: TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold,
-                                          color: kBodyTextColor)),
-                                ],
-                              ),
+                              StreamBuilder<QuerySnapshot>(
+                                  stream: FirebaseFirestore.instance
+                                      .collection("User")
+                                      .where('email', isEqualTo: user.email)
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    var like = 0;
+                                    if (snapshot.hasData) {
+                                      like =
+                                          snapshot.data.docs[0]['liked'].length;
+                                    }
+                                    return Column(
+                                      children: [
+                                        Text("좋아요",
+                                            style: TextStyle(
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: kActiveColor)),
+                                        VerticalSpacing(),
+                                        InkWell(
+                                          onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  LikeListScreen(),
+                                            ),
+                                          ),
+                                          child: Text("$like",
+                                              style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: kBodyTextColor)),
+                                        ),
+                                      ],
+                                    );
+                                  }),
                               HorizontalSpacing(),
                               StreamBuilder<QuerySnapshot>(
                                   stream: FirebaseFirestore.instance
@@ -108,30 +132,60 @@ class Body extends StatelessWidget {
                                                 fontWeight: FontWeight.bold,
                                                 color: kActiveColor)),
                                         VerticalSpacing(),
-                                        Text("$like",
-                                            style: TextStyle(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.bold,
-                                                color: kBodyTextColor)),
+                                        InkWell(
+                                          onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  OrderListScreen(),
+                                            ),
+                                          ),
+                                          child: Text("$like",
+                                              style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: kBodyTextColor)),
+                                        ),
                                       ],
                                     );
                                   }),
                               HorizontalSpacing(),
-                              Column(
-                                children: [
-                                  Text("수령 대기",
-                                      style: TextStyle(
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.bold,
-                                          color: kActiveColor)),
-                                  VerticalSpacing(),
-                                  Text("1",
-                                      style: TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold,
-                                          color: kBodyTextColor)),
-                                ],
-                              ),
+                              StreamBuilder<QuerySnapshot>(
+                                  stream: FirebaseFirestore.instance
+                                      .collection("User")
+                                      .where('email', isEqualTo: user.email)
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    var like = 0;
+                                    if (snapshot.hasData) {
+                                      like =
+                                          snapshot.data.docs[0]['liked'].length;
+                                    }
+                                    return Column(
+                                      children: [
+                                        Text("수령대기",
+                                            style: TextStyle(
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: kActiveColor)),
+                                        VerticalSpacing(),
+                                        InkWell(
+                                          onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PickUpListScreen(),
+                                            ),
+                                          ),
+                                          child: Text("$like",
+                                              style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: kBodyTextColor)),
+                                        ),
+                                      ],
+                                    );
+                                  }),
                             ],
                           )
                         ]),
@@ -150,7 +204,7 @@ class Body extends StatelessWidget {
                 InkWell(
                   onTap: () {},
                   child: Text(
-                    "수령/배송지 등록",
+                    "로그아웃",
                     style: TextStyle(fontSize: 14, color: kBodyTextColor),
                   ),
                 ),
@@ -158,7 +212,7 @@ class Body extends StatelessWidget {
                 InkWell(
                   onTap: () {},
                   child: Text(
-                    "계정 연동 / 비밀번호 설정",
+                    "비밀번호 설정",
                     style: TextStyle(fontSize: 14, color: kBodyTextColor),
                   ),
                 ),
@@ -166,7 +220,7 @@ class Body extends StatelessWidget {
                 InkWell(
                   onTap: () {},
                   child: Text(
-                    "결제 관리",
+                    "배송지 설정",
                     style: TextStyle(fontSize: 14, color: kBodyTextColor),
                   ),
                 ),
@@ -174,7 +228,7 @@ class Body extends StatelessWidget {
                 InkWell(
                   onTap: () {},
                   child: Text(
-                    "취소 /  교환 / 반품 내역",
+                    "설정",
                     style: TextStyle(fontSize: 14, color: kBodyTextColor),
                   ),
                 ),
