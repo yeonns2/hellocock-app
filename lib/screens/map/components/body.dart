@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:google_maps_controller/google_maps_controller.dart';
+import 'dart:async';
 
-import 'package:hellocock/screens/map/components/panel.dart';
-import 'package:hellocock/size_config.dart';
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import 'package:hellocock/screens/map/components/store_panel.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -10,32 +11,19 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  GoogleMapController mapController;
-
-  final LatLng _center = const LatLng(37.550484, 127.073810);
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
+  Completer<GoogleMapController> _controller = Completer();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Stack(
         children: [
-          // GoogleMap(
-          //   onMapCreated: _onMapCreated,
-          //   initialCameraPosition: CameraPosition(
-          //     target: _center,
-          //     zoom: 15,
-          //   ),
+          _googleMap(context),
+          // Container(
+          //   width: SizeConfig.screenWidth,
+          //   height: SizeConfig.screenHeight,
+          //   color: Colors.grey[200],
           // ),
-
-          Container(
-            width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight,
-            color: Colors.grey[200],
-          ),
           // Padding(
           //   padding: const EdgeInsets.all(15.0),
           //   child: SizedBox(
@@ -55,6 +43,20 @@ class _BodyState extends State<Body> {
           // ),
           StorePanel(),
         ],
+      ),
+    );
+  }
+
+  Widget _googleMap(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      child: GoogleMap(
+        initialCameraPosition:
+            CameraPosition(target: LatLng(37.550484, 127.073810), zoom: 15),
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
       ),
     );
   }

@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/payment/payment_screen.dart';
@@ -12,6 +15,21 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final _valueList = ['18:00', '19:00', '20:00', '21:00'];
   var _selectedValue = '19:00';
+  Completer<GoogleMapController> _controller = Completer();
+  List<Marker> allMarkers = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    allMarkers.add(Marker(
+        markerId: MarkerId('myMarker'),
+        draggable: true,
+        onTap: () {
+          print('Marker Tapped');
+        },
+        position: LatLng(37.54658, 127.07564)));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,24 +150,6 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                   ),
-                  // Container(
-                  //   padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                  //   decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.circular(10.0),
-                  //       color: Colors.cyan,
-                  //       border: Border.all()),
-                  //   child: DropdownButtonHideUnderline(
-                  //     child: DropdownButton(
-                  //         value: _selectedValue,
-                  //         items: _valueList.map((value) => DropdownMenuItem(
-                  //             value: value, child: Text(value))),
-                  //         onChanged: (value) {
-                  //           setState(() {
-                  //             _selectedValue = value;
-                  //           });
-                  //         }),
-                  //   ),
-                  // ),
                   Container(
                     width: 97,
                     height: 35,
@@ -210,7 +210,14 @@ class _BodyState extends State<Body> {
               Container(
                 width: 300,
                 height: 300,
-                color: Colors.black12,
+                child: GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                      target: LatLng(37.550484, 127.073810), zoom: 15),
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                  },
+                  markers: Set.from(allMarkers),
+                ),
               ),
               VerticalSpacing(
                 of: 50,

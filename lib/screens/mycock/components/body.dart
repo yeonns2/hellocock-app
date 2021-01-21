@@ -17,80 +17,74 @@ class Body extends StatelessWidget {
             ),
             Row(
               children: [
-                SizedBox(
-                    width: 80,
-                    child: Image.asset("assets/images/bluehawaii.png")),
-                SizedBox(
-                    width: 80,
-                    child: Image.asset("assets/images/bluehawaii.png")),
-                SizedBox(
-                    width: 80,
-                    child: Image.asset("assets/images/bluehawaii.png")),
-                SizedBox(
-                    width: 80,
-                    child: Image.asset("assets/images/bluehawaii.png")),
+                Column(
+                  children: [
+                    SizedBox(
+                        width: 80,
+                        child: Image.asset("assets/images/bluehawaii.png")),
+                    SizedBox(
+                      width: 80,
+                      child: Divider(
+                        thickness: 1.5,
+                        color: kActiveColor,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 12.5, top: 5, bottom: 10, right: 12.5),
+                      child: Text(
+                        "2020.10.03",
+                        style: TextStyle(color: kActiveColor, fontSize: 10),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                        width: 80,
+                        child: Image.asset("assets/images/bluehawaii.png")),
+                    SizedBox(
+                      width: 80,
+                      child: Divider(
+                        thickness: 1.5,
+                        color: kActiveColor,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 12.5, top: 5, bottom: 10, right: 12.5),
+                      child: Text(
+                        "2020.10.03",
+                        style: TextStyle(color: kActiveColor, fontSize: 10),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                        width: 80,
+                        child: Image.asset("assets/images/bluehawaii.png")),
+                    SizedBox(
+                      width: 80,
+                      child: Divider(
+                        thickness: 1.5,
+                        color: kActiveColor,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 12.5, top: 5, bottom: 10, right: 12.5),
+                      child: Text(
+                        "2020.10.03",
+                        style: TextStyle(color: kActiveColor, fontSize: 10),
+                      ),
+                    ),
+                  ],
+                )
               ],
-            ),
-            Divider(
-              thickness: 1.5,
-              color: kActiveColor,
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 12.5, top: 5, bottom: 10, right: 12.5),
-                  child: Text(
-                    "2020.10.03",
-                    style: TextStyle(color: kActiveColor, fontSize: 10),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 12.5, top: 5, bottom: 10, right: 12.5),
-                  child: Text(
-                    "2020.10.03",
-                    style: TextStyle(color: kActiveColor, fontSize: 10),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 12.5, top: 5, bottom: 10, right: 12.5),
-                  child: Text(
-                    "2020.10.03",
-                    style: TextStyle(color: kActiveColor, fontSize: 10),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 12.5, top: 5, bottom: 10, right: 12.5),
-                  child: Text(
-                    "2020.10.03",
-                    style: TextStyle(color: kActiveColor, fontSize: 10),
-                  ),
-                ),
-              ],
-            ),
-            VerticalSpacing(),
-            Row(
-              children: [
-                SizedBox(
-                    width: 80,
-                    child: Image.asset("assets/images/bluehawaii.png")),
-              ],
-            ),
-            Divider(
-              thickness: 1.5,
-              color: kActiveColor,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 20.0, top: 5, bottom: 10, right: 20),
-              child: Text(
-                "2020.10.03",
-                style: TextStyle(color: kActiveColor, fontSize: 10),
-              ),
-            ),
+            )
           ],
         ),
       ),

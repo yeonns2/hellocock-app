@@ -50,7 +50,10 @@ class _BodyState extends State<Body> {
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
                       return Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              new AlwaysStoppedAnimation<Color>(kActiveColor),
+                        ),
                       );
                     }
                     return ListView.builder(
@@ -80,7 +83,10 @@ class _BodyState extends State<Body> {
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
                       return Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              new AlwaysStoppedAnimation<Color>(kActiveColor),
+                        ),
                       );
                     }
                     return ListView.builder(
