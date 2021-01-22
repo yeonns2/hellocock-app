@@ -80,13 +80,13 @@ class _BodyState extends State<Body> {
                   )
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
-                child: Text("바카디 2병, 파인애플 주스 2병, 블루 큐라소 1병",
-                    style: TextStyle(
-                      fontSize: 11,
-                    )),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
+              //   child: Text("바카디 2병, 파인애플 주스 2병, 블루 큐라소 1병",
+              //       style: TextStyle(
+              //         fontSize: 11,
+              //       )),
+              // ),
               Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16.0),
@@ -212,11 +212,12 @@ class _BodyState extends State<Body> {
                 height: 300,
                 child: GoogleMap(
                   initialCameraPosition: CameraPosition(
-                      target: LatLng(37.550484, 127.073810), zoom: 15),
+                      target: LatLng(37.54658, 127.07564), zoom: 16),
                   onMapCreated: (GoogleMapController controller) {
                     _controller.complete(controller);
                   },
                   markers: Set.from(allMarkers),
+                  myLocationButtonEnabled: false,
                 ),
               ),
               VerticalSpacing(

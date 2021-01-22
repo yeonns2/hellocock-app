@@ -5,6 +5,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:hellocock/screens/map/components/store_panel.dart';
 
+import '../../../constants.dart';
+import '../../../size_config.dart';
+
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
@@ -12,35 +15,28 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   Completer<GoogleMapController> _controller = Completer();
+  List<Marker> allMarkers = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    allMarkers.add(Marker(
+        markerId: MarkerId('myMarker'),
+        draggable: true,
+        onTap: () {
+          print('Marker Tapped');
+        },
+        position: LatLng(37.54658, 127.07564)));
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      bottom: false,
       child: Stack(
         children: [
           _googleMap(context),
-          // Container(
-          //   width: SizeConfig.screenWidth,
-          //   height: SizeConfig.screenHeight,
-          //   color: Colors.grey[200],
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.all(15.0),
-          //   child: SizedBox(
-          //     height: 50,
-          //     child: TextField(
-          //       style: TextStyle(fontSize: 15),
-          //       decoration: InputDecoration(
-          //         border: OutlineInputBorder(),
-          //         suffixIcon: Icon(
-          //           Icons.search,
-          //           color: kActiveColor,
-          //           size: 20,
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
           StorePanel(),
         ],
       ),
@@ -53,10 +49,11 @@ class _BodyState extends State<Body> {
       width: MediaQuery.of(context).size.width,
       child: GoogleMap(
         initialCameraPosition:
-            CameraPosition(target: LatLng(37.550484, 127.073810), zoom: 15),
+            CameraPosition(target: LatLng(37.54658, 127.07564), zoom: 15),
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
+        markers: Set.from(allMarkers),
       ),
     );
   }

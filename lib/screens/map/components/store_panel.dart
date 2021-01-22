@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/order/order_screen.dart';
 import 'package:hellocock/size_config.dart';
@@ -20,6 +21,7 @@ class _StorePanelState extends State<StorePanel> {
     return SlidingUpPanel(
         controller: _visible ? _pc1 : _pc2,
         minHeight: 300,
+        maxHeight: 600,
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30.0), topRight: Radius.circular(20)),
         panelBuilder: _visible
