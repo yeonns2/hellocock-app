@@ -1,14 +1,16 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:hellocock/screens/map/components/store_panel.dart';
 
-import '../../../constants.dart';
-import '../../../size_config.dart';
-
 class Body extends StatefulWidget {
+  final User user;
+  final DocumentSnapshot document;
+  Body(this.user, this.document);
   @override
   _BodyState createState() => _BodyState();
 }
@@ -19,7 +21,6 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     allMarkers.add(Marker(
         markerId: MarkerId('myMarker'),
@@ -28,6 +29,13 @@ class _BodyState extends State<Body> {
           print('Marker Tapped');
         },
         position: LatLng(37.54658, 127.07564)));
+    allMarkers.add(Marker(
+        markerId: MarkerId('myMarker'),
+        draggable: true,
+        onTap: () {
+          print('Marker Tapped');
+        },
+        position: LatLng(37.546104, 127.076539)));
   }
 
   @override
@@ -37,7 +45,7 @@ class _BodyState extends State<Body> {
       child: Stack(
         children: [
           _googleMap(context),
-          StorePanel(),
+          StorePanel(widget.user, widget.document),
         ],
       ),
     );

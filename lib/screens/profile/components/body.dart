@@ -5,6 +5,7 @@ import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/likelist/likelist_screen.dart';
 import 'package:hellocock/screens/orderlist/orderlist_screen.dart';
 import 'package:hellocock/screens/pickuplist/pickuplist_screen.dart';
+import 'package:hellocock/screens/privacy_policy/privacy_policy_screen.dart';
 import 'package:hellocock/size_config.dart';
 
 class Body extends StatelessWidget {
@@ -46,7 +47,8 @@ class Body extends StatelessWidget {
                           radius: 55,
                           foregroundColor: Colors.white,
                           backgroundColor: Colors.grey[100],
-                          backgroundImage: NetworkImage(user.photoURL)),
+                          backgroundImage:
+                              AssetImage("assets/icons/logo1.png")),
                     ),
                     HorizontalSpacing(
                       of: 40,
@@ -78,14 +80,14 @@ class Body extends StatelessWidget {
                             children: [
                               StreamBuilder<QuerySnapshot>(
                                   stream: FirebaseFirestore.instance
-                                      .collection("User")
+                                      .collection("user")
                                       .where('email', isEqualTo: user.email)
                                       .snapshots(),
                                   builder: (context, snapshot) {
                                     var like = 0;
                                     if (snapshot.hasData) {
                                       like =
-                                          snapshot.data.docs[0]['liked'].length;
+                                          snapshot.data.docs[0]['like'].length;
                                     }
                                     return Column(
                                       children: [
@@ -115,14 +117,14 @@ class Body extends StatelessWidget {
                               HorizontalSpacing(),
                               StreamBuilder<QuerySnapshot>(
                                   stream: FirebaseFirestore.instance
-                                      .collection("User")
+                                      .collection("user")
                                       .where('email', isEqualTo: user.email)
                                       .snapshots(),
                                   builder: (context, snapshot) {
                                     var like = 0;
                                     if (snapshot.hasData) {
                                       like =
-                                          snapshot.data.docs[0]['liked'].length;
+                                          snapshot.data.docs[0]['like'].length;
                                     }
                                     return Column(
                                       children: [
@@ -152,14 +154,14 @@ class Body extends StatelessWidget {
                               HorizontalSpacing(),
                               StreamBuilder<QuerySnapshot>(
                                   stream: FirebaseFirestore.instance
-                                      .collection("User")
+                                      .collection("user")
                                       .where('email', isEqualTo: user.email)
                                       .snapshots(),
                                   builder: (context, snapshot) {
                                     var like = 0;
                                     if (snapshot.hasData) {
                                       like =
-                                          snapshot.data.docs[0]['liked'].length;
+                                          snapshot.data.docs[0]['like'].length;
                                     }
                                     return Column(
                                       children: [
@@ -204,32 +206,50 @@ class Body extends StatelessWidget {
                 InkWell(
                   onTap: () {},
                   child: Text(
-                    "로그아웃",
-                    style: TextStyle(fontSize: 14, color: kBodyTextColor),
+                    "회원정보 관리",
+                    style: TextStyle(fontSize: 17, color: kBodyTextColor),
+                  ),
+                ),
+                VerticalSpacing(of: 20),
+                InkWell(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OrderListScreen(),
+                    ),
+                  ),
+                  child: Text(
+                    "알림설정",
+                    style: TextStyle(fontSize: 17, color: kBodyTextColor),
                   ),
                 ),
                 VerticalSpacing(of: 20),
                 InkWell(
                   onTap: () {},
                   child: Text(
-                    "비밀번호 설정",
-                    style: TextStyle(fontSize: 14, color: kBodyTextColor),
+                    "교환 및 환불",
+                    style: TextStyle(fontSize: 17, color: kBodyTextColor),
+                  ),
+                ),
+                VerticalSpacing(of: 20),
+                InkWell(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PrivacyPolicyScreen(),
+                    ),
+                  ),
+                  child: Text(
+                    "개인정보처리방침",
+                    style: TextStyle(fontSize: 17, color: kBodyTextColor),
                   ),
                 ),
                 VerticalSpacing(of: 20),
                 InkWell(
                   onTap: () {},
                   child: Text(
-                    "배송지 설정",
-                    style: TextStyle(fontSize: 14, color: kBodyTextColor),
-                  ),
-                ),
-                VerticalSpacing(of: 20),
-                InkWell(
-                  onTap: () {},
-                  child: Text(
-                    "설정",
-                    style: TextStyle(fontSize: 14, color: kBodyTextColor),
+                    "서비스이용약관",
+                    style: TextStyle(fontSize: 17, color: kBodyTextColor),
                   ),
                 ),
                 VerticalSpacing(of: 20),

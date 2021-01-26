@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hellocock/constants.dart';
@@ -21,8 +23,13 @@ class _SignUpFormState extends State<SignUpForm> {
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _confirm = TextEditingController();
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _phone = TextEditingController();
+  final TextEditingController _address1 = TextEditingController();
+  final TextEditingController _address2 = TextEditingController();
 
   bool _success;
   String _userEmail;
@@ -38,6 +45,34 @@ class _SignUpFormState extends State<SignUpForm> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
+              "이름",
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+            ),
+          ),
+          TextFormField(
+            style: TextStyle(fontSize: 13),
+            keyboardType: TextInputType.name,
+            autofocus: false,
+            cursorColor: kActiveColor,
+            controller: _name,
+            decoration: InputDecoration(
+              fillColor: Colors.grey[100],
+              contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+            ),
+            validator: (String value) {
+              if (value.isEmpty) {
+                return '이메일을 입력해주세요.';
+              }
+              return null;
+            },
+          ),
+          VerticalSpacing(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
               "이메일",
               style:
                   TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
@@ -48,7 +83,7 @@ class _SignUpFormState extends State<SignUpForm> {
             keyboardType: TextInputType.emailAddress,
             autofocus: false,
             cursorColor: kActiveColor,
-            controller: _emailController,
+            controller: _email,
             decoration: InputDecoration(
               fillColor: Colors.grey[100],
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -74,7 +109,7 @@ class _SignUpFormState extends State<SignUpForm> {
           TextFormField(
             style: TextStyle(fontSize: 13),
             cursorColor: kActiveColor,
-            controller: _passwordController,
+            controller: _password,
             decoration: InputDecoration(
               fillColor: Colors.grey[100],
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -105,7 +140,7 @@ class _SignUpFormState extends State<SignUpForm> {
           TextFormField(
             style: TextStyle(fontSize: 13),
             cursorColor: kActiveColor,
-            controller: _passwordController,
+            controller: _confirm,
             decoration: InputDecoration(
               fillColor: Colors.grey[100],
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -116,6 +151,9 @@ class _SignUpFormState extends State<SignUpForm> {
             validator: (String value) {
               if (value.isEmpty) {
                 return '비밀번호를 입력해주세요';
+              }
+              if (value != _password.text) {
+                return '비밀번호가 맞지 않습니다.';
               }
               return null;
             },
@@ -136,6 +174,7 @@ class _SignUpFormState extends State<SignUpForm> {
               SizedBox(
                 width: 180,
                 child: TextFormField(
+                  controller: _phone,
                   style: TextStyle(fontSize: 13),
                   cursorColor: kActiveColor,
                   decoration: InputDecoration(
@@ -144,6 +183,12 @@ class _SignUpFormState extends State<SignUpForm> {
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32.0)),
                   ),
+                  validator: (String value) {
+                    if (value.isEmpty) {
+                      return '핸드폰 번호를 입력해주세요';
+                    }
+                    return null;
+                  },
                 ),
               ),
               SizedBox(
@@ -165,6 +210,12 @@ class _SignUpFormState extends State<SignUpForm> {
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32.0)),
                   ),
+                  validator: (String value) {
+                    if (value.isEmpty) {
+                      return '인증 번호를 입력해주세요.';
+                    }
+                    return null;
+                  },
                 ),
               ),
               SizedBox(
@@ -194,7 +245,15 @@ class _SignUpFormState extends State<SignUpForm> {
                     this.model = await Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => Kopo()),
                     );
+                    _address1.text = this.model?.address;
+
                     setState(() {});
+                  },
+                  validator: (String value) {
+                    if (value.isEmpty) {
+                      return '주소를 입력해주세요';
+                    }
+                    return null;
                   },
                   readOnly: true,
                   decoration: InputDecoration(
@@ -221,6 +280,7 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           VerticalSpacing(),
           TextFormField(
+            controller: _address2,
             style: TextStyle(fontSize: 13),
             cursorColor: kActiveColor,
             decoration: InputDecoration(
@@ -229,6 +289,12 @@ class _SignUpFormState extends State<SignUpForm> {
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
             ),
+            validator: (String value) {
+              if (value.isEmpty) {
+                return '주소를 입력해주세요';
+              }
+              return null;
+            },
           ),
           VerticalSpacing(),
           Center(
@@ -241,32 +307,22 @@ class _SignUpFormState extends State<SignUpForm> {
                         context: context,
                         barrierDismissible: false,
                         builder: (context) {
-                          return AlertDialog(
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 30,
-                                  width: 30,
-                                  child: SvgPicture.asset(
-                                    "assets/icons/mycock.svg",
-                                  ),
-                                ),
-                                VerticalSpacing(
-                                  of: 20,
-                                ),
-                                Text(
-                                  "회원가입이 완료되었습니다.",
-                                  style: TextStyle(
-                                      fontSize: 13,
-                                      color: kBodyTextColor,
-                                      fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
+                          return CupertinoAlertDialog(
+                            title: Text(''),
+                            content: Text(
+                              "회원가입을 축하드립니다!\n",
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: kBodyTextColor,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
                             actions: <Widget>[
-                              new FlatButton(
+                              new CupertinoDialogAction(
+                                child: Text(
+                                  '확인',
+                                  style: TextStyle(fontSize: 13),
+                                ),
                                 onPressed: () {
                                   Navigator.push(
                                     context,
@@ -275,13 +331,6 @@ class _SignUpFormState extends State<SignUpForm> {
                                     ),
                                   );
                                 },
-                                child: new Text(
-                                  "로그인하기",
-                                  style: TextStyle(color: kActiveColor),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 80,
                               ),
                             ],
                           );
@@ -299,22 +348,30 @@ class _SignUpFormState extends State<SignUpForm> {
   @override
   void dispose() {
     // Clean up the controller when the Widget is disposed
-    _emailController.dispose();
-    _passwordController.dispose();
+    _email.dispose();
+    _password.dispose();
     super.dispose();
   }
 
   // Example code for registration.
   void _register() async {
     final User user = (await _auth.createUserWithEmailAndPassword(
-      email: _emailController.text,
-      password: _passwordController.text,
+      email: _email.text,
+      password: _password.text,
     ))
         .user;
     if (user != null) {
       setState(() {
         _success = true;
         _userEmail = user.email;
+        user.updateProfile(displayName: _name.text, photoURL: null);
+
+        FirebaseFirestore.instance.collection("user").doc().set({
+          'name': _name.text,
+          'email': _email.text,
+          'address': _address1.text + " " + _address2.text,
+          'phone': _phone.text,
+        });
       });
     } else {
       _success = false;

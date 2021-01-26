@@ -30,7 +30,7 @@ class OrderBar extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [LikeButton(user, document), OrderButton()],
+          children: [LikeButton(user, document), OrderButton(user, document)],
         ),
       ),
     );

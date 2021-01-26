@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/order/order_screen.dart';
 import 'package:hellocock/size_config.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class StorePanel extends StatefulWidget {
+  final User user;
+  final DocumentSnapshot document;
+  StorePanel(this.user, this.document);
   @override
   _StorePanelState createState() => _StorePanelState();
 }
@@ -18,18 +21,20 @@ class _StorePanelState extends State<StorePanel> {
 
   @override
   Widget build(BuildContext context) {
+    return _visible ? _panel1() : _panel2();
+  }
+
+  Widget _panel1() {
     return SlidingUpPanel(
-        controller: _visible ? _pc1 : _pc2,
+        controller: _pc1,
         minHeight: 300,
         maxHeight: 600,
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30.0), topRight: Radius.circular(20)),
-        panelBuilder: _visible
-            ? (ScrollController sc) => _panel1(sc)
-            : (ScrollController sc) => _panel2(sc));
+        panelBuilder: (ScrollController sc) => _buildpanel1(sc));
   }
 
-  Widget _panel1(ScrollController sc) {
+  Widget _buildpanel1(ScrollController sc) {
     return MediaQuery.removePadding(
         context: context,
         removeTop: true,
@@ -172,9 +177,17 @@ class _StorePanelState extends State<StorePanel> {
     );
   }
 
-  Widget _panel2(
-    ScrollController sc,
-  ) {
+  Widget _panel2() {
+    return SlidingUpPanel(
+        controller: _pc2,
+        minHeight: 300,
+        maxHeight: 600,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.0), topRight: Radius.circular(20)),
+        panelBuilder: (ScrollController sc) => _buildpanel2(sc));
+  }
+
+  Widget _buildpanel2(ScrollController sc) {
     return MediaQuery.removePadding(
         context: context,
         removeTop: true,

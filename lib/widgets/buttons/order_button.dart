@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/widgets/alert.dart';
@@ -7,6 +8,9 @@ import 'package:hellocock/size_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class OrderButton extends StatefulWidget {
+  final User user;
+  final DocumentSnapshot document;
+  OrderButton(this.user, this.document);
   @override
   _OrderButtonState createState() => _OrderButtonState();
 }
@@ -50,7 +54,8 @@ class _OrderButtonState extends State<OrderButton> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MapScreen(),
+                    builder: (context) =>
+                        MapScreen(widget.user, widget.document),
                   ));
             }
           });

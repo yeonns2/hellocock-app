@@ -32,7 +32,7 @@ class Body extends StatelessWidget {
                     tilePadding: EdgeInsets.zero,
                     trailing: SvgPicture.asset("assets/icons/arrow_down.svg"),
                     title: Text(
-                      "     무통장 입금 쉽게하는 방법",
+                      "   헬로콕 첫 앱 출시 !!",
                       style: TextStyle(fontSize: 13.0, color: kBodyTextColor),
                     ),
                     children: <Widget>[],
@@ -42,17 +42,21 @@ class Body extends StatelessWidget {
                     tilePadding: EdgeInsets.zero,
                     trailing: SvgPicture.asset("assets/icons/arrow_down.svg"),
                     title: Text(
-                      "     무통장 입금 쉽게하는 방법",
+                      "   모히또 하우스 OPEN",
                       style: TextStyle(fontSize: 13.0, color: kBodyTextColor),
                     ),
                     children: <Widget>[
                       Container(
                         color: Colors.grey[100],
-                        height: 100,
+                        height: 50,
                         width: 300,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Text("쉽게하는 법따위 없다"),
+                          child: Text(
+                            "쉽게하는 법따위 없다",
+                            style:
+                                TextStyle(fontSize: 12, color: kBodyTextColor),
+                          ),
                         ),
                       )
                     ],

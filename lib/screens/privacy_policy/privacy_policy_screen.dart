@@ -1,20 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hellocock/constants.dart';
 
-import 'components/body.dart';
+import '../../constants.dart';
+import 'componenets/body.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class MapScreen extends StatelessWidget {
-  final User user;
-  final DocumentSnapshot document;
-  MapScreen(this.user, this.document);
+class PrivacyPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(user, document),
+      body: Body(),
     );
   }
 
