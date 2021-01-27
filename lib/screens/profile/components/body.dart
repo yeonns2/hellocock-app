@@ -2,11 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
+import 'package:hellocock/screens/certification/certification_screen.dart';
+import 'package:hellocock/screens/claim/claim_screen.dart';
 import 'package:hellocock/screens/likelist/likelist_screen.dart';
-import 'package:hellocock/screens/memberinfo/memberinfo.dart';
+import 'package:hellocock/screens/memberinfo/memberinfo_screen.dart';
+import 'package:hellocock/screens/notification_setting/notification_setting_screen.dart';
 import 'package:hellocock/screens/orderlist/orderlist_screen.dart';
 import 'package:hellocock/screens/pickuplist/pickuplist_screen.dart';
 import 'package:hellocock/screens/privacy_policy/privacy_policy_screen.dart';
+import 'package:hellocock/screens/service_policy/service_policy_screen.dart';
 import 'package:hellocock/size_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -246,7 +250,20 @@ class _BodyState extends State<Body> {
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => OrderListScreen(),
+                      builder: (context) => CertificationScreen(),
+                    ),
+                  ),
+                  child: Text(
+                    "성인인증",
+                    style: TextStyle(fontSize: 17, color: kBodyTextColor),
+                  ),
+                ),
+                VerticalSpacing(of: 20),
+                InkWell(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NotificationSettingScreen(),
                     ),
                   ),
                   child: Text(
@@ -255,14 +272,19 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 VerticalSpacing(of: 20),
-                InkWell(
-                  onTap: () {},
-                  child: Text(
-                    "교환 및 환불",
-                    style: TextStyle(fontSize: 17, color: kBodyTextColor),
-                  ),
-                ),
-                VerticalSpacing(of: 20),
+                // InkWell(
+                //   onTap: () => Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => ClaimScreen(),
+                //     ),
+                //   ),
+                //   child: Text(
+                //     "교환 및 환불",
+                //     style: TextStyle(fontSize: 17, color: kBodyTextColor),
+                //   ),
+                // ),
+                // VerticalSpacing(of: 20),
                 InkWell(
                   onTap: () => Navigator.push(
                     context,
@@ -277,7 +299,12 @@ class _BodyState extends State<Body> {
                 ),
                 VerticalSpacing(of: 20),
                 InkWell(
-                  onTap: () {},
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ServicePolicyScreen(),
+                    ),
+                  ),
                   child: Text(
                     "서비스이용약관",
                     style: TextStyle(fontSize: 17, color: kBodyTextColor),

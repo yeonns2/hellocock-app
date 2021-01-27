@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
+import '../../size_config.dart';
 import 'components/body.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class PrivacyPolicyScreen extends StatelessWidget {
+class NotificationSettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(),
+      body: Column(children: [
+        Container(
+          width: SizeConfig.screenWidth,
+          height: 35,
+          color: kActiveColor,
+          child: Center(
+              child: Text(
+            "알림 설정",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          )),
+        ),
+        Body(),
+      ]),
     );
   }
 
