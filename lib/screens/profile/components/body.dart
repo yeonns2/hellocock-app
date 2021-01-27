@@ -3,14 +3,40 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/likelist/likelist_screen.dart';
+import 'package:hellocock/screens/memberinfo/memberinfo.dart';
 import 'package:hellocock/screens/orderlist/orderlist_screen.dart';
 import 'package:hellocock/screens/pickuplist/pickuplist_screen.dart';
 import 'package:hellocock/screens/privacy_policy/privacy_policy_screen.dart';
 import 'package:hellocock/size_config.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   final User user;
   Body(this.user);
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+//   dynamic data;
+
+//   Future<dynamic> getData() async {
+
+//     final DocumentReference document =   FirebaseFirestore.instance.collection("user").doc(widget.user.email);
+
+//     await document.get().then<dynamic>(( DocumentSnapshot snapshot) async{
+//      setState(() {
+//        data =snapshot.data;
+//      });
+//     });
+//  }
+//  @override
+//   void initState() {
+
+//     super.initState();
+//     getData();
+//   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -48,7 +74,7 @@ class Body extends StatelessWidget {
                           foregroundColor: Colors.white,
                           backgroundColor: Colors.grey[100],
                           backgroundImage:
-                              AssetImage("assets/icons/logo1.png")),
+                              AssetImage("assets/images/hello.png")),
                     ),
                     HorizontalSpacing(
                       of: 40,
@@ -61,14 +87,14 @@ class Body extends StatelessWidget {
                             of: 30,
                           ),
                           Text(
-                            "헬로 " + user.displayName,
+                            "헬로 " + widget.user.displayName,
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 color: kBodyTextColor),
                           ),
                           VerticalSpacing(),
-                          Text(user.email,
+                          Text(widget.user.email,
                               style: TextStyle(
                                 color: kBodyTextColor,
                                 fontSize: 14,
@@ -80,14 +106,14 @@ class Body extends StatelessWidget {
                             children: [
                               StreamBuilder<QuerySnapshot>(
                                   stream: FirebaseFirestore.instance
-                                      .collection("user")
-                                      .where('email', isEqualTo: user.email)
+                                      .collection("cocktail")
+                                      .where('likedUser',
+                                          isEqualTo: widget.user.email)
                                       .snapshots(),
                                   builder: (context, snapshot) {
                                     var like = 0;
                                     if (snapshot.hasData) {
-                                      like =
-                                          snapshot.data.docs[0]['like'].length;
+                                      like = snapshot.data.docs.length;
                                     }
                                     return Column(
                                       children: [
@@ -105,7 +131,7 @@ class Body extends StatelessWidget {
                                                   LikeListScreen(),
                                             ),
                                           ),
-                                          child: Text("$like",
+                                          child: Text('$like',
                                               style: TextStyle(
                                                   fontSize: 17,
                                                   fontWeight: FontWeight.bold,
@@ -117,14 +143,14 @@ class Body extends StatelessWidget {
                               HorizontalSpacing(),
                               StreamBuilder<QuerySnapshot>(
                                   stream: FirebaseFirestore.instance
-                                      .collection("user")
-                                      .where('email', isEqualTo: user.email)
+                                      .collection("cocktail")
+                                      .where('likedUser',
+                                          isEqualTo: widget.user.email)
                                       .snapshots(),
                                   builder: (context, snapshot) {
                                     var like = 0;
                                     if (snapshot.hasData) {
-                                      like =
-                                          snapshot.data.docs[0]['like'].length;
+                                      like = snapshot.data.docs.length;
                                     }
                                     return Column(
                                       children: [
@@ -154,14 +180,14 @@ class Body extends StatelessWidget {
                               HorizontalSpacing(),
                               StreamBuilder<QuerySnapshot>(
                                   stream: FirebaseFirestore.instance
-                                      .collection("user")
-                                      .where('email', isEqualTo: user.email)
+                                      .collection("cocktail")
+                                      .where('likedUser',
+                                          isEqualTo: widget.user.email)
                                       .snapshots(),
                                   builder: (context, snapshot) {
                                     var like = 0;
                                     if (snapshot.hasData) {
-                                      like =
-                                          snapshot.data.docs[0]['like'].length;
+                                      like = snapshot.data.docs.length;
                                     }
                                     return Column(
                                       children: [
@@ -204,7 +230,12 @@ class Body extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MemberInfoScreen(widget.user),
+                    ),
+                  ),
                   child: Text(
                     "회원정보 관리",
                     style: TextStyle(fontSize: 17, color: kBodyTextColor),

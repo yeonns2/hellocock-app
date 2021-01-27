@@ -156,7 +156,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         IconButton(
             icon: Icon(Icons.exit_to_app),
             color: kActiveColor,
-            onPressed: () {
+            onPressed: () async {
               FirebaseAuth.instance.signOut();
               _googleSignIn.signOut();
             })

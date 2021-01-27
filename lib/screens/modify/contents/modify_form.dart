@@ -5,17 +5,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/signIn/sign_in_screen.dart';
 import 'package:hellocock/size_config.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:kopo/kopo.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-class SignUpForm extends StatefulWidget {
+class ModifyForm extends StatefulWidget {
   @override
-  _SignUpFormState createState() => _SignUpFormState();
+  _ModifyFormState createState() => _ModifyFormState();
 }
 
-class _SignUpFormState extends State<SignUpForm> {
+class _ModifyFormState extends State<ModifyForm> {
   @override
   void initState() {
     super.initState();
@@ -301,7 +302,6 @@ class _SignUpFormState extends State<SignUpForm> {
                 text: "가입하기",
                 press: () async {
                   if (_formKey.currentState.validate()) {
-                    _register();
                     showDialog(
                         context: context,
                         barrierDismissible: false,
@@ -342,41 +342,5 @@ class _SignUpFormState extends State<SignUpForm> {
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    // Clean up the controller when the Widget is disposed
-    _email.dispose();
-    _password.dispose();
-    super.dispose();
-  }
-
-  // Example code for registration.
-  void _register() async {
-    final User user = (await _auth.createUserWithEmailAndPassword(
-      email: _email.text,
-      password: _password.text,
-    ))
-        .user;
-    if (user != null) {
-      setState(() {
-        _success = true;
-        _userEmail = user.email;
-        user.updateProfile(displayName: _name.text, photoURL: null);
-
-        FirebaseFirestore.instance.collection("user").doc(_email.text).set({
-          'name': _name.text,
-          'email': _email.text,
-          'address1': _address1.text,
-          'address2': _address2.text,
-          'phone': _phone.text,
-          'like': null,
-        });
-      });
-    } else {
-      _success = false;
-      dispose();
-    }
   }
 }
