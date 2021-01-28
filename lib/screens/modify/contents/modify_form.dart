@@ -12,6 +12,10 @@ import 'package:kopo/kopo.dart';
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class ModifyForm extends StatefulWidget {
+  final User user;
+  final DocumentSnapshot document;
+  ModifyForm(this.user, this.document);
+
   @override
   _ModifyFormState createState() => _ModifyFormState();
 }
@@ -31,7 +35,6 @@ class _ModifyFormState extends State<ModifyForm> {
   final TextEditingController _address1 = TextEditingController();
   final TextEditingController _address2 = TextEditingController();
 
-  bool _success;
   String _userEmail;
 
   KopoModel model;
@@ -51,23 +54,17 @@ class _ModifyFormState extends State<ModifyForm> {
             ),
           ),
           TextFormField(
+            controller:
+                new TextEditingController(text: widget.document['name']),
             style: TextStyle(fontSize: 13),
             keyboardType: TextInputType.name,
-            autofocus: false,
             cursorColor: kActiveColor,
-            controller: _name,
             decoration: InputDecoration(
               fillColor: Colors.grey[100],
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
             ),
-            validator: (String value) {
-              if (value.isEmpty) {
-                return '이메일을 입력해주세요.';
-              }
-              return null;
-            },
           ),
           VerticalSpacing(),
           Padding(
@@ -83,7 +80,8 @@ class _ModifyFormState extends State<ModifyForm> {
             keyboardType: TextInputType.emailAddress,
             autofocus: false,
             cursorColor: kActiveColor,
-            controller: _email,
+            controller:
+                new TextEditingController(text: widget.document['email']),
             decoration: InputDecoration(
               fillColor: Colors.grey[100],
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -98,68 +96,68 @@ class _ModifyFormState extends State<ModifyForm> {
             },
           ),
           VerticalSpacing(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "비밀번호",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
-            ),
-          ),
-          TextFormField(
-            style: TextStyle(fontSize: 13),
-            cursorColor: kActiveColor,
-            controller: _password,
-            decoration: InputDecoration(
-              fillColor: Colors.grey[100],
-              contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-              hintText: "6자리 이상 입력해주세요.",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(32.0),
-              ),
-            ),
-            validator: (String value) {
-              if (value.isEmpty) {
-                return '비밀번호를 입력해주세요';
-              }
-              return null;
-            },
-            obscureText: true,
-          ),
-          VerticalSpacing(
-            of: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "비밀번호 확인",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
-            ),
-          ),
-          TextFormField(
-            style: TextStyle(fontSize: 13),
-            cursorColor: kActiveColor,
-            controller: _confirm,
-            decoration: InputDecoration(
-              fillColor: Colors.grey[100],
-              contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-              hintText: "6자리 이상 입력해주세요.",
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-            ),
-            validator: (String value) {
-              if (value.isEmpty) {
-                return '비밀번호를 입력해주세요';
-              }
-              if (value != _password.text) {
-                return '비밀번호가 맞지 않습니다.';
-              }
-              return null;
-            },
-            obscureText: true,
-          ),
-          VerticalSpacing(),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: Text(
+          //     "비밀번호",
+          //     style:
+          //         TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+          //   ),
+          // ),
+          // TextFormField(
+          //   style: TextStyle(fontSize: 13),
+          //   cursorColor: kActiveColor,
+          //   controller: _password,
+          //   decoration: InputDecoration(
+          //     fillColor: Colors.grey[100],
+          //     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+          //     hintText: "6자리 이상 입력해주세요.",
+          //     border: OutlineInputBorder(
+          //       borderRadius: BorderRadius.circular(32.0),
+          //     ),
+          //   ),
+          //   validator: (String value) {
+          //     if (value.isEmpty) {
+          //       return '비밀번호를 입력해주세요';
+          //     }
+          //     return null;
+          //   },
+          //   obscureText: true,
+          // ),
+          // VerticalSpacing(
+          //   of: 20,
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: Text(
+          //     "비밀번호 확인",
+          //     style:
+          //         TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+          //   ),
+          // ),
+          // TextFormField(
+          //   style: TextStyle(fontSize: 13),
+          //   cursorColor: kActiveColor,
+          //   controller: _confirm,
+          //   decoration: InputDecoration(
+          //     fillColor: Colors.grey[100],
+          //     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+          //     hintText: "6자리 이상 입력해주세요.",
+          //     border:
+          //         OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+          //   ),
+          //   validator: (String value) {
+          //     if (value.isEmpty) {
+          //       return '비밀번호를 입력해주세요';
+          //     }
+          //     if (value != _password.text) {
+          //       return '비밀번호가 맞지 않습니다.';
+          //     }
+          //     return null;
+          //   },
+          //   obscureText: true,
+          // ),
+          // VerticalSpacing(),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
@@ -174,7 +172,9 @@ class _ModifyFormState extends State<ModifyForm> {
               SizedBox(
                 width: 180,
                 child: TextFormField(
-                  controller: _phone,
+                  autocorrect: false,
+                  controller:
+                      new TextEditingController(text: widget.document['phone']),
                   style: TextStyle(fontSize: 13),
                   cursorColor: kActiveColor,
                   decoration: InputDecoration(
@@ -231,7 +231,6 @@ class _ModifyFormState extends State<ModifyForm> {
                   TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
             ),
           ),
-          //Text(this.model?.address ?? ""),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -296,12 +295,25 @@ class _ModifyFormState extends State<ModifyForm> {
               return null;
             },
           ),
-          VerticalSpacing(),
+          VerticalSpacing(
+            of: 30,
+          ),
           Center(
             child: PrimaryButton(
-                text: "가입하기",
+                text: "변경 완료",
                 press: () async {
                   if (_formKey.currentState.validate()) {
+                    FirebaseFirestore.instance
+                        .collection("user")
+                        .doc(_email.text)
+                        .update({
+                      'name': _name.text,
+                      'email': _email.text,
+                      'address1': _address1.text,
+                      'address2': _address2.text,
+                      'phone': _phone.text,
+                      'like': null,
+                    });
                     showDialog(
                         context: context,
                         barrierDismissible: false,
@@ -309,7 +321,7 @@ class _ModifyFormState extends State<ModifyForm> {
                           return CupertinoAlertDialog(
                             title: Text(''),
                             content: Text(
-                              "회원가입을 축하드립니다!\n",
+                              "변경되었습니다. \n",
                               style: TextStyle(
                                 fontSize: 13,
                                 color: kBodyTextColor,
@@ -318,19 +330,11 @@ class _ModifyFormState extends State<ModifyForm> {
                             ),
                             actions: <Widget>[
                               new CupertinoDialogAction(
-                                child: Text(
-                                  '확인',
-                                  style: TextStyle(fontSize: 13),
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => SignInScreen(),
-                                    ),
-                                  );
-                                },
-                              ),
+                                  child: Text(
+                                    '확인',
+                                    style: TextStyle(fontSize: 13),
+                                  ),
+                                  onPressed: () => Navigator.pop(context)),
                             ],
                           );
                         });

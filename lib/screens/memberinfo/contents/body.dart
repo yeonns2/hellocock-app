@@ -74,28 +74,28 @@ class _BodyState extends State<Body> {
                         borderRadius: BorderRadius.circular(32.0)),
                   ),
                 ),
-                VerticalSpacing(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "비밀번호",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: kBodyTextColor),
-                  ),
-                ),
-                TextFormField(
-                  initialValue: "******",
-                  style: TextStyle(fontSize: 13),
-                  keyboardType: TextInputType.name,
-                  readOnly: true,
-                  cursorColor: kActiveColor,
-                  decoration: InputDecoration(
-                    fillColor: Colors.grey[100],
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0)),
-                  ),
-                ),
+                //VerticalSpacing(),
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: Text(
+                //     "비밀번호",
+                //     style: TextStyle(
+                //         fontWeight: FontWeight.bold, color: kBodyTextColor),
+                //   ),
+                // ),
+                // TextFormField(
+                //   initialValue: "******",
+                //   style: TextStyle(fontSize: 13),
+                //   keyboardType: TextInputType.name,
+                //   readOnly: true,
+                //   cursorColor: kActiveColor,
+                //   decoration: InputDecoration(
+                //     fillColor: Colors.grey[100],
+                //     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                //     border: OutlineInputBorder(
+                //         borderRadius: BorderRadius.circular(32.0)),
+                //   ),
+                // ),
                 VerticalSpacing(
                   of: 30,
                 ),
@@ -110,12 +110,12 @@ class _BodyState extends State<Body> {
                 StreamBuilder<DocumentSnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection("user")
-                        .doc("peachcrush@hellocock.org")
+                        .doc(widget.user.email)
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) return CircularProgressIndicator();
                       return TextFormField(
-                        initialValue: snapshot.data['phone'],
+                        initialValue: snapshot.data['phone'] ?? "",
                         style: TextStyle(fontSize: 13),
                         keyboardType: TextInputType.name,
                         readOnly: true,
@@ -143,12 +143,12 @@ class _BodyState extends State<Body> {
                 StreamBuilder<DocumentSnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection("user")
-                        .doc("peachcrush@hellocock.org")
+                        .doc(widget.user.email)
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) return CircularProgressIndicator();
                       return TextFormField(
-                        initialValue: snapshot.data['address'],
+                        initialValue: snapshot.data['address1'] ?? "",
                         style: TextStyle(fontSize: 13),
                         keyboardType: TextInputType.name,
                         readOnly: true,
@@ -166,12 +166,12 @@ class _BodyState extends State<Body> {
                 StreamBuilder<DocumentSnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection("user")
-                        .doc("peachcrush@hellocock.org")
+                        .doc(widget.user.email)
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) return CircularProgressIndicator();
                       return TextFormField(
-                        initialValue: snapshot.data['address'],
+                        initialValue: snapshot.data['address2'] ?? "",
                         style: TextStyle(fontSize: 13),
                         keyboardType: TextInputType.name,
                         readOnly: true,

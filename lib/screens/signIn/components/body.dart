@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -97,6 +98,17 @@ class _BodyState extends State<Body> {
                   image: "assets/icons/google.svg",
                   press: () {
                     _handleSignIn().then((user) {
+                      FirebaseFirestore.instance
+                          .collection("user")
+                          .doc(user.email)
+                          .set({
+                        'name': user.displayName,
+                        'email': user.email,
+                        'address1': "",
+                        'address2': "",
+                        'phone': "",
+                        'like': null,
+                      });
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(

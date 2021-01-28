@@ -31,7 +31,14 @@ class _BodyState extends State<Body> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               VerticalSpacing(of: 30),
-              ModifyForm(),
+              StreamBuilder<DocumentSnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection("user")
+                      .doc(widget.user.email)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    return ModifyForm(widget.user, snapshot.data);
+                  }),
             ],
           ),
         ),
