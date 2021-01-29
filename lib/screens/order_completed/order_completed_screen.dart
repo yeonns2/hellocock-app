@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/size_config.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import 'components/body.dart';
 
 class OrderCompletedScreen extends StatelessWidget {
@@ -20,7 +20,7 @@ class OrderCompletedScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back),
           color: kActiveColor,
           onPressed: () => Navigator.pop(context)),
-      title: Text("hellocock", style: TextStyle(color: kActiveColor)),
+      title: SvgPicture.asset("assets/icons/hellocock_title.svg"),
       actions: [
         FlatButton(
           onPressed: () {},

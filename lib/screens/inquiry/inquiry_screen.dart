@@ -21,7 +21,7 @@ class InquiryScreen extends StatelessWidget {
           icon: SvgPicture.asset("assets/icons/arrow_back.svg"),
           color: kActiveColor,
           onPressed: () => Navigator.pop(context)),
-      title: Text("hellocock", style: TextStyle(color: kActiveColor)),
+      title: SvgPicture.asset("assets/icons/hellocock_title.svg"),
     );
   }
 }

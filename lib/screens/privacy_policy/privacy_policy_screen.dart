@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
+import '../../size_config.dart';
 import 'components/body.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -9,7 +10,19 @@ class PrivacyPolicyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(),
+      body: Column(children: [
+        Container(
+          width: SizeConfig.screenWidth,
+          height: 35,
+          color: kActiveColor,
+          child: Center(
+              child: Text(
+            "회원정보 관리",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          )),
+        ),
+        Expanded(child: Body())
+      ]),
     );
   }
 
@@ -21,7 +34,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
           icon: SvgPicture.asset("assets/icons/arrow_back.svg"),
           color: kActiveColor,
           onPressed: () => Navigator.pop(context)),
-      title: Text("hellocock", style: TextStyle(color: kActiveColor)),
+      title: SvgPicture.asset("assets/icons/hellocock_title.svg"),
     );
   }
 }

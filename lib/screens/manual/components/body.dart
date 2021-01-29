@@ -27,41 +27,41 @@ class Body extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "step1. 먹고 싶은 칵테일을 \n             고르기",
+                "step1.  먹고 싶은 칵테일 고르기",
                 style: TextStyle(
-                    fontSize: 21,
+                    fontSize: 19,
                     fontWeight: FontWeight.bold,
                     color: kActiveColor),
               ),
               VerticalSpacing(of: 40),
               Text(
-                "step2. 음식점과 시간 선택하고\n             칵테일 주문하기",
+                "step2.  음식점과 시간 선택하고\n               칵테일 주문하기",
                 style: TextStyle(
-                    fontSize: 21,
+                    fontSize: 19,
                     fontWeight: FontWeight.bold,
                     color: kActiveColor),
               ),
               VerticalSpacing(of: 40),
               Text(
-                "step3. 집가는 길 음식점에서\n              칵테일을 데려가기",
+                "step3.  집가는 길 음식점에서\n               칵테일 키트 데려가기",
                 style: TextStyle(
-                    fontSize: 21,
+                    fontSize: 19,
                     fontWeight: FontWeight.bold,
                     color: kActiveColor),
               ),
               VerticalSpacing(of: 40),
               Text(
-                "step4. 칵테일 만들기",
+                "step4.  칵테일 만들기",
                 style: TextStyle(
-                    fontSize: 21,
+                    fontSize: 19,
                     fontWeight: FontWeight.bold,
                     color: kActiveColor),
               ),
               VerticalSpacing(of: 40),
               Text(
-                "step5. 직접 만든 칵테일과\n              함께 하루 마무리하기",
+                "step5.  직접 만든 칵테일과\n               함께 하루 마무리하기",
                 style: TextStyle(
-                    fontSize: 21,
+                    fontSize: 19,
                     fontWeight: FontWeight.bold,
                     color: kActiveColor),
               ),

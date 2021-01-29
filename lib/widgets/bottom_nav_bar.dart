@@ -150,8 +150,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ),
       ),
-      title: Text("hellocock",
-          style: TextStyle(color: kActiveColor, fontFamily: 'NotoSans')),
+      title: SvgPicture.asset("assets/icons/hellocock_title.svg"),
       actions: [
         IconButton(
             icon: Icon(Icons.exit_to_app),
