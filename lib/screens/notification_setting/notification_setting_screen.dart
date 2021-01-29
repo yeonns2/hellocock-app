@@ -10,7 +10,7 @@ class NotificationSettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Column(children: [
+      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Container(
           width: SizeConfig.screenWidth,
           height: 35,
