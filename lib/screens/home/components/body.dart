@@ -5,7 +5,6 @@ import 'package:hellocock/constants.dart';
 import 'package:hellocock/widgets/cards/card.dart';
 import 'package:hellocock/screens/detail/detail_screen.dart';
 import 'package:hellocock/size_config.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class Body extends StatefulWidget {
   final User user;

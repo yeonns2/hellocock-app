@@ -3,9 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hellocock/constants.dart';
-import 'package:hellocock/screens/signIn/sign_in_screen.dart';
+import 'package:hellocock/screens/memberinfo/memberinfo_screen.dart';
 import 'package:hellocock/size_config.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:kopo/kopo.dart';
 
@@ -28,8 +27,6 @@ class _ModifyFormState extends State<ModifyForm> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
-  final TextEditingController _password = TextEditingController();
-  final TextEditingController _confirm = TextEditingController();
   final TextEditingController _name = TextEditingController();
   final TextEditingController _phone = TextEditingController();
   final TextEditingController _address1 = TextEditingController();
@@ -172,7 +169,6 @@ class _ModifyFormState extends State<ModifyForm> {
               SizedBox(
                 width: 180,
                 child: TextFormField(
-                  autocorrect: false,
                   controller:
                       new TextEditingController(text: widget.document['phone']),
                   style: TextStyle(fontSize: 13),
@@ -183,12 +179,6 @@ class _ModifyFormState extends State<ModifyForm> {
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32.0)),
                   ),
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return '핸드폰 번호를 입력해주세요';
-                    }
-                    return null;
-                  },
                 ),
               ),
               SizedBox(
@@ -308,11 +298,9 @@ class _ModifyFormState extends State<ModifyForm> {
                         .doc(_email.text)
                         .update({
                       'name': _name.text,
-                      'email': _email.text,
                       'address1': _address1.text,
                       'address2': _address2.text,
                       'phone': _phone.text,
-                      'like': null,
                     });
                     showDialog(
                         context: context,
@@ -334,7 +322,14 @@ class _ModifyFormState extends State<ModifyForm> {
                                     '확인',
                                     style: TextStyle(fontSize: 13),
                                   ),
-                                  onPressed: () => Navigator.pop(context)),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              MemberInfoScreen(widget.user),
+                                        ));
+                                  }),
                             ],
                           );
                         });

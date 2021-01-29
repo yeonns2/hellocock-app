@@ -18,8 +18,54 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FacebookLogin facebookSignIn = FacebookLogin();
-  String _message = 'Log in/out by pressing the buttons below.';
+  final FacebookLogin _facebookLogin = FacebookLogin();
+
+  Future<User> _googlelogin() async {
+    GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    User user = (await _firebaseAuth.signInWithCredential(
+            GoogleAuthProvider.credential(
+                idToken: googleAuth.idToken,
+                accessToken: googleAuth.accessToken)))
+        .user;
+    // 로그인 정보를 출력하는 로그
+    print("signed in " + user.displayName);
+    return user;
+  }
+
+  Future<User> _facebooklogin() async {
+    FacebookLoginResult result =
+        await _facebookLogin.logIn(['email', 'public_profile']);
+
+    switch (result.status) {
+      case FacebookLoginStatus.loggedIn:
+        final FacebookAccessToken accessToken = result.accessToken;
+        AuthCredential credential =
+            FacebookAuthProvider.credential(result.accessToken.token);
+        User user = (await _firebaseAuth.signInWithCredential(credential)).user;
+
+        print('''
+         Logged in!
+         
+         Token: ${accessToken.token}
+         User id: ${accessToken.userId}
+         Expires: ${accessToken.expires}
+         Permissions: ${accessToken.permissions}
+         Declined permissions: ${accessToken.declinedPermissions}
+         ''');
+        return user;
+        break;
+      case FacebookLoginStatus.cancelledByUser:
+        print('Login cancelled by the user.');
+        return null;
+        break;
+      case FacebookLoginStatus.error:
+        print('Something went wrong with the login process.\n'
+            'Here\'s the error Facebook gave us: ${result.errorMessage}');
+        return null;
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +130,25 @@ class _BodyState extends State<Body> {
               child: SocialButton(
                   text: "페이스북 이메일로 로그인",
                   image: "assets/icons/facebook.svg",
-                  press: () {},
+                  press: () {
+                    _facebooklogin().then((user) {
+                      FirebaseFirestore.instance
+                          .collection("user")
+                          .doc(user.email)
+                          .set({
+                        'name': user.displayName,
+                        'email': user.email,
+                        'address1': "",
+                        'address2': "",
+                        'phone': "",
+                        'like': null,
+                      });
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BottomNavBar(user)));
+                    });
+                  },
                   color: Color(0xFF1877F2),
                   textcolor: Colors.white),
             ),
@@ -97,7 +161,7 @@ class _BodyState extends State<Body> {
                   text: "구글 이메일로 로그인",
                   image: "assets/icons/google.svg",
                   press: () {
-                    _handleSignIn().then((user) {
+                    _googlelogin().then((user) {
                       FirebaseFirestore.instance
                           .collection("user")
                           .doc(user.email)
@@ -125,18 +189,5 @@ class _BodyState extends State<Body> {
         ),
       ),
     );
-  }
-
-  Future<User> _handleSignIn() async {
-    GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    User user = (await _firebaseAuth.signInWithCredential(
-            GoogleAuthProvider.credential(
-                idToken: googleAuth.idToken,
-                accessToken: googleAuth.accessToken)))
-        .user;
-    // 로그인 정보를 출력하는 로그
-    print("signed in " + user.displayName);
-    return user;
   }
 }

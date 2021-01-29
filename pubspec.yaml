@@ -50,6 +50,7 @@ dependencies:
   geolocator: ^6.0.0
   flutter_svg_provider: ^0.1.8
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

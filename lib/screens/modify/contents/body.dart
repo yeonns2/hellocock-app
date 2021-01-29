@@ -37,6 +37,11 @@ class _BodyState extends State<Body> {
                       .doc(widget.user.email)
                       .snapshots(),
                   builder: (context, snapshot) {
+                    if (!snapshot.hasData)
+                      return CircularProgressIndicator(
+                        valueColor:
+                            new AlwaysStoppedAnimation<Color>(kActiveColor),
+                      );
                     return ModifyForm(widget.user, snapshot.data);
                   }),
             ],
