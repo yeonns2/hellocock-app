@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/screens/intro/intro_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,6 +16,27 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 3), () => checkFirstSeen());
+    initializeFlutterFire();
+  }
+
+  bool _initialized;
+  bool _error;
+
+  //파이어베이스 초기화 함수
+  void initializeFlutterFire() async {
+    try {
+      // Wait for Firebase to initialize and set `_initialized` state to true
+      await Firebase.initializeApp();
+      setState(() {
+        _initialized = true;
+        //    loadFirebase();
+      });
+    } catch (e) {
+      // Set `_error` stat7e to true if Firebase initialization fails
+      setState(() {
+        _error = true;
+      });
+    }
   }
 
   Future checkFirstSeen() async {

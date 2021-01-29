@@ -41,24 +41,29 @@ class _OrderButtonState extends State<OrderButton> {
         color: kActiveColor,
         textColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-        onPressed: () async {
-          FirebaseAuth.instance.authStateChanges().listen((User user) {
-            if (user == null) {
-              showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (context) {
-                    return Alert();
-                  });
-            } else {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        MapScreen(widget.user, widget.document),
-                  ));
-            }
-          });
+        onPressed: () {
+          // FirebaseAuth.instance.authStateChanges().listen((User user) {
+          //   if (user == null) {
+          //     showDialog(
+          //         context: context,
+          //         barrierDismissible: false,
+          //         builder: (context) {
+          //           return Alert();
+          //         });
+          //   } else {
+          //     Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) =>
+          //               MapScreen(widget.user, widget.document),
+          //         ));
+          //   }
+          //}
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MapScreen(widget.user, widget.document),
+              ));
         });
   }
 }
