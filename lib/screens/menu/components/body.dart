@@ -126,7 +126,8 @@ class _BodyState extends State<Body> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image.asset(widget.storedocument['image']),
+                        Container(
+                            child: Image.asset(widget.storedocument['image'])),
                         HorizontalSpacing(),
                         Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

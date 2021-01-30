@@ -75,7 +75,7 @@ class _BodyState extends State<Body> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 100.0),
+            VerticalSpacing(of: 100),
             SignInForm(),
             VerticalSpacing(
               of: 20,

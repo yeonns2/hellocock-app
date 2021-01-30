@@ -297,6 +297,8 @@ PODS:
     - Flutter
   - flutter_keyboard_visibility (0.7.0):
     - Flutter
+  - flutter_local_notifications (0.0.1):
+    - Flutter
   - flutter_webview_plugin (0.0.1):
     - Flutter
   - geolocator (6.1.9):
@@ -392,6 +394,7 @@ DEPENDENCIES:
   - flutter_facebook_login (from `.symlinks/plugins/flutter_facebook_login/ios`)
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
   - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_webview_plugin (from `.symlinks/plugins/flutter_webview_plugin/ios`)
   - geolocator (from `.symlinks/plugins/geolocator/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
@@ -444,6 +447,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_inappwebview/ios"
   flutter_keyboard_visibility:
     :path: ".symlinks/plugins/flutter_keyboard_visibility/ios"
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_webview_plugin:
     :path: ".symlinks/plugins/flutter_webview_plugin/ios"
   geolocator:
@@ -483,6 +488,7 @@ SPEC CHECKSUMS:
   flutter_facebook_login: cfb5659f686b1c575ef205c6b6fd20db9679d3c4
   flutter_inappwebview: 69dfbac46157b336ffbec19ca6dfd4638c7bf189
   flutter_keyboard_visibility: 6195387fb6d8f46e5cd6dda4a4154e41f800f545
+  flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   flutter_webview_plugin: ed9e8a6a96baf0c867e90e1bce2673913eeac694
   geolocator: 057a0c63a43e9c5296d8ad845a3ac8e6df23d899
   google_maps_flutter: c7f9c73576de1fbe152a227bfd6e6c4ae8088619

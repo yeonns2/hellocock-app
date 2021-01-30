@@ -22,25 +22,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-//   dynamic data;
-
-//   Future<dynamic> getData() async {
-
-//     final DocumentReference document =   FirebaseFirestore.instance.collection("user").doc(widget.user.email);
-
-//     await document.get().then<dynamic>(( DocumentSnapshot snapshot) async{
-//      setState(() {
-//        data =snapshot.data;
-//      });
-//     });
-//  }
-//  @override
-//   void initState() {
-
-//     super.initState();
-//     getData();
-//   }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -58,8 +39,8 @@ class _BodyState extends State<Body> {
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(0.0, 1.0), //(x,y)
+                        color: Colors.grey[300],
+                        offset: Offset(0.0, 2.0), //(x,y)
                         blurRadius: 4.0,
                       ),
                     ]),
@@ -74,11 +55,13 @@ class _BodyState extends State<Body> {
                       radius: 56,
                       backgroundColor: kActiveColor,
                       child: CircleAvatar(
-                          radius: 55,
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.grey[100],
-                          backgroundImage:
-                              AssetImage("assets/images/hello.png")),
+                        radius: 55,
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.white,
+                        child: SvgPicture.asset(
+                          "assets/icons/hello.svg",
+                        ),
+                      ),
                     ),
                     HorizontalSpacing(
                       of: 40,

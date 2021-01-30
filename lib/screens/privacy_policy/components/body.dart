@@ -24,17 +24,36 @@ class Body extends StatelessWidget {
                   VerticalSpacing(),
                   Container(
                       width: 325,
-                      height: 311,
+                      height: 312,
                       decoration: BoxDecoration(
                         color: Color(0xFFF4FBFE),
                         borderRadius: BorderRadius.all(Radius.circular(7)),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 20.0, right: 20, top: 15),
+                        padding: const EdgeInsets.all(20),
                         child: Text(
-                          "1-1. 주문시\n수집항목 : 성명, 휴대전화, 주소, 우편번호\n수집∙이용목적 : 주문상품\n수집방법: 헬로콕은 홈페이지에서 주문 시 배송을 위한 개인정보 수집 및\n이용에 대해 「동의」 버튼을 클릭할 수 있는 절차를 마련하고, 고객이\n「동의」 버튼을 클릭 시 개인정보 수집 및 이용에 동의한 것으로 간주합니다.\n\n1-2. 문의 시\n수집항목: 성명, 휴대전화, 주문내역, 결제내역\n수집∙이용목적: 고객의 불만사항 및 및 문의사항에 대한 답변\n수집방법: **헬로콕**은 가입 시 고객 응대를 위해 개인정보 제공에 대해\n동의여부 절차를 마련하고, 고객이 「동의」 버튼 클릭 시 개인정보 수집 및\n 이용에 동의한 것으로 간주합니다.\n\n1-3. 회원가입 시\n수집항목: 전화번호, 카카오 계정, 생일, 출생연도, 연령대, 성별\n수집방법: 헬로콕은 앱에서 고객이 회원 가입하기 버튼 클릭 시,\n휴대폰 본인 인증 또는 카카오 계정으로 로그인 기능을 통해 회원가입할 \n수 있는 절차를 마련합니다.",
-                          style: TextStyle(fontSize: 9, height: 1.5),
+                          '''
+1-1. 주문시
+수집항목 : 성명, 휴대전화, 주소, 우편번호
+수집∙이용목적 : 주문상품
+수집방법:  헬로콕은 홈페이지에서 주문 시 배송을 위한 개인정보 수집 및
+이용에 대해 「동의」 버튼을 클릭할 수 있는 절차를 마련하고, 고객이 
+「동의」 버튼을 클릭 시 개인정보 수집 및 이용에 동의한 것으로 간주합니다.
+
+1-2. 문의 시
+수집항목: 성명, 휴대전화, 주문내역, 결제내역
+수집∙이용목적: 고객의 불만사항 및 및 문의사항에 대한 답변
+수집방법: **헬로콕**은 가입 시 고객 응대를 위해 개인정보 제공에 대해 
+동의여부 절차를 마련하고, 고객이 「동의」 버튼 클릭 시 개인정보 수집 및 
+이용에 동의한 것으로 간주합니다.
+
+1-3. 회원가입 시
+수집항목: 전화번호, 카카오 계정, 생일, 출생연도, 연령대, 성별
+수집방법: 헬로콕은 앱에서 고객이 회원 가입하기 (SIGN UP) 버튼 클릭 시, 
+휴대폰 본인 인증 또는 카카오 계정으로 로그인 기능을 통해 회원가입할 
+수 있는 절차를 마련합니다.
+                          ''',
+                          style: TextStyle(fontSize: 9, height: 1.4),
                         ),
                       )),
                   VerticalSpacing(of: 20),
@@ -51,8 +70,7 @@ class Body extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(7)),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 20.0, right: 20, top: 15),
+                        padding: const EdgeInsets.all(20),
                         child: Text(
                           ''' 
 헬로콕은 이용자의 개인정보를 “1. 수집하는 개인정보의 항목, 수집∙이용
@@ -81,7 +99,7 @@ class Body extends StatelessWidget {
 있는 경우
                           
                           ''',
-                          style: TextStyle(fontSize: 9, height: 1.5),
+                          style: TextStyle(fontSize: 9, height: 1.4),
                         ),
                       )),
                   VerticalSpacing(of: 20),
@@ -98,8 +116,7 @@ class Body extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(7)),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 20.0, right: 20, top: 15),
+                        padding: const EdgeInsets.all(20),
                         child: Text(
                           ''' 
 3-1. 이용자의 개인정보는 원칙적으로 개인정보의 수집∙이용목적이 
@@ -126,7 +143,7 @@ class Body extends StatelessWidget {
 - 계정 활성화: 이용자의 요청에 의거 계정 활성화 조치 실시
                           
                           ''',
-                          style: TextStyle(fontSize: 9, height: 1.5),
+                          style: TextStyle(fontSize: 9, height: 1.4),
                         ),
                       )),
                   VerticalSpacing(of: 20),
@@ -165,12 +182,12 @@ DB로 옮겨져(종이의 경우 별도의 서류함) 내부 방침 및 기타 �
 파기합니다.
                           
                           ''',
-                          style: TextStyle(fontSize: 9, height: 1.5),
+                          style: TextStyle(fontSize: 9, height: 1.4),
                         ),
                       )),
                   VerticalSpacing(of: 20),
                   Text(
-                    "   5. 이용자 및 법정대리인의 권리와 그 행사방법",
+                    "   6. 이용자 및 법정대리인의 권리와 그 행사방법",
                     style: TextStyle(fontSize: 11),
                   ),
                   VerticalSpacing(),
@@ -253,12 +270,12 @@ DB로 옮겨져(종이의 경우 별도의 서류함) 내부 방침 및 기타 �
 침해하지 않을 의무도 가지고 있으며, 자신의 개인정보가 유출되지 않도록 
 조심해야 합니다.
                           ''',
-                          style: TextStyle(fontSize: 9, height: 1.5),
+                          style: TextStyle(fontSize: 9, height: 1.4),
                         ),
                       )),
                   VerticalSpacing(of: 20),
                   Text(
-                    "   6. 개인정보 자동 수집 장치의 설치·운영 및 그 거부에 관한 사항",
+                    "   7. 개인정보 자동 수집 장치의 설치·운영 및 그 거부에 관한 사항",
                     style: TextStyle(fontSize: 11),
                   ),
                   VerticalSpacing(),
@@ -304,7 +321,119 @@ DB로 옮겨져(종이의 경우 별도의 서류함) 내부 방침 및 기타 �
 단, 쿠키의 저장을 거부할 경우 일부 서비스가 원활하게 작동하지 않을 수 
 있습니다.
                           ''',
-                          style: TextStyle(fontSize: 9, height: 1.5),
+                          style: TextStyle(fontSize: 9, height: 1.4),
+                        ),
+                      )),
+                  VerticalSpacing(of: 20),
+                  Text(
+                    "   8. 개인정보보호 책임자",
+                    style: TextStyle(fontSize: 11),
+                  ),
+                  VerticalSpacing(),
+                  Container(
+                      width: 325,
+                      height: 146,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF4FBFE),
+                        borderRadius: BorderRadius.all(Radius.circular(7)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(
+                          ''' 
+- 담당자: 이장후
+- 직위: Product Manager
+- 전화번호: (+82) 1033226968
+- Mail: pinacolada@hellocock.org
+
+이용자가 헬로콕의 서비스를 이용하시며 발생하는 모든 개인정보보호 
+관련 민원을 위 개인정보 보호책임자에게 신고하실 수 있습니다. 
+헬로콕은 이용자의 신고사항에 대해 신속하게 충분한 답변을 드릴 것입니다.
+                          ''',
+                          style: TextStyle(fontSize: 9, height: 1.4),
+                        ),
+                      )),
+                  VerticalSpacing(of: 20),
+                  Text(
+                    "   9. 개인정보의 안전성 확보조치",
+                    style: TextStyle(fontSize: 11),
+                  ),
+                  VerticalSpacing(),
+                  Container(
+                      width: 325,
+                      height: 424,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF4FBFE),
+                        borderRadius: BorderRadius.all(Radius.circular(7)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(
+                          ''' 
+헬로콕은 이용자의 개인정보를 처리함에 있어 개인정보가 분실, 도난, 
+누출, 변조, 훼손되지 않도록 안전성 확보를 위하여 다음과 같은 기술적/관리적 
+대책을 강구하고 있습니다.
+
+9-1. 내부관리계획의 수립∙시행
+
+9-2. 개인정보에 대한 접근 통제 및 접근 권한의 제한 조치
+
+9-3. 개인정보 침해사고 발생에 대응하기 위한 접속기록의 보관 및 
+위조∙변조 방지를 위한 조치
+
+개인정보취급자가 개인정보처리시스템에 접속하여 개인정보를 처리한 경우, 
+접속일시와 처리내역 등을 저장하고 접속기록을 별도로 보관합니다.
+
+9-4.개인정보를 안전하게 저장∙전송할 수 있는 암호화 기술의 적용 또는 이에 
+상응하는 조치
+
+9-5.개인정보에 대한 보안프로그램의 설치 및 갱신
+
+헬로콕은 해킹이나 컴퓨터 바이러스 등에 의해 이용자의 개인정보가 
+유출되거나 훼손되는것을 막기 위해 최선을 다하고 있습니다. 
+개인정보의 훼손에 대비해서 자료를 수시로 백업하고 있고, 최신 백신 
+프로그램을 이용하여 이용자의 개인정보가 누출되거나 손상되지 않도록 
+방지하고 있으며, 암호화 통신 등을 통하여 네트워크상에서 개인정보를 
+안전하게 전송할 수 있도록 하고 있습니다. 그리고 침입차단시스템 등을 
+이용하여 외부로부터의 무단 접근을 통제하고 있으며, 기타 시스템적으로 
+보안성을 확보하기 위한 가능한 모든 기술적, 관리적 보호조치를 취하고 
+있습니다.
+                          ''',
+                          style: TextStyle(fontSize: 9, height: 1.4),
+                        ),
+                      )),
+                  VerticalSpacing(of: 20),
+                  Text(
+                    "   10.개인정보처리방침 변경",
+                    style: TextStyle(fontSize: 11),
+                  ),
+                  VerticalSpacing(),
+                  Container(
+                      width: 325,
+                      height: 220,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF4FBFE),
+                        borderRadius: BorderRadius.all(Radius.circular(7)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(
+                          ''' 
+현 개인정보 처리방침은 2019년 8월 1일부터 적용됩니다. 내용의 추가, 
+삭제 및 수정이 있을 경우에는 개정 최소 7일전(중요한 사항이 변경되는 
+경우는 최소 30일전)부터 웹사이트의 공지사항을 통하여 고지할 것입니다. 
+만일, 개인정보의 수집 및 활용, 제3자 제공 등이 변경되어 동의가 필요한 
+경우에는 별도 동의 절차를 마련하여 진행할 것입니다. 또한 개인정보 
+처리방침에 버전번호 및 개정일자 등을 부여하여 개정여부를 쉽게 알 수 
+있도록 하고 있습니다.
+
+개인정보 처리방침 버전번호: v.1.0
+
+개인정보 처리방침 변경공고일자: 2020. 11. 15.
+
+변경 개인정보 처리방침 시행일자: 2020. 11. 15.
+                          ''',
+                          style: TextStyle(fontSize: 9, height: 1.4),
                         ),
                       )),
                 ],

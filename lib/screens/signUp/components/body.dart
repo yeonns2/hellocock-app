@@ -34,28 +34,10 @@ class _BodyState extends State<Body> {
               VerticalSpacing(
                 of: 30,
               ),
-
               SignUpForm(),
               VerticalSpacing(
                 of: 50,
               ),
-              // SocialButton(
-              //   color: Color(0xFFFFD834),
-              //   text: "카카오 이메일로 회원가입하기",
-              //   press: () {},
-              // ),
-              // VerticalSpacing(),
-              // SocialButton(
-              //   color: Color(0xFF507FFF),
-              //   text: "페이스북 이메일로 회원가입하기",
-              //   press: () {},
-              // ),
-              // VerticalSpacing(),
-              // SocialButton(
-              //   color: Colors.white,
-              //   text: "구글 이메일로 회원가입하기",
-              //   press: () {},
-              // ),
             ],
           ),
         ),

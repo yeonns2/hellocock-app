@@ -3,10 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hellocock/constants.dart';
+import 'package:hellocock/screens/privacy_policy/privacy_policy_screen.dart';
+import 'package:hellocock/screens/service_policy/service_policy_screen.dart';
 import 'package:hellocock/screens/signIn/sign_in_screen.dart';
 import 'package:hellocock/size_config.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:kopo/kopo.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -32,8 +35,11 @@ class _SignUpFormState extends State<SignUpForm> {
 
   bool _success;
   String _userEmail;
-
+  bool _value1 = false;
+  bool _value2 = false;
+  bool _value3 = false;
   KopoModel model;
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -125,9 +131,7 @@ class _SignUpFormState extends State<SignUpForm> {
             },
             obscureText: true,
           ),
-          VerticalSpacing(
-            of: 20,
-          ),
+          VerticalSpacing(),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
@@ -162,7 +166,7 @@ class _SignUpFormState extends State<SignUpForm> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "핸드폰 / 성인인증",
+              "핸드폰 번호",
               style:
                   TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
             ),
@@ -171,7 +175,7 @@ class _SignUpFormState extends State<SignUpForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: 180,
+                width: 280,
                 child: TextFormField(
                   controller: _phone,
                   style: TextStyle(fontSize: 13),
@@ -190,38 +194,38 @@ class _SignUpFormState extends State<SignUpForm> {
                   },
                 ),
               ),
-              SizedBox(
-                  width: 95, child: PrimaryButton(text: "인증요청", press: () {}))
+              // SizedBox(
+              //     width: 95, child: PrimaryButton(text: "인증요청", press: () {}))
             ],
           ),
           VerticalSpacing(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 180,
-                child: TextFormField(
-                  style: TextStyle(fontSize: 13),
-                  cursorColor: kActiveColor,
-                  decoration: InputDecoration(
-                    fillColor: Colors.grey[100],
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0)),
-                  ),
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return '인증 번호를 입력해주세요.';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              SizedBox(
-                  width: 95, child: PrimaryButton(text: "인증완료", press: () {}))
-            ],
-          ),
-          VerticalSpacing(),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     SizedBox(
+          //       width: 180,
+          //       child: TextFormField(
+          //         style: TextStyle(fontSize: 13),
+          //         cursorColor: kActiveColor,
+          //         decoration: InputDecoration(
+          //           fillColor: Colors.grey[100],
+          //           contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+          //           border: OutlineInputBorder(
+          //               borderRadius: BorderRadius.circular(32.0)),
+          //         ),
+          //         validator: (String value) {
+          //           if (value.isEmpty) {
+          //             return '인증 번호를 입력해주세요.';
+          //           }
+          //           return null;
+          //         },
+          //       ),
+          //     ),
+          //     SizedBox(
+          //         width: 95, child: PrimaryButton(text: "인증완료", press: () {}))
+          //   ],
+          // ),
+          // VerticalSpacing(),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
@@ -295,45 +299,197 @@ class _SignUpFormState extends State<SignUpForm> {
               return null;
             },
           ),
-          VerticalSpacing(),
+          VerticalSpacing(of: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              HorizontalSpacing(of: 0.5),
+              Center(
+                child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        _value1 = !_value1;
+                      });
+                    },
+                    child: _value1
+                        ? CircleAvatar(
+                            backgroundColor: kActiveColor,
+                            radius: 6,
+                          )
+                        : CircleAvatar(
+                            backgroundColor: Colors.grey[300],
+                            radius: 6,
+                          )),
+              ),
+              Text(
+                "이용약관 동의",
+                style: TextStyle(
+                    fontSize: 11,
+                    color: kBodyTextColor,
+                    fontWeight: FontWeight.bold),
+              ),
+              HorizontalSpacing(of: 155),
+              SizedBox(
+                height: 30,
+                child: IconButton(
+                  icon: SvgPicture.asset("assets/icons/arrow_next.svg"),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ServicePolicyScreen(),
+                      ),
+                    );
+                  },
+                ),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              HorizontalSpacing(of: 0.5),
+              Center(
+                child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        _value2 = !_value2;
+                      });
+                    },
+                    child: _value2
+                        ? CircleAvatar(
+                            backgroundColor: kActiveColor,
+                            radius: 6,
+                          )
+                        : CircleAvatar(
+                            backgroundColor: Colors.grey[300],
+                            radius: 6,
+                          )),
+              ),
+              Text(
+                "개인정보 취급방침 동의",
+                style: TextStyle(
+                    fontSize: 11,
+                    color: kBodyTextColor,
+                    fontWeight: FontWeight.bold),
+              ),
+              HorizontalSpacing(of: 110),
+              SizedBox(
+                height: 30,
+                child: IconButton(
+                  icon: SvgPicture.asset("assets/icons/arrow_next.svg"),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PrivacyPolicyScreen(),
+                      ),
+                    );
+                  },
+                ),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              HorizontalSpacing(of: 0.5),
+              Center(
+                child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        _value3 = !_value3;
+                      });
+                    },
+                    child: _value3
+                        ? CircleAvatar(
+                            backgroundColor: kActiveColor,
+                            radius: 6,
+                          )
+                        : CircleAvatar(
+                            backgroundColor: Colors.grey[300],
+                            radius: 6,
+                          )),
+              ),
+              Text(
+                "마케팅 정보 수신 동의 (선택)",
+                style: TextStyle(
+                    fontSize: 11,
+                    color: kBodyTextColor,
+                    fontWeight: FontWeight.bold),
+              ),
+              HorizontalSpacing(of: 81),
+              SizedBox(
+                height: 30,
+                child: IconButton(
+                    icon: SvgPicture.asset("assets/icons/arrow_next.svg"),
+                    onPressed: null),
+              )
+            ],
+          ),
+          VerticalSpacing(of: 30),
           Center(
             child: PrimaryButton(
                 text: "가입하기",
                 press: () async {
                   if (_formKey.currentState.validate()) {
-                    _register();
-                    showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (context) {
-                          return CupertinoAlertDialog(
-                            title: Text(''),
-                            content: Text(
-                              "회원가입을 축하드립니다!\n",
-                              style: TextStyle(
-                                fontSize: 13,
-                                color: kBodyTextColor,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            actions: <Widget>[
-                              new CupertinoDialogAction(
-                                child: Text(
-                                  '확인',
-                                  style: TextStyle(fontSize: 13),
+                    if (_value1 == false || _value2 == false) {
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context) {
+                            return CupertinoAlertDialog(
+                              content: Text(
+                                "\n약관에 동의해주세요",
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: kBodyTextColor,
                                 ),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => SignInScreen(),
-                                    ),
-                                  );
-                                },
+                                textAlign: TextAlign.center,
                               ),
-                            ],
-                          );
-                        });
+                              actions: <Widget>[
+                                new CupertinoDialogAction(
+                                  child: Text(
+                                    '확인',
+                                    style: TextStyle(fontSize: 13),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          });
+                    } else {
+                      _register();
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context) {
+                            return CupertinoAlertDialog(
+                              content: Text(
+                                "\n회원가입을 축하드립니다!",
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: kBodyTextColor,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              actions: <Widget>[
+                                new CupertinoDialogAction(
+                                    child: Text(
+                                      '확인',
+                                      style: TextStyle(fontSize: 13),
+                                    ),
+                                    onPressed: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => SignInScreen(),
+                                        ))),
+                              ],
+                            );
+                          });
+                    }
                   } else {
                     //dispose();
                   }

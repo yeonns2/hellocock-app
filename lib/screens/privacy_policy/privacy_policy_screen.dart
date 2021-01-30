@@ -17,7 +17,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
           color: kActiveColor,
           child: Center(
               child: Text(
-            "회원정보 관리",
+            "개인정보처리방침",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           )),
         ),

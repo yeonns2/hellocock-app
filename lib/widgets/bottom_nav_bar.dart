@@ -119,6 +119,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ),
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 4,
         onTap: _onItemTapped,
         currentIndex: _selectedIndex,
         backgroundColor: Colors.white,
@@ -141,6 +142,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
+      elevation: 0.4,
       leading: Builder(
         builder: (context) => IconButton(
           onPressed: () => Scaffold.of(context).openDrawer(),
@@ -152,13 +154,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ),
       title: SvgPicture.asset("assets/icons/hellocock_title.svg"),
       actions: [
-        IconButton(
-            icon: Icon(Icons.exit_to_app),
-            color: kActiveColor,
-            onPressed: () async {
-              FirebaseAuth.instance.signOut();
-              _googleSignIn.signOut();
-            })
+        if (_selectedIndex == 2)
+          IconButton(
+              icon: SvgPicture.asset("assets/icons/signout.svg"),
+              color: kActiveColor,
+              onPressed: () async {
+                FirebaseAuth.instance.signOut();
+                _googleSignIn.signOut();
+              })
       ],
     );
   }
