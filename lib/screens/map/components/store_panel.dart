@@ -17,7 +17,6 @@ class StorePanel extends StatefulWidget {
 
 class _StorePanelState extends State<StorePanel> {
   PanelController _pc1 = new PanelController();
-  bool _visible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class _StorePanelState extends State<StorePanel> {
         minHeight: 300,
         maxHeight: 600,
         borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30.0), topRight: Radius.circular(20)),
+            topLeft: Radius.circular(35.0), topRight: Radius.circular(35)),
         panelBuilder: (ScrollController sc) => _buildpanel1(sc));
   }
 

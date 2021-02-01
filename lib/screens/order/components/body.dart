@@ -33,6 +33,7 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+    int price = 8900;
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(
@@ -75,7 +76,7 @@ class _BodyState extends State<Body> {
                         )),
                   ),
                   Text(
-                    "8,900원",
+                    "$price원",
                     style: TextStyle(color: Colors.red),
                   )
                 ],
@@ -132,7 +133,11 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                   ),
-                  Text("김수염")
+                  Text(
+                    "김수염",
+                    style: TextStyle(
+                        color: kBodyTextColor, fontWeight: FontWeight.w500),
+                  )
                 ],
               ),
               VerticalSpacing(),
@@ -203,21 +208,28 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                   ),
-                  Text("궤도에 오르다")
+                  Text(
+                    "궤도에 오르다",
+                    style: TextStyle(
+                        color: kBodyTextColor, fontWeight: FontWeight.w500),
+                  )
                 ],
               ),
-              VerticalSpacing(),
+              VerticalSpacing(of: 30),
               Container(
                 width: 300,
                 height: 300,
-                child: GoogleMap(
-                  initialCameraPosition: CameraPosition(
-                      target: LatLng(37.54658, 127.07564), zoom: 16),
-                  onMapCreated: (GoogleMapController controller) {
-                    _controller.complete(controller);
-                  },
-                  markers: Set.from(allMarkers),
-                  myLocationButtonEnabled: false,
+                child: Opacity(
+                  opacity: 0.8,
+                  child: GoogleMap(
+                    initialCameraPosition: CameraPosition(
+                        target: LatLng(37.54658, 127.07564), zoom: 16),
+                    onMapCreated: (GoogleMapController controller) {
+                      _controller.complete(controller);
+                    },
+                    markers: Set.from(allMarkers),
+                    myLocationButtonEnabled: false,
+                  ),
                 ),
               ),
               VerticalSpacing(

@@ -186,7 +186,7 @@ class _BodyState extends State<Body> {
                       );
                     }),
                 VerticalSpacing(
-                  of: 30,
+                  of: 100,
                 ),
                 Center(
                   child: PrimaryButton(

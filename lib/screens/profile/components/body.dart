@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/certification/certification_screen.dart';
-import 'package:hellocock/screens/claim/claim_screen.dart';
 import 'package:hellocock/screens/likelist/likelist_screen.dart';
 import 'package:hellocock/screens/memberinfo/memberinfo_screen.dart';
 import 'package:hellocock/screens/notification_setting/notification_setting_screen.dart';
@@ -233,7 +232,7 @@ class _BodyState extends State<Body> {
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CertificationScreen(),
+                      builder: (context) => CertificationScreen(widget.user),
                     ),
                   ),
                   child: Text(

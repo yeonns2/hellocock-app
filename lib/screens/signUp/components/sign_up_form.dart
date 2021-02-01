@@ -118,7 +118,12 @@ class _SignUpFormState extends State<SignUpForm> {
             decoration: InputDecoration(
               fillColor: Colors.grey[100],
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-              hintText: "6자리 이상 입력해주세요.",
+              hintText:
+                  "                                            6자리 이상 입력해주세요.",
+              hintStyle: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey[500]),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(32.0),
               ),
@@ -147,7 +152,12 @@ class _SignUpFormState extends State<SignUpForm> {
             decoration: InputDecoration(
               fillColor: Colors.grey[100],
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-              hintText: "6자리 이상 입력해주세요.",
+              hintText:
+                  "                                            6자리 이상 입력해주세요.",
+              hintStyle: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey[500]),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
             ),
@@ -289,6 +299,11 @@ class _SignUpFormState extends State<SignUpForm> {
             decoration: InputDecoration(
               fillColor: Colors.grey[100],
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+              hintText: "상세주소를 입력하세요.",
+              hintStyle: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey[500]),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
             ),
@@ -528,6 +543,7 @@ class _SignUpFormState extends State<SignUpForm> {
           'address2': _address2.text,
           'phone': _phone.text,
           'like': null,
+          'certificated': false,
         });
       });
     } else {

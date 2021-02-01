@@ -44,7 +44,7 @@ class _BodyState extends State<Body> {
       bottom: false,
       child: Stack(
         children: [
-          _googleMap(context),
+          Opacity(opacity: 0.8, child: _googleMap(context)),
           StorePanel(widget.user, widget.document),
         ],
       ),

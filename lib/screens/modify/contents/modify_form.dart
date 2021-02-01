@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hellocock/constants.dart';
-import 'package:hellocock/screens/memberinfo/memberinfo_screen.dart';
 import 'package:hellocock/size_config.dart';
+import 'package:hellocock/widgets/bottom_nav_bar.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:kopo/kopo.dart';
 
@@ -158,7 +158,7 @@ class _ModifyFormState extends State<ModifyForm> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "핸드폰 / 성인인증",
+              "핸드폰 번호",
               style:
                   TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
             ),
@@ -169,8 +169,7 @@ class _ModifyFormState extends State<ModifyForm> {
               SizedBox(
                 width: 180,
                 child: TextFormField(
-                  controller:
-                      new TextEditingController(text: widget.document['phone']),
+                  controller: _phone,
                   style: TextStyle(fontSize: 13),
                   cursorColor: kActiveColor,
                   decoration: InputDecoration(
@@ -286,7 +285,7 @@ class _ModifyFormState extends State<ModifyForm> {
             },
           ),
           VerticalSpacing(
-            of: 30,
+            of: 100,
           ),
           Center(
             child: PrimaryButton(
@@ -295,12 +294,11 @@ class _ModifyFormState extends State<ModifyForm> {
                   if (_formKey.currentState.validate()) {
                     FirebaseFirestore.instance
                         .collection("user")
-                        .doc(_email.text)
+                        .doc(widget.user.email)
                         .update({
-                      'name': _name.text,
                       'address1': _address1.text,
                       'address2': _address2.text,
-                      'phone': _phone.text,
+                      //'phone': _phone.text,
                     });
                     showDialog(
                         context: context,
@@ -327,7 +325,7 @@ class _ModifyFormState extends State<ModifyForm> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              MemberInfoScreen(widget.user),
+                                              BottomNavBar(widget.user),
                                         ));
                                   }),
                             ],

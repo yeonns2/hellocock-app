@@ -24,7 +24,7 @@ class _SignInFormState extends State<SignInForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            " 로그인",
+            "로그인",
             style: TextStyle(
                 color: kActiveColor, fontSize: 20, fontWeight: FontWeight.bold),
           ),
@@ -68,8 +68,6 @@ class _SignInFormState extends State<SignInForm> {
             controller: _passwordController,
             style: TextStyle(fontSize: 15),
             decoration: InputDecoration(
-              hintText: "6자리 이상 입력해주세요.",
-              hintStyle: TextStyle(fontSize: 14),
               fillColor: Colors.grey[100],
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
               border:

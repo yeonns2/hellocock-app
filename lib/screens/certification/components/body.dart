@@ -1,15 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/size_config.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 
 class Body extends StatefulWidget {
+  final User user;
+  final DocumentSnapshot document;
+  Body(this.user, this.document);
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-  bool _iscertificated = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,22 +27,28 @@ class _BodyState extends State<Body> {
             style: TextStyle(
                 fontSize: 19,
                 fontWeight: FontWeight.bold,
-                color: _iscertificated ? kBodyTextColor : kActiveColor),
+                color: widget.document['certificated']
+                    ? kBodyTextColor
+                    : kActiveColor),
           ),
           VerticalSpacing(
             of: 30,
           ),
           Text(
-            _iscertificated ? "김수연님은 성인인증을 완료하였습니다." : "김수연님은 성인인증이 필요합니다.",
+            widget.document['certificated']
+                ? widget.user.displayName + "님은 성인인증을 완료하였습니다."
+                : widget.user.displayName + "님은 성인인증이 필요합니다.",
             style: TextStyle(
                 fontSize: 19,
                 fontWeight: FontWeight.bold,
-                color: _iscertificated ? kActiveColor : kBodyTextColor),
+                color: widget.document['certificated']
+                    ? kActiveColor
+                    : kBodyTextColor),
           ),
           VerticalSpacing(
             of: 350,
           ),
-          _iscertificated
+          widget.document['certificated']
               ? VerticalSpacing()
               : PrimaryButton(text: "성인인증 하러가기", press: () {}),
         ],

@@ -28,6 +28,7 @@ class _BodyState extends State<Body> {
                 idToken: googleAuth.idToken,
                 accessToken: googleAuth.accessToken)))
         .user;
+
     // 로그인 정보를 출력하는 로그
     print("signed in " + user.displayName);
     return user;
@@ -43,16 +44,6 @@ class _BodyState extends State<Body> {
         AuthCredential credential =
             FacebookAuthProvider.credential(result.accessToken.token);
         User user = (await _firebaseAuth.signInWithCredential(credential)).user;
-
-        print('''
-         Logged in!
-         
-         Token: ${accessToken.token}
-         User id: ${accessToken.userId}
-         Expires: ${accessToken.expires}
-         Permissions: ${accessToken.permissions}
-         Declined permissions: ${accessToken.declinedPermissions}
-         ''');
         return user;
         break;
       case FacebookLoginStatus.cancelledByUser:
@@ -123,7 +114,7 @@ class _BodyState extends State<Body> {
               ],
             ),
             VerticalSpacing(
-              of: 50,
+              of: 100,
             ),
             SizedBox(
               height: 40,
@@ -142,6 +133,7 @@ class _BodyState extends State<Body> {
                         'address2': "",
                         'phone': "",
                         'like': null,
+                        'certificated': false
                       });
                       Navigator.pushReplacement(
                           context,
@@ -172,6 +164,7 @@ class _BodyState extends State<Body> {
                         'address2': "",
                         'phone': "",
                         'like': null,
+                        'certificated': false
                       });
                       Navigator.pushReplacement(
                           context,

@@ -25,14 +25,14 @@ class _BodyState extends State<Body> {
                 height: 50,
               ),
               Text(
-                " 회원가입",
+                "회원가입",
                 style: TextStyle(
                     color: kActiveColor,
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
               VerticalSpacing(
-                of: 30,
+                of: 35,
               ),
               SignUpForm(),
               VerticalSpacing(

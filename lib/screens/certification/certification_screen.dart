@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
@@ -6,6 +8,8 @@ import 'components/body.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CertificationScreen extends StatelessWidget {
+  final User user;
+  CertificationScreen(this.user);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +25,15 @@ class CertificationScreen extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           )),
         ),
-        Body(),
+        StreamBuilder<DocumentSnapshot>(
+            stream: FirebaseFirestore.instance
+                .collection("user")
+                .doc(user.email)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) return CircularProgressIndicator();
+              return Body(user, snapshot.data);
+            }),
       ]),
     );
   }

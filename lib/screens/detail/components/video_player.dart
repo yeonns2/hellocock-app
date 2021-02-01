@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hellocock/constants.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoPlayer extends StatefulWidget {
@@ -31,6 +32,10 @@ class _VideoPlayerState extends State<VideoPlayer> {
   @override
   Widget build(BuildContext context) {
     return YoutubePlayer(
+      progressColors: ProgressBarColors(
+          backgroundColor: kBodyTextColor,
+          playedColor: kActiveColor,
+          handleColor: kActiveColor),
       controller: _controller,
       showVideoProgressIndicator: true,
       onReady: () {
