@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hellocock/widgets/buttons/like_button.dart';
-import 'package:hellocock/widgets/buttons/order_button.dart';
+import 'package:hellocock/screens/detail/components/like_button.dart';
+import 'package:hellocock/screens/detail/components/order_button.dart';
 
 class OrderBar extends StatelessWidget {
   final User user;
@@ -13,7 +13,7 @@ class OrderBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-      //margin: const EdgeInsets.only(bottom: 6.0),
+      margin: const EdgeInsets.only(bottom: 6.0),
       decoration: BoxDecoration(
         //borderRadius: BorderRadius.circular(5.0),
         color: Colors.white,

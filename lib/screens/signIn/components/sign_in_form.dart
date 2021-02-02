@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hellocock/widgets/bottom_nav_bar.dart';
+import 'package:hellocock/screens/bottom_nav_bar.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/size_config.dart';

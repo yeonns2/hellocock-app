@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/size_config.dart';
-import 'package:hellocock/widgets/bottom_nav_bar.dart';
+import 'package:hellocock/screens/bottom_nav_bar.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:kopo/kopo.dart';
 
@@ -55,6 +55,7 @@ class _ModifyFormState extends State<ModifyForm> {
                 new TextEditingController(text: widget.document['name']),
             style: TextStyle(fontSize: 13),
             keyboardType: TextInputType.name,
+            readOnly: true,
             cursorColor: kActiveColor,
             decoration: InputDecoration(
               fillColor: Colors.grey[100],
@@ -76,6 +77,7 @@ class _ModifyFormState extends State<ModifyForm> {
             style: TextStyle(fontSize: 13),
             keyboardType: TextInputType.emailAddress,
             autofocus: false,
+            readOnly: true,
             cursorColor: kActiveColor,
             controller:
                 new TextEditingController(text: widget.document['email']),

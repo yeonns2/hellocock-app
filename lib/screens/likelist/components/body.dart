@@ -66,7 +66,7 @@ class Body extends StatelessWidget {
             SizedBox(width: 200, child: Image.asset(document['image'])),
             VerticalSpacing(),
             Text(
-              document['name'],
+              document['name_eng'],
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 15,

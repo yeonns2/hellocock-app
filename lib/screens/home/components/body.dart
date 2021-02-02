@@ -45,6 +45,7 @@ class _BodyState extends State<Body> {
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('cocktail')
+                      .where('today', isEqualTo: true)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -59,7 +60,7 @@ class _BodyState extends State<Body> {
                       scrollDirection: Axis.horizontal,
                       itemCount: snapshot.data.docs.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return _buildListItem(snapshot.data.docs[index], index);
+                        return _buildListItem(snapshot.data.docs[index]);
                       },
                     );
                   }),
@@ -77,7 +78,7 @@ class _BodyState extends State<Body> {
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('cocktail')
-                      .where('name', isEqualTo: '피치 크러쉬')
+                      .where('new', isEqualTo: true)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -92,7 +93,7 @@ class _BodyState extends State<Body> {
                       scrollDirection: Axis.horizontal,
                       itemCount: snapshot.data.docs.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return _buildListItem(snapshot.data.docs[index], index);
+                        return _buildListItem(snapshot.data.docs[index]);
                       },
                     );
                   }),
@@ -106,7 +107,7 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget _buildListItem(DocumentSnapshot document, int index) {
+  Widget _buildListItem(DocumentSnapshot document) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20.0,
@@ -116,34 +117,41 @@ class _BodyState extends State<Body> {
         onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailScreen(widget.user, index),
+            builder: (context) => DetailScreen(widget.user, document),
           ),
         ),
         child: Container(
           width: 285,
           height: 298,
-          padding: EdgeInsets.all(25.0),
+          padding: EdgeInsets.only(top: 25, left: 20, right: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
                 child:
-                    SizedBox(width: 200, child: Image.asset(document['image'])),
+                    SizedBox(width: 160, child: Image.asset(document['image'])),
               ),
-              Text(
-                document['name'],
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: kBodyTextColor),
-              ),
-              VerticalSpacing(),
+              VerticalSpacing(of: 15),
               Padding(
-                padding: const EdgeInsets.only(right: 15.0),
+                padding: const EdgeInsets.all(4.0),
                 child: Text(
-                  document['explain'],
-                  style: TextStyle(fontSize: 13, color: kBodyTextColor),
+                  document['name_eng'],
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: kBodyTextColor),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  document['explain'].replaceAll('\\n', '\n'),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 13,
+                      color: kBodyTextColor,
+                      height: 1.6),
                 ),
               ),
             ],

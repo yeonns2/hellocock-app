@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hellocock/screens/loading_screen.dart';
 import 'package:hellocock/screens/signIn/sign_in_screen.dart';
 
-import 'package:hellocock/widgets/bottom_nav_bar.dart';
+import 'package:hellocock/screens/bottom_nav_bar.dart';
 
 class RootPage extends StatelessWidget {
   @override

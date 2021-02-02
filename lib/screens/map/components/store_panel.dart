@@ -159,7 +159,8 @@ class _StorePanelState extends State<StorePanel> {
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => OrderScreen(document),
+                            builder: (context) =>
+                                OrderScreen(widget.cocktaildocument, document),
                           ),
                         ),
                         color: Colors.white,

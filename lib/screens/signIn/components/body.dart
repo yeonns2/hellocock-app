@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hellocock/constants.dart';
-import 'package:hellocock/widgets/bottom_nav_bar.dart';
+import 'package:hellocock/screens/bottom_nav_bar.dart';
 import 'package:hellocock/widgets/buttons/social_button.dart';
 import '../../../size_config.dart';
 import '../../../screens/signUp/sign_up_screen.dart';

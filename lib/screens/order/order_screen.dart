@@ -6,15 +6,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'components/body.dart';
 
 class OrderScreen extends StatelessWidget {
-  final DocumentSnapshot document;
-  OrderScreen(this.document);
+  final DocumentSnapshot cocktaildocument;
+  final DocumentSnapshot storedocument;
+  OrderScreen(this.cocktaildocument, this.storedocument);
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
       //appBar: buildAppBar(context),
-      body: Body(),
+      body: Body(cocktaildocument, storedocument),
     );
   }
 

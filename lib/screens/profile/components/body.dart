@@ -50,18 +50,28 @@ class _BodyState extends State<Body> {
                     HorizontalSpacing(
                       of: 30,
                     ),
-                    CircleAvatar(
-                      radius: 56,
-                      backgroundColor: kActiveColor,
-                      child: CircleAvatar(
-                        radius: 55,
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.white,
-                        child: SvgPicture.asset(
-                          "assets/icons/hello.svg",
-                        ),
-                      ),
-                    ),
+                    widget.user.photoURL == null
+                        ? CircleAvatar(
+                            radius: 56,
+                            backgroundColor: kActiveColor,
+                            child: CircleAvatar(
+                                radius: 55.5,
+                                foregroundColor: Colors.white,
+                                backgroundColor: Colors.white,
+                                child: SvgPicture.asset(
+                                    "assets/images/hello.svg")))
+                        : CircleAvatar(
+                            radius: 56,
+                            backgroundColor: kActiveColor,
+                            child: CircleAvatar(
+                              radius: 55,
+                              foregroundColor: Colors.white,
+                              backgroundColor: Colors.white,
+                              backgroundImage: NetworkImage(
+                                widget.user.photoURL,
+                              ),
+                            ),
+                          ),
                     HorizontalSpacing(
                       of: 40,
                     ),
