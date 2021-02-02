@@ -3,12 +3,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/screens/detail/components/like_button.dart';
 import 'package:hellocock/screens/detail/components/order_button.dart';
+import 'package:hellocock/size_config.dart';
 
-class OrderBar extends StatelessWidget {
+class OrderBar extends StatefulWidget {
   final User user;
   final DocumentSnapshot document;
 
   OrderBar(this.user, this.document);
+  @override
+  _OrderBarState createState() => _OrderBarState();
+}
+
+class _OrderBarState extends State<OrderBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,11 +32,15 @@ class OrderBar extends StatelessWidget {
         ],
       ),
       child: Container(
+        width: SizeConfig.screenWidth,
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [LikeButton(user, document), OrderButton(user, document)],
+          children: [
+            LikeButton(widget.user, widget.document),
+            OrderButton(widget.user, widget.document)
+          ],
         ),
       ),
     );

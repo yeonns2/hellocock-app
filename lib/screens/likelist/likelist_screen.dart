@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
@@ -5,11 +6,13 @@ import 'components/body.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LikeListScreen extends StatelessWidget {
+  final User user;
+  LikeListScreen(this.user);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(),
+      body: Body(user),
     );
   }
 

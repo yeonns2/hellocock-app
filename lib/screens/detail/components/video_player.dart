@@ -38,7 +38,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
           playedColor: kActiveColor,
           handleColor: kActiveColor),
       controller: _controller,
-      showVideoProgressIndicator: true,
+      //showVideoProgressIndicator: true,
       onReady: () {
         print('Player is ready.');
       },

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
@@ -9,10 +10,11 @@ import 'package:hellocock/screens/payment/payment_screen.dart';
 import 'package:hellocock/size_config.dart';
 
 class Body extends StatefulWidget {
+  final User user;
   final DocumentSnapshot cocktaildocument;
   final DocumentSnapshot storedocument;
 
-  Body(this.cocktaildocument, this.storedocument);
+  Body(this.user, this.cocktaildocument, this.storedocument);
 
   @override
   _BodyState createState() => _BodyState();
@@ -20,13 +22,16 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   final _valueList = ['18:00', '19:00', '20:00', '21:00'];
-  var _selectedValue = '19:00';
+  var _selectedValue = '18:00';
+  var _totalprice = 0;
+  int count = 1;
   Completer<GoogleMapController> _controller = Completer();
   List<Marker> allMarkers = [];
 
   @override
   void initState() {
     super.initState();
+    _totalprice += widget.cocktaildocument['price'];
     allMarkers.add(Marker(
         markerId: MarkerId('myMarker'),
         draggable: true,
@@ -80,7 +85,7 @@ class _BodyState extends State<Body> {
                         )),
                   ),
                   Text(
-                    widget.cocktaildocument['price'].toString() + "원",
+                    _totalprice.toString() + "원",
                     style: TextStyle(color: Colors.red),
                   )
                 ],
@@ -98,9 +103,25 @@ class _BodyState extends State<Body> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        FlatButton(onPressed: () {}, child: Text('-')),
-                        Text("1"),
-                        FlatButton(onPressed: () {}, child: Text('+')),
+                        FlatButton(
+                            onPressed: () {
+                              if (count > 0) {
+                                setState(() {
+                                  _totalprice -=
+                                      widget.cocktaildocument['price'];
+                                  count -= 1;
+                                });
+                              }
+                            },
+                            child: Text('-')),
+                        Text("$count"),
+                        FlatButton(
+                            onPressed: () {
+                              _totalprice += widget.cocktaildocument['price'];
+                              count += 1;
+                              setState(() {});
+                            },
+                            child: Text('+')),
                       ]),
                 ),
               ),
@@ -132,7 +153,7 @@ class _BodyState extends State<Body> {
                     ),
                   ),
                   Text(
-                    "김수염",
+                    widget.user.displayName,
                     style: TextStyle(
                         color: kBodyTextColor, fontWeight: FontWeight.w500),
                   )
@@ -235,22 +256,15 @@ class _BodyState extends State<Body> {
               ),
               PrimaryButton(
                 press: () {
-                  FirebaseFirestore.instance.collection("order").doc().set({
-                    'number': "",
-                    'name': "",
-                    'date': Timestamp.now(),
-                    'total_price': 14000,
-                    'pickup_time': _selectedValue,
-                    'pickup_store': widget.storedocument['name'],
-                    'pickedup': false,
-                    'product':
-                        FieldValue.arrayUnion([widget.cocktaildocument['name']])
-                  });
-
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PaymentScreen(),
+                      builder: (context) => PaymentScreen(
+                          widget.user,
+                          widget.cocktaildocument,
+                          widget.storedocument,
+                          _totalprice,
+                          _selectedValue),
                     ),
                   );
                 },

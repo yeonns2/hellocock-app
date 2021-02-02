@@ -14,11 +14,21 @@ class LikeButton extends StatefulWidget {
 }
 
 class _LikeButtonState extends State<LikeButton> {
-  bool _liked = false;
+  bool isliked;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    List likedUsers = List<String>.from(widget.document['likedUsers']);
+
+    if (likedUsers.contains(widget.user.email))
+      isliked = true;
+    else
+      isliked = false;
+  }
 
   @override
   Widget build(BuildContext context) {
-    final isliked = _liked;
     return FlatButton(
       height: 60,
       minWidth: 130,
@@ -31,10 +41,8 @@ class _LikeButtonState extends State<LikeButton> {
         setState(() {
           if (!isliked) {
             _like();
-            _liked = true;
           } else {
             _unlike();
-            _liked = false;
           }
         });
       },
@@ -54,6 +62,7 @@ class _LikeButtonState extends State<LikeButton> {
         .collection('cocktail')
         .doc(widget.document.id)
         .update(updateData);
+    isliked = true;
   }
 
   void _unlike() {
@@ -69,5 +78,6 @@ class _LikeButtonState extends State<LikeButton> {
         .collection('cocktail')
         .doc(widget.document.id)
         .update(updateData);
+    isliked = false;
   }
 }

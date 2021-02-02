@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
@@ -5,11 +7,20 @@ import 'components/body.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class OrderListScreen extends StatelessWidget {
+  final User user;
+  OrderListScreen(this.user);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(),
+      body: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection("order")
+              .where('name', isEqualTo: "테스트")
+              .snapshots(),
+          builder: (context, snapshot) {
+            return Body();
+          }),
     );
   }
 

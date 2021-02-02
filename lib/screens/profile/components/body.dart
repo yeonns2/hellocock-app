@@ -103,8 +103,8 @@ class _BodyState extends State<Body> {
                               StreamBuilder<QuerySnapshot>(
                                   stream: FirebaseFirestore.instance
                                       .collection("cocktail")
-                                      .where('likedUser',
-                                          isEqualTo: widget.user.email)
+                                      .where('likedUsers',
+                                          arrayContains: widget.user.email)
                                       .snapshots(),
                                   builder: (context, snapshot) {
                                     var like = 0;
@@ -124,7 +124,7 @@ class _BodyState extends State<Body> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  LikeListScreen(),
+                                                  LikeListScreen(widget.user),
                                             ),
                                           ),
                                           child: Text('$like',
@@ -161,7 +161,7 @@ class _BodyState extends State<Body> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  OrderListScreen(),
+                                                  OrderListScreen(widget.user),
                                             ),
                                           ),
                                           child: Text("$like",

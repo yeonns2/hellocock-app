@@ -7,9 +7,10 @@ import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class Body extends StatefulWidget {
+  final User user;
   final DocumentSnapshot cocktaildocument;
   final DocumentSnapshot storedocument;
-  Body(this.cocktaildocument, this.storedocument);
+  Body(this.user, this.cocktaildocument, this.storedocument);
   @override
   _BodyState createState() => _BodyState();
 }
@@ -108,6 +109,7 @@ class _BodyState extends State<Body> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => OrderScreen(
+                                              widget.user,
                                               widget.cocktaildocument,
                                               widget.storedocument),
                                         ),
@@ -194,6 +196,7 @@ class _BodyState extends State<Body> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => OrderScreen(
+                                              widget.user,
                                               widget.cocktaildocument,
                                               widget.storedocument),
                                         ),

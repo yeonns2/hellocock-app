@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/screens/root.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
@@ -5,6 +6,8 @@ import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class Body extends StatelessWidget {
+  final DocumentSnapshot document;
+  Body(this.document);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,7 +33,7 @@ class Body extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "블루 하와이 칵테일 키트",
+                  document['product'] + " 칵테일 키트",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: kBodyTextColor,

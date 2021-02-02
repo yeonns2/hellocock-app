@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/size_config.dart';
@@ -6,16 +7,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'components/body.dart';
 
 class OrderScreen extends StatelessWidget {
+  final User user;
   final DocumentSnapshot cocktaildocument;
   final DocumentSnapshot storedocument;
-  OrderScreen(this.cocktaildocument, this.storedocument);
+  OrderScreen(this.user, this.cocktaildocument, this.storedocument);
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
       //appBar: buildAppBar(context),
-      body: Body(cocktaildocument, storedocument),
+      body: Body(user, cocktaildocument, storedocument),
     );
   }
 

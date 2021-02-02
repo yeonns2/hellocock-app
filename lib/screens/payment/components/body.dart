@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/screens/order_completed/order_completed_screen.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
@@ -6,35 +8,19 @@ import 'package:hellocock/widgets/cards/card.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class Item {
-  Item({
-    this.expandedValue,
-    this.headerValue,
-    this.isExpanded = false,
-  });
-
-  String expandedValue;
-  String headerValue;
-  bool isExpanded;
-}
-
-List<Item> generateItems(int numberOfItems) {
-  return List.generate(numberOfItems, (int index) {
-    return Item(
-      headerValue: 'Panel $index',
-      expandedValue: 'This is item number $index',
-    );
-  });
-}
-
 class Body extends StatefulWidget {
+  final User user;
+  final DocumentSnapshot cocktaildocument;
+  final DocumentSnapshot storedocument;
+  final int _totalprice;
+  final String _selectedtime;
+  Body(this.user, this.cocktaildocument, this.storedocument, this._totalprice,
+      this._selectedtime);
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-  List<Item> _data = generateItems(8);
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -72,7 +58,7 @@ class _BodyState extends State<Body> {
                         fontSize: 13,
                       )),
                   Text(
-                    "8,900원",
+                    widget._totalprice.toString(),
                     style: TextStyle(color: Colors.red),
                   )
                 ],
@@ -90,7 +76,7 @@ class _BodyState extends State<Body> {
                       style:
                           TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
                   Text(
-                    "8,900원",
+                    widget._totalprice.toString() + "원",
                     style: TextStyle(
                         color: Colors.red, fontWeight: FontWeight.bold),
                   )
@@ -226,13 +212,27 @@ class _BodyState extends State<Body> {
               ),
               VerticalSpacing(of: 30),
               PrimaryButton(
-                press: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => OrderCompletedScreen(),
-                  ),
-                ),
-                text: "8,900원 결제하기",
+                press: () {
+                  FirebaseFirestore.instance.collection("order").doc().set({
+                    'number': "",
+                    'name': widget.user.displayName,
+                    'email': widget.user.email,
+                    'date': Timestamp.now(),
+                    'total_price': widget._totalprice,
+                    'pickup_time': "",
+                    'pickup_store': widget.storedocument['name'],
+                    'pickedup': false,
+                    'product':
+                        FieldValue.arrayUnion([widget.cocktaildocument['name']])
+                  });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OrderCompletedScreen(),
+                    ),
+                  );
+                },
+                text: widget._totalprice.toString() + "원 결제하기",
               ),
               VerticalSpacing(
                 of: 50,
@@ -241,31 +241,6 @@ class _BodyState extends State<Body> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildPanel() {
-    return ExpansionPanelList(
-      expansionCallback: (int index, bool isExpanded) {
-        setState(() {
-          _data[index].isExpanded = !isExpanded;
-        });
-      },
-      children: _data.map<ExpansionPanel>((Item item) {
-        return ExpansionPanel(
-          headerBuilder: (BuildContext context, bool isExpanded) {
-            return ListTile(
-              title: Text(item.headerValue),
-            );
-          },
-          body: ListTile(
-              title: Text(item.expandedValue),
-              subtitle: Text('To delete this panel, tap the trash can icon'),
-              trailing: Icon(Icons.delete),
-              onTap: () {}),
-          isExpanded: item.isExpanded,
-        );
-      }).toList(),
     );
   }
 }
