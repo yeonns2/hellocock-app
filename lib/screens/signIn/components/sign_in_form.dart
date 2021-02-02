@@ -29,7 +29,7 @@ class _SignInFormState extends State<SignInForm> {
                 color: kActiveColor, fontSize: 20, fontWeight: FontWeight.bold),
           ),
           VerticalSpacing(
-            of: 50,
+            of: 30,
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

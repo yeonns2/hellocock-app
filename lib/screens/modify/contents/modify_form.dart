@@ -26,13 +26,9 @@ class _ModifyFormState extends State<ModifyForm> {
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _name = TextEditingController();
   final TextEditingController _phone = TextEditingController();
   final TextEditingController _address1 = TextEditingController();
   final TextEditingController _address2 = TextEditingController();
-
-  String _userEmail;
 
   KopoModel model;
   @override
@@ -169,7 +165,7 @@ class _ModifyFormState extends State<ModifyForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: 180,
+                width: 280,
                 child: TextFormField(
                   controller: _phone,
                   style: TextStyle(fontSize: 13),
@@ -182,37 +178,37 @@ class _ModifyFormState extends State<ModifyForm> {
                   ),
                 ),
               ),
-              SizedBox(
-                  width: 95, child: PrimaryButton(text: "인증요청", press: () {}))
+              // SizedBox(
+              //     width: 95, child: PrimaryButton(text: "인증요청", press: () {}))
             ],
           ),
-          VerticalSpacing(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 180,
-                child: TextFormField(
-                  style: TextStyle(fontSize: 13),
-                  cursorColor: kActiveColor,
-                  decoration: InputDecoration(
-                    fillColor: Colors.grey[100],
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0)),
-                  ),
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return '인증 번호를 입력해주세요.';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              SizedBox(
-                  width: 95, child: PrimaryButton(text: "인증완료", press: () {}))
-            ],
-          ),
+          // VerticalSpacing(),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     SizedBox(
+          //       width: 180,
+          //       child: TextFormField(
+          //         style: TextStyle(fontSize: 13),
+          //         cursorColor: kActiveColor,
+          //         decoration: InputDecoration(
+          //           fillColor: Colors.grey[100],
+          //           contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+          //           border: OutlineInputBorder(
+          //               borderRadius: BorderRadius.circular(32.0)),
+          //         ),
+          //         validator: (String value) {
+          //           if (value.isEmpty) {
+          //             return '인증 번호를 입력해주세요.';
+          //           }
+          //           return null;
+          //         },
+          //       ),
+          //     ),
+          //     SizedBox(
+          //         width: 95, child: PrimaryButton(text: "인증완료", press: () {}))
+          //   ],
+          // ),
           VerticalSpacing(),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -287,7 +283,7 @@ class _ModifyFormState extends State<ModifyForm> {
             },
           ),
           VerticalSpacing(
-            of: 100,
+            of: 140,
           ),
           Center(
             child: PrimaryButton(

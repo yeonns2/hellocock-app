@@ -119,10 +119,10 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: 40,
               child: SocialButton(
-                  text: "페이스북 이메일로 로그인",
-                  image: "assets/icons/facebook.svg",
+                  text: "Apple 계정으로 로그인",
+                  image: "assets/icons/apple.svg",
                   press: () {
-                    _facebooklogin().then((user) {
+                    _googlelogin().then((user) {
                       FirebaseFirestore.instance
                           .collection("user")
                           .doc(user.email)
@@ -141,12 +141,10 @@ class _BodyState extends State<Body> {
                               builder: (context) => BottomNavBar(user)));
                     });
                   },
-                  color: Color(0xFF1877F2),
-                  textcolor: Colors.white),
+                  color: Colors.white,
+                  textcolor: Colors.grey),
             ),
-            VerticalSpacing(
-              of: 20,
-            ),
+            VerticalSpacing(),
             SizedBox(
               height: 40,
               child: SocialButton(
@@ -175,9 +173,36 @@ class _BodyState extends State<Body> {
                   color: Colors.white,
                   textcolor: Colors.grey),
             ),
-            VerticalSpacing(
-              of: 20,
-            ),
+            VerticalSpacing(),
+            // SizedBox(
+            //   height: 40,
+            //   child: SocialButton(
+            //       text: "페이스북 계정으로 로그인",
+            //       image: "assets/icons/facebook.svg",
+            //       press: () {
+            //         _facebooklogin().then((user) {
+            //           FirebaseFirestore.instance
+            //               .collection("user")
+            //               .doc(user.email)
+            //               .set({
+            //             'name': user.displayName,
+            //             'email': user.email,
+            //             'address1': "",
+            //             'address2': "",
+            //             'phone': "",
+            //             'like': null,
+            //             'certificated': false
+            //           });
+            //           Navigator.pushReplacement(
+            //               context,
+            //               MaterialPageRoute(
+            //                   builder: (context) => BottomNavBar(user)));
+            //         });
+            //       },
+            //       color: Colors.white,
+            //       textcolor: Colors.grey),
+            // ),
+            // VerticalSpacing(),
           ],
         ),
       ),

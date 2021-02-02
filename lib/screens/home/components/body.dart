@@ -37,11 +37,9 @@ class _BodyState extends State<Body> {
                 style: TextStyle(fontSize: 17, color: kBodyTextColor),
               ),
             ),
-            VerticalSpacing(
-              of: 20,
-            ),
+            VerticalSpacing(),
             Container(
-              height: 310.0,
+              height: 324.0,
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('cocktail')
@@ -57,6 +55,7 @@ class _BodyState extends State<Body> {
                       );
                     }
                     return ListView.builder(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
                       scrollDirection: Axis.horizontal,
                       itemCount: snapshot.data.docs.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -65,16 +64,17 @@ class _BodyState extends State<Body> {
                     );
                   }),
             ),
+            VerticalSpacing(of: 40),
             Padding(
-              padding: const EdgeInsets.only(top: 50, left: 25.0),
+              padding: const EdgeInsets.only(left: 25.0),
               child: Text(
                 "이번주 새로운 칵테일   >",
                 style: TextStyle(fontSize: 17, color: kBodyTextColor),
               ),
             ),
-            VerticalSpacing(of: 20),
+            VerticalSpacing(),
             Container(
-              height: 310.0,
+              height: 324,
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('cocktail')
@@ -90,6 +90,7 @@ class _BodyState extends State<Body> {
                       );
                     }
                     return ListView.builder(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
                       scrollDirection: Axis.horizontal,
                       itemCount: snapshot.data.docs.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -109,9 +110,7 @@ class _BodyState extends State<Body> {
 
   Widget _buildListItem(DocumentSnapshot document) {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 20.0,
-      ),
+      padding: const EdgeInsets.all(10.0),
       child: InkWellCard(
         circular: 30,
         onTap: () => Navigator.push(
@@ -122,7 +121,7 @@ class _BodyState extends State<Body> {
         ),
         child: Container(
           width: 285,
-          height: 298,
+          height: 296,
           padding: EdgeInsets.only(top: 25, left: 20, right: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -130,7 +129,7 @@ class _BodyState extends State<Body> {
             children: [
               Center(
                 child:
-                    SizedBox(width: 160, child: Image.asset(document['image'])),
+                    SizedBox(width: 150, child: Image.asset(document['image'])),
               ),
               VerticalSpacing(of: 15),
               Padding(

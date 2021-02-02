@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/detail/components/order_bar.dart';
 import 'package:hellocock/screens/detail/components/video_player.dart';
-import 'package:hellocock/size_config.dart';
 
 class Body extends StatelessWidget {
   final User user;
