@@ -14,22 +14,25 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () => checkFirstSeen());
+    Timer(
+        Duration(seconds: 3),
+        () => Navigator.of(context).pushReplacement(new MaterialPageRoute(
+            builder: (context) => new IntroScreen()))); //checkFirstSeen());
   }
 
-  Future checkFirstSeen() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool _seen = (prefs.getBool('seen') ?? false);
+  // Future checkFirstSeen() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   bool _seen = (prefs.getBool('seen') ?? false);
 
-    if (_seen) {
-      Navigator.of(context).pushReplacement(
-          new MaterialPageRoute(builder: (context) => new RootPage()));
-    } else {
-      await prefs.setBool('seen', true);
-      Navigator.of(context).pushReplacement(
-          new MaterialPageRoute(builder: (context) => new IntroScreen()));
-    }
-  }
+  //   if (_seen) {
+  //     Navigator.of(context).pushReplacement(
+  //         new MaterialPageRoute(builder: (context) => new RootPage()));
+  //   } else {
+  //     await prefs.setBool('seen', true);
+  //     Navigator.of(context).pushReplacement(
+  //         new MaterialPageRoute(builder: (context) => new IntroScreen()));
+  //   }
+  //}
 
   @override
   Widget build(BuildContext context) {

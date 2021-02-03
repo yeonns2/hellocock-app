@@ -64,30 +64,32 @@ class _StorePanelState extends State<StorePanel> {
                     color: kActiveColor),
               ),
             ),
-            Container(
-              width: 200,
-              height: 1000,
-              child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection('store')
-                      .orderBy('name')
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          valueColor:
-                              new AlwaysStoppedAnimation<Color>(kActiveColor),
-                        ),
+            SingleChildScrollView(
+              child: Container(
+                width: SizeConfig.screenWidth,
+                height: SizeConfig.screenHeight + 1000,
+                child: StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('store')
+                        .orderBy('name')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            valueColor:
+                                new AlwaysStoppedAnimation<Color>(kActiveColor),
+                          ),
+                        );
+                      }
+                      return ListView.builder(
+                        itemCount: snapshot.data.docs.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return _buildListStore(snapshot.data.docs[index]);
+                        },
                       );
-                    }
-                    return ListView.builder(
-                      itemCount: snapshot.data.docs.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return _buildListStore(snapshot.data.docs[index]);
-                      },
-                    );
-                  }),
+                    }),
+              ),
             ),
           ],
         ));

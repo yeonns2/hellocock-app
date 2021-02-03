@@ -542,7 +542,6 @@ class _SignUpFormState extends State<SignUpForm> {
           'address1': _address1.text,
           'address2': _address2.text,
           'phone': _phone.text,
-          'like': null,
           'certificated': false,
         });
       });

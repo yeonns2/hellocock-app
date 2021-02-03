@@ -16,25 +16,34 @@ class OnboardContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: AspectRatio(
-            aspectRatio: illustration == 'assets/icons/logo1.svg' ? 0.3 : 1,
-            child: SvgPicture.asset(illustration),
+    return Container(
+      width: SizeConfig.screenWidth,
+      height: SizeConfig.screenHeight,
+      child: Column(
+        children: [
+          Expanded(
+            child: illustration == 'assets/icons/logo1.svg'
+                ? AspectRatio(
+                    aspectRatio: 0.3,
+                    child: SvgPicture.asset(illustration),
+                  )
+                : AspectRatio(
+                    aspectRatio: 1,
+                    child: Image.asset(illustration),
+                  ),
           ),
-        ),
-        Text(
-          title,
-          style: kHeadlineTextStyle,
-        ),
-        VerticalSpacing(of: 20),
-        Text(
-          text,
-          style: kBodyTextStyle,
-          textAlign: TextAlign.center,
-        ),
-      ],
+          Text(
+            title,
+            style: kHeadlineTextStyle,
+          ),
+          VerticalSpacing(of: 20),
+          Text(
+            text,
+            style: kBodyTextStyle,
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }

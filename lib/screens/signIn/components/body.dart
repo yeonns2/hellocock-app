@@ -132,7 +132,6 @@ class _BodyState extends State<Body> {
                         'address1': "",
                         'address2': "",
                         'phone': "",
-                        'like': null,
                         'certificated': false
                       });
                       Navigator.pushReplacement(
@@ -161,7 +160,6 @@ class _BodyState extends State<Body> {
                         'address1': "",
                         'address2': "",
                         'phone': "",
-                        'like': null,
                         'certificated': false
                       });
                       Navigator.pushReplacement(
