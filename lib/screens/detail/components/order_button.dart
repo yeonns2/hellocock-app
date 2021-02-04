@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hellocock/screens/certification/certification_screen.dart';
 import 'package:hellocock/widgets/alert.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/map/map_screen.dart';
@@ -17,6 +19,19 @@ class OrderButton extends StatefulWidget {
 
 class _OrderButtonState extends State<OrderButton> {
   FirebaseAuth auth = FirebaseAuth.instance;
+  bool _certificated;
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("user")
+        .doc(widget.user.email)
+        .get()
+        .then((DocumentSnapshot ds) {
+      _certificated = ds['certificated'];
+      print(_certificated);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,28 +64,52 @@ class _OrderButtonState extends State<OrderButton> {
         textColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
         onPressed: () {
-          // FirebaseAuth.instance.authStateChanges().listen((User user) {
-          //   if (user == null) {
-          //     showDialog(
-          //         context: context,
-          //         barrierDismissible: false,
-          //         builder: (context) {
-          //           return Alert();
-          //         });
-          //   } else {
-          //     Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //           builder: (context) =>
-          //               MapScreen(widget.user, widget.document),
-          //         ));
-          //   }
-          //}
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MapScreen(widget.user, widget.document),
-              ));
+          if (_certificated == false) {
+            showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) {
+                  return CupertinoAlertDialog(
+                    content: Text(
+                      "성인 인증이 필요합니다. \n성인인증을 먼저 해주세요.",
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: kBodyTextColor,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    actions: <Widget>[
+                      new CupertinoDialogAction(
+                          child: Text(
+                            '성인 인증하러 가기',
+                            style: TextStyle(fontSize: 13),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      CertificationScreen(widget.user),
+                                ));
+                          }),
+                      new CupertinoDialogAction(
+                          child: Text(
+                            '다음에 할래요',
+                            style: TextStyle(fontSize: 13),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          }),
+                    ],
+                  );
+                });
+          } else {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MapScreen(widget.user, widget.document),
+                ));
+          }
         });
   }
 }

@@ -21,7 +21,7 @@ class _BodyState extends State<Body> {
         children: [
           Spacer(flex: 2),
           Expanded(
-            flex: 14,
+            flex: 15,
             child: PageView.builder(
               itemCount: demoData.length,
               onPageChanged: (value) {

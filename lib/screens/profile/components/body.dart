@@ -253,7 +253,8 @@ class _BodyState extends State<Body> {
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => NotificationSettingScreen(),
+                      builder: (context) =>
+                          NotificationSettingScreen(widget.user),
                     ),
                   ),
                   child: Text(

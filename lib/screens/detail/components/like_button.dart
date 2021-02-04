@@ -17,7 +17,6 @@ class _LikeButtonState extends State<LikeButton> {
   bool isliked;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     List likedUsers = List<String>.from(widget.document['likedUsers']);
 

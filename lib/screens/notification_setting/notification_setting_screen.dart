@@ -7,6 +7,8 @@ import 'components/body.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class NotificationSettingScreen extends StatelessWidget {
+  final User user;
+  NotificationSettingScreen(this.user);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +24,7 @@ class NotificationSettingScreen extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           )),
         ),
-        Body(),
+        Body(user),
       ]),
     );
   }

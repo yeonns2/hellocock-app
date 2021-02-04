@@ -32,7 +32,7 @@ class Body extends StatelessWidget {
                     tilePadding: EdgeInsets.zero,
                     trailing: SvgPicture.asset("assets/icons/arrow_down.svg"),
                     title: Text(
-                      "   베타서비스 기간 안내",
+                      "베타서비스 기간 안내",
                       style: TextStyle(
                           fontSize: 15.0,
                           color: kBodyTextColor,
@@ -40,7 +40,7 @@ class Body extends StatelessWidget {
                     ),
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        padding: const EdgeInsets.only(left: 10, right: 10),
                         child: Text(
                           '''반가워요!
                            
@@ -61,7 +61,7 @@ class Body extends StatelessWidget {
                     tilePadding: EdgeInsets.zero,
                     trailing: SvgPicture.asset("assets/icons/arrow_down.svg"),
                     title: Text(
-                      "   베타서비스 기념 모히또하우스 이벤트",
+                      "베타서비스 기념 모히또하우스 이벤트",
                       style: TextStyle(
                         fontSize: 15.0,
                         color: kBodyTextColor,
@@ -70,7 +70,7 @@ class Body extends StatelessWidget {
                     ),
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        padding: const EdgeInsets.only(left: 10, right: 10),
                         child: Text(
                           '''
 모히또하우스는 hellocock 이 칵테일을 직접 

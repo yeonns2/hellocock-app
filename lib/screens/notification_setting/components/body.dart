@@ -1,5 +1,5 @@
-import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
@@ -7,6 +7,8 @@ import 'package:hellocock/constants.dart';
 import 'package:hellocock/size_config.dart';
 
 class Body extends StatefulWidget {
+  final User user;
+  Body(this.user);
   @override
   _BodyState createState() => _BodyState();
 }
@@ -28,6 +30,7 @@ class _BodyState extends State<Body> {
           ),
           Text(
             "  푸시 알림",
+            textScaleFactor: 1.0,
             style: TextStyle(
                 fontSize: 19,
                 fontWeight: FontWeight.bold,
@@ -70,6 +73,10 @@ class _BodyState extends State<Body> {
                   onChanged: (bool newValue) {
                     setState(() {
                       _value = newValue;
+                      FirebaseFirestore.instance
+                          .collection("user")
+                          .doc(widget.user.email)
+                          .update({'marketing_agreemnet': _value});
                     });
                   },
                   activeColor: kActiveColor,

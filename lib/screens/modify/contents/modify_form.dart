@@ -8,8 +8,6 @@ import 'package:hellocock/screens/bottom_nav_bar.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:kopo/kopo.dart';
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
-
 class ModifyForm extends StatefulWidget {
   final User user;
   final DocumentSnapshot document;
@@ -304,7 +302,7 @@ class _ModifyFormState extends State<ModifyForm> {
                         .update({
                       'address1': _address1.text,
                       'address2': _address2.text,
-                      //'phone': _phone.text,
+                      'phone': _phone.text,
                     });
                     showDialog(
                         context: context,
