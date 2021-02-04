@@ -59,7 +59,7 @@ final TextStyle kSecondaryBodyTextStyle = TextStyle(
 
 final TextStyle kButtonTextStyle = TextStyle(
   color: Colors.white,
-  fontSize: getProportionateScreenWidth(14),
+  fontSize: 15,
   fontWeight: FontWeight.bold,
 );
 

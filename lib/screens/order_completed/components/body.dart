@@ -33,7 +33,7 @@ class Body extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  document['product'] + " 칵테일 키트",
+                  " 칵테일 키트",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: kBodyTextColor,

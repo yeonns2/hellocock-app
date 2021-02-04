@@ -15,17 +15,17 @@ class Body extends StatelessWidget {
             VerticalSpacing(
               of: 40,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 50.0),
+            Center(
               child: Text(
                 "마이콕은 그동안 마셨던 칵테일을 \n확인할 수 있는 나만의 bar 입니다!\n헬로콕의 칵테일 키트를 통해 \n마이콕을 채워봐요~",
                 style: TextStyle(
-                    fontSize: 19,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: kActiveColor,
                     height: 1.5),
               ),
             ),
+
             // Row(
             //   children: [
             //     Column(

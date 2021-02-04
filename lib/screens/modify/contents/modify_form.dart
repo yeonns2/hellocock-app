@@ -42,14 +42,16 @@ class _ModifyFormState extends State<ModifyForm> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "이름",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: kBodyTextColor),
             ),
           ),
           TextFormField(
             controller:
                 new TextEditingController(text: widget.document['name']),
-            style: TextStyle(fontSize: 13),
+            style: TextStyle(fontSize: 15),
             keyboardType: TextInputType.name,
             readOnly: true,
             cursorColor: kActiveColor,
@@ -65,12 +67,14 @@ class _ModifyFormState extends State<ModifyForm> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "이메일",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: kBodyTextColor),
             ),
           ),
           TextFormField(
-            style: TextStyle(fontSize: 13),
+            style: TextStyle(fontSize: 15),
             keyboardType: TextInputType.emailAddress,
             autofocus: false,
             readOnly: true,
@@ -157,8 +161,10 @@ class _ModifyFormState extends State<ModifyForm> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "핸드폰 번호",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: kBodyTextColor),
             ),
           ),
           Row(
@@ -168,7 +174,7 @@ class _ModifyFormState extends State<ModifyForm> {
                 width: 280,
                 child: TextFormField(
                   controller: _phone,
-                  style: TextStyle(fontSize: 13),
+                  style: TextStyle(fontSize: 15),
                   cursorColor: kActiveColor,
                   decoration: InputDecoration(
                     fillColor: Colors.grey[100],
@@ -214,8 +220,10 @@ class _ModifyFormState extends State<ModifyForm> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "주소",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: kBodyTextColor),
             ),
           ),
           Row(
@@ -224,7 +232,7 @@ class _ModifyFormState extends State<ModifyForm> {
               SizedBox(
                 width: 183,
                 child: TextFormField(
-                  style: TextStyle(fontSize: 13),
+                  style: TextStyle(fontSize: 15),
                   controller:
                       TextEditingController(text: this.model?.address ?? ""),
                   onTap: () async {
@@ -267,7 +275,7 @@ class _ModifyFormState extends State<ModifyForm> {
           VerticalSpacing(),
           TextFormField(
             controller: _address2,
-            style: TextStyle(fontSize: 13),
+            style: TextStyle(fontSize: 15),
             cursorColor: kActiveColor,
             decoration: InputDecoration(
               fillColor: Colors.grey[100],

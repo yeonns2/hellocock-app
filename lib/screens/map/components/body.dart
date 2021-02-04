@@ -25,17 +25,13 @@ class _BodyState extends State<Body> {
     allMarkers.add(Marker(
         markerId: MarkerId('myMarker'),
         draggable: true,
-        onTap: () {
-          print('Marker Tapped');
-        },
+        infoWindow: InfoWindow(title: "궤도에 오르다", snippet: "광진구 군자동 465-17"),
         position: LatLng(37.54658, 127.07564)));
     allMarkers.add(Marker(
         markerId: MarkerId('myMarker'),
         draggable: true,
-        onTap: () {
-          print('Marker Tapped');
-        },
-        position: LatLng(37.546104, 127.076539)));
+        infoWindow: InfoWindow(title: "모히또 하우스", snippet: "광진구 군자동 465-17"),
+        position: LatLng(37.557433, 127.073604)));
   }
 
   @override

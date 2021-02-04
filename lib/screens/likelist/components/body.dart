@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
+import 'package:hellocock/screens/detail/detail_screen.dart';
 import 'package:hellocock/size_config.dart';
 import 'package:hellocock/widgets/cards/card.dart';
 
@@ -43,7 +44,7 @@ class Body extends StatelessWidget {
                       return Text(
                         "좋아하는 칵테일이 없어요..",
                         style: TextStyle(
-                            fontSize: 19,
+                            fontSize: 22,
                             fontWeight: FontWeight.bold,
                             color: kBodyTextColor,
                             height: 1.5),
@@ -59,17 +60,23 @@ class Body extends StatelessWidget {
                         children: List.generate(
                             snapshot.data.docs.length,
                             (index) => _buildListItem(
-                                snapshot.data.docs[index], index)));
+                                snapshot.data.docs[index], index, context)));
                   }),
             ]),
       ),
     );
   }
 
-  Widget _buildListItem(DocumentSnapshot document, int index) {
+  Widget _buildListItem(
+      DocumentSnapshot document, int index, BuildContext context) {
     return InkWellCard(
       circular: 30,
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => DetailScreen(user, document)),
+        );
+      },
       child: Container(
         width: 154,
         height: 261,

@@ -36,12 +36,14 @@ class _BodyState extends State<Body> {
                   child: Text(
                     "이름",
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, color: kBodyTextColor),
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: kBodyTextColor),
                   ),
                 ),
                 TextFormField(
                   initialValue: widget.user.displayName,
-                  style: TextStyle(fontSize: 13),
+                  style: TextStyle(fontSize: 15),
                   keyboardType: TextInputType.name,
                   readOnly: true,
                   cursorColor: kActiveColor,
@@ -58,12 +60,14 @@ class _BodyState extends State<Body> {
                   child: Text(
                     "이메일",
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, color: kBodyTextColor),
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: kBodyTextColor),
                   ),
                 ),
                 TextFormField(
                   initialValue: widget.user.email,
-                  style: TextStyle(fontSize: 13),
+                  style: TextStyle(fontSize: 15),
                   keyboardType: TextInputType.name,
                   readOnly: true,
                   cursorColor: kActiveColor,
@@ -104,7 +108,9 @@ class _BodyState extends State<Body> {
                   child: Text(
                     "핸드폰",
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, color: kBodyTextColor),
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: kBodyTextColor),
                   ),
                 ),
                 StreamBuilder<DocumentSnapshot>(
@@ -116,7 +122,7 @@ class _BodyState extends State<Body> {
                       if (!snapshot.hasData) return CircularProgressIndicator();
                       return TextFormField(
                         initialValue: snapshot.data['phone'] ?? "",
-                        style: TextStyle(fontSize: 13),
+                        style: TextStyle(fontSize: 15),
                         keyboardType: TextInputType.name,
                         readOnly: true,
                         cursorColor: kActiveColor,
@@ -137,7 +143,9 @@ class _BodyState extends State<Body> {
                   child: Text(
                     "주소",
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, color: kBodyTextColor),
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: kBodyTextColor),
                   ),
                 ),
                 StreamBuilder<DocumentSnapshot>(
@@ -149,7 +157,7 @@ class _BodyState extends State<Body> {
                       if (!snapshot.hasData) return CircularProgressIndicator();
                       return TextFormField(
                         initialValue: snapshot.data['address1'] ?? "",
-                        style: TextStyle(fontSize: 13),
+                        style: TextStyle(fontSize: 15),
                         keyboardType: TextInputType.name,
                         readOnly: true,
                         cursorColor: kActiveColor,
@@ -172,7 +180,7 @@ class _BodyState extends State<Body> {
                       if (!snapshot.hasData) return CircularProgressIndicator();
                       return TextFormField(
                         initialValue: snapshot.data['address2'] ?? "",
-                        style: TextStyle(fontSize: 13),
+                        style: TextStyle(fontSize: 15),
                         keyboardType: TextInputType.name,
                         readOnly: true,
                         cursorColor: kActiveColor,

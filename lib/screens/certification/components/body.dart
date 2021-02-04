@@ -25,7 +25,7 @@ class _BodyState extends State<Body> {
           Text(
             "헬로콕의 칵테일 키트에는\n칵테일을 만들기 위한 보드카 등\n미니어쳐 주류가 들어있기 때문에\n키트 구입을 위해서는 \n성인인증이 필수입니다.",
             style: TextStyle(
-                fontSize: 19,
+                fontSize: 22,
                 fontWeight: FontWeight.bold,
                 color: widget.document['certificated']
                     ? kBodyTextColor
@@ -39,7 +39,7 @@ class _BodyState extends State<Body> {
                 ? widget.user.displayName + "님은 성인인증을 완료하였습니다."
                 : widget.user.displayName + "님은 성인인증이 필요합니다.",
             style: TextStyle(
-                fontSize: 19,
+                fontSize: 22,
                 fontWeight: FontWeight.bold,
                 color: widget.document['certificated']
                     ? kActiveColor

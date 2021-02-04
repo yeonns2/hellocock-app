@@ -45,18 +45,21 @@ class _SignUpFormState extends State<SignUpForm> {
     return Form(
       key: _formKey,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "이름",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: kBodyTextColor),
             ),
           ),
           TextFormField(
-            style: TextStyle(fontSize: 13),
+            style: TextStyle(fontSize: 15),
             keyboardType: TextInputType.name,
             autofocus: false,
             cursorColor: kActiveColor,
@@ -69,7 +72,7 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
             validator: (String value) {
               if (value.isEmpty) {
-                return '이메일을 입력해주세요.';
+                return '이름을 입력해주세요.';
               }
               return null;
             },
@@ -79,12 +82,14 @@ class _SignUpFormState extends State<SignUpForm> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "이메일",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: kBodyTextColor),
             ),
           ),
           TextFormField(
-            style: TextStyle(fontSize: 13),
+            style: TextStyle(fontSize: 15),
             keyboardType: TextInputType.emailAddress,
             autofocus: false,
             cursorColor: kActiveColor,
@@ -107,21 +112,22 @@ class _SignUpFormState extends State<SignUpForm> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "비밀번호",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: kBodyTextColor),
             ),
           ),
           TextFormField(
-            style: TextStyle(fontSize: 13),
+            style: TextStyle(fontSize: 15),
             cursorColor: kActiveColor,
             controller: _password,
             decoration: InputDecoration(
               fillColor: Colors.grey[100],
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-              hintText:
-                  "                                            6자리 이상 입력해주세요.",
+              hintText: "6자리 이상 입력해주세요.",
               hintStyle: TextStyle(
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: FontWeight.w500,
                   color: Colors.grey[500]),
               border: OutlineInputBorder(
@@ -141,21 +147,22 @@ class _SignUpFormState extends State<SignUpForm> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "비밀번호 확인",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: kBodyTextColor),
             ),
           ),
           TextFormField(
-            style: TextStyle(fontSize: 13),
+            style: TextStyle(fontSize: 15),
             cursorColor: kActiveColor,
             controller: _confirm,
             decoration: InputDecoration(
               fillColor: Colors.grey[100],
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-              hintText:
-                  "                                            6자리 이상 입력해주세요.",
+              hintText: "6자리 이상 입력해주세요.",
               hintStyle: TextStyle(
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: FontWeight.w500,
                   color: Colors.grey[500]),
               border:
@@ -177,8 +184,10 @@ class _SignUpFormState extends State<SignUpForm> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "핸드폰 번호",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: kBodyTextColor),
             ),
           ),
           Row(
@@ -188,7 +197,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 width: 280,
                 child: TextFormField(
                   controller: _phone,
-                  style: TextStyle(fontSize: 13),
+                  style: TextStyle(fontSize: 15),
                   cursorColor: kActiveColor,
                   decoration: InputDecoration(
                     fillColor: Colors.grey[100],
@@ -240,8 +249,10 @@ class _SignUpFormState extends State<SignUpForm> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "주소",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: kBodyTextColor),
             ),
           ),
           //Text(this.model?.address ?? ""),
@@ -251,7 +262,7 @@ class _SignUpFormState extends State<SignUpForm> {
               SizedBox(
                 width: 183,
                 child: TextFormField(
-                  style: TextStyle(fontSize: 13),
+                  style: TextStyle(fontSize: 15),
                   controller:
                       TextEditingController(text: this.model?.address ?? ""),
                   onTap: () async {
@@ -294,14 +305,14 @@ class _SignUpFormState extends State<SignUpForm> {
           VerticalSpacing(),
           TextFormField(
             controller: _address2,
-            style: TextStyle(fontSize: 13),
+            style: TextStyle(fontSize: 15),
             cursorColor: kActiveColor,
             decoration: InputDecoration(
               fillColor: Colors.grey[100],
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
               hintText: "상세주소를 입력하세요.",
               hintStyle: TextStyle(
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: FontWeight.w500,
                   color: Colors.grey[500]),
               border:
@@ -318,32 +329,36 @@ class _SignUpFormState extends State<SignUpForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              HorizontalSpacing(of: 0.5),
-              Center(
-                child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        _value1 = !_value1;
-                      });
-                    },
-                    child: _value1
-                        ? CircleAvatar(
-                            backgroundColor: kActiveColor,
-                            radius: 6,
-                          )
-                        : CircleAvatar(
-                            backgroundColor: Colors.grey[300],
-                            radius: 6,
-                          )),
+              Row(
+                children: [
+                  HorizontalSpacing(of: 5),
+                  Center(
+                    child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _value1 = !_value1;
+                          });
+                        },
+                        child: _value1
+                            ? CircleAvatar(
+                                backgroundColor: kActiveColor,
+                                radius: 7,
+                              )
+                            : CircleAvatar(
+                                backgroundColor: Colors.grey[300],
+                                radius: 7,
+                              )),
+                  ),
+                  HorizontalSpacing(of: 8),
+                  Text(
+                    "이용약관 동의",
+                    style: TextStyle(
+                        fontSize: 13,
+                        color: kBodyTextColor,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
-              Text(
-                "이용약관 동의",
-                style: TextStyle(
-                    fontSize: 11,
-                    color: kBodyTextColor,
-                    fontWeight: FontWeight.bold),
-              ),
-              HorizontalSpacing(of: 155),
               SizedBox(
                 height: 30,
                 child: IconButton(
@@ -357,38 +372,42 @@ class _SignUpFormState extends State<SignUpForm> {
                     );
                   },
                 ),
-              )
+              ),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              HorizontalSpacing(of: 0.5),
-              Center(
-                child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        _value2 = !_value2;
-                      });
-                    },
-                    child: _value2
-                        ? CircleAvatar(
-                            backgroundColor: kActiveColor,
-                            radius: 6,
-                          )
-                        : CircleAvatar(
-                            backgroundColor: Colors.grey[300],
-                            radius: 6,
-                          )),
+              Row(
+                children: [
+                  HorizontalSpacing(of: 5),
+                  Center(
+                    child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _value2 = !_value2;
+                          });
+                        },
+                        child: _value2
+                            ? CircleAvatar(
+                                backgroundColor: kActiveColor,
+                                radius: 7,
+                              )
+                            : CircleAvatar(
+                                backgroundColor: Colors.grey[300],
+                                radius: 7,
+                              )),
+                  ),
+                  HorizontalSpacing(of: 8),
+                  Text(
+                    "개인정보 취급방침 동의",
+                    style: TextStyle(
+                        fontSize: 13,
+                        color: kBodyTextColor,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
-              Text(
-                "개인정보 취급방침 동의",
-                style: TextStyle(
-                    fontSize: 11,
-                    color: kBodyTextColor,
-                    fontWeight: FontWeight.bold),
-              ),
-              HorizontalSpacing(of: 110),
               SizedBox(
                 height: 30,
                 child: IconButton(
@@ -408,32 +427,36 @@ class _SignUpFormState extends State<SignUpForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              HorizontalSpacing(of: 0.5),
-              Center(
-                child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        _value3 = !_value3;
-                      });
-                    },
-                    child: _value3
-                        ? CircleAvatar(
-                            backgroundColor: kActiveColor,
-                            radius: 6,
-                          )
-                        : CircleAvatar(
-                            backgroundColor: Colors.grey[300],
-                            radius: 6,
-                          )),
+              Row(
+                children: [
+                  HorizontalSpacing(of: 5),
+                  Center(
+                    child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _value3 = !_value3;
+                          });
+                        },
+                        child: _value3
+                            ? CircleAvatar(
+                                backgroundColor: kActiveColor,
+                                radius: 7,
+                              )
+                            : CircleAvatar(
+                                backgroundColor: Colors.grey[300],
+                                radius: 7,
+                              )),
+                  ),
+                  HorizontalSpacing(of: 8),
+                  Text(
+                    "마케팅 정보 수신 동의 (선택)",
+                    style: TextStyle(
+                        fontSize: 13,
+                        color: kBodyTextColor,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
-              Text(
-                "마케팅 정보 수신 동의 (선택)",
-                style: TextStyle(
-                    fontSize: 11,
-                    color: kBodyTextColor,
-                    fontWeight: FontWeight.bold),
-              ),
-              HorizontalSpacing(of: 81),
               SizedBox(
                 height: 30,
                 child: IconButton(

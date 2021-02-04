@@ -25,7 +25,13 @@ class _OrderButtonState extends State<OrderButton> {
         minWidth: SizeConfig.screenWidth - 130,
         child: Row(
           children: [
-            SvgPicture.asset("assets/icons/logo.svg"),
+            SizedBox(
+                width: 20,
+                height: 20,
+                child: SvgPicture.asset(
+                  "assets/icons/logo.svg",
+                  fit: BoxFit.fitWidth,
+                )),
             HorizontalSpacing(
               of: 5,
             ),
@@ -33,8 +39,9 @@ class _OrderButtonState extends State<OrderButton> {
               "주문하기",
               style: TextStyle(
                   fontFamily: "NotoSans",
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  height: 1.6),
             ),
           ],
         ),

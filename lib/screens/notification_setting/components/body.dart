@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:hellocock/constants.dart';
@@ -9,7 +12,8 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  bool _value = true;
+  bool _value = false;
+  final FirebaseMessaging fcm = FirebaseMessaging();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,7 @@ class _BodyState extends State<Body> {
           Text(
             "  푸시 알림",
             style: TextStyle(
-                fontSize: 15,
+                fontSize: 19,
                 fontWeight: FontWeight.bold,
                 color: kBodyTextColor),
           ),
@@ -33,16 +37,16 @@ class _BodyState extends State<Body> {
           Container(
               margin: EdgeInsets.zero,
               width: 325,
-              height: 52,
+              height: 60,
               decoration: BoxDecoration(
                 color: Color(0xFFF4FBFE),
                 borderRadius: BorderRadius.all(Radius.circular(7)),
               ),
               child: Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+                padding: const EdgeInsets.only(left: 17, right: 15, top: 10),
                 child: Text(
-                  "헬로콕 앱에서 보내는 알림을 받을 수 있습니다. 알림에 관한 설정은 \n'설정 앱>알림>헬로콕'에서 변경할 수 있습니다.",
-                  style: TextStyle(fontSize: 10, height: 1.5),
+                  "헬로콕 앱에서 보내는 알림을 받을 수 있습니다. 알림에 관한 설정은 '설정 앱>알림>헬로콕'에서 변경할 수 있습니다.",
+                  style: TextStyle(fontSize: 14, height: 1.5),
                 ),
               )),
           VerticalSpacing(of: 30),
@@ -53,15 +57,15 @@ class _BodyState extends State<Body> {
               Text(
                 "  광고성 정보 수신 동의",
                 style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 19,
                     fontWeight: FontWeight.bold,
                     color: kBodyTextColor),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child: AdvancedSwitch(
-                  width: 32.0,
-                  height: 16.0,
+                  width: 48.0,
+                  height: 24.0,
                   value: _value,
                   onChanged: (bool newValue) {
                     setState(() {
@@ -77,16 +81,16 @@ class _BodyState extends State<Body> {
           Container(
               margin: EdgeInsets.zero,
               width: 325,
-              height: 39,
+              height: 40,
               decoration: BoxDecoration(
                 color: Color(0xFFF4FBFE),
                 borderRadius: BorderRadius.all(Radius.circular(7)),
               ),
               child: Padding(
-                padding: const EdgeInsets.only(left: 15, right: 20, top: 11),
+                padding: const EdgeInsets.only(left: 14, right: 20, top: 11),
                 child: Text(
                   "신규 서비스 및 고객 맞춤 혜택 정보를 받을 수 있습니다.",
-                  style: TextStyle(fontSize: 10, height: 1.5),
+                  style: TextStyle(fontSize: 14, height: 1.5),
                 ),
               )),
         ],

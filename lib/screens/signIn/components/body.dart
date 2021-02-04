@@ -79,24 +79,30 @@ class _BodyState extends State<Body> {
                 InkWell(
                     child: Text(
                   "이메일 찾기",
-                  style: TextStyle(fontSize: 12),
+                  style: TextStyle(
+                      fontSize: 14,
+                      color: kBodyTextColor,
+                      fontWeight: FontWeight.w500),
                 )),
                 SizedBox(
                   height: 10,
                   child: VerticalDivider(
-                    thickness: 1,
+                    thickness: 1.2,
                     color: kBodyTextColor,
                   ),
                 ),
                 InkWell(
                     child: Text(
                   "비밀번호 찾기",
-                  style: TextStyle(fontSize: 12),
+                  style: TextStyle(
+                      fontSize: 14,
+                      color: kBodyTextColor,
+                      fontWeight: FontWeight.w500),
                 )),
                 SizedBox(
                   height: 10,
                   child: VerticalDivider(
-                    thickness: 1,
+                    thickness: 1.2,
                     color: kBodyTextColor,
                   ),
                 ),
@@ -109,68 +115,68 @@ class _BodyState extends State<Body> {
                         ),
                     child: Text(
                       "회원가입",
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: kBodyTextColor,
+                          fontWeight: FontWeight.w500),
                     )),
               ],
             ),
             VerticalSpacing(
               of: 100,
             ),
-            SizedBox(
-              height: 40,
-              child: SocialButton(
-                  text: "Apple 계정으로 로그인",
-                  image: "assets/icons/apple.svg",
-                  press: () {
-                    _googlelogin().then((user) {
-                      FirebaseFirestore.instance
-                          .collection("user")
-                          .doc(user.email)
-                          .set({
-                        'name': user.displayName,
-                        'email': user.email,
-                        'address1': "",
-                        'address2': "",
-                        'phone': "",
-                        'certificated': false
-                      });
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BottomNavBar(user)));
+
+            SocialButton(
+                text: "Apple 계정으로 로그인",
+                image: "assets/icons/apple.svg",
+                press: () {
+                  _googlelogin().then((user) {
+                    FirebaseFirestore.instance
+                        .collection("user")
+                        .doc(user.email)
+                        .set({
+                      'name': user.displayName,
+                      'email': user.email,
+                      'address1': "",
+                      'address2': "",
+                      'phone': "",
+                      'certificated': false
                     });
-                  },
-                  color: Colors.white,
-                  textcolor: Colors.grey),
-            ),
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BottomNavBar(user)));
+                  });
+                },
+                color: Colors.white,
+                textcolor: Colors.grey),
+
             VerticalSpacing(),
-            SizedBox(
-              height: 40,
-              child: SocialButton(
-                  text: "구글 이메일로 로그인",
-                  image: "assets/icons/google.svg",
-                  press: () {
-                    _googlelogin().then((user) {
-                      FirebaseFirestore.instance
-                          .collection("user")
-                          .doc(user.email)
-                          .set({
-                        'name': user.displayName,
-                        'email': user.email,
-                        'address1': "",
-                        'address2': "",
-                        'phone': "",
-                        'certificated': false
-                      });
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BottomNavBar(user)));
+            SocialButton(
+                text: "구글 이메일로 로그인",
+                image: "assets/icons/google.svg",
+                press: () {
+                  _googlelogin().then((user) {
+                    FirebaseFirestore.instance
+                        .collection("user")
+                        .doc(user.email)
+                        .set({
+                      'name': user.displayName,
+                      'email': user.email,
+                      'address1': "",
+                      'address2': "",
+                      'phone': "",
+                      'certificated': false
                     });
-                  },
-                  color: Colors.white,
-                  textcolor: Colors.grey),
-            ),
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BottomNavBar(user)));
+                  });
+                },
+                color: Colors.white,
+                textcolor: Colors.grey),
+
             VerticalSpacing(),
             // SizedBox(
             //   height: 40,

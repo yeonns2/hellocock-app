@@ -19,7 +19,7 @@ class Body extends StatelessWidget {
                 children: [
                   Text(
                     "   1. 수집하는 개인정보의 항목, 수집∙이용목적 및 수집방법",
-                    style: TextStyle(fontSize: 11),
+                    style: TextStyle(fontSize: 13),
                   ),
                   VerticalSpacing(),
                   Container(
@@ -53,13 +53,13 @@ class Body extends StatelessWidget {
 휴대폰 본인 인증 또는 카카오 계정으로 로그인 기능을 통해 회원가입할 
 수 있는 절차를 마련합니다.
                           ''',
-                          style: TextStyle(fontSize: 9, height: 1.4),
+                          style: TextStyle(fontSize: 11, height: 1.4),
                         ),
                       )),
                   VerticalSpacing(of: 20),
                   Text(
                     "   2. 개인정보의 제3자 제공",
-                    style: TextStyle(fontSize: 11),
+                    style: TextStyle(fontSize: 13),
                   ),
                   VerticalSpacing(),
                   Container(
@@ -99,13 +99,13 @@ class Body extends StatelessWidget {
 있는 경우
                           
                           ''',
-                          style: TextStyle(fontSize: 9, height: 1.4),
+                          style: TextStyle(fontSize: 11, height: 1.4),
                         ),
                       )),
                   VerticalSpacing(of: 20),
                   Text(
                     "   3. 개인정보의 보유 및 이용기간",
-                    style: TextStyle(fontSize: 11),
+                    style: TextStyle(fontSize: 13),
                   ),
                   VerticalSpacing(),
                   Container(
@@ -143,13 +143,13 @@ class Body extends StatelessWidget {
 - 계정 활성화: 이용자의 요청에 의거 계정 활성화 조치 실시
                           
                           ''',
-                          style: TextStyle(fontSize: 9, height: 1.4),
+                          style: TextStyle(fontSize: 11, height: 1.4),
                         ),
                       )),
                   VerticalSpacing(of: 20),
                   Text(
                     "   4. 개인정보의 파기절차 및 파기방법",
-                    style: TextStyle(fontSize: 11),
+                    style: TextStyle(fontSize: 13),
                   ),
                   VerticalSpacing(),
                   Container(
@@ -182,13 +182,13 @@ DB로 옮겨져(종이의 경우 별도의 서류함) 내부 방침 및 기타 �
 파기합니다.
                           
                           ''',
-                          style: TextStyle(fontSize: 9, height: 1.4),
+                          style: TextStyle(fontSize: 11, height: 1.4),
                         ),
                       )),
                   VerticalSpacing(of: 20),
                   Text(
                     "   6. 이용자 및 법정대리인의 권리와 그 행사방법",
-                    style: TextStyle(fontSize: 11),
+                    style: TextStyle(fontSize: 13),
                   ),
                   VerticalSpacing(),
                   Container(
@@ -270,13 +270,13 @@ DB로 옮겨져(종이의 경우 별도의 서류함) 내부 방침 및 기타 �
 침해하지 않을 의무도 가지고 있으며, 자신의 개인정보가 유출되지 않도록 
 조심해야 합니다.
                           ''',
-                          style: TextStyle(fontSize: 9, height: 1.4),
+                          style: TextStyle(fontSize: 11, height: 1.4),
                         ),
                       )),
                   VerticalSpacing(of: 20),
                   Text(
                     "   7. 개인정보 자동 수집 장치의 설치·운영 및 그 거부에 관한 사항",
-                    style: TextStyle(fontSize: 11),
+                    style: TextStyle(fontSize: 13),
                   ),
                   VerticalSpacing(),
                   Container(
@@ -321,13 +321,13 @@ DB로 옮겨져(종이의 경우 별도의 서류함) 내부 방침 및 기타 �
 단, 쿠키의 저장을 거부할 경우 일부 서비스가 원활하게 작동하지 않을 수 
 있습니다.
                           ''',
-                          style: TextStyle(fontSize: 9, height: 1.4),
+                          style: TextStyle(fontSize: 11, height: 1.4),
                         ),
                       )),
                   VerticalSpacing(of: 20),
                   Text(
                     "   8. 개인정보보호 책임자",
-                    style: TextStyle(fontSize: 11),
+                    style: TextStyle(fontSize: 13),
                   ),
                   VerticalSpacing(),
                   Container(
@@ -350,13 +350,13 @@ DB로 옮겨져(종이의 경우 별도의 서류함) 내부 방침 및 기타 �
 관련 민원을 위 개인정보 보호책임자에게 신고하실 수 있습니다. 
 헬로콕은 이용자의 신고사항에 대해 신속하게 충분한 답변을 드릴 것입니다.
                           ''',
-                          style: TextStyle(fontSize: 9, height: 1.4),
+                          style: TextStyle(fontSize: 11, height: 1.4),
                         ),
                       )),
                   VerticalSpacing(of: 20),
                   Text(
                     "   9. 개인정보의 안전성 확보조치",
-                    style: TextStyle(fontSize: 11),
+                    style: TextStyle(fontSize: 13),
                   ),
                   VerticalSpacing(),
                   Container(
@@ -399,13 +399,13 @@ DB로 옮겨져(종이의 경우 별도의 서류함) 내부 방침 및 기타 �
 보안성을 확보하기 위한 가능한 모든 기술적, 관리적 보호조치를 취하고 
 있습니다.
                           ''',
-                          style: TextStyle(fontSize: 9, height: 1.4),
+                          style: TextStyle(fontSize: 11, height: 1.4),
                         ),
                       )),
                   VerticalSpacing(of: 20),
                   Text(
                     "   10.개인정보처리방침 변경",
-                    style: TextStyle(fontSize: 11),
+                    style: TextStyle(fontSize: 13),
                   ),
                   VerticalSpacing(),
                   Container(
@@ -433,7 +433,7 @@ DB로 옮겨져(종이의 경우 별도의 서류함) 내부 방침 및 기타 �
 
 변경 개인정보 처리방침 시행일자: 2020. 11. 15.
                           ''',
-                          style: TextStyle(fontSize: 9, height: 1.4),
+                          style: TextStyle(fontSize: 11, height: 1.4),
                         ),
                       )),
                 ],

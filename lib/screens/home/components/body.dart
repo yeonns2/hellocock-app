@@ -34,7 +34,7 @@ class _BodyState extends State<Body> {
               padding: const EdgeInsets.only(top: 20, left: 25.0),
               child: Text(
                 "오늘의 추천 칵테일   >",
-                style: TextStyle(fontSize: 17, color: kBodyTextColor),
+                style: TextStyle(fontSize: 19, color: kBodyTextColor),
               ),
             ),
             VerticalSpacing(),
@@ -69,7 +69,7 @@ class _BodyState extends State<Body> {
               padding: const EdgeInsets.only(left: 25.0),
               child: Text(
                 "이번주 새로운 칵테일   >",
-                style: TextStyle(fontSize: 17, color: kBodyTextColor),
+                style: TextStyle(fontSize: 19, color: kBodyTextColor),
               ),
             ),
             VerticalSpacing(),
@@ -121,7 +121,7 @@ class _BodyState extends State<Body> {
         ),
         child: Container(
           width: 285,
-          height: 296,
+          height: 285,
           padding: EdgeInsets.only(top: 25, left: 20, right: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -129,28 +129,28 @@ class _BodyState extends State<Body> {
             children: [
               Center(
                 child:
-                    SizedBox(width: 150, child: Image.asset(document['image'])),
+                    SizedBox(width: 160, child: Image.asset(document['image'])),
               ),
               VerticalSpacing(of: 15),
               Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.all(5),
                 child: Text(
                   document['name_eng'],
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: 22,
                       color: kBodyTextColor),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.all(5),
                 child: Text(
                   document['explain'].replaceAll('\\n', '\n'),
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 13,
+                      fontSize: 15,
                       color: kBodyTextColor,
-                      height: 1.6),
+                      height: 1.5),
                 ),
               ),
             ],

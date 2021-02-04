@@ -43,177 +43,175 @@ class _BodyState extends State<Body> {
                         blurRadius: 4.0,
                       ),
                     ]),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    HorizontalSpacing(
-                      of: 30,
-                    ),
-                    widget.user.photoURL == null
-                        ? CircleAvatar(
-                            radius: 56,
-                            backgroundColor: kActiveColor,
-                            child: CircleAvatar(
-                                radius: 55.5,
+                child: Padding(
+                  padding: const EdgeInsets.all(35.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      widget.user.photoURL == null
+                          ? CircleAvatar(
+                              radius: 56,
+                              backgroundColor: kActiveColor,
+                              child: CircleAvatar(
+                                  radius: 55.5,
+                                  foregroundColor: Colors.white,
+                                  backgroundColor: Colors.white,
+                                  child: SvgPicture.asset(
+                                      "assets/images/hello.svg")))
+                          : CircleAvatar(
+                              radius: 56,
+                              backgroundColor: kActiveColor,
+                              child: CircleAvatar(
+                                radius: 55,
                                 foregroundColor: Colors.white,
                                 backgroundColor: Colors.white,
-                                child: SvgPicture.asset(
-                                    "assets/images/hello.svg")))
-                        : CircleAvatar(
-                            radius: 56,
-                            backgroundColor: kActiveColor,
-                            child: CircleAvatar(
-                              radius: 55,
-                              foregroundColor: Colors.white,
-                              backgroundColor: Colors.white,
-                              backgroundImage: NetworkImage(
-                                widget.user.photoURL,
+                                backgroundImage: NetworkImage(
+                                  widget.user.photoURL,
+                                ),
                               ),
                             ),
-                          ),
-                    HorizontalSpacing(
-                      of: 40,
-                    ),
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          VerticalSpacing(
-                            of: 30,
-                          ),
-                          Text(
-                            "헬로 " + widget.user.displayName,
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: kBodyTextColor),
-                          ),
-                          VerticalSpacing(),
-                          Text(widget.user.email,
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            VerticalSpacing(
+                              of: 30,
+                            ),
+                            Text(
+                              "헬로 " + widget.user.displayName,
                               style: TextStyle(
-                                color: kBodyTextColor,
-                                fontSize: 14,
-                              )),
-                          VerticalSpacing(
-                            of: 30,
-                          ),
-                          Row(
-                            children: [
-                              StreamBuilder<QuerySnapshot>(
-                                  stream: FirebaseFirestore.instance
-                                      .collection("cocktail")
-                                      .where('likedUsers',
-                                          arrayContains: widget.user.email)
-                                      .snapshots(),
-                                  builder: (context, snapshot) {
-                                    var like = 0;
-                                    if (snapshot.hasData) {
-                                      like = snapshot.data.docs.length;
-                                    }
-                                    return Column(
-                                      children: [
-                                        Text("좋아요",
-                                            style: TextStyle(
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.bold,
-                                                color: kActiveColor)),
-                                        VerticalSpacing(),
-                                        InkWell(
-                                          onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  LikeListScreen(widget.user),
-                                            ),
-                                          ),
-                                          child: Text('$like',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: kBodyTextColor),
+                            ),
+                            VerticalSpacing(),
+                            Text(widget.user.email,
+                                style: TextStyle(
+                                  color: kBodyTextColor,
+                                  fontSize: 16,
+                                )),
+                            VerticalSpacing(
+                              of: 30,
+                            ),
+                            Row(
+                              children: [
+                                StreamBuilder<QuerySnapshot>(
+                                    stream: FirebaseFirestore.instance
+                                        .collection("cocktail")
+                                        .where('likedUsers',
+                                            arrayContains: widget.user.email)
+                                        .snapshots(),
+                                    builder: (context, snapshot) {
+                                      var like = 0;
+                                      if (snapshot.hasData) {
+                                        like = snapshot.data.docs.length;
+                                      }
+                                      return Column(
+                                        children: [
+                                          Text("좋아요",
                                               style: TextStyle(
-                                                  fontSize: 17,
+                                                  fontSize: 13,
                                                   fontWeight: FontWeight.bold,
-                                                  color: kBodyTextColor)),
-                                        ),
-                                      ],
-                                    );
-                                  }),
-                              HorizontalSpacing(),
-                              StreamBuilder<QuerySnapshot>(
-                                  stream: FirebaseFirestore.instance
-                                      .collection("cocktail")
-                                      .where('likedUser',
-                                          isEqualTo: widget.user.email)
-                                      .snapshots(),
-                                  builder: (context, snapshot) {
-                                    var like = 0;
-                                    if (snapshot.hasData) {
-                                      like = snapshot.data.docs.length;
-                                    }
-                                    return Column(
-                                      children: [
-                                        Text("주문 내역",
-                                            style: TextStyle(
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.bold,
-                                                color: kActiveColor)),
-                                        VerticalSpacing(),
-                                        InkWell(
-                                          onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  OrderListScreen(widget.user),
+                                                  color: kActiveColor)),
+                                          VerticalSpacing(),
+                                          InkWell(
+                                            onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LikeListScreen(widget.user),
+                                              ),
                                             ),
+                                            child: Text('$like',
+                                                style: TextStyle(
+                                                    fontSize: 19,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: kBodyTextColor)),
                                           ),
-                                          child: Text("$like",
+                                        ],
+                                      );
+                                    }),
+                                HorizontalSpacing(),
+                                StreamBuilder<QuerySnapshot>(
+                                    stream: FirebaseFirestore.instance
+                                        .collection("cocktail")
+                                        .where('likedUser',
+                                            isEqualTo: widget.user.email)
+                                        .snapshots(),
+                                    builder: (context, snapshot) {
+                                      var like = 0;
+                                      if (snapshot.hasData) {
+                                        like = snapshot.data.docs.length;
+                                      }
+                                      return Column(
+                                        children: [
+                                          Text("주문 내역",
                                               style: TextStyle(
-                                                  fontSize: 17,
+                                                  fontSize: 13,
                                                   fontWeight: FontWeight.bold,
-                                                  color: kBodyTextColor)),
-                                        ),
-                                      ],
-                                    );
-                                  }),
-                              HorizontalSpacing(),
-                              StreamBuilder<QuerySnapshot>(
-                                  stream: FirebaseFirestore.instance
-                                      .collection("cocktail")
-                                      .where('likedUser',
-                                          isEqualTo: widget.user.email)
-                                      .snapshots(),
-                                  builder: (context, snapshot) {
-                                    var like = 0;
-                                    if (snapshot.hasData) {
-                                      like = snapshot.data.docs.length;
-                                    }
-                                    return Column(
-                                      children: [
-                                        Text("수령대기",
-                                            style: TextStyle(
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.bold,
-                                                color: kActiveColor)),
-                                        VerticalSpacing(),
-                                        InkWell(
-                                          onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  PickUpListScreen(),
+                                                  color: kActiveColor)),
+                                          VerticalSpacing(),
+                                          InkWell(
+                                            onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    OrderListScreen(
+                                                        widget.user),
+                                              ),
                                             ),
+                                            child: Text("$like",
+                                                style: TextStyle(
+                                                    fontSize: 19,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: kBodyTextColor)),
                                           ),
-                                          child: Text("$like",
+                                        ],
+                                      );
+                                    }),
+                                HorizontalSpacing(),
+                                StreamBuilder<QuerySnapshot>(
+                                    stream: FirebaseFirestore.instance
+                                        .collection("cocktail")
+                                        .where('likedUser',
+                                            isEqualTo: widget.user.email)
+                                        .snapshots(),
+                                    builder: (context, snapshot) {
+                                      var like = 0;
+                                      if (snapshot.hasData) {
+                                        like = snapshot.data.docs.length;
+                                      }
+                                      return Column(
+                                        children: [
+                                          Text("수령대기",
                                               style: TextStyle(
-                                                  fontSize: 17,
+                                                  fontSize: 13,
                                                   fontWeight: FontWeight.bold,
-                                                  color: kBodyTextColor)),
-                                        ),
-                                      ],
-                                    );
-                                  }),
-                            ],
-                          )
-                        ]),
-                  ],
+                                                  color: kActiveColor)),
+                                          VerticalSpacing(),
+                                          InkWell(
+                                            onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PickUpListScreen(),
+                                              ),
+                                            ),
+                                            child: Text("$like",
+                                                style: TextStyle(
+                                                    fontSize: 19,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: kBodyTextColor)),
+                                          ),
+                                        ],
+                                      );
+                                    }),
+                              ],
+                            )
+                          ]),
+                    ],
+                  ),
                 ),
               ),
             ],

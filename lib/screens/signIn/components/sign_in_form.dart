@@ -35,8 +35,10 @@ class _SignInFormState extends State<SignInForm> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "이메일",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: kBodyTextColor),
             ),
           ),
           TextFormField(
@@ -60,8 +62,10 @@ class _SignInFormState extends State<SignInForm> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "비밀번호",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: kBodyTextColor),
             ),
           ),
           TextFormField(

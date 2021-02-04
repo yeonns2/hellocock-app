@@ -70,7 +70,7 @@ class _BodyState extends State<Body> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: kBodyTextColor,
-                    fontSize: 16,
+                    fontSize: 18,
                   ),
                 ),
               ),
@@ -81,12 +81,15 @@ class _BodyState extends State<Body> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(widget.cocktaildocument['name'] + " 칵테일 키트",
                         style: TextStyle(
-                          fontSize: 13,
+                          fontSize: 15,
                         )),
                   ),
                   Text(
                     _totalprice.toString() + "원",
-                    style: TextStyle(color: Colors.red),
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 15,
+                    ),
                   )
                 ],
               ),
@@ -113,15 +116,30 @@ class _BodyState extends State<Body> {
                                 });
                               }
                             },
-                            child: Text('-')),
-                        Text("$count"),
+                            child: Text(
+                              '-',
+                              style: TextStyle(
+                                fontSize: 15,
+                              ),
+                            )),
+                        Text(
+                          "$count",
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
                         FlatButton(
                             onPressed: () {
                               _totalprice += widget.cocktaildocument['price'];
                               count += 1;
                               setState(() {});
                             },
-                            child: Text('+')),
+                            child: Text(
+                              '+',
+                              style: TextStyle(
+                                fontSize: 15,
+                              ),
+                            )),
                       ]),
                 ),
               ),
@@ -148,14 +166,16 @@ class _BodyState extends State<Body> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: kBodyTextColor,
-                        fontSize: 16,
+                        fontSize: 18,
                       ),
                     ),
                   ),
                   Text(
                     widget.user.displayName,
                     style: TextStyle(
-                        color: kBodyTextColor, fontWeight: FontWeight.w500),
+                        color: kBodyTextColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15),
                   )
                 ],
               ),
@@ -170,7 +190,7 @@ class _BodyState extends State<Body> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: kBodyTextColor,
-                        fontSize: 16,
+                        fontSize: 18,
                       ),
                     ),
                   ),
@@ -223,14 +243,16 @@ class _BodyState extends State<Body> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: kBodyTextColor,
-                        fontSize: 16,
+                        fontSize: 18,
                       ),
                     ),
                   ),
                   Text(
                     widget.storedocument['name'],
                     style: TextStyle(
-                        color: kBodyTextColor, fontWeight: FontWeight.w500),
+                        color: kBodyTextColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15),
                   )
                 ],
               ),

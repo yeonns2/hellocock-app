@@ -60,7 +60,7 @@ class _StorePanelState extends State<StorePanel> {
                 "픽업 장소 및 시간",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
+                    fontSize: 20.0,
                     color: kActiveColor),
               ),
             ),
@@ -111,15 +111,24 @@ class _StorePanelState extends State<StorePanel> {
               children: [
                 Text(
                   document['name'],
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                  style: TextStyle(
+                      color: kBodyTextColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15),
                 ),
                 Text(
                   document['explain'].replaceAll("\\n", "\n"),
-                  style: TextStyle(fontSize: 11),
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: kBodyTextColor,
+                  ),
                 ),
                 Text(
                   document['opening_hours'],
-                  style: TextStyle(fontSize: 11),
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: kBodyTextColor,
+                  ),
                 ),
                 Row(
                   children: [
@@ -130,9 +139,10 @@ class _StorePanelState extends State<StorePanel> {
                         child: Text(
                           "안주보기",
                           style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[700]),
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: kBodyTextColor,
+                          ),
                         ),
                         onPressed: () => Navigator.push(
                           context,
@@ -154,9 +164,10 @@ class _StorePanelState extends State<StorePanel> {
                         child: Text(
                           "수령하기",
                           style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[700]),
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: kBodyTextColor,
+                          ),
                         ),
                         onPressed: () => Navigator.push(
                           context,

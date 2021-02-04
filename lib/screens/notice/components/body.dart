@@ -34,7 +34,7 @@ class Body extends StatelessWidget {
                     title: Text(
                       "   베타서비스 기간 안내",
                       style: TextStyle(
-                          fontSize: 13.0,
+                          fontSize: 15.0,
                           color: kBodyTextColor,
                           fontWeight: FontWeight.w600),
                     ),
@@ -51,7 +51,7 @@ class Body extends StatelessWidget {
 위 연락처로 연락 주시면 항상 귀기울여 듣고 제품과 서비스 개선에 반영하겠습니다.
 ''',
                           style: TextStyle(
-                              fontSize: 12, color: kBodyTextColor, height: 1.5),
+                              fontSize: 14, color: kBodyTextColor, height: 1.5),
                         ),
                       ),
                     ],
@@ -63,7 +63,7 @@ class Body extends StatelessWidget {
                     title: Text(
                       "   베타서비스 기념 모히또하우스 이벤트",
                       style: TextStyle(
-                        fontSize: 13.0,
+                        fontSize: 15.0,
                         color: kBodyTextColor,
                         fontWeight: FontWeight.w600,
                       ),
@@ -85,7 +85,7 @@ class Body extends StatelessWidget {
 *모히또하우스는 100% 초대제와 예약제로 운영됩니다.
 ''',
                           style: TextStyle(
-                              fontSize: 12, color: kBodyTextColor, height: 1.5),
+                              fontSize: 14, color: kBodyTextColor, height: 1.5),
                         ),
                       ),
                     ],

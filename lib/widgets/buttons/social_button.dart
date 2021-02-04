@@ -23,6 +23,7 @@ class SocialButton extends StatelessWidget {
         EdgeInsets.symmetric(vertical: getProportionateScreenWidth(13));
     return SizedBox(
       width: double.infinity,
+      height: 45,
       child: RaisedButton(
           padding: verticalPadding,
           elevation: 3,
