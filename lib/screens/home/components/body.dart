@@ -29,12 +29,13 @@ class _BodyState extends State<Body> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            VerticalSpacing(of: 10),
+            VerticalSpacing(of: 30),
             Padding(
-              padding: const EdgeInsets.only(top: 20, left: 25.0),
+              padding: const EdgeInsets.only(left: 25.0),
               child: Text(
                 "오늘의 추천 칵테일   >",
-                style: TextStyle(fontSize: 19, color: kBodyTextColor),
+                style: TextStyle(fontSize: 15, color: kBodyTextColor),
+                textScaleFactor: 1,
               ),
             ),
             VerticalSpacing(),
@@ -64,17 +65,18 @@ class _BodyState extends State<Body> {
                     );
                   }),
             ),
-            VerticalSpacing(of: 40),
+            VerticalSpacing(of: 30),
             Padding(
               padding: const EdgeInsets.only(left: 25.0),
               child: Text(
                 "이번주 새로운 칵테일   >",
-                style: TextStyle(fontSize: 19, color: kBodyTextColor),
+                style: TextStyle(fontSize: 15, color: kBodyTextColor),
+                textScaleFactor: 1,
               ),
             ),
             VerticalSpacing(),
             Container(
-              height: 324,
+              height: 320,
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('cocktail')
@@ -129,16 +131,17 @@ class _BodyState extends State<Body> {
             children: [
               Center(
                 child:
-                    SizedBox(width: 160, child: Image.asset(document['image'])),
+                    SizedBox(width: 150, child: Image.asset(document['image'])),
               ),
               VerticalSpacing(of: 15),
               Padding(
                 padding: const EdgeInsets.all(5),
                 child: Text(
                   document['name_eng'],
+                  textScaleFactor: 1,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 22,
+                      fontSize: 21,
                       color: kBodyTextColor),
                 ),
               ),
@@ -146,9 +149,10 @@ class _BodyState extends State<Body> {
                 padding: const EdgeInsets.all(5),
                 child: Text(
                   document['explain'].replaceAll('\\n', '\n'),
+                  textScaleFactor: 1,
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 15,
+                      fontSize: 13,
                       color: kBodyTextColor,
                       height: 1.5),
                 ),

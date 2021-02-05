@@ -32,7 +32,7 @@ final TextStyle kH3TextStyle = kH2TextStyle.copyWith(
 
 final TextStyle kHeadlineTextStyle = TextStyle(
   fontFamily: 'NotoSans',
-  fontSize: 20,
+  fontSize: 17,
   color: kMainColor,
   fontWeight: FontWeight.bold,
 );
@@ -45,7 +45,7 @@ final TextStyle kSubHeadTextStyle = TextStyle(
 );
 
 final TextStyle kBodyTextStyle = TextStyle(
-  fontSize: 18,
+  fontSize: 15,
   color: kBodyTextColor,
   //height: 1.5,
 );
@@ -59,7 +59,7 @@ final TextStyle kSecondaryBodyTextStyle = TextStyle(
 
 final TextStyle kButtonTextStyle = TextStyle(
   color: Colors.white,
-  fontSize: 15,
+  fontSize: 13,
   fontWeight: FontWeight.bold,
 );
 

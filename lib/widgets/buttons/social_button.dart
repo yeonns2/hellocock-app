@@ -35,8 +35,9 @@ class SocialButton extends StatelessWidget {
               SvgPicture.asset(image),
               Text(
                 text,
+                textScaleFactor: 1,
                 style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 13,
                     color: textcolor,
                     fontWeight: FontWeight.bold),
               )

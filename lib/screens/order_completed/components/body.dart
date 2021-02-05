@@ -21,93 +21,111 @@ class Body extends StatelessWidget {
                 height: 50,
               ),
               Text(
-                " 주문 완료",
+                "주문 완료",
+                textScaleFactor: 1,
                 style: TextStyle(
                     color: kActiveColor,
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
               VerticalSpacing(
-                of: 20,
+                of: 50,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  " 칵테일 키트",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: kBodyTextColor,
-                    fontSize: 15,
-                  ),
+              Text(
+                "블루 하와이 칵테일 키트",
+                textScaleFactor: 1,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: kBodyTextColor,
+                  fontSize: 15,
                 ),
               ),
-              VerticalSpacing(),
+              VerticalSpacing(of: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "주문일시",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: kBodyTextColor,
-                        fontSize: 14,
-                      ),
+                  Text(
+                    "주문일시",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: kBodyTextColor,
+                      fontSize: 14,
                     ),
                   ),
-                  Text("2020/12/05 pm19:45")
+                  Text(
+                    "2020/12/05 pm19:45",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                      color: kBodyTextColor,
+                    ),
+                  )
                 ],
               ),
+              VerticalSpacing(of: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "주문번호",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: kBodyTextColor,
-                        fontSize: 14,
-                      ),
+                  Text(
+                    "주문번호",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: kBodyTextColor,
+                      fontSize: 14,
                     ),
                   ),
-                  Text("B0D051135")
+                  Text(
+                    "B0D051135",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                      color: kBodyTextColor,
+                    ),
+                  )
                 ],
               ),
+              VerticalSpacing(of: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "픽업장소",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: kBodyTextColor,
-                        fontSize: 14,
-                      ),
+                  Text(
+                    "픽업장소",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: kBodyTextColor,
+                      fontSize: 14,
                     ),
                   ),
-                  Text("궤도에 오르다")
+                  Text(
+                    "궤도에 오르다",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                      color: kBodyTextColor,
+                    ),
+                  )
                 ],
               ),
+              VerticalSpacing(of: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "픽업시간",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: kBodyTextColor,
-                        fontSize: 14,
-                      ),
+                  Text(
+                    "픽업시간",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: kBodyTextColor,
+                      fontSize: 14,
                     ),
                   ),
-                  Text("pm20:30")
+                  Text(
+                    "pm20:30",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                      color: kBodyTextColor,
+                    ),
+                  )
                 ],
               ),
               VerticalSpacing(
@@ -115,20 +133,21 @@ class Body extends StatelessWidget {
               ),
               Center(
                 child: Container(
-                  width: 275,
-                  height: 189,
+                  width: 300,
+                  height: 200,
                   child: Image.asset("assets/images/identification.png"),
                 ),
               ),
-              VerticalSpacing(of: 20),
+              VerticalSpacing(of: 10),
               Center(
                 child: Text(
                   "가게가 혼잡할 수 있으니 신분증을 미리 준비해주세요!",
-                  style: TextStyle(fontSize: 12),
+                  textScaleFactor: 1,
+                  style: TextStyle(fontSize: 12, color: kBodyTextColor),
                 ),
               ),
               VerticalSpacing(
-                of: 170,
+                of: 120,
               ),
               PrimaryButton(
                 press: () => Navigator.push(
@@ -138,6 +157,9 @@ class Body extends StatelessWidget {
                   ),
                 ),
                 text: "홈으로 돌아가기",
+              ),
+              VerticalSpacing(
+                of: 30,
               ),
             ],
           ),

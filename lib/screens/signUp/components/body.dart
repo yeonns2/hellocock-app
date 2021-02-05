@@ -26,6 +26,7 @@ class _BodyState extends State<Body> {
               ),
               Text(
                 "회원가입",
+                textScaleFactor: 1,
                 style: TextStyle(
                     color: kActiveColor,
                     fontSize: 20,

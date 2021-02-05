@@ -22,7 +22,7 @@ class Body extends StatelessWidget {
                   VerticalSpacing(),
                   Container(
                       width: 325,
-                      height: 5850,
+                      height: 7050,
                       decoration: BoxDecoration(
                         color: Color(0xFFF4FBFE),
                         borderRadius: BorderRadius.all(Radius.circular(7)),
@@ -300,7 +300,8 @@ class Body extends StatelessWidget {
 
 ② "몰"과 “이용자”간에 제기된 전자상거래 소송에는 한국법을 적용합니다.
                           ''',
-                          style: TextStyle(fontSize: 11, height: 1.4),
+                          textScaleFactor: 1,
+                          style: TextStyle(fontSize: 10, height: 1.4),
                         ),
                       )),
                   VerticalSpacing(of: 10),

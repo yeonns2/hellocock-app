@@ -54,38 +54,38 @@ class _BodyState extends State<Body> {
                 height: 50,
               ),
               Text(
-                " 주문내역 확인",
+                "주문내역 확인",
+                textScaleFactor: 1,
                 style: TextStyle(
                     color: kActiveColor,
-                    fontSize: 20,
+                    fontSize: 19,
                     fontWeight: FontWeight.bold),
               ),
               VerticalSpacing(
                 of: 30,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "칵테일",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: kBodyTextColor,
-                    fontSize: 18,
-                  ),
+              Text(
+                "칵테일",
+                textScaleFactor: 1,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: kBodyTextColor,
+                  fontSize: 17,
                 ),
               ),
+              VerticalSpacing(of: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(widget.cocktaildocument['name'] + " 칵테일 키트",
-                        style: TextStyle(
-                          fontSize: 15,
-                        )),
-                  ),
+                  Text(widget.cocktaildocument['name'] + " 칵테일 키트",
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                        color: kBodyTextColor,
+                        fontSize: 15,
+                      )),
                   Text(
                     _totalprice.toString() + "원",
+                    textScaleFactor: 1,
                     style: TextStyle(
                       color: Colors.red,
                       fontSize: 15,
@@ -119,13 +119,13 @@ class _BodyState extends State<Body> {
                             child: Text(
                               '-',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 13,
                               ),
                             )),
                         Text(
                           "$count",
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 13,
                           ),
                         ),
                         FlatButton(
@@ -137,7 +137,7 @@ class _BodyState extends State<Body> {
                             child: Text(
                               '+',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 13,
                               ),
                             )),
                       ]),
@@ -147,10 +147,11 @@ class _BodyState extends State<Body> {
                 of: 30,
               ),
               Text(
-                " 수령 정보 확인",
+                "수령 정보 확인",
+                textScaleFactor: 1,
                 style: TextStyle(
                     color: kActiveColor,
-                    fontSize: 20,
+                    fontSize: 19,
                     fontWeight: FontWeight.bold),
               ),
               VerticalSpacing(
@@ -159,23 +160,22 @@ class _BodyState extends State<Body> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "수령인",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: kBodyTextColor,
-                        fontSize: 18,
-                      ),
+                  Text(
+                    "수령인",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: kBodyTextColor,
+                      fontSize: 15,
                     ),
                   ),
                   Text(
                     widget.user.displayName,
+                    textScaleFactor: 1,
                     style: TextStyle(
                         color: kBodyTextColor,
                         fontWeight: FontWeight.w500,
-                        fontSize: 15),
+                        fontSize: 13),
                   )
                 ],
               ),
@@ -183,19 +183,17 @@ class _BodyState extends State<Body> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "수령시간",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: kBodyTextColor,
-                        fontSize: 18,
-                      ),
+                  Text(
+                    "수령시간",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: kBodyTextColor,
+                      fontSize: 15,
                     ),
                   ),
                   Container(
-                    width: 97,
+                    width: 90,
                     height: 35,
                     decoration: BoxDecoration(
                       boxShadow: [
@@ -219,7 +217,10 @@ class _BodyState extends State<Body> {
                                     value: value,
                                     child: Text(
                                       value,
-                                      style: TextStyle(fontSize: 13),
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: kBodyTextColor,
+                                      ),
                                     )))
                                 .toList(),
                             onChanged: (value) {
@@ -236,23 +237,22 @@ class _BodyState extends State<Body> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "수령지",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: kBodyTextColor,
-                        fontSize: 18,
-                      ),
+                  Text(
+                    "수령지",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: kBodyTextColor,
+                      fontSize: 15,
                     ),
                   ),
                   Text(
                     widget.storedocument['name'],
+                    textScaleFactor: 1,
                     style: TextStyle(
                         color: kBodyTextColor,
                         fontWeight: FontWeight.w500,
-                        fontSize: 15),
+                        fontSize: 13),
                   )
                 ],
               ),

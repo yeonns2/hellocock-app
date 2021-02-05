@@ -30,20 +30,19 @@ class _BodyState extends State<Body> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                VerticalSpacing(of: 30),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "이름",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: kBodyTextColor),
-                  ),
+                VerticalSpacing(of: 40),
+                Text(
+                  "이름",
+                  textScaleFactor: 1,
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: kBodyTextColor),
                 ),
+                VerticalSpacing(),
                 TextFormField(
                   initialValue: widget.user.displayName,
-                  style: TextStyle(fontSize: 15),
+                  style: TextStyle(fontSize: 13, color: kBodyTextColor),
                   keyboardType: TextInputType.name,
                   readOnly: true,
                   cursorColor: kActiveColor,
@@ -54,20 +53,19 @@ class _BodyState extends State<Body> {
                         borderRadius: BorderRadius.circular(32.0)),
                   ),
                 ),
-                VerticalSpacing(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "이메일",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: kBodyTextColor),
-                  ),
+                VerticalSpacing(of: 20),
+                Text(
+                  "이메일",
+                  textScaleFactor: 1,
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: kBodyTextColor),
                 ),
+                VerticalSpacing(),
                 TextFormField(
                   initialValue: widget.user.email,
-                  style: TextStyle(fontSize: 15),
+                  style: TextStyle(fontSize: 13, color: kBodyTextColor),
                   keyboardType: TextInputType.name,
                   readOnly: true,
                   cursorColor: kActiveColor,
@@ -103,16 +101,15 @@ class _BodyState extends State<Body> {
                 VerticalSpacing(
                   of: 30,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "핸드폰",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: kBodyTextColor),
-                  ),
+                Text(
+                  "핸드폰",
+                  textScaleFactor: 1,
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: kBodyTextColor),
                 ),
+                VerticalSpacing(),
                 StreamBuilder<DocumentSnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection("user")
@@ -138,16 +135,15 @@ class _BodyState extends State<Body> {
                 VerticalSpacing(
                   of: 30,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "주소",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: kBodyTextColor),
-                  ),
+                Text(
+                  "주소",
+                  textScaleFactor: 1,
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: kBodyTextColor),
                 ),
+                VerticalSpacing(),
                 StreamBuilder<DocumentSnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection("user")

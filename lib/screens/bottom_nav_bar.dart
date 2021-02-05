@@ -82,8 +82,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                       ),
                       child: Text(
                         "- 공지사항",
+                        textScaleFactor: 1,
                         style: TextStyle(
-                            fontSize: 17,
+                            fontSize: 15,
                             color: kBodyTextColor,
                             fontWeight: FontWeight.w500),
                       ),
@@ -98,8 +99,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                       ),
                       child: Text(
                         "- 1:1 문의 ",
+                        textScaleFactor: 1,
                         style: TextStyle(
-                            fontSize: 17,
+                            fontSize: 15,
                             color: kBodyTextColor,
                             fontWeight: FontWeight.w500),
                       ),
@@ -114,8 +116,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                       ),
                       child: Text(
                         "- 이용방법",
+                        textScaleFactor: 1,
                         style: TextStyle(
-                            fontSize: 17,
+                            fontSize: 15,
                             color: kBodyTextColor,
                             fontWeight: FontWeight.w500),
                       ),

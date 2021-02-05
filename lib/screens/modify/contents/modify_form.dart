@@ -36,20 +36,20 @@ class _ModifyFormState extends State<ModifyForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "이름",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: kBodyTextColor),
-            ),
+          VerticalSpacing(of: 10),
+          Text(
+            "이름",
+            textScaleFactor: 1,
+            style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: kBodyTextColor),
           ),
+          VerticalSpacing(),
           TextFormField(
             controller:
                 new TextEditingController(text: widget.document['name']),
-            style: TextStyle(fontSize: 15),
+            style: TextStyle(fontSize: 13, color: kBodyTextColor),
             keyboardType: TextInputType.name,
             readOnly: true,
             cursorColor: kActiveColor,
@@ -60,19 +60,20 @@ class _ModifyFormState extends State<ModifyForm> {
                   OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
             ),
           ),
-          VerticalSpacing(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "이메일",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: kBodyTextColor),
-            ),
+          VerticalSpacing(
+            of: 20,
           ),
+          Text(
+            "이메일",
+            textScaleFactor: 1,
+            style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: kBodyTextColor),
+          ),
+          VerticalSpacing(),
           TextFormField(
-            style: TextStyle(fontSize: 15),
+            style: TextStyle(fontSize: 13, color: kBodyTextColor),
             keyboardType: TextInputType.emailAddress,
             autofocus: false,
             readOnly: true,
@@ -92,7 +93,9 @@ class _ModifyFormState extends State<ModifyForm> {
               return null;
             },
           ),
-          VerticalSpacing(),
+          VerticalSpacing(
+            of: 30,
+          ),
           // Padding(
           //   padding: const EdgeInsets.all(8.0),
           //   child: Text(
@@ -155,16 +158,15 @@ class _ModifyFormState extends State<ModifyForm> {
           //   obscureText: true,
           // ),
           // VerticalSpacing(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "핸드폰 번호",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: kBodyTextColor),
-            ),
+          Text(
+            "핸드폰 번호",
+            textScaleFactor: 1,
+            style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: kBodyTextColor),
           ),
+          VerticalSpacing(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -172,7 +174,7 @@ class _ModifyFormState extends State<ModifyForm> {
                 width: 280,
                 child: TextFormField(
                   controller: _phone,
-                  style: TextStyle(fontSize: 15),
+                  style: TextStyle(fontSize: 13, color: kBodyTextColor),
                   cursorColor: kActiveColor,
                   decoration: InputDecoration(
                     fillColor: Colors.grey[100],
@@ -213,24 +215,23 @@ class _ModifyFormState extends State<ModifyForm> {
           //         width: 95, child: PrimaryButton(text: "인증완료", press: () {}))
           //   ],
           // ),
-          VerticalSpacing(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "주소",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: kBodyTextColor),
-            ),
+          VerticalSpacing(of: 30),
+          Text(
+            "주소",
+            textScaleFactor: 1,
+            style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: kBodyTextColor),
           ),
+          VerticalSpacing(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
                 width: 183,
                 child: TextFormField(
-                  style: TextStyle(fontSize: 15),
+                  style: TextStyle(fontSize: 13, color: kBodyTextColor),
                   controller:
                       TextEditingController(text: this.model?.address ?? ""),
                   onTap: () async {
@@ -273,7 +274,7 @@ class _ModifyFormState extends State<ModifyForm> {
           VerticalSpacing(),
           TextFormField(
             controller: _address2,
-            style: TextStyle(fontSize: 15),
+            style: TextStyle(fontSize: 13, color: kBodyTextColor),
             cursorColor: kActiveColor,
             decoration: InputDecoration(
               fillColor: Colors.grey[100],

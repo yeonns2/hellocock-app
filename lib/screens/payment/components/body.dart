@@ -35,9 +35,10 @@ class _BodyState extends State<Body> {
               ),
               Text(
                 "결제 진행",
+                textScaleFactor: 1,
                 style: TextStyle(
                     color: kActiveColor,
-                    fontSize: 21,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
               VerticalSpacing(
@@ -45,6 +46,7 @@ class _BodyState extends State<Body> {
               ),
               Text(
                 "결제금액",
+                textScaleFactor: 1,
                 style: TextStyle(fontSize: 15),
               ),
               VerticalSpacing(
@@ -54,6 +56,7 @@ class _BodyState extends State<Body> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("주문금액",
+                      textScaleFactor: 1,
                       style: TextStyle(
                         fontSize: 13,
                       )),
@@ -73,23 +76,27 @@ class _BodyState extends State<Body> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("총 결제 금액",
+                      textScaleFactor: 1,
                       style:
                           TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
                   Text(
                     widget._totalprice.toString() + "원",
+                    textScaleFactor: 1,
                     style: TextStyle(
                         color: Colors.red, fontWeight: FontWeight.bold),
                   )
                 ],
               ),
-              VerticalSpacing(of: 50),
+              VerticalSpacing(of: 30),
               Text(
                 "위 내용을 확인하였으며 결제에 동의합니다.",
+                textScaleFactor: 1,
                 style: TextStyle(fontSize: 11),
               ),
               VerticalSpacing(of: 50),
               Text(
                 "결제수단 선택",
+                textScaleFactor: 1,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: kBodyTextColor,
@@ -97,7 +104,7 @@ class _BodyState extends State<Body> {
                 ),
               ),
               VerticalSpacing(
-                of: 20,
+                of: 10,
               ),
               VerticalSpacing(),
               Row(
@@ -111,6 +118,7 @@ class _BodyState extends State<Body> {
                         child: Center(
                           child: Text(
                             "네이버 페이",
+                            textScaleFactor: 1,
                             style: TextStyle(
                                 fontSize: 13,
                                 color: kActiveColor,
@@ -127,6 +135,7 @@ class _BodyState extends State<Body> {
                         child: Center(
                           child: Text(
                             "토스 페이",
+                            textScaleFactor: 1,
                             style: TextStyle(
                                 fontSize: 13,
                                 color: kActiveColor,
@@ -148,6 +157,7 @@ class _BodyState extends State<Body> {
                         child: Center(
                           child: Text(
                             "페이코 페이",
+                            textScaleFactor: 1,
                             style: TextStyle(
                                 fontSize: 13,
                                 color: kActiveColor,
@@ -164,6 +174,7 @@ class _BodyState extends State<Body> {
                         child: Center(
                           child: Text(
                             "카카오 페이",
+                            textScaleFactor: 1,
                             style: TextStyle(
                                 fontSize: 13,
                                 color: kActiveColor,
@@ -185,6 +196,7 @@ class _BodyState extends State<Body> {
                         child: Center(
                           child: Text(
                             "핸드폰 결제",
+                            textScaleFactor: 1,
                             style: TextStyle(
                                 fontSize: 13,
                                 color: kActiveColor,
@@ -201,6 +213,7 @@ class _BodyState extends State<Body> {
                         child: Center(
                           child: Text(
                             "무통장 입금",
+                            textScaleFactor: 1,
                             style: TextStyle(
                                 fontSize: 13,
                                 color: kActiveColor,

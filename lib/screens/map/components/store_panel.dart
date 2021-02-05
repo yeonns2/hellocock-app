@@ -51,140 +51,152 @@ class _StorePanelState extends State<StorePanel> {
                 ),
               ],
             ),
-            VerticalSpacing(
-              of: 20,
-            ),
             Padding(
-              padding: const EdgeInsets.only(top: 10, left: 40.0),
+              padding: const EdgeInsets.only(top: 30, left: 30.0, bottom: 20),
               child: Text(
                 "픽업 장소 및 시간",
+                textScaleFactor: 1,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
+                    fontSize: 18.0,
                     color: kActiveColor),
               ),
             ),
-            SingleChildScrollView(
-              child: Container(
-                width: SizeConfig.screenWidth,
-                height: SizeConfig.screenHeight + 1000,
-                child: StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance
-                        .collection('store')
-                        .orderBy('name')
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: CircularProgressIndicator(
-                            valueColor:
-                                new AlwaysStoppedAnimation<Color>(kActiveColor),
-                          ),
-                        );
-                      }
-                      return ListView.builder(
-                        itemCount: snapshot.data.docs.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return _buildListStore(snapshot.data.docs[index]);
-                        },
+            Container(
+              width: SizeConfig.screenWidth,
+              height: SizeConfig.screenHeight,
+              child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('store')
+                      .orderBy('name')
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              new AlwaysStoppedAnimation<Color>(kActiveColor),
+                        ),
                       );
-                    }),
-              ),
+                    }
+                    return ListView.builder(
+                      itemCount: snapshot.data.docs.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return _buildListStore(snapshot.data.docs[index]);
+                      },
+                    );
+                  }),
             ),
           ],
         ));
   }
 
   Widget _buildListStore(DocumentSnapshot document) {
-    return SizedBox(
-      height: 170,
-      child: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(document['image']),
-            HorizontalSpacing(),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  document['name'],
-                  style: TextStyle(
-                      color: kBodyTextColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15),
-                ),
-                Text(
-                  document['explain'].replaceAll("\\n", "\n"),
-                  style: TextStyle(
-                    fontSize: 13,
+    return Padding(
+      padding: const EdgeInsets.only(left: 25, bottom: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+              child: Image.asset(
+                document['image'],
+                height: 130,
+                width: 130,
+                fit: BoxFit.fitWidth,
+              )),
+          HorizontalSpacing(),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                document['name'],
+                textScaleFactor: 1,
+                style: TextStyle(
                     color: kBodyTextColor,
-                  ),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    height: 1.5),
+              ),
+              VerticalSpacing(of: 5),
+              Text(
+                document['explain'].replaceAll("\\n", "\n"),
+                textScaleFactor: 1,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: kBodyTextColor,
                 ),
-                Text(
-                  document['opening_hours'],
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: kBodyTextColor,
-                  ),
+              ),
+              VerticalSpacing(of: 5),
+              Text(
+                document['opening_hours'],
+                textScaleFactor: 1,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: kBodyTextColor,
                 ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 80,
-                      height: 30,
-                      child: RaisedButton(
-                        child: Text(
-                          "안주보기",
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            color: kBodyTextColor,
-                          ),
+              ),
+              VerticalSpacing(
+                of: 5,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 80,
+                    height: 30,
+                    child: RaisedButton(
+                      child: Text(
+                        "안주보기",
+                        textScaleFactor: 1,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: kBodyTextColor,
                         ),
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MenuScreen(
-                                widget.user, widget.cocktaildocument, document),
-                          ),
-                        ),
-                        color: Colors.white,
                       ),
-                    ),
-                    HorizontalSpacing(
-                      of: 10,
-                    ),
-                    SizedBox(
-                      width: 80,
-                      height: 30,
-                      child: RaisedButton(
-                        child: Text(
-                          "수령하기",
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            color: kBodyTextColor,
-                          ),
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MenuScreen(
+                              widget.user, widget.cocktaildocument, document),
                         ),
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => OrderScreen(
-                                widget.user, widget.cocktaildocument, document),
-                          ),
-                        ),
-                        color: Colors.white,
                       ),
+                      color: Colors.white,
                     ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
+                  ),
+                  HorizontalSpacing(
+                    of: 10,
+                  ),
+                  SizedBox(
+                    width: 80,
+                    height: 30,
+                    child: RaisedButton(
+                      child: Text(
+                        "수령하기",
+                        textScaleFactor: 1,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: kBodyTextColor,
+                        ),
+                      ),
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OrderScreen(
+                              widget.user, widget.cocktaildocument, document),
+                        ),
+                      ),
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+              VerticalSpacing(of: 5),
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -48,16 +48,15 @@ class _SignUpFormState extends State<SignUpForm> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "이름",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: kBodyTextColor),
-            ),
+          Text(
+            " 이름",
+            textScaleFactor: 1,
+            style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: kBodyTextColor),
           ),
+          VerticalSpacing(),
           TextFormField(
             style: TextStyle(fontSize: 15),
             keyboardType: TextInputType.name,
@@ -77,17 +76,16 @@ class _SignUpFormState extends State<SignUpForm> {
               return null;
             },
           ),
-          VerticalSpacing(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "이메일",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: kBodyTextColor),
-            ),
+          VerticalSpacing(of: 20),
+          Text(
+            " 이메일",
+            textScaleFactor: 1,
+            style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: kBodyTextColor),
           ),
+          VerticalSpacing(),
           TextFormField(
             style: TextStyle(fontSize: 15),
             keyboardType: TextInputType.emailAddress,
@@ -107,17 +105,16 @@ class _SignUpFormState extends State<SignUpForm> {
               return null;
             },
           ),
-          VerticalSpacing(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "비밀번호",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: kBodyTextColor),
-            ),
+          VerticalSpacing(of: 20),
+          Text(
+            " 비밀번호",
+            textScaleFactor: 1,
+            style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: kBodyTextColor),
           ),
+          VerticalSpacing(),
           TextFormField(
             style: TextStyle(fontSize: 15),
             cursorColor: kActiveColor,
@@ -142,17 +139,16 @@ class _SignUpFormState extends State<SignUpForm> {
             },
             obscureText: true,
           ),
-          VerticalSpacing(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "비밀번호 확인",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: kBodyTextColor),
-            ),
+          VerticalSpacing(of: 20),
+          Text(
+            " 비밀번호 확인",
+            textScaleFactor: 1,
+            style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: kBodyTextColor),
           ),
+          VerticalSpacing(),
           TextFormField(
             style: TextStyle(fontSize: 15),
             cursorColor: kActiveColor,
@@ -179,17 +175,16 @@ class _SignUpFormState extends State<SignUpForm> {
             },
             obscureText: true,
           ),
-          VerticalSpacing(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "핸드폰 번호",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: kBodyTextColor),
-            ),
+          VerticalSpacing(of: 20),
+          Text(
+            " 핸드폰 번호",
+            textScaleFactor: 1,
+            style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: kBodyTextColor),
           ),
+          VerticalSpacing(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -217,7 +212,7 @@ class _SignUpFormState extends State<SignUpForm> {
               //     width: 95, child: PrimaryButton(text: "인증요청", press: () {}))
             ],
           ),
-          VerticalSpacing(),
+          VerticalSpacing(of: 20),
           // Row(
           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
           //   children: [
@@ -245,22 +240,21 @@ class _SignUpFormState extends State<SignUpForm> {
           //   ],
           // ),
           // VerticalSpacing(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "주소",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: kBodyTextColor),
-            ),
+          Text(
+            " 주소",
+            textScaleFactor: 1,
+            style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: kBodyTextColor),
           ),
-          //Text(this.model?.address ?? ""),
+
+          VerticalSpacing(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: 183,
+                width: 185,
                 child: TextFormField(
                   style: TextStyle(fontSize: 15),
                   controller:
@@ -289,7 +283,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 ),
               ),
               SizedBox(
-                width: 94,
+                width: 95,
                 child: PrimaryButton(
                   text: "우편번호",
                   press: () async {
@@ -352,10 +346,11 @@ class _SignUpFormState extends State<SignUpForm> {
                   HorizontalSpacing(of: 8),
                   Text(
                     "이용약관 동의",
+                    textScaleFactor: 1,
                     style: TextStyle(
-                        fontSize: 13,
+                        fontSize: 12,
                         color: kBodyTextColor,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
@@ -401,10 +396,11 @@ class _SignUpFormState extends State<SignUpForm> {
                   HorizontalSpacing(of: 8),
                   Text(
                     "개인정보 취급방침 동의",
+                    textScaleFactor: 1,
                     style: TextStyle(
-                        fontSize: 13,
+                        fontSize: 12,
                         color: kBodyTextColor,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
@@ -450,10 +446,11 @@ class _SignUpFormState extends State<SignUpForm> {
                   HorizontalSpacing(of: 8),
                   Text(
                     "마케팅 정보 수신 동의 (선택)",
+                    textScaleFactor: 1,
                     style: TextStyle(
-                        fontSize: 13,
+                        fontSize: 12,
                         color: kBodyTextColor,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.w600),
                   ),
                 ],
               ),

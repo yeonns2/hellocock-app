@@ -25,22 +25,22 @@ class _SignInFormState extends State<SignInForm> {
         children: <Widget>[
           Text(
             "로그인",
+            textScaleFactor: 1,
             style: TextStyle(
                 color: kActiveColor, fontSize: 20, fontWeight: FontWeight.bold),
           ),
           VerticalSpacing(
             of: 30,
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "이메일",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: kBodyTextColor),
-            ),
+          Text(
+            " 이메일",
+            textScaleFactor: 1,
+            style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: kBodyTextColor),
           ),
+          VerticalSpacing(),
           TextFormField(
             controller: _emailController,
             style: TextStyle(fontSize: 15),
@@ -57,17 +57,16 @@ class _SignInFormState extends State<SignInForm> {
               return null;
             },
           ),
-          VerticalSpacing(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "비밀번호",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: kBodyTextColor),
-            ),
+          VerticalSpacing(of: 20),
+          Text(
+            " 비밀번호",
+            textScaleFactor: 1,
+            style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: kBodyTextColor),
           ),
+          VerticalSpacing(),
           TextFormField(
             controller: _passwordController,
             style: TextStyle(fontSize: 15),
@@ -84,7 +83,7 @@ class _SignInFormState extends State<SignInForm> {
             obscureText: true,
           ),
           VerticalSpacing(
-            of: 40,
+            of: 20,
           ),
           PrimaryButton(
             text: "로그인",

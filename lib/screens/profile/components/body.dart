@@ -44,7 +44,7 @@ class _BodyState extends State<Body> {
                       ),
                     ]),
                 child: Padding(
-                  padding: const EdgeInsets.all(35.0),
+                  padding: const EdgeInsets.all(40.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,16 +80,18 @@ class _BodyState extends State<Body> {
                             ),
                             Text(
                               "헬로 " + widget.user.displayName,
+                              textScaleFactor: 1,
                               style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.bold,
                                   color: kBodyTextColor),
                             ),
                             VerticalSpacing(),
                             Text(widget.user.email,
+                                textScaleFactor: 1,
                                 style: TextStyle(
                                   color: kBodyTextColor,
-                                  fontSize: 16,
+                                  fontSize: 14,
                                 )),
                             VerticalSpacing(
                               of: 30,
@@ -110,8 +112,9 @@ class _BodyState extends State<Body> {
                                       return Column(
                                         children: [
                                           Text("좋아요",
+                                              textScaleFactor: 1,
                                               style: TextStyle(
-                                                  fontSize: 13,
+                                                  fontSize: 11,
                                                   fontWeight: FontWeight.bold,
                                                   color: kActiveColor)),
                                           VerticalSpacing(),
@@ -124,8 +127,9 @@ class _BodyState extends State<Body> {
                                               ),
                                             ),
                                             child: Text('$like',
+                                                textScaleFactor: 1,
                                                 style: TextStyle(
-                                                    fontSize: 19,
+                                                    fontSize: 17,
                                                     fontWeight: FontWeight.bold,
                                                     color: kBodyTextColor)),
                                           ),
@@ -147,8 +151,9 @@ class _BodyState extends State<Body> {
                                       return Column(
                                         children: [
                                           Text("주문 내역",
+                                              textScaleFactor: 1,
                                               style: TextStyle(
-                                                  fontSize: 13,
+                                                  fontSize: 11,
                                                   fontWeight: FontWeight.bold,
                                                   color: kActiveColor)),
                                           VerticalSpacing(),
@@ -162,8 +167,9 @@ class _BodyState extends State<Body> {
                                               ),
                                             ),
                                             child: Text("$like",
+                                                textScaleFactor: 1,
                                                 style: TextStyle(
-                                                    fontSize: 19,
+                                                    fontSize: 17,
                                                     fontWeight: FontWeight.bold,
                                                     color: kBodyTextColor)),
                                           ),
@@ -185,8 +191,9 @@ class _BodyState extends State<Body> {
                                       return Column(
                                         children: [
                                           Text("수령대기",
+                                              textScaleFactor: 1,
                                               style: TextStyle(
-                                                  fontSize: 13,
+                                                  fontSize: 11,
                                                   fontWeight: FontWeight.bold,
                                                   color: kActiveColor)),
                                           VerticalSpacing(),
@@ -199,8 +206,9 @@ class _BodyState extends State<Body> {
                                               ),
                                             ),
                                             child: Text("$like",
+                                                textScaleFactor: 1,
                                                 style: TextStyle(
-                                                    fontSize: 19,
+                                                    fontSize: 17,
                                                     fontWeight: FontWeight.bold,
                                                     color: kBodyTextColor)),
                                           ),
@@ -232,7 +240,11 @@ class _BodyState extends State<Body> {
                   ),
                   child: Text(
                     "회원정보 관리",
-                    style: TextStyle(fontSize: 17, color: kBodyTextColor),
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: kBodyTextColor,
+                        fontWeight: FontWeight.w500),
                   ),
                 ),
                 VerticalSpacing(of: 20),
@@ -245,7 +257,11 @@ class _BodyState extends State<Body> {
                   ),
                   child: Text(
                     "성인인증",
-                    style: TextStyle(fontSize: 17, color: kBodyTextColor),
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: kBodyTextColor,
+                        fontWeight: FontWeight.w500),
                   ),
                 ),
                 VerticalSpacing(of: 20),
@@ -259,7 +275,11 @@ class _BodyState extends State<Body> {
                   ),
                   child: Text(
                     "알림설정",
-                    style: TextStyle(fontSize: 17, color: kBodyTextColor),
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: kBodyTextColor,
+                        fontWeight: FontWeight.w500),
                   ),
                 ),
                 VerticalSpacing(of: 20),
@@ -285,7 +305,11 @@ class _BodyState extends State<Body> {
                   ),
                   child: Text(
                     "개인정보처리방침",
-                    style: TextStyle(fontSize: 17, color: kBodyTextColor),
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: kBodyTextColor,
+                        fontWeight: FontWeight.w500),
                   ),
                 ),
                 VerticalSpacing(of: 20),
@@ -298,7 +322,11 @@ class _BodyState extends State<Body> {
                   ),
                   child: Text(
                     "서비스이용약관",
-                    style: TextStyle(fontSize: 17, color: kBodyTextColor),
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: kBodyTextColor,
+                        fontWeight: FontWeight.w500),
                   ),
                 ),
                 VerticalSpacing(of: 20),

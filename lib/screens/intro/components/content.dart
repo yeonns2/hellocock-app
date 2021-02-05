@@ -34,11 +34,13 @@ class OnboardContent extends StatelessWidget {
           ),
           Text(
             title,
+            textScaleFactor: 1,
             style: kHeadlineTextStyle,
           ),
           VerticalSpacing(of: 20),
           Text(
             text,
+            textScaleFactor: 1,
             style: kBodyTextStyle,
             textAlign: TextAlign.center,
           ),

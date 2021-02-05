@@ -24,8 +24,9 @@ class _BodyState extends State<Body> {
           VerticalSpacing(of: 20),
           Text(
             "헬로콕의 칵테일 키트에는\n칵테일을 만들기 위한 보드카 등\n미니어쳐 주류가 들어있기 때문에\n키트 구입을 위해서는 \n성인인증이 필수입니다.",
+            textScaleFactor: 1,
             style: TextStyle(
-                fontSize: 22,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: widget.document['certificated']
                     ? kBodyTextColor
@@ -38,8 +39,9 @@ class _BodyState extends State<Body> {
             widget.document['certificated']
                 ? widget.user.displayName + "님은 성인인증을 완료하였습니다."
                 : widget.user.displayName + "님은 성인인증이 필요합니다.",
+            textScaleFactor: 1,
             style: TextStyle(
-                fontSize: 22,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: widget.document['certificated']
                     ? kActiveColor
@@ -50,7 +52,14 @@ class _BodyState extends State<Body> {
           ),
           widget.document['certificated']
               ? VerticalSpacing()
-              : PrimaryButton(text: "성인인증 하러가기", press: () {}),
+              : PrimaryButton(
+                  text: "성인인증 하러가기",
+                  press: () {
+                    FirebaseFirestore.instance
+                        .collection("user")
+                        .doc(widget.user.email)
+                        .update({'certificated': true});
+                  }),
         ],
       ),
     );

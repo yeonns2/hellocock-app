@@ -17,6 +17,7 @@ class Body extends StatelessWidget {
             child: Center(
                 child: Text(
               "이용 방법",
+              textScaleFactor: 1,
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             )),
@@ -28,8 +29,9 @@ class Body extends StatelessWidget {
             children: [
               Text(
                 "step1.  먹고 싶은 칵테일 고르기",
+                textScaleFactor: 1,
                 style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: kActiveColor,
                     height: 1.5),
@@ -37,8 +39,9 @@ class Body extends StatelessWidget {
               VerticalSpacing(of: 30),
               Text(
                 "step2.  음식점과 시간 선택하고\n               칵테일 주문하기",
+                textScaleFactor: 1,
                 style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: kActiveColor,
                     height: 1.5),
@@ -46,8 +49,9 @@ class Body extends StatelessWidget {
               VerticalSpacing(of: 30),
               Text(
                 "step3.  집가는 길 음식점에서\n               칵테일 키트 데려가기",
+                textScaleFactor: 1,
                 style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: kActiveColor,
                     height: 1.5),
@@ -55,8 +59,9 @@ class Body extends StatelessWidget {
               VerticalSpacing(of: 30),
               Text(
                 "step4.  칵테일 만들기",
+                textScaleFactor: 1,
                 style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: kActiveColor,
                     height: 1.5),
@@ -64,8 +69,9 @@ class Body extends StatelessWidget {
               VerticalSpacing(of: 30),
               Text(
                 "step5.  직접 만든 칵테일과\n               함께 하루 마무리하기",
+                textScaleFactor: 1,
                 style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: kActiveColor,
                     height: 1.5),

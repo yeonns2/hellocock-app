@@ -43,8 +43,9 @@ class Body extends StatelessWidget {
                     if (snapshot.data.docs.length == 0) {
                       return Text(
                         "좋아하는 칵테일이 없어요..",
+                        textScaleFactor: 1,
                         style: TextStyle(
-                            fontSize: 22,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: kBodyTextColor,
                             height: 1.5),
@@ -88,9 +89,10 @@ class Body extends StatelessWidget {
             VerticalSpacing(),
             Text(
               document['name_eng'],
+              textScaleFactor: 1,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 15,
+                  fontSize: 14,
                   color: kBodyTextColor),
             ),
             VerticalSpacing(

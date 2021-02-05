@@ -19,6 +19,7 @@ class Body extends StatelessWidget {
               child: Center(
                   child: Text(
                 "공지사항",
+                textScaleFactor: 1,
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               )),
@@ -33,26 +34,26 @@ class Body extends StatelessWidget {
                     trailing: SvgPicture.asset("assets/icons/arrow_down.svg"),
                     title: Text(
                       "베타서비스 기간 안내",
+                      textScaleFactor: 1,
                       style: TextStyle(
-                          fontSize: 15.0,
+                          fontSize: 13.0,
                           color: kBodyTextColor,
                           fontWeight: FontWeight.w600),
                     ),
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: Text(
-                          '''반가워요!
+                      Text(
+                        '''
+반가워요!
                            
-2/15~3/20 한달 간 광진구에서 베타 서비스를  시작합니다.
+2/15~3/20 한달 간 광진구에서 베타서비스를 시작합니다.
 
 서비스 문의 / 피드백 : pinacolada@hellocock.org 
 
 위 연락처로 연락 주시면 항상 귀기울여 듣고 제품과 서비스 개선에 반영하겠습니다.
 ''',
-                          style: TextStyle(
-                              fontSize: 14, color: kBodyTextColor, height: 1.5),
-                        ),
+                        textScaleFactor: 1,
+                        style: TextStyle(
+                            fontSize: 12, color: kBodyTextColor, height: 1.5),
                       ),
                     ],
                   ),
@@ -62,17 +63,16 @@ class Body extends StatelessWidget {
                     trailing: SvgPicture.asset("assets/icons/arrow_down.svg"),
                     title: Text(
                       "베타서비스 기념 모히또하우스 이벤트",
+                      textScaleFactor: 1,
                       style: TextStyle(
-                        fontSize: 15.0,
+                        fontSize: 13.0,
                         color: kBodyTextColor,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: Text(
-                          '''
+                      Text(
+                        '''
 모히또하우스는 hellocock 이 칵테일을 직접 
 만들어먹을 수 있도록 만든 가게입니다. 
 딱 한 타임에 한 팀만 들어갈 수 있게 운영되고, 2~4인을 대상으로 편안한 분위기를 제공합니다. 
@@ -84,9 +84,9 @@ class Body extends StatelessWidget {
 
 *모히또하우스는 100% 초대제와 예약제로 운영됩니다.
 ''',
-                          style: TextStyle(
-                              fontSize: 14, color: kBodyTextColor, height: 1.5),
-                        ),
+                        textScaleFactor: 1,
+                        style: TextStyle(
+                            fontSize: 12, color: kBodyTextColor, height: 1.5),
                       ),
                     ],
                   ),

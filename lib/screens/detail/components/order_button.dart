@@ -52,9 +52,10 @@ class _OrderButtonState extends State<OrderButton> {
             ),
             Text(
               "주문하기",
+              textScaleFactor: 1,
               style: TextStyle(
                   fontFamily: "NotoSans",
-                  fontSize: 16,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold,
                   height: 1.6),
             ),

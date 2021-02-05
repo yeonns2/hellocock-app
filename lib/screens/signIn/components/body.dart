@@ -79,8 +79,9 @@ class _BodyState extends State<Body> {
                 InkWell(
                     child: Text(
                   "이메일 찾기",
+                  textScaleFactor: 1,
                   style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 12,
                       color: kBodyTextColor,
                       fontWeight: FontWeight.w500),
                 )),
@@ -94,8 +95,9 @@ class _BodyState extends State<Body> {
                 InkWell(
                     child: Text(
                   "비밀번호 찾기",
+                  textScaleFactor: 1,
                   style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 12,
                       color: kBodyTextColor,
                       fontWeight: FontWeight.w500),
                 )),
@@ -115,8 +117,9 @@ class _BodyState extends State<Body> {
                         ),
                     child: Text(
                       "회원가입",
+                      textScaleFactor: 1,
                       style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 12,
                           color: kBodyTextColor,
                           fontWeight: FontWeight.w500),
                     )),

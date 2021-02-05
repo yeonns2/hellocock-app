@@ -38,6 +38,7 @@ class PrimaryButton extends StatelessWidget {
   Text buildText(BuildContext context) {
     return Text(
       text.toUpperCase(),
+      textScaleFactor: 1,
       style: kButtonTextStyle,
     );
   }
