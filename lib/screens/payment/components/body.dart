@@ -47,7 +47,10 @@ class _BodyState extends State<Body> {
               Text(
                 "결제금액",
                 textScaleFactor: 1,
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(
+                    fontSize: 17,
+                    color: kBodyTextColor,
+                    fontWeight: FontWeight.bold),
               ),
               VerticalSpacing(
                 of: 20,
@@ -58,18 +61,21 @@ class _BodyState extends State<Body> {
                   Text("주문금액",
                       textScaleFactor: 1,
                       style: TextStyle(
-                        fontSize: 13,
-                      )),
+                          fontSize: 15,
+                          color: kBodyTextColor,
+                          fontWeight: FontWeight.w500)),
                   Text(
-                    widget._totalprice.toString(),
-                    style: TextStyle(color: Colors.red),
+                    widget._totalprice.toString() + "원",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                        color: Color(0xFFFA195A), fontWeight: FontWeight.w500),
                   )
                 ],
               ),
               VerticalSpacing(of: 5),
               Divider(
                 thickness: 1.5,
-                color: Colors.black54,
+                color: kBodyTextColor,
               ),
               VerticalSpacing(of: 5),
               Row(
@@ -77,13 +83,15 @@ class _BodyState extends State<Body> {
                 children: [
                   Text("총 결제 금액",
                       textScaleFactor: 1,
-                      style:
-                          TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: kBodyTextColor)),
                   Text(
                     widget._totalprice.toString() + "원",
                     textScaleFactor: 1,
                     style: TextStyle(
-                        color: Colors.red, fontWeight: FontWeight.bold),
+                        color: Color(0xFFFA195A), fontWeight: FontWeight.bold),
                   )
                 ],
               ),
@@ -91,7 +99,7 @@ class _BodyState extends State<Body> {
               Text(
                 "위 내용을 확인하였으며 결제에 동의합니다.",
                 textScaleFactor: 1,
-                style: TextStyle(fontSize: 11),
+                style: TextStyle(fontSize: 13),
               ),
               VerticalSpacing(of: 50),
               Text(
@@ -100,7 +108,7 @@ class _BodyState extends State<Body> {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: kBodyTextColor,
-                  fontSize: 16,
+                  fontSize: 17,
                 ),
               ),
               VerticalSpacing(

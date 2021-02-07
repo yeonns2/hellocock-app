@@ -6,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/bottom_nav_bar.dart';
 import 'package:hellocock/widgets/buttons/social_button.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../../size_config.dart';
 import '../../../screens/signUp/sign_up_screen.dart';
 import 'sign_in_form.dart';
@@ -56,6 +57,28 @@ class _BodyState extends State<Body> {
         return null;
         break;
     }
+  }
+
+  Future<User> signInWithApple() async {
+    final appleCredential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+    );
+
+    final oauthCredential = OAuthProvider("apple.com").credential(
+      idToken: appleCredential.identityToken,
+      accessToken: appleCredential.authorizationCode,
+    );
+
+    User user =
+        (await _firebaseAuth.signInWithCredential(oauthCredential)).user;
+
+    final displayName =
+        '${appleCredential.givenName} ${appleCredential.familyName}';
+    await user.updateProfile(displayName: displayName);
+    return user;
   }
 
   @override
@@ -133,7 +156,7 @@ class _BodyState extends State<Body> {
                 text: "Apple 계정으로 로그인",
                 image: "assets/icons/apple.svg",
                 press: () {
-                  _googlelogin().then((user) {
+                  signInWithApple().then((User user) {
                     FirebaseFirestore.instance
                         .collection("user")
                         .doc(user.email)
@@ -159,7 +182,7 @@ class _BodyState extends State<Body> {
                 text: "구글 이메일로 로그인",
                 image: "assets/icons/google.svg",
                 press: () {
-                  _googlelogin().then((user) {
+                  _googlelogin().then((User user) {
                     FirebaseFirestore.instance
                         .collection("user")
                         .doc(user.email)
