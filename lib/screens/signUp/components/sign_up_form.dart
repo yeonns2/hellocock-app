@@ -135,6 +135,9 @@ class _SignUpFormState extends State<SignUpForm> {
               if (value.isEmpty) {
                 return '비밀번호를 입력해주세요';
               }
+              if (value.length != 6) {
+                return "6자리 이상 입력해주세요";
+              }
               return null;
             },
             obscureText: true,
@@ -189,7 +192,7 @@ class _SignUpFormState extends State<SignUpForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: 280,
+                width: 180,
                 child: TextFormField(
                   controller: _phone,
                   style: TextStyle(fontSize: 15),
@@ -208,38 +211,51 @@ class _SignUpFormState extends State<SignUpForm> {
                   },
                 ),
               ),
-              // SizedBox(
-              //     width: 95, child: PrimaryButton(text: "인증요청", press: () {}))
+              SizedBox(
+                  width: 95,
+                  child: PrimaryButton(
+                      text: "인증요청",
+                      press: () async {
+                        await _auth.verifyPhoneNumber(
+                          phoneNumber: '+44 7123 123 456',
+                          timeout: const Duration(seconds: 60),
+                          verificationCompleted:
+                              (PhoneAuthCredential credential) {},
+                          verificationFailed: (FirebaseAuthException e) {},
+                          codeSent: (String verificationId, int resendToken) {},
+                          codeAutoRetrievalTimeout: (String verificationId) {},
+                        );
+                      }))
             ],
           ),
           VerticalSpacing(of: 20),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     SizedBox(
-          //       width: 180,
-          //       child: TextFormField(
-          //         style: TextStyle(fontSize: 13),
-          //         cursorColor: kActiveColor,
-          //         decoration: InputDecoration(
-          //           fillColor: Colors.grey[100],
-          //           contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          //           border: OutlineInputBorder(
-          //               borderRadius: BorderRadius.circular(32.0)),
-          //         ),
-          //         validator: (String value) {
-          //           if (value.isEmpty) {
-          //             return '인증 번호를 입력해주세요.';
-          //           }
-          //           return null;
-          //         },
-          //       ),
-          //     ),
-          //     SizedBox(
-          //         width: 95, child: PrimaryButton(text: "인증완료", press: () {}))
-          //   ],
-          // ),
-          // VerticalSpacing(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: 180,
+                child: TextFormField(
+                  style: TextStyle(fontSize: 13),
+                  cursorColor: kActiveColor,
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey[100],
+                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32.0)),
+                  ),
+                  validator: (String value) {
+                    if (value.isEmpty) {
+                      return '인증 번호를 입력해주세요.';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              SizedBox(
+                  width: 95, child: PrimaryButton(text: "인증완료", press: () {}))
+            ],
+          ),
+          VerticalSpacing(),
           Text(
             " 주소",
             textScaleFactor: 1,
@@ -248,7 +264,6 @@ class _SignUpFormState extends State<SignUpForm> {
                 fontWeight: FontWeight.bold,
                 color: kBodyTextColor),
           ),
-
           VerticalSpacing(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

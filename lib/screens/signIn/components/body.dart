@@ -5,6 +5,8 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/bottom_nav_bar.dart';
+import 'package:hellocock/screens/find_id/find_id_screen.dart';
+import 'package:hellocock/screens/find_password/find_pw_screen.dart';
 import 'package:hellocock/widgets/buttons/social_button.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../../size_config.dart';
@@ -100,14 +102,20 @@ class _BodyState extends State<Body> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
+                    onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FindIDScreen(),
+                          ),
+                        ),
                     child: Text(
-                  "이메일 찾기",
-                  textScaleFactor: 1,
-                  style: TextStyle(
-                      fontSize: 12,
-                      color: kBodyTextColor,
-                      fontWeight: FontWeight.w500),
-                )),
+                      "이메일 찾기",
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: kBodyTextColor,
+                          fontWeight: FontWeight.w500),
+                    )),
                 SizedBox(
                   height: 10,
                   child: VerticalDivider(
@@ -116,14 +124,20 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 InkWell(
+                    onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FindPWScreen(),
+                          ),
+                        ),
                     child: Text(
-                  "비밀번호 찾기",
-                  textScaleFactor: 1,
-                  style: TextStyle(
-                      fontSize: 12,
-                      color: kBodyTextColor,
-                      fontWeight: FontWeight.w500),
-                )),
+                      "비밀번호 찾기",
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: kBodyTextColor,
+                          fontWeight: FontWeight.w500),
+                    )),
                 SizedBox(
                   height: 10,
                   child: VerticalDivider(

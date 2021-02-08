@@ -172,7 +172,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               icon: SvgPicture.asset("assets/icons/signout.svg"),
               color: kActiveColor,
               onPressed: () async {
-                FirebaseAuth.instance.signOut();
+                await FirebaseAuth.instance.signOut();
                 _googleSignIn.signOut();
               })
       ],
