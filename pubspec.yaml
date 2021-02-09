@@ -54,6 +54,7 @@ dependencies:
   firebase_messaging: ^7.0.3
   sign_in_with_apple: ^2.5.4
   apple_sign_in: ^0.1.0
+  flutter_cupertino_date_picker: ^1.0.25
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +79,7 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/fonts/
+    - assets/images/orbit/
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -531,7 +531,7 @@ class _SignUpFormState extends State<SignUpForm> {
                                       '확인',
                                       style: TextStyle(fontSize: 13),
                                     ),
-                                    onPressed: () => Navigator.push(
+                                    onPressed: () => Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => SignInScreen(),

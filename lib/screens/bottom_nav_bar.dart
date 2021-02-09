@@ -173,7 +173,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
               color: kActiveColor,
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
-                _googleSignIn.signOut();
+                //_googleSignIn.signOut();
+                Navigator.popUntil(
+                    context, ModalRoute.withName('/firstScreen'));
               })
       ],
     );

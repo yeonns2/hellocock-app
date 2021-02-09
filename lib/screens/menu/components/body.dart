@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hellocock/screens/menu/components/menu.dart';
 import 'package:hellocock/screens/order/order_screen.dart';
 
 import '../../../constants.dart';
@@ -18,6 +20,42 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   //List<dynamic> _foodlist = List<dynamic>.from(widget.storedocument['food']);
 
+  DateTime _chosenDateTime;
+  int count = 0;
+  void _showDatePicker(context) {
+    // showCupertinoModalPopup is a built-in function of the cupertino library
+    showCupertinoModalPopup(
+        context: context,
+        builder: (_) => Container(
+              height: 270,
+              color: Color.fromARGB(255, 255, 255, 255),
+              child: Column(
+                children: [
+                  Container(
+                    height: 200,
+                    child: CupertinoDatePicker(
+                        mode: CupertinoDatePickerMode.dateAndTime,
+                        minimumDate: DateTime.now(),
+                        minuteInterval: 1,
+                        use24hFormat: true,
+                        initialDateTime: DateTime.now(),
+                        onDateTimeChanged: (val) {
+                          setState(() {
+                            _chosenDateTime = val;
+                          });
+                        }),
+                  ),
+
+                  // Close the modal
+                  CupertinoButton(
+                    child: Text('OK'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  )
+                ],
+              ),
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -27,6 +65,7 @@ class _BodyState extends State<Body> {
           child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   " 픽업 장소 및 시간",
@@ -45,8 +84,8 @@ class _BodyState extends State<Body> {
                             borderRadius: BorderRadius.all(Radius.circular(12)),
                             child: Image.asset(
                               widget.storedocument['image'],
-                              height: 131,
-                              width: 131,
+                              height: 145,
+                              width: 145,
                               fit: BoxFit.fitWidth,
                             )),
                         HorizontalSpacing(),
@@ -58,21 +97,21 @@ class _BodyState extends State<Body> {
                                 widget.storedocument['name'],
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 13,
+                                    fontSize: 15,
                                     color: kBodyTextColor),
                               ),
                               Text(
                                 widget.storedocument['explain']
                                     .replaceAll("\\n", "\n"),
                                 style: TextStyle(
-                                    fontSize: 11,
+                                    fontSize: 13,
                                     color: kBodyTextColor,
                                     height: 1.3),
                               ),
                               Text(
                                 widget.storedocument['opening_hours'],
                                 style: TextStyle(
-                                    fontSize: 11, color: kBodyTextColor),
+                                    fontSize: 13, color: kBodyTextColor),
                               ),
                               Row(
                                 children: [
@@ -81,13 +120,14 @@ class _BodyState extends State<Body> {
                                     height: 30,
                                     child: RaisedButton(
                                       child: Text(
-                                        "20:00",
+                                        // _chosenDateTime.hour.toString() +
+                                        ":", //_chosenDateTime.minute.toString(),
                                         style: TextStyle(
                                             fontSize: 11,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.grey[700]),
                                       ),
-                                      onPressed: () {},
+                                      onPressed: () => _showDatePicker(context),
                                       color: Colors.white,
                                     ),
                                   ),
@@ -133,81 +173,13 @@ class _BodyState extends State<Body> {
                       color: kActiveColor),
                 ),
                 VerticalSpacing(of: 10),
-                Container(
-                  height: 100,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(12)),
-                            child: Image.asset(
-                              'assets/images/menu.jpeg',
-                              height: 82,
-                              width: 123,
-                              fit: BoxFit.fitWidth,
-                            )),
-                        HorizontalSpacing(),
-                        Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "아트모 핫도그 단품", //widget.storedocument['food'][0].toString(),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13,
-                                    color: kBodyTextColor),
-                              ),
-                              Text(
-                                "소시지, 양파, 피클, 케첩, 머스타드",
-                                style: TextStyle(fontSize: 12),
-                              ),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 80,
-                                    height: 30,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                        right: 10.0,
-                                        top: 12,
-                                      ),
-                                      child: Text(
-                                        " 4200원",
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                            color: Color(0xFFFA195F)),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 80,
-                                    height: 30,
-                                    child: RaisedButton(
-                                      child: Text(
-                                        "수령하기",
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey[700]),
-                                      ),
-                                      onPressed: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => OrderScreen(
-                                              widget.user,
-                                              widget.cocktaildocument,
-                                              widget.storedocument),
-                                        ),
-                                      ),
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ]),
-                      ]),
+                ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: 5,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return MenuCard(widget.storedocument, index);
+                  },
                 ),
               ]),
         ),

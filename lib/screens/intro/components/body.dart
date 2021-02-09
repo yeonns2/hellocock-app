@@ -50,7 +50,7 @@ class _BodyState extends State<Body> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                   child: PrimaryButton(
-                    press: () => Navigator.push(
+                    press: () => Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => RootPage(),

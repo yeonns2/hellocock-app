@@ -64,7 +64,18 @@ class _OrderButtonState extends State<OrderButton> {
         color: kActiveColor,
         textColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-        onPressed: () {
+        onPressed: () async {
+          setState(() {
+            FirebaseFirestore.instance
+                .collection("user")
+                .doc(widget.user.email)
+                .get()
+                .then((DocumentSnapshot ds) {
+              _certificated = ds['certificated'];
+              print(_certificated);
+            });
+          });
+          await Future.delayed(Duration(seconds: 1));
           if (_certificated == false) {
             showDialog(
                 context: context,
@@ -72,34 +83,32 @@ class _OrderButtonState extends State<OrderButton> {
                 builder: (context) {
                   return CupertinoAlertDialog(
                     content: Text(
-                      "성인 인증이 필요합니다. \n성인인증을 먼저 해주세요.",
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: kBodyTextColor,
-                      ),
+                      "[주류의 통신판매에 관한 명령위임고시]에 따라 본인인증을 한 회원들에게만 판매하고 있습니다. 본인 인증을 먼저 해주세요.",
+                      style: TextStyle(fontSize: 13, height: 1.5),
                       textAlign: TextAlign.center,
                     ),
                     actions: <Widget>[
                       new CupertinoDialogAction(
                           child: Text(
-                            '성인 인증하러 가기',
-                            style: TextStyle(fontSize: 13),
+                            '다음에 할래요',
+                            style: TextStyle(fontSize: 15),
                           ),
                           onPressed: () {
-                            Navigator.push(
+                            Navigator.pop(context);
+                          }),
+                      new CupertinoDialogAction(
+                          child: Text(
+                            '본인 인증하기',
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                          onPressed: () {
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       CertificationScreen(widget.user),
                                 ));
-                          }),
-                      new CupertinoDialogAction(
-                          child: Text(
-                            '다음에 할래요',
-                            style: TextStyle(fontSize: 13),
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
                           }),
                     ],
                   );

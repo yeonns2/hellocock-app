@@ -41,50 +41,9 @@ class _FindIDScreenState extends State<FindIDScreen> {
                       fontWeight: FontWeight.bold),
                 ),
                 VerticalSpacing(of: 50),
-                !finded
-                    ? _build1(context)
-                    : FutureBuilder(
-                        future: _fetch1(),
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          //해당 부분은 data를 아직 받아 오지 못했을때 실행되는 부분을 의미한다.
-                          if (snapshot.hasData == false) {
-                            return CircularProgressIndicator();
-                          }
-                          //error가 발생하게 될 경우 반환하게 되는 부분
-                          else if (snapshot.hasError) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Error: ${snapshot.error}',
-                                style: TextStyle(fontSize: 15),
-                              ),
-                            );
-                          }
-                          // 데이터를 정상적으로 받아오게 되면 다음 부분을 실행하게 되는 것이다.
-                          else {
-                            return isemail
-                                ? _build2(context, snapshot.data.toString())
-                                : _build2(context, snapshot.data.toString());
-                          }
-                        })
+                !finded ? _build1(context) : _build2(context, email)
               ],
             )));
-  }
-
-  Future<String> _fetch1() async {
-    String email = "";
-    await Future.delayed(Duration(seconds: 2));
-    FirebaseFirestore.instance
-        .collection('user')
-        .where('name', isEqualTo: _nameController.text)
-        .where('phone', isEqualTo: _phoneController.text)
-        .get()
-        .then((value) {
-      email = value.docs[0]["email"];
-      print(email);
-    });
-    return email;
   }
 
   Widget _build1(BuildContext context) {
@@ -156,7 +115,7 @@ class _FindIDScreenState extends State<FindIDScreen> {
             height: 2.5),
       ),
       Text(
-        email,
+        myemail,
         style: TextStyle(
             color: kActiveColor, fontSize: 17, fontWeight: FontWeight.bold),
       ),

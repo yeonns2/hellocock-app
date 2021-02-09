@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:hellocock/screens/signIn/sign_in_screen.dart';
 import 'package:hellocock/screens/splash_screen.dart';
 import 'package:hellocock/theme.dart';
 
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'hellocock app',
+      routes: {
+        '/firstScreen': (_) => SignInScreen(),
+      },
       theme: buildThemeData(),
       home: SplashScreen(),
     );

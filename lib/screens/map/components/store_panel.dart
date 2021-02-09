@@ -62,31 +62,29 @@ class _StorePanelState extends State<StorePanel> {
                     color: kActiveColor),
               ),
             ),
-            Container(
-              width: SizeConfig.screenWidth,
-              height: SizeConfig.screenHeight,
-              child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection('store')
-                      .orderBy('name')
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          valueColor:
-                              new AlwaysStoppedAnimation<Color>(kActiveColor),
-                        ),
-                      );
-                    }
-                    return ListView.builder(
-                      itemCount: snapshot.data.docs.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return _buildListStore(snapshot.data.docs[index]);
-                      },
+            StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('store')
+                    .orderBy('name')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        valueColor:
+                            new AlwaysStoppedAnimation<Color>(kActiveColor),
+                      ),
                     );
-                  }),
-            ),
+                  }
+                  return ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: snapshot.data.docs.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return _buildListStore(snapshot.data.docs[index]);
+                    },
+                  );
+                }),
           ],
         ));
   }
@@ -101,8 +99,8 @@ class _StorePanelState extends State<StorePanel> {
               borderRadius: BorderRadius.all(Radius.circular(12)),
               child: Image.asset(
                 document['image'],
-                height: 130,
-                width: 130,
+                height: 145,
+                width: 145,
                 fit: BoxFit.fitWidth,
               )),
           HorizontalSpacing(),
