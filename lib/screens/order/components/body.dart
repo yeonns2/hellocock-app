@@ -2,12 +2,13 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hellocock/screens/order_completed/order_completed_screen.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:hellocock/constants.dart';
-import 'package:hellocock/screens/payment/payment_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hellocock/size_config.dart';
 
 class Body extends StatefulWidget {
@@ -24,8 +25,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final _valueList = ['18:00', '19:00', '20:00', '21:00'];
-  var _selectedValue = '18:00';
+  var _chosenDateTime;
   var _totalprice = 0;
   int count = 1;
   Completer<GoogleMapController> _controller = Completer();
@@ -35,6 +35,11 @@ class _BodyState extends State<Body> {
   void initState() {
     super.initState();
     _totalprice += widget.cocktaildocument['price'];
+    if (widget.chosenDateTime != null)
+      _chosenDateTime = widget.chosenDateTime;
+    else
+      _chosenDateTime = DateTime.now()
+          .add(Duration(minutes: 30 - DateTime.now().minute % 30));
     allMarkers.add(Marker(
         markerId: MarkerId('myMarker'),
         draggable: true,
@@ -42,6 +47,42 @@ class _BodyState extends State<Body> {
           print('Marker Tapped');
         },
         position: LatLng(37.54658, 127.07564)));
+  }
+
+  void _showDatePicker(context) {
+    // showCupertinoModalPopup is a built-in function of the cupertino library
+    showCupertinoModalPopup(
+        context: context,
+        builder: (_) => Container(
+              height: MediaQuery.of(context).size.height * 0.32,
+              color: Color.fromARGB(255, 255, 255, 255),
+              child: Column(
+                children: [
+                  Container(
+                    height: 200,
+                    child: CupertinoDatePicker(
+                        mode: CupertinoDatePickerMode.dateAndTime,
+                        minuteInterval: 30,
+                        minimumDate: DateTime.now(),
+                        maximumDate: DateTime.now().add(Duration(hours: 6)),
+                        use24hFormat: true,
+                        initialDateTime: DateTime.now().add(
+                            Duration(minutes: 30 - DateTime.now().minute % 30)),
+                        onDateTimeChanged: (val) {
+                          setState(() {
+                            _chosenDateTime = val;
+                          });
+                        }),
+                  ),
+
+                  // Close the modal
+                  CupertinoButton(
+                    child: Text('OK'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  )
+                ],
+              ),
+            ));
   }
 
   @override
@@ -198,43 +239,27 @@ class _BodyState extends State<Body> {
                       fontSize: 15,
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: 90,
-                    height: 35,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 0.2,
-                          blurRadius: 3,
-                          offset: Offset(0, 2), // changes position of shadow
-                        ),
-                      ],
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Center(
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton(
-                            iconEnabledColor: kActiveColor,
-                            value: _selectedValue,
-                            items: _valueList
-                                .map((value) => DropdownMenuItem(
-                                    value: value,
-                                    child: Text(
-                                      value,
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        color: kBodyTextColor,
-                                      ),
-                                    )))
-                                .toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedValue = value;
-                              });
-                            }),
+                    height: 30,
+                    child: RaisedButton(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SvgPicture.asset("assets/icons/arrow_dropdown.svg"),
+                          Text(
+                            _chosenDateTime.hour.toString() +
+                                ":" +
+                                _chosenDateTime.minute.toString(),
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[600]),
+                          ),
+                        ],
                       ),
+                      onPressed: () => _showDatePicker(context),
+                      color: Colors.white,
                     ),
                   ),
                 ],
@@ -365,10 +390,7 @@ class _BodyState extends State<Body> {
               PrimaryButton(
                 press: () {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => OrderCompletedScreen()),
-                  );
+                      context, MaterialPageRoute(builder: (context) => null));
                 },
                 text: "결제하기",
               ),
