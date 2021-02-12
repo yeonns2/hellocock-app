@@ -37,9 +37,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'hellocock app',
-      routes: {
-        '/firstScreen': (_) => SignInScreen(),
-      },
       theme: buildThemeData(),
       home: SplashScreen(),
     );

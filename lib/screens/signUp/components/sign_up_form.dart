@@ -189,10 +189,10 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           VerticalSpacing(),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                width: 180,
+                width: 190,
                 child: TextFormField(
                   controller: _phone,
                   style: TextStyle(fontSize: 15),
@@ -211,8 +211,9 @@ class _SignUpFormState extends State<SignUpForm> {
                   },
                 ),
               ),
+              VerticalSpacing(),
               SizedBox(
-                  width: 95,
+                  width: 100,
                   child: PrimaryButton(
                       text: "인증요청",
                       press: () async {
@@ -228,12 +229,12 @@ class _SignUpFormState extends State<SignUpForm> {
                       }))
             ],
           ),
-          VerticalSpacing(of: 20),
+          VerticalSpacing(of: 10),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                width: 180,
+                width: 190,
                 child: TextFormField(
                   style: TextStyle(fontSize: 13),
                   cursorColor: kActiveColor,
@@ -251,11 +252,12 @@ class _SignUpFormState extends State<SignUpForm> {
                   },
                 ),
               ),
+              VerticalSpacing(),
               SizedBox(
-                  width: 95, child: PrimaryButton(text: "인증완료", press: () {}))
+                  width: 100, child: PrimaryButton(text: "인증완료", press: () {}))
             ],
           ),
-          VerticalSpacing(),
+          VerticalSpacing(of: 20),
           Text(
             " 주소",
             textScaleFactor: 1,
@@ -266,10 +268,10 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           VerticalSpacing(),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                width: 185,
+                width: 190,
                 child: TextFormField(
                   style: TextStyle(fontSize: 15),
                   controller:
@@ -297,8 +299,9 @@ class _SignUpFormState extends State<SignUpForm> {
                   ),
                 ),
               ),
+              VerticalSpacing(),
               SizedBox(
-                width: 95,
+                width: 100,
                 child: PrimaryButton(
                   text: "우편번호",
                   press: () async {

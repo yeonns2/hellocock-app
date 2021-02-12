@@ -19,15 +19,16 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   //List<dynamic> _foodlist = List<dynamic>.from(widget.storedocument['food']);
-
-  DateTime _chosenDateTime;
+  DateTime _chosenDateTime =
+      DateTime.now().add(Duration(minutes: 30 - DateTime.now().minute % 30));
   int count = 0;
+
   void _showDatePicker(context) {
     // showCupertinoModalPopup is a built-in function of the cupertino library
     showCupertinoModalPopup(
         context: context,
         builder: (_) => Container(
-              height: 270,
+              height: MediaQuery.of(context).size.height * 0.32,
               color: Color.fromARGB(255, 255, 255, 255),
               child: Column(
                 children: [
@@ -35,10 +36,12 @@ class _BodyState extends State<Body> {
                     height: 200,
                     child: CupertinoDatePicker(
                         mode: CupertinoDatePickerMode.dateAndTime,
+                        minuteInterval: 30,
                         minimumDate: DateTime.now(),
-                        minuteInterval: 1,
+                        maximumDate: DateTime.now().add(Duration(hours: 6)),
                         use24hFormat: true,
-                        initialDateTime: DateTime.now(),
+                        initialDateTime: DateTime.now().add(
+                            Duration(minutes: 30 - DateTime.now().minute % 30)),
                         onDateTimeChanged: (val) {
                           setState(() {
                             _chosenDateTime = val;
@@ -68,7 +71,7 @@ class _BodyState extends State<Body> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  " 픽업 장소 및 시간",
+                  "픽업 장소 및 시간",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,
@@ -84,8 +87,8 @@ class _BodyState extends State<Body> {
                             borderRadius: BorderRadius.all(Radius.circular(12)),
                             child: Image.asset(
                               widget.storedocument['image'],
-                              height: 145,
-                              width: 145,
+                              height: 140,
+                              width: 140,
                               fit: BoxFit.fitWidth,
                             )),
                         HorizontalSpacing(),
@@ -120,8 +123,9 @@ class _BodyState extends State<Body> {
                                     height: 30,
                                     child: RaisedButton(
                                       child: Text(
-                                        // _chosenDateTime.hour.toString() +
-                                        ":", //_chosenDateTime.minute.toString(),
+                                        _chosenDateTime.hour.toString() +
+                                            ":" +
+                                            _chosenDateTime.minute.toString(),
                                         style: TextStyle(
                                             fontSize: 11,
                                             fontWeight: FontWeight.bold,
@@ -149,9 +153,11 @@ class _BodyState extends State<Body> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => OrderScreen(
-                                              widget.user,
-                                              widget.cocktaildocument,
-                                              widget.storedocument),
+                                            widget.user,
+                                            widget.cocktaildocument,
+                                            widget.storedocument,
+                                            chosenDateTime: _chosenDateTime,
+                                          ),
                                         ),
                                       ),
                                       color: kActiveColor,
@@ -169,7 +175,7 @@ class _BodyState extends State<Body> {
                   "추천 메뉴",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 15.0,
+                      fontSize: 17.0,
                       color: kActiveColor),
                 ),
                 VerticalSpacing(of: 10),

@@ -7,6 +7,7 @@ import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/bottom_nav_bar.dart';
 import 'package:hellocock/screens/find_id/find_id_screen.dart';
 import 'package:hellocock/screens/find_password/find_pw_screen.dart';
+import 'package:hellocock/screens/loading_screen.dart';
 import 'package:hellocock/widgets/buttons/social_button.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../../size_config.dart';
@@ -77,8 +78,8 @@ class _BodyState extends State<Body> {
     User user =
         (await _firebaseAuth.signInWithCredential(oauthCredential)).user;
 
-    final displayName =
-        '${appleCredential.givenName} ${appleCredential.familyName}';
+    final displayName = appleCredential.givenName.toString();
+
     await user.updateProfile(displayName: displayName);
     return user;
   }
@@ -197,6 +198,10 @@ class _BodyState extends State<Body> {
                 image: "assets/icons/google.svg",
                 press: () {
                   _googlelogin().then((User user) {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LoadingScreen()));
                     FirebaseFirestore.instance
                         .collection("user")
                         .doc(user.email)

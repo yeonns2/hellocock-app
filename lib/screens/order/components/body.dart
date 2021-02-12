@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hellocock/screens/order_completed/order_completed_screen.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/payment/payment_screen.dart';
@@ -13,8 +14,10 @@ class Body extends StatefulWidget {
   final User user;
   final DocumentSnapshot cocktaildocument;
   final DocumentSnapshot storedocument;
+  final DateTime chosenDateTime;
 
-  Body(this.user, this.cocktaildocument, this.storedocument);
+  Body(this.user, this.cocktaildocument, this.storedocument,
+      {this.chosenDateTime});
 
   @override
   _BodyState createState() => _BodyState();
@@ -58,7 +61,7 @@ class _BodyState extends State<Body> {
                 textScaleFactor: 1,
                 style: TextStyle(
                     color: kActiveColor,
-                    fontSize: 19,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
               VerticalSpacing(
@@ -80,16 +83,16 @@ class _BodyState extends State<Body> {
                   Text(widget.cocktaildocument['name'] + " 칵테일 키트",
                       textScaleFactor: 1,
                       style: TextStyle(
-                        color: kBodyTextColor,
-                        fontSize: 15,
-                      )),
+                          color: kBodyTextColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold)),
                   Text(
                     _totalprice.toString() + "원",
                     textScaleFactor: 1,
                     style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 15,
-                    ),
+                        color: Color(0xFFFF4D4D),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600),
                   )
                 ],
               ),
@@ -119,14 +122,16 @@ class _BodyState extends State<Body> {
                             child: Text(
                               '-',
                               style: TextStyle(
-                                fontSize: 13,
-                              ),
+                                  color: kBodyTextColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
                             )),
                         Text(
                           "$count",
                           style: TextStyle(
-                            fontSize: 13,
-                          ),
+                              color: kBodyTextColor,
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold),
                         ),
                         FlatButton(
                             onPressed: () {
@@ -137,8 +142,9 @@ class _BodyState extends State<Body> {
                             child: Text(
                               '+',
                               style: TextStyle(
-                                fontSize: 13,
-                              ),
+                                  color: kBodyTextColor,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold),
                             )),
                       ]),
                 ),
@@ -151,7 +157,7 @@ class _BodyState extends State<Body> {
                 textScaleFactor: 1,
                 style: TextStyle(
                     color: kActiveColor,
-                    fontSize: 19,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
               VerticalSpacing(
@@ -175,11 +181,11 @@ class _BodyState extends State<Body> {
                     style: TextStyle(
                         color: kBodyTextColor,
                         fontWeight: FontWeight.w500,
-                        fontSize: 13),
+                        fontSize: 15),
                   )
                 ],
               ),
-              VerticalSpacing(),
+              VerticalSpacing(of: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -201,7 +207,7 @@ class _BodyState extends State<Body> {
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 0.2,
                           blurRadius: 3,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: Offset(0, 2), // changes position of shadow
                         ),
                       ],
                       color: Colors.white,
@@ -233,7 +239,7 @@ class _BodyState extends State<Body> {
                   ),
                 ],
               ),
-              VerticalSpacing(),
+              VerticalSpacing(of: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -252,8 +258,19 @@ class _BodyState extends State<Body> {
                     style: TextStyle(
                         color: kBodyTextColor,
                         fontWeight: FontWeight.w500,
-                        fontSize: 13),
+                        fontSize: 15),
                   )
+                ],
+              ),
+              VerticalSpacing(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    widget.storedocument['address'].replaceAll("\\n", '\n'),
+                    textAlign: TextAlign.end,
+                    style: TextStyle(color: kBodyTextColor, fontSize: 12),
+                  ),
                 ],
               ),
               VerticalSpacing(of: 30),
@@ -276,18 +293,81 @@ class _BodyState extends State<Body> {
               VerticalSpacing(
                 of: 50,
               ),
+              Text(
+                "결제 진행",
+                textScaleFactor: 1,
+                style: TextStyle(
+                    color: kActiveColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              VerticalSpacing(
+                of: 30,
+              ),
+              Text(
+                "결제금액",
+                textScaleFactor: 1,
+                style: TextStyle(
+                    fontSize: 17,
+                    color: kBodyTextColor,
+                    fontWeight: FontWeight.bold),
+              ),
+              VerticalSpacing(
+                of: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("주문금액",
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: kBodyTextColor,
+                          fontWeight: FontWeight.w500)),
+                  Text(
+                    _totalprice.toString() + "원",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                        color: Color(0xFFFF4D4D), fontWeight: FontWeight.w500),
+                  )
+                ],
+              ),
+              VerticalSpacing(of: 5),
+              Divider(
+                thickness: 1.5,
+                color: kBodyTextColor,
+              ),
+              VerticalSpacing(of: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("총 결제 금액",
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: kBodyTextColor)),
+                  Text(
+                    _totalprice.toString() + "원",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                        color: Color(0xFFFF4D4D), fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+              VerticalSpacing(of: 30),
+              Text(
+                "위 내용을 확인하였으며 결제에 동의합니다.",
+                textScaleFactor: 1,
+                style: TextStyle(fontSize: 13),
+              ),
+              VerticalSpacing(of: 50),
               PrimaryButton(
                 press: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PaymentScreen(
-                          widget.user,
-                          widget.cocktaildocument,
-                          widget.storedocument,
-                          _totalprice,
-                          _selectedValue),
-                    ),
+                        builder: (context) => OrderCompletedScreen()),
                   );
                 },
                 text: "결제하기",

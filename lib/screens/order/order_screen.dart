@@ -10,7 +10,9 @@ class OrderScreen extends StatelessWidget {
   final User user;
   final DocumentSnapshot cocktaildocument;
   final DocumentSnapshot storedocument;
-  OrderScreen(this.user, this.cocktaildocument, this.storedocument);
+  final DateTime chosenDateTime;
+  OrderScreen(this.user, this.cocktaildocument, this.storedocument,
+      {this.chosenDateTime});
 
   @override
   Widget build(BuildContext context) {

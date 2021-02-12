@@ -150,7 +150,7 @@ class Body extends StatelessWidget {
                 of: 120,
               ),
               PrimaryButton(
-                press: () => Navigator.push(
+                press: () => Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => RootPage(),
