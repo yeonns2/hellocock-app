@@ -154,7 +154,6 @@ class _BodyState extends State<Body> {
                                         MaterialPageRoute(
                                           builder: (context) => OrderScreen(
                                             widget.user,
-                                            widget.cocktaildocument,
                                             widget.storedocument,
                                             chosenDateTime: _chosenDateTime,
                                           ),
@@ -184,7 +183,7 @@ class _BodyState extends State<Body> {
                   itemCount: 5,
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
-                    return MenuCard(widget.storedocument, index);
+                    return MenuCard(widget.storedocument, index, widget.user);
                   },
                 ),
               ]),

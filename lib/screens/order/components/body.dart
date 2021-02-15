@@ -13,12 +13,11 @@ import 'package:hellocock/size_config.dart';
 
 class Body extends StatefulWidget {
   final User user;
-  final DocumentSnapshot cocktaildocument;
-  final DocumentSnapshot storedocument;
+  final DocumentSnapshot cart;
+  final DocumentSnapshot store;
   final DateTime chosenDateTime;
 
-  Body(this.user, this.cocktaildocument, this.storedocument,
-      {this.chosenDateTime});
+  Body(this.user, this.cart, this.store, {this.chosenDateTime});
 
   @override
   _BodyState createState() => _BodyState();
@@ -34,7 +33,7 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
-    _totalprice += widget.cocktaildocument['price'];
+    _totalprice += widget.cart['cocktail']['price'];
     if (widget.chosenDateTime != null)
       _chosenDateTime = widget.chosenDateTime;
     else
@@ -121,7 +120,7 @@ class _BodyState extends State<Body> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(widget.cocktaildocument['name'] + " 칵테일 키트",
+                  Text(widget.cart['cocktail']['name'] + " 칵테일 키트",
                       textScaleFactor: 1,
                       style: TextStyle(
                           color: kBodyTextColor,
@@ -155,7 +154,7 @@ class _BodyState extends State<Body> {
                               if (count > 0) {
                                 setState(() {
                                   _totalprice -=
-                                      widget.cocktaildocument['price'];
+                                      widget.cart['cocktail']['price'];
                                   count -= 1;
                                 });
                               }
@@ -176,7 +175,95 @@ class _BodyState extends State<Body> {
                         ),
                         FlatButton(
                             onPressed: () {
-                              _totalprice += widget.cocktaildocument['price'];
+                              _totalprice += widget.cart['cocktail']['price'];
+                              count += 1;
+                              setState(() {});
+                            },
+                            child: Text(
+                              '+',
+                              style: TextStyle(
+                                  color: kBodyTextColor,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                      ]),
+                ),
+              ),
+              VerticalSpacing(
+                of: 30,
+              ),
+              Text(
+                "안주",
+                textScaleFactor: 1,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: kBodyTextColor,
+                  fontSize: 17,
+                ),
+              ),
+              VerticalSpacing(of: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(widget.cart['food'][0]['name'],
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                          color: kBodyTextColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold)),
+                  Text(
+                    (widget.cart['food'][0]['price'] *
+                                widget.cart['food'][0]['quantity'])
+                            .toString() +
+                        "원",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                        color: Color(0xFFFF4D4D),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600),
+                  )
+                ],
+              ),
+              VerticalSpacing(),
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14.0),
+                ),
+                elevation: 2.0,
+                child: Container(
+                  width: 275,
+                  height: 38,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        FlatButton(
+                            onPressed: () {
+                              if (count > 0) {
+                                setState(() {
+                                  _totalprice -=
+                                      widget.cart['cocktail']['price'];
+                                  count -= 1;
+                                });
+                              }
+                            },
+                            child: Text(
+                              '-',
+                              style: TextStyle(
+                                  color: kBodyTextColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                        Text(
+                          "$count",
+                          style: TextStyle(
+                              color: kBodyTextColor,
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        FlatButton(
+                            onPressed: () {
+                              _totalprice += widget.cart['cocktail']['price'];
                               count += 1;
                               setState(() {});
                             },
@@ -278,7 +365,7 @@ class _BodyState extends State<Body> {
                     ),
                   ),
                   Text(
-                    widget.storedocument['name'],
+                    widget.store['name'],
                     textScaleFactor: 1,
                     style: TextStyle(
                         color: kBodyTextColor,
@@ -292,7 +379,7 @@ class _BodyState extends State<Body> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    widget.storedocument['address'].replaceAll("\\n", '\n'),
+                    widget.store['address'].replaceAll("\\n", '\n'),
                     textAlign: TextAlign.end,
                     style: TextStyle(color: kBodyTextColor, fontSize: 12),
                   ),

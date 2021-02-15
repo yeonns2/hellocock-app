@@ -1,14 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class MenuCard extends StatefulWidget {
-  final DocumentSnapshot ds;
+  final DocumentSnapshot store;
   final int index;
+  final User user;
 
-  MenuCard(this.ds, this.index);
+  MenuCard(this.store, this.index, this.user);
   //final Widget image;
 
   @override
@@ -25,7 +27,7 @@ class _MenuCardState extends State<MenuCard> {
         ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(12)),
             child: Image.asset(
-              widget.ds['food'][widget.index]['image'],
+              widget.store['food'][widget.index]['image'],
               height: 82,
               width: 123,
               fit: BoxFit.fitWidth,
@@ -36,7 +38,7 @@ class _MenuCardState extends State<MenuCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.ds['food'][widget.index]['name'],
+                widget.store['food'][widget.index]['name'],
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 13,
@@ -57,7 +59,7 @@ class _MenuCardState extends State<MenuCard> {
                         top: 12,
                       ),
                       child: Text(
-                        widget.ds['food'][widget.index]['price'].toString() +
+                        widget.store['food'][widget.index]['price'].toString() +
                             "원",
                         style: TextStyle(
                             fontSize: 12,
@@ -72,7 +74,7 @@ class _MenuCardState extends State<MenuCard> {
                     ),
                     elevation: 2.0,
                     child: Container(
-                      width: 80,
+                      width: 90,
                       height: 30,
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -85,6 +87,7 @@ class _MenuCardState extends State<MenuCard> {
                                     if (count > 0) {
                                       setState(() {
                                         count -= 1;
+                                        _addfood();
                                       });
                                     }
                                   },
@@ -108,6 +111,7 @@ class _MenuCardState extends State<MenuCard> {
                               child: FlatButton(
                                   onPressed: () {
                                     count += 1;
+                                    _addfood();
                                     setState(() {});
                                   },
                                   child: Text(
@@ -126,5 +130,31 @@ class _MenuCardState extends State<MenuCard> {
             ]),
       ]),
     );
+  }
+
+  void _addfood() async {
+    var data;
+
+    FirebaseFirestore.instance
+        .collection('cart')
+        .doc(widget.user.email)
+        .get()
+        .then((DocumentSnapshot ds) {
+      data = ds['food'];
+    });
+    await Future.delayed(Duration(seconds: 1));
+
+    final List food = List<Map>.from(data ?? []);
+    final updateData = {
+      'name': widget.store['food'][widget.index]['name'],
+      'price': widget.store['food'][widget.index]['price'],
+      'quantity': count
+    };
+
+    food.add(updateData);
+    FirebaseFirestore.instance
+        .collection("cart")
+        .doc(widget.user.email)
+        .update({'food': food});
   }
 }

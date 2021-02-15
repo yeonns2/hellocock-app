@@ -8,18 +8,30 @@ import 'components/body.dart';
 
 class OrderScreen extends StatelessWidget {
   final User user;
-  final DocumentSnapshot cocktaildocument;
-  final DocumentSnapshot storedocument;
+  final DocumentSnapshot store;
+
   final DateTime chosenDateTime;
-  OrderScreen(this.user, this.cocktaildocument, this.storedocument,
-      {this.chosenDateTime});
+  OrderScreen(this.user, this.store, {this.chosenDateTime});
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
       //appBar: buildAppBar(context),
-      body: Body(user, cocktaildocument, storedocument),
+      body: StreamBuilder<DocumentSnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection("cart")
+              .doc(user.email)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) return CircularProgressIndicator();
+            return Body(
+              user,
+              snapshot.data,
+              store,
+              chosenDateTime: chosenDateTime,
+            );
+          }),
     );
   }
 

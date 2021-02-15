@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/screens/certification/certification_screen.dart';
-import 'package:hellocock/widgets/alert.dart';
+
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/map/map_screen.dart';
 import 'package:hellocock/size_config.dart';
@@ -114,6 +114,16 @@ class _OrderButtonState extends State<OrderButton> {
                   );
                 });
           } else {
+            FirebaseFirestore.instance
+                .collection("cart")
+                .doc(widget.user.email)
+                .set({
+              'cocktail': {
+                'name': widget.document['name'],
+                'price': widget.document['price'],
+                'quantity': 1
+              },
+            });
             Navigator.push(
                 context,
                 MaterialPageRoute(
