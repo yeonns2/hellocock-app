@@ -11,9 +11,20 @@ class LikeListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context),
-      body: Body(user),
-    );
+        appBar: buildAppBar(context),
+        body: Column(children: [
+          Container(
+            height: 35,
+            color: kActiveColor,
+            child: Center(
+                child: Text(
+              "좋아요",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            )),
+          ),
+          Expanded(child: Body(user))
+        ]));
   }
 
   AppBar buildAppBar(BuildContext context) {

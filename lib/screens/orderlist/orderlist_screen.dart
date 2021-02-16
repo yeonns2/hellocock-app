@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
+import '../../size_config.dart';
 import 'components/body.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -19,7 +20,21 @@ class OrderListScreen extends StatelessWidget {
               .where('name', isEqualTo: "테스트")
               .snapshots(),
           builder: (context, snapshot) {
-            return Body();
+            return Column(
+              children: [
+                Container(
+                  height: 35,
+                  color: kActiveColor,
+                  child: Center(
+                      child: Text(
+                    "주문내역",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  )),
+                ),
+                Expanded(child: Body())
+              ],
+            );
           }),
     );
   }

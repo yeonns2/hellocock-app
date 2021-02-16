@@ -255,7 +255,7 @@ class _BodyState extends State<Body> {
                                   fontWeight: FontWeight.bold),
                             )),
                         Text(
-                          "$count",
+                          widget.cart['food'][0]['quantity'].toString(),
                           style: TextStyle(
                               color: kBodyTextColor,
                               fontSize: 13,
@@ -264,7 +264,7 @@ class _BodyState extends State<Body> {
                         FlatButton(
                             onPressed: () {
                               _totalprice += widget.cart['cocktail']['price'];
-                              count += 1;
+                              widget.cart['food'][0]['quantity'] += 1;
                               setState(() {});
                             },
                             child: Text(

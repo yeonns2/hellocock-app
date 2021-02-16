@@ -17,17 +17,6 @@ class Body extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                width: SizeConfig.screenWidth,
-                height: 35,
-                color: kActiveColor,
-                child: Center(
-                    child: Text(
-                  "좋아요",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                )),
-              ),
               VerticalSpacing(of: 30),
               StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance

@@ -8,9 +8,20 @@ class PickUpListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context),
-      body: Body(),
-    );
+        appBar: buildAppBar(context),
+        body: Column(children: [
+          Container(
+            height: 35,
+            color: kActiveColor,
+            child: Center(
+                child: Text(
+              "주문내역",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            )),
+          ),
+          Expanded(child: Body())
+        ]));
   }
 
   AppBar buildAppBar(BuildContext context) {
