@@ -9,34 +9,27 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class OrderListScreen extends StatelessWidget {
   final User user;
+
   OrderListScreen(this.user);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context),
-      body: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance
-              .collection("order")
-              .where('name', isEqualTo: "테스트")
-              .snapshots(),
-          builder: (context, snapshot) {
-            return Column(
-              children: [
-                Container(
-                  height: 35,
-                  color: kActiveColor,
-                  child: Center(
-                      child: Text(
-                    "주문내역",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  )),
-                ),
-                Expanded(child: Body())
-              ],
-            );
-          }),
-    );
+        appBar: buildAppBar(context),
+        body: Column(
+          children: [
+            Container(
+              height: 35,
+              color: kActiveColor,
+              child: Center(
+                  child: Text(
+                "주문내역",
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              )),
+            ),
+            Expanded(child: Body(user))
+          ],
+        ));
   }
 
   AppBar buildAppBar(BuildContext context) {

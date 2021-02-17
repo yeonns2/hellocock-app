@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
@@ -5,6 +6,8 @@ import 'components/body.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class PickUpListScreen extends StatelessWidget {
+  final User user;
+  PickUpListScreen(this.user);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,12 +18,12 @@ class PickUpListScreen extends StatelessWidget {
             color: kActiveColor,
             child: Center(
                 child: Text(
-              "주문내역",
+              "수령대기",
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             )),
           ),
-          Expanded(child: Body())
+          Expanded(child: Body(user))
         ]));
   }
 

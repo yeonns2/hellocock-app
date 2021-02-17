@@ -69,7 +69,7 @@ class _BodyState extends State<Body> {
                               "헬로 " + widget.user.displayName,
                               textScaleFactor: 1,
                               style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 15,
                                   fontWeight: FontWeight.bold,
                                   color: kBodyTextColor),
                             ),
@@ -78,7 +78,7 @@ class _BodyState extends State<Body> {
                                 textScaleFactor: 1,
                                 style: TextStyle(
                                   color: kBodyTextColor,
-                                  fontSize: 14,
+                                  fontSize: 15,
                                 )),
                             VerticalSpacing(
                               of: 30,
@@ -101,7 +101,7 @@ class _BodyState extends State<Body> {
                                           Text("좋아요",
                                               textScaleFactor: 1,
                                               style: TextStyle(
-                                                  fontSize: 11,
+                                                  fontSize: 13,
                                                   fontWeight: FontWeight.bold,
                                                   color: kActiveColor)),
                                           VerticalSpacing(),
@@ -126,8 +126,8 @@ class _BodyState extends State<Body> {
                                 HorizontalSpacing(),
                                 StreamBuilder<QuerySnapshot>(
                                     stream: FirebaseFirestore.instance
-                                        .collection("cocktail")
-                                        .where('likedUser',
+                                        .collection("order")
+                                        .where('email',
                                             isEqualTo: widget.user.email)
                                         .snapshots(),
                                     builder: (context, snapshot) {
@@ -140,7 +140,7 @@ class _BodyState extends State<Body> {
                                           Text("주문 내역",
                                               textScaleFactor: 1,
                                               style: TextStyle(
-                                                  fontSize: 11,
+                                                  fontSize: 13,
                                                   fontWeight: FontWeight.bold,
                                                   color: kActiveColor)),
                                           VerticalSpacing(),
@@ -166,21 +166,22 @@ class _BodyState extends State<Body> {
                                 HorizontalSpacing(),
                                 StreamBuilder<QuerySnapshot>(
                                     stream: FirebaseFirestore.instance
-                                        .collection("cocktail")
-                                        .where('likedUser',
+                                        .collection('order')
+                                        .where('email',
                                             isEqualTo: widget.user.email)
+                                        .where('pickedup', isEqualTo: true)
                                         .snapshots(),
                                     builder: (context, snapshot) {
-                                      var like = 0;
+                                      var order = 0;
                                       if (snapshot.hasData) {
-                                        like = snapshot.data.docs.length;
+                                        order = snapshot.data.docs.length;
                                       }
                                       return Column(
                                         children: [
                                           Text("수령대기",
                                               textScaleFactor: 1,
                                               style: TextStyle(
-                                                  fontSize: 11,
+                                                  fontSize: 13,
                                                   fontWeight: FontWeight.bold,
                                                   color: kActiveColor)),
                                           VerticalSpacing(),
@@ -189,10 +190,11 @@ class _BodyState extends State<Body> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    PickUpListScreen(),
+                                                    PickUpListScreen(
+                                                        widget.user),
                                               ),
                                             ),
-                                            child: Text("$like",
+                                            child: Text("$order",
                                                 textScaleFactor: 1,
                                                 style: TextStyle(
                                                     fontSize: 17,
@@ -229,7 +231,7 @@ class _BodyState extends State<Body> {
                     "회원정보 관리",
                     textScaleFactor: 1,
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 16,
                         color: kBodyTextColor,
                         fontWeight: FontWeight.w500),
                   ),
@@ -246,7 +248,7 @@ class _BodyState extends State<Body> {
                     "성인인증",
                     textScaleFactor: 1,
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 16,
                         color: kBodyTextColor,
                         fontWeight: FontWeight.w500),
                   ),
@@ -264,7 +266,7 @@ class _BodyState extends State<Body> {
                     "알림설정",
                     textScaleFactor: 1,
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 16,
                         color: kBodyTextColor,
                         fontWeight: FontWeight.w500),
                   ),
@@ -294,7 +296,7 @@ class _BodyState extends State<Body> {
                     "개인정보처리방침",
                     textScaleFactor: 1,
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 16,
                         color: kBodyTextColor,
                         fontWeight: FontWeight.w500),
                   ),
@@ -311,7 +313,7 @@ class _BodyState extends State<Body> {
                     "서비스이용약관",
                     textScaleFactor: 1,
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 16,
                         color: kBodyTextColor,
                         fontWeight: FontWeight.w500),
                   ),

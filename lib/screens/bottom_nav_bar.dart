@@ -172,11 +172,40 @@ class _BottomNavBarState extends State<BottomNavBar> {
           IconButton(
               icon: SvgPicture.asset("assets/icons/signout.svg"),
               color: kActiveColor,
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-                _googleSignIn.signOut();
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => SignInScreen()));
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) {
+                      return CupertinoAlertDialog(
+                        title: Text(
+                          "로그아웃",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
+                        ),
+                        content: Text(
+                          "정말 로그아웃 하시겠어요?",
+                          style: TextStyle(fontSize: 13, height: 1.3),
+                          textAlign: TextAlign.center,
+                        ),
+                        actions: <Widget>[
+                          new CupertinoDialogAction(
+                              child: Text(
+                                '예',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                              onPressed: () async {
+                                await FirebaseAuth.instance.signOut();
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SignInScreen()));
+                              }),
+                        ],
+                      );
+                    });
               })
       ],
     );

@@ -34,7 +34,7 @@ class _BodyState extends State<Body> {
               padding: const EdgeInsets.only(left: 25.0),
               child: Text(
                 "오늘의 추천 칵테일   >",
-                style: TextStyle(fontSize: 15, color: kBodyTextColor),
+                style: TextStyle(fontSize: 16, color: kBodyTextColor),
                 textScaleFactor: 1,
               ),
             ),
@@ -44,7 +44,8 @@ class _BodyState extends State<Body> {
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('cocktail')
-                      .where('today', isEqualTo: true)
+                      //.where('today', isEqualTo: true)
+                      .orderBy('name_eng', descending: true)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -70,7 +71,7 @@ class _BodyState extends State<Body> {
               padding: const EdgeInsets.only(left: 25.0),
               child: Text(
                 "이번주 새로운 칵테일   >",
-                style: TextStyle(fontSize: 15, color: kBodyTextColor),
+                style: TextStyle(fontSize: 16, color: kBodyTextColor),
                 textScaleFactor: 1,
               ),
             ),
@@ -137,7 +138,7 @@ class _BodyState extends State<Body> {
               Padding(
                 padding: const EdgeInsets.all(5),
                 child: Text(
-                  document['name_eng'],
+                  document['name'],
                   textScaleFactor: 1,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -152,7 +153,7 @@ class _BodyState extends State<Body> {
                   textScaleFactor: 1,
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 13,
+                      fontSize: 14,
                       color: kBodyTextColor,
                       height: 1.5),
                 ),

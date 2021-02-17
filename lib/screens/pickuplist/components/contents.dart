@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class PickUpCard extends StatelessWidget {
+  final DocumentSnapshot order;
+  PickUpCard(this.order);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,13 +22,20 @@ class PickUpCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 10, left: 20.0),
-            child: Text(
-              "블루 하와이 칵테일 키트",
-              style: TextStyle(
-                  fontSize: 13,
-                  color: kBodyTextColor,
-                  fontWeight: FontWeight.bold),
+            padding: const EdgeInsets.only(top: 10, left: 20.0, right: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "블루 하와이 칵테일 키트",
+                  textScaleFactor: 1,
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: kBodyTextColor,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
           ),
           VerticalSpacing(of: 5),
@@ -45,7 +55,7 @@ class PickUpCard extends StatelessWidget {
                   Text(
                     "주문일시",
                     style: TextStyle(
-                        fontSize: 13,
+                        fontSize: 15,
                         color: kBodyTextColor,
                         fontWeight: FontWeight.bold),
                   ),
@@ -116,7 +126,10 @@ class PickUpCard extends StatelessWidget {
             color: kActiveColor,
             thickness: 1,
           ),
-          Text("주문 확인중")
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text("주문 확인중"),
+          )
         ],
       ),
     );

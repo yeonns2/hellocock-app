@@ -10,8 +10,7 @@ class Body extends StatelessWidget {
   Body(this.user, this.document);
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Column(
+    return Column(
       children: <Widget>[
         Column(
           children: <Widget>[
@@ -28,6 +27,6 @@ class Body extends StatelessWidget {
           ),
         ),
       ],
-    ));
+    );
   }
 }
