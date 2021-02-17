@@ -192,94 +192,102 @@ class _BodyState extends State<Body> {
               VerticalSpacing(
                 of: 30,
               ),
-              Text(
-                "안주",
-                textScaleFactor: 1,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: kBodyTextColor,
-                  fontSize: 17,
-                ),
-              ),
-              VerticalSpacing(of: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(widget.cart['food'][0]['name'],
+              if (widget.cart['food'][0] != null)
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "안주",
                       textScaleFactor: 1,
                       style: TextStyle(
-                          color: kBodyTextColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold)),
-                  Text(
-                    (widget.cart['food'][0]['price'] *
-                                widget.cart['food'][0]['quantity'])
-                            .toString() +
-                        "원",
-                    textScaleFactor: 1,
-                    style: TextStyle(
-                        color: Color(0xFFFF4D4D),
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600),
-                  )
-                ],
-              ),
-              VerticalSpacing(),
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14.0),
-                ),
-                elevation: 2.0,
-                child: Container(
-                  width: 275,
-                  height: 38,
-                  child: Row(
+                        fontWeight: FontWeight.bold,
+                        color: kBodyTextColor,
+                        fontSize: 17,
+                      ),
+                    ),
+                    VerticalSpacing(of: 20),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        FlatButton(
-                            onPressed: () {
-                              if (count > 0) {
-                                setState(() {
-                                  _totalprice -=
-                                      widget.cart['cocktail']['price'];
-                                  count -= 1;
-                                });
-                              }
-                            },
-                            child: Text(
-                              '-',
-                              style: TextStyle(
-                                  color: kBodyTextColor,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold),
-                            )),
+                        Text(widget.cart['food'][0]['name'],
+                            textScaleFactor: 1,
+                            style: TextStyle(
+                                color: kBodyTextColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold)),
                         Text(
-                          widget.cart['food'][0]['quantity'].toString(),
+                          (widget.cart['food'][0]['price'] *
+                                      widget.cart['food'][0]['quantity'])
+                                  .toString() +
+                              "원",
+                          textScaleFactor: 1,
                           style: TextStyle(
-                              color: kBodyTextColor,
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        FlatButton(
-                            onPressed: () {
-                              _totalprice += widget.cart['cocktail']['price'];
-                              widget.cart['food'][0]['quantity'] += 1;
-                              setState(() {});
-                            },
-                            child: Text(
-                              '+',
-                              style: TextStyle(
-                                  color: kBodyTextColor,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold),
-                            )),
-                      ]),
+                              color: Color(0xFFFF4D4D),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600),
+                        )
+                      ],
+                    ),
+                    VerticalSpacing(),
+                    Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14.0),
+                      ),
+                      elevation: 2.0,
+                      child: Container(
+                        width: 275,
+                        height: 38,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              FlatButton(
+                                  onPressed: () {
+                                    if (count > 0) {
+                                      setState(() {
+                                        _totalprice -=
+                                            widget.cart['cocktail']['price'];
+                                        count -= 1;
+                                      });
+                                    }
+                                  },
+                                  child: Text(
+                                    '-',
+                                    style: TextStyle(
+                                        color: kBodyTextColor,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              Text(
+                                widget.cart['food'][0]['quantity'].toString(),
+                                style: TextStyle(
+                                    color: kBodyTextColor,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              FlatButton(
+                                  onPressed: () {
+                                    _totalprice +=
+                                        widget.cart['cocktail']['price'];
+                                    widget.cart['food'][0]['quantity'] += 1;
+                                    setState(() {});
+                                  },
+                                  child: Text(
+                                    '+',
+                                    style: TextStyle(
+                                        color: kBodyTextColor,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                            ]),
+                      ),
+                    ),
+                    VerticalSpacing(
+                      of: 30,
+                    ),
+                  ],
                 ),
-              ),
-              VerticalSpacing(
-                of: 30,
-              ),
               Text(
                 "수령 정보 확인",
                 textScaleFactor: 1,

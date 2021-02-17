@@ -8,6 +8,7 @@ import 'package:hellocock/screens/bottom_nav_bar.dart';
 import 'package:hellocock/screens/find_id/find_id_screen.dart';
 import 'package:hellocock/screens/find_password/find_pw_screen.dart';
 import 'package:hellocock/screens/loading_screen.dart';
+import 'package:hellocock/screens/modify/modify.dart';
 import 'package:hellocock/widgets/buttons/social_button.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../../size_config.dart';
@@ -178,15 +179,12 @@ class _BodyState extends State<Body> {
                         .set({
                       'name': user.displayName,
                       'email': user.email,
-                      'address1': "",
-                      'address2': "",
-                      'phone': "",
                       'certificated': false
                     });
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => BottomNavBar(user)));
+                            builder: (context) => ModifyScreen(user)));
                   });
                 },
                 color: Colors.white,
@@ -208,9 +206,6 @@ class _BodyState extends State<Body> {
                         .set({
                       'name': user.displayName,
                       'email': user.email,
-                      'address1': "",
-                      'address2': "",
-                      'phone': "",
                       'certificated': false
                     });
                     Navigator.pushReplacement(
