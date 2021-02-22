@@ -155,6 +155,6 @@ class _MenuCardState extends State<MenuCard> {
     FirebaseFirestore.instance
         .collection("cart")
         .doc(widget.user.email)
-        .update({'food': food});
+        .update({'food': food, 'store': widget.store['name']});
   }
 }

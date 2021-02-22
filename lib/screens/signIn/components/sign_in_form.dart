@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hellocock/screens/bottom_nav_bar.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:hellocock/constants.dart';
@@ -78,6 +79,8 @@ class _SignInFormState extends State<SignInForm> {
             ),
             validator: (String value) {
               if (value.isEmpty) return '비밀번호를 입력해주세요.';
+              if (value.length < 6) return '6자리 이상 입력해주세요';
+
               return null;
             },
             obscureText: true,
@@ -90,10 +93,12 @@ class _SignInFormState extends State<SignInForm> {
             press: () async {
               if (_formKey.currentState.validate()) {
                 _signInWithEmailAndPassword().then((user) {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => BottomNavBar(user)));
+                  if (user != null) {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BottomNavBar(user)));
+                  } else {}
                 });
               }
             },
@@ -110,6 +115,25 @@ class _SignInFormState extends State<SignInForm> {
     super.dispose();
   }
 
+  showErrDialog(BuildContext context, String err) {
+    FocusScope.of(context).requestFocus(new FocusNode());
+    return showDialog(
+      context: context,
+      child: AlertDialog(
+        title: Text("Error"),
+        content: Text(err),
+        actions: <Widget>[
+          OutlineButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text("Ok"),
+          ),
+        ],
+      ),
+    );
+  }
+
   // Example code of how to sign in with email and password.
   Future<User> _signInWithEmailAndPassword() async {
     try {
@@ -119,11 +143,45 @@ class _SignInFormState extends State<SignInForm> {
       ))
           .user;
       return user;
+    } on PlatformException catch (err) {
+      var message = 'An error occurred, please check your credentials!';
+
+      if (err.message != null) {
+        message = err.message;
+
+        print(message);
+      }
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Theme.of(context).errorColor,
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      print(e.code);
+      switch (e.code) {
+        case 'ERROR_INVALID_EMAIL':
+          showErrDialog(context, e.code);
+          break;
+        case 'ERROR_WRONG_PASSWORD':
+          showErrDialog(context, e.code);
+          break;
+        case 'ERROR_USER_NOT_FOUND':
+          showErrDialog(context, e.code);
+          break;
+        case 'ERROR_USER_DISABLED':
+          showErrDialog(context, e.code);
+          break;
+        case 'ERROR_TOO_MANY_REQUESTS':
+          showErrDialog(context, e.code);
+          break;
+        case 'ERROR_OPERATION_NOT_ALLOWED':
+          showErrDialog(context, e.code);
+          break;
+      }
+      return null;
     } catch (e) {
-      Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text("Failed to sign in with Email & Password"),
-      ));
+      print(e);
     }
-    return null;
   }
 }

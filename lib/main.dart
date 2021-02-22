@@ -2,8 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:hellocock/screens/root.dart';
 import 'package:hellocock/screens/signIn/sign_in_screen.dart';
-import 'package:hellocock/screens/splash_screen.dart';
 import 'package:hellocock/theme.dart';
 
 Future<void> main() async {
@@ -38,7 +38,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'hellocock app',
       theme: buildThemeData(),
-      home: SplashScreen(),
+      //home: SplashScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => RootPage(),
+        '/signin': (context) => SignInScreen(),
+      },
     );
   }
 }

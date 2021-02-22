@@ -10,8 +10,10 @@ class OrderScreen extends StatelessWidget {
   final User user;
   final DocumentSnapshot store;
 
-  final DateTime chosenDateTime;
-  OrderScreen(this.user, this.store, {this.chosenDateTime});
+  OrderScreen(
+    this.user,
+    this.store,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +28,8 @@ class OrderScreen extends StatelessWidget {
           builder: (context, snapshot) {
             if (!snapshot.hasData) return CircularProgressIndicator();
             return Body(
-              user,
               snapshot.data,
               store,
-              chosenDateTime: chosenDateTime,
             );
           }),
     );

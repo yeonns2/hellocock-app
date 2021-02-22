@@ -118,11 +118,13 @@ class _OrderButtonState extends State<OrderButton> {
                 .collection("cart")
                 .doc(widget.user.email)
                 .set({
+              'name': widget.user.displayName,
               'cocktail': {
                 'name': widget.document['name'],
                 'price': widget.document['price'],
                 'quantity': 1
               },
+              'food': FieldValue.arrayUnion([])
             });
             Navigator.push(
                 context,

@@ -192,7 +192,7 @@ class _SignUpFormState extends State<SignUpForm> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                width: 190,
+                width: SizeConfig.screenWidth - 200,
                 child: TextFormField(
                   controller: _phone,
                   style: TextStyle(fontSize: 15),
@@ -234,7 +234,7 @@ class _SignUpFormState extends State<SignUpForm> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                width: 190,
+                width: SizeConfig.screenWidth - 200,
                 child: TextFormField(
                   style: TextStyle(fontSize: 13),
                   cursorColor: kActiveColor,
@@ -271,7 +271,7 @@ class _SignUpFormState extends State<SignUpForm> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                width: 190,
+                width: SizeConfig.screenWidth - 200,
                 child: TextFormField(
                   style: TextStyle(fontSize: 15),
                   controller:
@@ -474,9 +474,6 @@ class _SignUpFormState extends State<SignUpForm> {
               ),
               SizedBox(
                 height: 30,
-                child: IconButton(
-                    icon: SvgPicture.asset("assets/icons/arrow_next.svg"),
-                    onPressed: null),
               )
             ],
           ),

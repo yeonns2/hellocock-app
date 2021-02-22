@@ -18,11 +18,12 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            VerticalSpacing(of: 30),
             Container(
               height: 10000,
               child: StreamBuilder<QuerySnapshot>(
@@ -52,25 +53,21 @@ class _BodyState extends State<Body> {
                         ),
                       );
                     }
-                    return Column(
-                      children: [
-                        GridView.count(
-                          shrinkWrap: true, // You won't see infinite size error
-                          primary: false,
-                          crossAxisCount: 4,
-                          childAspectRatio: 0.5,
-                          padding: const EdgeInsets.only(top: 10.0),
-                          crossAxisSpacing: 10.0,
-                          children: List.generate(
-                              snapshot.data.docs.length,
-                              (index) => Column(
-                                    children: [
-                                      MyCocktail(),
-                                      VerticalSpacing(of: 30),
-                                    ],
-                                  )),
-                        ),
-                      ],
+                    return GridView.count(
+                      shrinkWrap: true, // You won't see infinite size error
+                      primary: false,
+                      crossAxisCount: 4,
+                      childAspectRatio: 0.3,
+                      //padding: const EdgeInsets.only(top: 10.0),
+                      crossAxisSpacing: 10.0,
+                      children: List.generate(
+                          snapshot.data.docs.length,
+                          (index) => Column(
+                                children: [
+                                  MyCocktail(),
+                                  VerticalSpacing(of: 30),
+                                ],
+                              )),
                     );
                   }),
             ),

@@ -179,13 +179,22 @@ class _StorePanelState extends State<StorePanel> {
                           color: kBodyTextColor,
                         ),
                       ),
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              OrderScreen(widget.user, document),
-                        ),
-                      ),
+                      onPressed: () {
+                        FirebaseFirestore.instance
+                            .collection("cart")
+                            .doc(widget.user.email)
+                            .update(
+                          {
+                            'store': document['name'],
+                          },
+                        );
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  OrderScreen(widget.user, document),
+                            ));
+                      },
                       color: Colors.white,
                     ),
                   ),

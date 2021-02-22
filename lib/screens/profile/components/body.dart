@@ -131,9 +131,9 @@ class _BodyState extends State<Body> {
                                             isEqualTo: widget.user.email)
                                         .snapshots(),
                                     builder: (context, snapshot) {
-                                      var like = 0;
+                                      var order = 0;
                                       if (snapshot.hasData) {
-                                        like = snapshot.data.docs.length;
+                                        order = snapshot.data.docs.length;
                                       }
                                       return Column(
                                         children: [
@@ -153,7 +153,7 @@ class _BodyState extends State<Body> {
                                                         widget.user),
                                               ),
                                             ),
-                                            child: Text("$like",
+                                            child: Text("$order",
                                                 textScaleFactor: 1,
                                                 style: TextStyle(
                                                     fontSize: 17,
@@ -169,12 +169,12 @@ class _BodyState extends State<Body> {
                                         .collection('order')
                                         .where('email',
                                             isEqualTo: widget.user.email)
-                                        .where('pickedup', isEqualTo: true)
+                                        .where('pickedup', isEqualTo: false)
                                         .snapshots(),
                                     builder: (context, snapshot) {
-                                      var order = 0;
+                                      var pickup = 0;
                                       if (snapshot.hasData) {
-                                        order = snapshot.data.docs.length;
+                                        pickup = snapshot.data.docs.length;
                                       }
                                       return Column(
                                         children: [
@@ -194,7 +194,7 @@ class _BodyState extends State<Body> {
                                                         widget.user),
                                               ),
                                             ),
-                                            child: Text("$order",
+                                            child: Text("$pickup",
                                                 textScaleFactor: 1,
                                                 style: TextStyle(
                                                     fontSize: 17,

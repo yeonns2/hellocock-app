@@ -106,7 +106,7 @@ class _FindPWScreenState extends State<FindPWScreen> {
                           .where('phone', isEqualTo: _phoneController.text)
                           .get()
                           .then((value) {
-                        email = value.docs[0]['email'];
+                        if (value.size != 0) email = value.docs[0]['email'];
                       });
                     });
                     await Future.delayed(Duration(seconds: 1));

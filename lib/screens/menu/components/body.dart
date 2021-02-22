@@ -150,7 +150,6 @@ class _BodyState extends State<Body> {
                                     builder: (context) => OrderScreen(
                                       widget.user,
                                       widget.storedocument,
-                                      chosenDateTime: _chosenDateTime,
                                     ),
                                   ),
                                 ),

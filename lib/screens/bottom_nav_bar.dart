@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hellocock/screens/home/home_screen.dart';
 import 'package:hellocock/screens/inquiry/inquiry_screen.dart';
 import 'package:hellocock/screens/manual/manual_screen.dart';
@@ -22,7 +21,6 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 0;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   List<Map<String, dynamic>> _navitems = [
     {"icon": "assets/icons/home.svg", "title": "Home"},
@@ -198,7 +196,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                               ),
                               onPressed: () async {
                                 await FirebaseAuth.instance.signOut();
-                                Navigator.pushReplacement(
+                                Navigator.popUntil(
+                                    context, ModalRoute.withName('/signin'));
+                                Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => SignInScreen()));

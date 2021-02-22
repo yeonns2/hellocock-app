@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hellocock/screens/signIn/sign_in_screen.dart';
 import 'package:hellocock/screens/signUp/sign_up_screen.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 
@@ -107,7 +105,7 @@ class _FindIDScreenState extends State<FindIDScreen> {
                           .where('phone', isEqualTo: _phoneController.text)
                           .get()
                           .then((value) {
-                        email = value.docs[0]['email'];
+                        if (value.size != 0) email = value.docs[0]['email'];
                       });
                     });
                     await Future.delayed(Duration(seconds: 1));

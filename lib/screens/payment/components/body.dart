@@ -1,26 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/screens/order_completed/order_completed_screen.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
-import 'package:hellocock/widgets/cards/card.dart';
-
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class Body extends StatefulWidget {
-  final User user;
-  final DocumentSnapshot cocktaildocument;
-  final DocumentSnapshot storedocument;
-  final int _totalprice;
-  final String _selectedtime;
-  Body(this.user, this.cocktaildocument, this.storedocument, this._totalprice,
-      this._selectedtime);
+  final DocumentSnapshot cart;
+  Body(this.cart);
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
+  int _totalprice = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -65,7 +58,7 @@ class _BodyState extends State<Body> {
                           color: kBodyTextColor,
                           fontWeight: FontWeight.w500)),
                   Text(
-                    widget._totalprice.toString() + "원",
+                    _totalprice.toString() + "원",
                     textScaleFactor: 1,
                     style: TextStyle(
                         color: Color(0xFFFA195A), fontWeight: FontWeight.w500),
@@ -88,7 +81,7 @@ class _BodyState extends State<Body> {
                           fontWeight: FontWeight.bold,
                           color: kBodyTextColor)),
                   Text(
-                    widget._totalprice.toString() + "원",
+                    _totalprice.toString() + "원",
                     textScaleFactor: 1,
                     style: TextStyle(
                         color: Color(0xFFFA195A), fontWeight: FontWeight.bold),
@@ -101,159 +94,28 @@ class _BodyState extends State<Body> {
                 textScaleFactor: 1,
                 style: TextStyle(fontSize: 13),
               ),
-              VerticalSpacing(of: 50),
-              Text(
-                "결제수단 선택",
-                textScaleFactor: 1,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: kBodyTextColor,
-                  fontSize: 17,
-                ),
-              ),
-              VerticalSpacing(
-                of: 10,
-              ),
-              VerticalSpacing(),
-              Row(
-                children: [
-                  InkWellCard(
-                      circular: 10,
-                      onTap: () {},
-                      child: Container(
-                        width: 133,
-                        height: 86,
-                        child: Center(
-                          child: Text(
-                            "네이버 페이",
-                            textScaleFactor: 1,
-                            style: TextStyle(
-                                fontSize: 13,
-                                color: kActiveColor,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      )),
-                  InkWellCard(
-                      circular: 10,
-                      onTap: () {},
-                      child: Container(
-                        width: 133,
-                        height: 86,
-                        child: Center(
-                          child: Text(
-                            "토스 페이",
-                            textScaleFactor: 1,
-                            style: TextStyle(
-                                fontSize: 13,
-                                color: kActiveColor,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      )),
-                ],
-              ),
-              VerticalSpacing(),
-              Row(
-                children: [
-                  InkWellCard(
-                      circular: 10,
-                      onTap: () {},
-                      child: Container(
-                        width: 133,
-                        height: 86,
-                        child: Center(
-                          child: Text(
-                            "페이코 페이",
-                            textScaleFactor: 1,
-                            style: TextStyle(
-                                fontSize: 13,
-                                color: kActiveColor,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      )),
-                  InkWellCard(
-                      circular: 10,
-                      onTap: () {},
-                      child: Container(
-                        width: 133,
-                        height: 86,
-                        child: Center(
-                          child: Text(
-                            "카카오 페이",
-                            textScaleFactor: 1,
-                            style: TextStyle(
-                                fontSize: 13,
-                                color: kActiveColor,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      )),
-                ],
-              ),
-              VerticalSpacing(),
-              Row(
-                children: [
-                  InkWellCard(
-                      circular: 10,
-                      onTap: () {},
-                      child: Container(
-                        width: 133,
-                        height: 86,
-                        child: Center(
-                          child: Text(
-                            "핸드폰 결제",
-                            textScaleFactor: 1,
-                            style: TextStyle(
-                                fontSize: 13,
-                                color: kActiveColor,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      )),
-                  InkWellCard(
-                      circular: 10,
-                      onTap: () {},
-                      child: Container(
-                        width: 133,
-                        height: 86,
-                        child: Center(
-                          child: Text(
-                            "무통장 입금",
-                            textScaleFactor: 1,
-                            style: TextStyle(
-                                fontSize: 13,
-                                color: kActiveColor,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      )),
-                ],
-              ),
-              VerticalSpacing(of: 30),
+              VerticalSpacing(of: 480),
               PrimaryButton(
                 press: () {
                   FirebaseFirestore.instance.collection("order").doc().set({
                     'number': "",
-                    'name': widget.user.displayName,
-                    'email': widget.user.email,
+                    'name': widget.cart['name'],
+                    'email': widget.cart.id,
                     'date': Timestamp.now(),
-                    'total_price': widget._totalprice,
+                    'total_price': 14000,
                     'pickup_time': "",
-                    'pickup_store': widget.storedocument['name'],
+                    'pickup_store': widget.cart['name'],
                     'pickedup': false,
-                    'product':
-                        FieldValue.arrayUnion([widget.cocktaildocument['name']])
+                    'product': FieldValue.arrayUnion([widget.cart['cocktail']])
                   });
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => null, //OrderCompletedScreen(),
+                      builder: (context) => OrderCompletedScreen(),
                     ),
                   );
                 },
-                text: widget._totalprice.toString() + "원 결제하기",
+                text: _totalprice.toString() + "원 결제하기",
               ),
               VerticalSpacing(
                 of: 50,
