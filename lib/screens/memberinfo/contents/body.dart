@@ -42,7 +42,7 @@ class _BodyState extends State<Body> {
                 VerticalSpacing(),
                 TextFormField(
                   initialValue: widget.user.displayName,
-                  style: TextStyle(fontSize: 13, color: kBodyTextColor),
+                  style: TextStyle(fontSize: 14, color: kBodyTextColor),
                   keyboardType: TextInputType.name,
                   readOnly: true,
                   cursorColor: kActiveColor,
@@ -65,7 +65,7 @@ class _BodyState extends State<Body> {
                 VerticalSpacing(),
                 TextFormField(
                   initialValue: widget.user.email,
-                  style: TextStyle(fontSize: 13, color: kBodyTextColor),
+                  style: TextStyle(fontSize: 14, color: kBodyTextColor),
                   keyboardType: TextInputType.name,
                   readOnly: true,
                   cursorColor: kActiveColor,
@@ -76,28 +76,6 @@ class _BodyState extends State<Body> {
                         borderRadius: BorderRadius.circular(32.0)),
                   ),
                 ),
-                //VerticalSpacing(),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Text(
-                //     "비밀번호",
-                //     style: TextStyle(
-                //         fontWeight: FontWeight.bold, color: kBodyTextColor),
-                //   ),
-                // ),
-                // TextFormField(
-                //   initialValue: "******",
-                //   style: TextStyle(fontSize: 13),
-                //   keyboardType: TextInputType.name,
-                //   readOnly: true,
-                //   cursorColor: kActiveColor,
-                //   decoration: InputDecoration(
-                //     fillColor: Colors.grey[100],
-                //     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                //     border: OutlineInputBorder(
-                //         borderRadius: BorderRadius.circular(32.0)),
-                //   ),
-                // ),
                 VerticalSpacing(
                   of: 30,
                 ),
@@ -119,7 +97,7 @@ class _BodyState extends State<Body> {
                       if (!snapshot.hasData) return CircularProgressIndicator();
                       return TextFormField(
                         initialValue: snapshot.data['phone'] ?? "",
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(fontSize: 14, color: kBodyTextColor),
                         keyboardType: TextInputType.name,
                         readOnly: true,
                         cursorColor: kActiveColor,
@@ -153,7 +131,7 @@ class _BodyState extends State<Body> {
                       if (!snapshot.hasData) return CircularProgressIndicator();
                       return TextFormField(
                         initialValue: snapshot.data['address1'] ?? "",
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(fontSize: 14, color: kBodyTextColor),
                         keyboardType: TextInputType.name,
                         readOnly: true,
                         cursorColor: kActiveColor,
@@ -176,7 +154,7 @@ class _BodyState extends State<Body> {
                       if (!snapshot.hasData) return CircularProgressIndicator();
                       return TextFormField(
                         initialValue: snapshot.data['address2'] ?? "",
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(fontSize: 14, color: kBodyTextColor),
                         keyboardType: TextInputType.name,
                         readOnly: true,
                         cursorColor: kActiveColor,
@@ -190,7 +168,7 @@ class _BodyState extends State<Body> {
                       );
                     }),
                 VerticalSpacing(
-                  of: 100,
+                  of: 150,
                 ),
                 Center(
                   child: PrimaryButton(

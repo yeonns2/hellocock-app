@@ -19,62 +19,81 @@ class _BodyState extends State<Body> {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            VerticalSpacing(of: 30),
-            Container(
-              height: 10000,
-              child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection('order')
-                      .where('email', isEqualTo: widget.user.email)
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          valueColor:
-                              new AlwaysStoppedAnimation<Color>(kActiveColor),
-                        ),
-                      );
-                    }
-                    if (snapshot.data.docs.length == 0) {
-                      return Center(
-                        child: Text(
-                          "마이콕은 그동안 마셨던 칵테일을 \n확인할 수 있는 나만의 bar 입니다!\n헬로콕의 칵테일 키트와 마이콕을 \n채워봐요~",
-                          textScaleFactor: 1,
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: kActiveColor,
-                              height: 1.5),
-                        ),
-                      );
-                    }
-                    return GridView.count(
+        child: StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance
+                .collection('order')
+                .where('email', isEqualTo: widget.user.email)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    valueColor: new AlwaysStoppedAnimation<Color>(kActiveColor),
+                  ),
+                );
+              }
+              if (snapshot.data.docs.length == 0) {
+                return Center(
+                  child: Text(
+                    "마이콕은 그동안 마셨던 칵테일을 \n확인할 수 있는 나만의 bar 입니다!\n헬로콕의 칵테일 키트와 마이콕을 \n채워봐요~",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: kActiveColor,
+                        height: 1.5),
+                  ),
+                );
+              }
+              return Stack(
+                children: [
+                  Column(
+                    children: [
+                      VerticalSpacing(
+                        of: 120,
+                      ),
+                      Divider(
+                        thickness: 1,
+                        color: kActiveColor,
+                      ),
+                      VerticalSpacing(
+                        of: 135,
+                      ),
+                      Divider(
+                        thickness: 1,
+                        color: kActiveColor,
+                      ),
+                      VerticalSpacing(
+                        of: 135,
+                      ),
+                      Divider(
+                        thickness: 1,
+                        color: kActiveColor,
+                      ),
+                      VerticalSpacing(
+                        of: 135,
+                      ),
+                      Divider(
+                        thickness: 1,
+                        color: kActiveColor,
+                      ),
+                    ],
+                  ),
+                  Center(
+                    child: GridView.count(
                       shrinkWrap: true, // You won't see infinite size error
                       primary: false,
                       crossAxisCount: 4,
-                      childAspectRatio: 0.3,
-                      //padding: const EdgeInsets.only(top: 10.0),
-                      crossAxisSpacing: 10.0,
+                      childAspectRatio: 0.6,
+                      padding: const EdgeInsets.only(top: 30.0),
+                      crossAxisSpacing: 1,
                       children: List.generate(
-                          snapshot.data.docs.length,
-                          (index) => Column(
-                                children: [
-                                  MyCocktail(),
-                                  VerticalSpacing(of: 30),
-                                ],
-                              )),
-                    );
-                  }),
-            ),
-            SizedBox(width: 100, child: Divider(thickness: 1)),
-            VerticalSpacing(of: 50),
-          ],
-        ),
+                          snapshot.data.docs.length, (index) => MyCocktail()),
+                    ),
+                  ),
+                ],
+              );
+            }),
       ),
     );
   }

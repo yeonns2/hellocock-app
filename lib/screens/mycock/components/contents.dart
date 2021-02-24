@@ -5,22 +5,30 @@ import '../../../constants.dart';
 class MyCocktail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 5, bottom: 10),
-              child: Text(
-                "2020.10.03",
-                style: TextStyle(color: kActiveColor, fontSize: 10),
+    return Container(
+      width: 80,
+      height: 70,
+      child: Row(
+        children: [
+          Column(
+            children: [
+              SizedBox(
+                  width: 80,
+                  child: Image.asset("assets/images/bluehawaii.png")),
+              SizedBox(
+                height: 20,
               ),
-            ),
-            SizedBox(
-                width: 80, child: Image.asset("assets/images/bluehawaii.png")),
-          ],
-        ),
-      ],
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 10),
+                child: Text(
+                  "2020.10.03",
+                  style: TextStyle(color: kActiveColor, fontSize: 10),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

@@ -173,14 +173,20 @@ class _BodyState extends State<Body> {
                 image: "assets/icons/apple.svg",
                 press: () {
                   signInWithApple().then((User user) {
-                    FirebaseFirestore.instance
-                        .collection("user")
-                        .doc(user.email)
-                        .set({
-                      'name': user.displayName,
-                      'email': user.email,
-                      'certificated': false
-                    });
+                    if (!user.emailVerified) {
+                      FirebaseFirestore.instance
+                          .collection("user")
+                          .doc(user.email)
+                          .set({
+                        'name': user.displayName,
+                        'email': user.email,
+                        'certificated': false,
+                        'phone': user.phoneNumber,
+                        'address1': "",
+                        'address2': "",
+                        'marketing_agreement': false
+                      });
+                    }
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -200,14 +206,20 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => LoadingScreen()));
-                    FirebaseFirestore.instance
-                        .collection("user")
-                        .doc(user.email)
-                        .set({
-                      'name': user.displayName,
-                      'email': user.email,
-                      'certificated': false
-                    });
+                    if (!user.emailVerified) {
+                      FirebaseFirestore.instance
+                          .collection("user")
+                          .doc(user.email)
+                          .set({
+                        'name': user.displayName,
+                        'email': user.email,
+                        'certificated': false,
+                        'phone': user.phoneNumber,
+                        'address1': "",
+                        'address2': "",
+                        'marketing_agreement': false
+                      });
+                    }
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

@@ -27,10 +27,10 @@ class _BodyState extends State<Body> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if (widget.cart['food'] != null)
-      containfood = true;
-    else
+    if (widget.cart['food'].length == 0)
       containfood = false;
+    else
+      containfood = true;
   }
 
   @override

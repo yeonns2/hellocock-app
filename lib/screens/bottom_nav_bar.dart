@@ -191,6 +191,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
                         actions: <Widget>[
                           new CupertinoDialogAction(
                               child: Text(
+                                '아니오',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                              onPressed: () async {
+                                await FirebaseAuth.instance.signOut();
+                                Navigator.pop(context);
+                              }),
+                          new CupertinoDialogAction(
+                              child: Text(
                                 '예',
                                 style: TextStyle(fontSize: 15),
                               ),

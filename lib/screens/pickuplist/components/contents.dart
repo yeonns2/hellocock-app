@@ -122,14 +122,6 @@ class PickUpCard extends StatelessWidget {
                   ),
                 ]),
           ),
-          Divider(
-            color: kActiveColor,
-            thickness: 1,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text("주문 확인중"),
-          )
         ],
       ),
     );

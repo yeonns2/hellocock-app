@@ -20,48 +20,51 @@ class _BodyState extends State<Body> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
-            height: 10000,
-            child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('order')
-                    .where('email', isEqualTo: widget.user.email)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        valueColor:
-                            new AlwaysStoppedAnimation<Color>(kActiveColor),
-                      ),
-                    );
-                  }
-                  if (snapshot.data.docs.length == 0) {
-                    return Text(
-                      "수령할 칵테일이 없어요..",
-                      textScaleFactor: 1,
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: kBodyTextColor,
-                          height: 1.5),
-                    );
-                  }
-                  return ListView.builder(
-                    padding:
-                        const EdgeInsets.only(top: 50, left: 10, right: 10),
-                    itemCount: snapshot.data.docs.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Column(
-                        children: [
-                          OrderCard(snapshot.data.docs[index]),
-                          VerticalSpacing(of: 30),
-                        ],
-                      );
-                    },
+          StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('order')
+                  .where('email', isEqualTo: widget.user.email)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      valueColor:
+                          new AlwaysStoppedAnimation<Color>(kActiveColor),
+                    ),
                   );
-                }),
-          ),
+                }
+                if (snapshot.data.docs.length == 0) {
+                  return Text(
+                    "주문한 칵테일이 없어요..",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: kBodyTextColor,
+                        height: 1.5),
+                  );
+                }
+                return Center(
+                  child: Container(
+                    height: snapshot.data.docs.length.toDouble() * 210,
+                    child: ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      padding:
+                          const EdgeInsets.only(top: 50, left: 10, right: 10),
+                      itemCount: snapshot.data.docs.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          children: [
+                            OrderCard(snapshot.data.docs[index]),
+                            VerticalSpacing(of: 30),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                );
+              }),
           VerticalSpacing(of: 50),
         ],
       ),

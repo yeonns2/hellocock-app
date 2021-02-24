@@ -229,7 +229,7 @@ class _ModifyFormState extends State<ModifyForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: 183,
+                width: SizeConfig.screenWidth - 190,
                 child: TextFormField(
                   style: TextStyle(fontSize: 13, color: kBodyTextColor),
                   controller:
@@ -290,7 +290,7 @@ class _ModifyFormState extends State<ModifyForm> {
             },
           ),
           VerticalSpacing(
-            of: 140,
+            of: 150,
           ),
           Center(
             child: PrimaryButton(
