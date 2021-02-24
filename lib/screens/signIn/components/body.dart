@@ -1,3 +1,4 @@
+import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -79,9 +80,7 @@ class _BodyState extends State<Body> {
     User user =
         (await _firebaseAuth.signInWithCredential(oauthCredential)).user;
 
-    final displayName = appleCredential.givenName.toString();
-
-    await user.updateProfile(displayName: displayName);
+    await user.updateProfile(displayName: Scope.fullName.toString());
     return user;
   }
 

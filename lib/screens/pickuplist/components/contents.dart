@@ -11,7 +11,7 @@ class PickUpCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 275,
-      height: 257,
+      height: 175,
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: kActiveColor),

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hellocock/screens/bottom_nav_bar.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:hellocock/constants.dart';
@@ -116,22 +116,15 @@ class _SignInFormState extends State<SignInForm> {
   }
 
   showErrDialog(BuildContext context, String err) {
-    FocusScope.of(context).requestFocus(new FocusNode());
-    return showDialog(
-      context: context,
-      child: AlertDialog(
-        title: Text("Error"),
-        content: Text(err),
-        actions: <Widget>[
-          OutlineButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text("Ok"),
-          ),
-        ],
+    return Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text(
+        err,
+        textAlign: TextAlign.center,
+        textScaleFactor: 1,
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
       ),
-    );
+      backgroundColor: kActiveColor,
+    ));
   }
 
   // Example code of how to sign in with email and password.
@@ -143,39 +136,24 @@ class _SignInFormState extends State<SignInForm> {
       ))
           .user;
       return user;
-    } on PlatformException catch (err) {
-      var message = 'An error occurred, please check your credentials!';
-
-      if (err.message != null) {
-        message = err.message;
-
-        print(message);
-      }
-      Scaffold.of(context).showSnackBar(
-        SnackBar(
-          content: Text(message),
-          backgroundColor: Theme.of(context).errorColor,
-        ),
-      );
     } on FirebaseAuthException catch (e) {
-      print(e.code);
       switch (e.code) {
-        case 'ERROR_INVALID_EMAIL':
+        case 'invalid-email':
+          showErrDialog(context, '이메일 형식이 맞지 않습니다.');
+          break;
+        case 'wrong-password':
+          showErrDialog(context, '비밀번호가 올바르지 않습니다.');
+          break;
+        case 'user-not-found':
+          showErrDialog(context, '사용자 계정을 찾을 수 없습니다.');
+          break;
+        case 'user-disabled':
           showErrDialog(context, e.code);
           break;
-        case 'ERROR_WRONG_PASSWORD':
+        case 'too-many-requests':
           showErrDialog(context, e.code);
           break;
-        case 'ERROR_USER_NOT_FOUND':
-          showErrDialog(context, e.code);
-          break;
-        case 'ERROR_USER_DISABLED':
-          showErrDialog(context, e.code);
-          break;
-        case 'ERROR_TOO_MANY_REQUESTS':
-          showErrDialog(context, e.code);
-          break;
-        case 'ERROR_OPERATION_NOT_ALLOWED':
+        case 'operation-not-allowed':
           showErrDialog(context, e.code);
           break;
       }

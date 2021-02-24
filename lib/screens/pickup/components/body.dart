@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -11,9 +12,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hellocock/size_config.dart';
 
 class Body extends StatefulWidget {
+  final User user;
   final DocumentSnapshot cart;
   final DocumentSnapshot store;
-  Body(this.cart, this.store);
+  Body(this.user, this.cart, this.store);
 
   @override
   _BodyState createState() => _BodyState();
@@ -214,6 +216,11 @@ class _BodyState extends State<Body> {
               ),
               PrimaryButton(
                 press: () {
+                  FirebaseFirestore.instance
+                      .collection('cart')
+                      .doc(widget.user.email)
+                      .update({'pickup_time': _chosenDateTime});
+
                   Navigator.push(
                       context,
                       MaterialPageRoute(

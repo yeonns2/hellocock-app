@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hellocock/screens/root.dart';
 import 'package:hellocock/screens/signIn/sign_in_screen.dart';
+import 'package:hellocock/screens/splash_screen.dart';
 import 'package:hellocock/theme.dart';
 
 Future<void> main() async {
@@ -41,8 +42,9 @@ class MyApp extends StatelessWidget {
       //home: SplashScreen(),
       initialRoute: '/',
       routes: {
-        '/': (context) => RootPage(),
+        '/': (context) => SplashScreen(),
         '/signin': (context) => SignInScreen(),
+        '/root': (context) => RootPage(),
       },
     );
   }

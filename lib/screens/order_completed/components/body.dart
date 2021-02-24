@@ -4,12 +4,16 @@ import 'package:hellocock/screens/root.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
+import 'package:intl/intl.dart';
 
 class Body extends StatelessWidget {
   final DocumentSnapshot document;
+
   Body(this.document);
   @override
   Widget build(BuildContext context) {
+    var date = document['pickup_time'].toDate();
+    var pickup_time = DateFormat('yyyy-MM-dd hh:mm').format(date);
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(
@@ -32,7 +36,7 @@ class Body extends StatelessWidget {
                 of: 50,
               ),
               Text(
-                "블루 하와이 칵테일 키트",
+                document['cocktail']['name'] + " 칵테일 키트",
                 textScaleFactor: 1,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -54,7 +58,7 @@ class Body extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "2020/12/05 pm19:45",
+                    pickup_time,
                     textScaleFactor: 1,
                     style: TextStyle(
                       color: kBodyTextColor,
@@ -98,7 +102,7 @@ class Body extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "궤도에 오르다",
+                    document['store'],
                     textScaleFactor: 1,
                     style: TextStyle(
                       color: kBodyTextColor,
@@ -120,7 +124,7 @@ class Body extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "pm20:30",
+                    pickup_time,
                     textScaleFactor: 1,
                     style: TextStyle(
                       color: kBodyTextColor,
@@ -147,7 +151,7 @@ class Body extends StatelessWidget {
                 ),
               ),
               VerticalSpacing(
-                of: 120,
+                of: 165,
               ),
               PrimaryButton(
                 press: () => Navigator.pushReplacement(
@@ -157,9 +161,6 @@ class Body extends StatelessWidget {
                   ),
                 ),
                 text: "홈으로 돌아가기",
-              ),
-              VerticalSpacing(
-                of: 30,
               ),
             ],
           ),

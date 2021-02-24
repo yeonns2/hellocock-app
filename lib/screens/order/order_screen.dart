@@ -19,7 +19,6 @@ class OrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      //appBar: buildAppBar(context),
       body: StreamBuilder<DocumentSnapshot>(
           stream: FirebaseFirestore.instance
               .collection("cart")
@@ -28,29 +27,11 @@ class OrderScreen extends StatelessWidget {
           builder: (context, snapshot) {
             if (!snapshot.hasData) return CircularProgressIndicator();
             return Body(
+              user,
               snapshot.data,
               store,
             );
           }),
-    );
-  }
-
-  AppBar buildAppBar(BuildContext context) {
-    return AppBar(
-      leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          color: kActiveColor,
-          onPressed: () => Navigator.pop(context)),
-      title: SvgPicture.asset("assets/icons/hellocock_title.svg"),
-      actions: [
-        FlatButton(
-          onPressed: () {},
-          child: Icon(
-            Icons.menu,
-            color: kActiveColor,
-          ),
-        ),
-      ],
     );
   }
 }

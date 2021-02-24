@@ -8,6 +8,7 @@ import 'package:hellocock/screens/manual/manual_screen.dart';
 import 'package:hellocock/screens/mycock/mycock_screen.dart';
 import 'package:hellocock/screens/notice/notice_screen.dart';
 import 'package:hellocock/screens/profile/profile_screen.dart';
+import 'package:hellocock/screens/root.dart';
 import 'package:hellocock/screens/signIn/sign_in_screen.dart';
 import '../size_config.dart';
 import '../constants.dart';
@@ -206,11 +207,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
                               onPressed: () async {
                                 await FirebaseAuth.instance.signOut();
                                 Navigator.popUntil(
-                                    context, ModalRoute.withName('/signin'));
+                                    context, ModalRoute.withName('/root'));
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => SignInScreen()));
+                                        builder: (context) => RootPage()));
                               }),
                         ],
                       );

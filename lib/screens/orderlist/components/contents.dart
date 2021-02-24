@@ -28,7 +28,7 @@ class OrderCard extends StatelessWidget {
                   padding: const EdgeInsets.only(
                       top: 5, bottom: 5, left: 20.0, right: 20),
                   child: Text(
-                    order['product'][0].toString() + " 칵테일 키트",
+                    order['cocktail']['name'] + " 칵테일 키트",
                     textScaleFactor: 1,
                     style: TextStyle(
                         fontSize: 15,
@@ -104,7 +104,7 @@ class OrderCard extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            "궤도에 오르다",
+                            order['pickup_store'],
                             textScaleFactor: 1,
                             style: TextStyle(
                                 fontSize: 14,

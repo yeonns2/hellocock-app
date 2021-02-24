@@ -1,26 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hellocock/screens/order/components/quantitycard.dart';
 import 'package:hellocock/screens/pickup/pickup_screen.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/size_config.dart';
 
 class Body extends StatefulWidget {
+  final User user;
   final DocumentSnapshot cart;
   final DocumentSnapshot store;
 
-  Body(
-    this.cart,
-    this.store,
-  );
+  Body(this.user, this.cart, this.store);
 
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-  int count = 1;
   bool containfood;
 
   @override
@@ -86,58 +85,42 @@ class _BodyState extends State<Body> {
                 ],
               ),
               VerticalSpacing(),
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14.0),
-                ),
-                elevation: 2.0,
-                child: Container(
-                  width: 275,
-                  height: 38,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        FlatButton(
-                            onPressed: () {
-                              if (count > 0) {
-                                setState(() {
-                                  widget.cart['cocktail']['price'] -=
-                                      widget.cart['cocktail']['price'];
-                                  count -= 1;
-                                });
-                              }
-                            },
-                            child: Text(
-                              '-',
-                              style: TextStyle(
-                                  color: kBodyTextColor,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold),
-                            )),
-                        Text(
-                          "$count",
-                          style: TextStyle(
-                              color: kBodyTextColor,
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        FlatButton(
-                            onPressed: () {
-                              widget.cart['cocktail']['price'] +=
-                                  widget.cart['cocktail']['price'];
-                              count += 1;
-                              setState(() {});
-                            },
-                            child: Text(
-                              '+',
-                              style: TextStyle(
-                                  color: kBodyTextColor,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold),
-                            )),
-                      ]),
-                ),
+              QuantityCard(
+                quantity: widget.cart['cocktail']['quantity'],
+                onpressed1: () {
+                  setState(() {
+                    FirebaseFirestore.instance
+                        .collection("cart")
+                        .doc(widget.user.email)
+                        .update(
+                      {
+                        'cocktail': {
+                          'name': widget.cart['cocktail']['name'],
+                          'price': widget.cart['cocktail']['price'] *
+                              widget.cart['cocktail']['quantity'],
+                          'quantity': widget.cart['cocktail']['quantity']
+                        },
+                      },
+                    );
+                  });
+                },
+                onpressed2: () {
+                  setState(() {
+                    FirebaseFirestore.instance
+                        .collection("cart")
+                        .doc(widget.user.email)
+                        .update(
+                      {
+                        'cocktail': {
+                          'name': widget.cart['cocktail']['name'],
+                          'price': widget.cart['cocktail']['price'] *
+                              widget.cart['cocktail']['quantity'],
+                          'quantity': widget.cart['cocktail']['quantity']
+                        },
+                      },
+                    );
+                  });
+                },
               ),
               VerticalSpacing(
                 of: 30,
@@ -177,53 +160,10 @@ class _BodyState extends State<Body> {
                           ],
                         ),
                         VerticalSpacing(),
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14.0),
-                          ),
-                          elevation: 2.0,
-                          child: Container(
-                            width: 275,
-                            height: 38,
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  FlatButton(
-                                      onPressed: () {
-                                        if (count > 0) {
-                                          setState(() {});
-                                        }
-                                      },
-                                      child: Text(
-                                        '-',
-                                        style: TextStyle(
-                                            color: kBodyTextColor,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
-                                      )),
-                                  Text(
-                                    widget.cart['food'][0]['quantity']
-                                        .toString(),
-                                    style: TextStyle(
-                                        color: kBodyTextColor,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  FlatButton(
-                                      onPressed: () {
-                                        setState(() {});
-                                      },
-                                      child: Text(
-                                        '+',
-                                        style: TextStyle(
-                                            color: kBodyTextColor,
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold),
-                                      )),
-                                ]),
-                          ),
+                        QuantityCard(
+                          quantity: widget.cart['food'][0]['quantity'],
+                          onpressed1: () {},
+                          onpressed2: () {},
                         ),
                         VerticalSpacing(
                           of: 30,
@@ -239,13 +179,10 @@ class _BodyState extends State<Body> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              PickUpScreen(widget.cart, widget.store)));
+                          builder: (context) => PickUpScreen(
+                              widget.user, widget.cart, widget.store)));
                 },
                 text: "확인완료",
-              ),
-              VerticalSpacing(
-                of: 50,
               ),
             ],
           ),

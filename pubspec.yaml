@@ -55,6 +55,7 @@ dependencies:
   sign_in_with_apple: ^2.5.4
   apple_sign_in: ^0.1.0
   flutter_cupertino_date_picker: ^1.0.25
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:

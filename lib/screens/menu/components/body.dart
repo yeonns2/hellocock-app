@@ -114,7 +114,7 @@ class _BodyState extends State<Body> {
                         Row(
                           children: [
                             SizedBox(
-                              width: 83,
+                              width: 80,
                               height: 30,
                               child: RaisedButton(
                                 child: Text(
@@ -134,7 +134,7 @@ class _BodyState extends State<Body> {
                               of: 10,
                             ),
                             SizedBox(
-                              width: 83,
+                              width: 80,
                               height: 30,
                               child: RaisedButton(
                                 child: Text(

@@ -47,7 +47,7 @@ class _BodyState extends State<Body> {
                 }
                 return Center(
                   child: Container(
-                    height: snapshot.data.docs.length.toDouble() * 210,
+                    height: snapshot.data.docs.length.toDouble() * 250,
                     child: ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       padding:

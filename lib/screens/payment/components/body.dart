@@ -14,6 +14,14 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   int _totalprice = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _totalprice = widget.cart['cocktail']['price'];
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -102,23 +110,21 @@ class _BodyState extends State<Body> {
                     'name': widget.cart['name'],
                     'email': widget.cart.id,
                     'date': Timestamp.now(),
-                    'total_price': 14000,
-                    'pickup_time': "",
-                    'pickup_store': widget.cart['name'],
+                    'total_price': _totalprice,
+                    'pickup_time': widget.cart['pickup_time'],
+                    'pickup_store': widget.cart['store'],
                     'pickedup': false,
-                    'product': FieldValue.arrayUnion([widget.cart['cocktail']])
+                    'cocktail': widget.cart['cocktail']
                   });
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => OrderCompletedScreen(),
+                      builder: (context) => OrderCompletedScreen(widget.cart),
                     ),
                   );
                 },
                 text: _totalprice.toString() + "원 결제하기",
-              ),
-              VerticalSpacing(
-                of: 50,
               ),
             ],
           ),
