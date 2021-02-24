@@ -19,19 +19,14 @@ class SignUpForm extends StatefulWidget {
 }
 
 class _SignUpFormState extends State<SignUpForm> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _password = TextEditingController();
-  final TextEditingController _confirm = TextEditingController();
-  final TextEditingController _name = TextEditingController();
-  final TextEditingController _phone = TextEditingController();
-  final TextEditingController _address1 = TextEditingController();
-  final TextEditingController _address2 = TextEditingController();
+  TextEditingController _email = TextEditingController();
+  TextEditingController _password = TextEditingController();
+  TextEditingController _confirm = TextEditingController();
+  TextEditingController _name = TextEditingController();
+  TextEditingController _phone = TextEditingController();
+  TextEditingController _address1 = TextEditingController();
+  TextEditingController _address2 = TextEditingController();
 
   bool _success;
   String _userEmail;
@@ -89,7 +84,6 @@ class _SignUpFormState extends State<SignUpForm> {
           TextFormField(
             style: TextStyle(fontSize: 15),
             keyboardType: TextInputType.emailAddress,
-            autofocus: false,
             cursorColor: kActiveColor,
             controller: _email,
             decoration: InputDecoration(
@@ -479,111 +473,123 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           VerticalSpacing(of: 30),
           Center(
-            child: PrimaryButton(
-                text: "가입하기",
-                press: () async {
-                  if (_formKey.currentState.validate()) {
-                    if (_value1 == false || _value2 == false) {
-                      showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (context) {
-                            return CupertinoAlertDialog(
-                              content: Text(
-                                "\n약관에 동의해주세요",
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: kBodyTextColor,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              actions: <Widget>[
-                                new CupertinoDialogAction(
-                                  child: Text(
-                                    '확인',
-                                    style: TextStyle(fontSize: 13),
+              child: PrimaryButton(
+                  text: "가입하기",
+                  press: () async {
+                    if (_formKey.currentState.validate()) {
+                      if (_value1 == false || _value2 == false) {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) {
+                              return CupertinoAlertDialog(
+                                content: Text(
+                                  "\n약관에 동의해주세요",
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: kBodyTextColor,
                                   ),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
+                                  textAlign: TextAlign.center,
                                 ),
-                              ],
-                            );
-                          });
-                    } else {
-                      _register();
-                      showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (context) {
-                            return CupertinoAlertDialog(
-                              content: Text(
-                                "\n회원가입을 축하드립니다!",
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: kBodyTextColor,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              actions: <Widget>[
-                                new CupertinoDialogAction(
+                                actions: <Widget>[
+                                  new CupertinoDialogAction(
                                     child: Text(
                                       '확인',
                                       style: TextStyle(fontSize: 13),
                                     ),
-                                    onPressed: () => Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => SignInScreen(),
-                                        ))),
-                              ],
-                            );
-                          });
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            });
+                      } else {
+                        _register().then((User user) {
+                          if (user != null) {
+                            _userEmail = user.email;
+                            user.updateProfile(
+                                displayName: _name.text, photoURL: null);
+                            FirebaseFirestore.instance
+                                .collection("user")
+                                .doc(_email.text)
+                                .set({
+                              'name': _name.text,
+                              'email': _email.text,
+                              'address1': _address1.text,
+                              'address2': _address2.text,
+                              'phone': _phone.text,
+                              'certificated': false,
+                              'marketing_agreement': _value3
+                            });
+                            showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (context) {
+                                  return CupertinoAlertDialog(
+                                    content: Text(
+                                      "\n회원가입을 축하드립니다!",
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: kBodyTextColor,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    actions: <Widget>[
+                                      new CupertinoDialogAction(
+                                          child: Text(
+                                            '확인',
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                          onPressed: () =>
+                                              Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        SignInScreen(),
+                                                  ))),
+                                    ],
+                                  );
+                                });
+                          }
+                        });
+                      }
                     }
-                  } else {
-                    //dispose();
-                  }
-                }),
-          ),
+                  })),
         ],
       ),
     );
   }
 
-  @override
-  void dispose() {
-    // Clean up the controller when the Widget is disposed
-    _email.dispose();
-    _password.dispose();
-    super.dispose();
+  showErrDialog(BuildContext context, String err) {
+    return Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text(
+        err,
+        textAlign: TextAlign.center,
+        textScaleFactor: 1,
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+      ),
+      backgroundColor: kActiveColor,
+    ));
   }
 
   // Example code for registration.
-  void _register() async {
-    final User user = (await _auth.createUserWithEmailAndPassword(
-      email: _email.text,
-      password: _password.text,
-    ))
-        .user;
-    if (user != null) {
-      setState(() {
-        _success = true;
-        _userEmail = user.email;
-        user.updateProfile(displayName: _name.text, photoURL: null);
-
-        FirebaseFirestore.instance.collection("user").doc(_email.text).set({
-          'name': _name.text,
-          'email': _email.text,
-          'address1': _address1.text,
-          'address2': _address2.text,
-          'phone': _phone.text,
-          'certificated': false,
-          'marketing_agreement': _value3
-        });
-      });
-    } else {
-      _success = false;
-      dispose();
+  Future<User> _register() async {
+    try {
+      final User user = (await _auth.createUserWithEmailAndPassword(
+        email: _email.text,
+        password: _password.text,
+      ))
+          .user;
+      return user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        showErrDialog(context, "비밀번호가 취약합니다.");
+      } else if (e.code == 'email-already-in-use') {
+        showErrDialog(context, "이미 존재하는 계정입니다. 다른 이메일을 입력해주세요.");
+      }
+    } catch (e) {
+      print(e);
     }
   }
 }
