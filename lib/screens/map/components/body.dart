@@ -18,20 +18,31 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   Completer<GoogleMapController> _controller = Completer();
   List<Marker> allMarkers = [];
+  var latitude;
+  var longitude;
 
   @override
   void initState() {
     super.initState();
-    allMarkers.add(Marker(
-        markerId: MarkerId('myMarker'),
-        draggable: true,
-        infoWindow: InfoWindow(title: "궤도에 오르다", snippet: "광진구 군자동 465-17"),
-        position: LatLng(37.54658, 127.07564)));
-    allMarkers.add(Marker(
-        markerId: MarkerId('myMarker'),
-        draggable: true,
-        infoWindow: InfoWindow(title: "모히또 하우스", snippet: "광진구 군자동 465-17"),
-        position: LatLng(37.557433, 127.073604)));
+
+    FirebaseFirestore.instance.collection('store').get().then((store) {
+      if (store.docs.isNotEmpty) {
+        for (int i = 0; i < store.docs.length; i++) {
+          print(store.docs[i]['name']);
+          print(allMarkers);
+          setState(() {
+            allMarkers.add(Marker(
+                markerId: MarkerId(store.docs[i]['name']),
+                draggable: true,
+                infoWindow: InfoWindow(
+                    title: store.docs[i]['name'],
+                    snippet: store.docs[i]['address']),
+                position: LatLng(store.docs[i]['location'].latitude.toDouble(),
+                    store.docs[i]['location'].longitude.toDouble())));
+          });
+        }
+      }
+    });
   }
 
   @override

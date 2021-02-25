@@ -27,6 +27,8 @@ class _BodyState extends State<Body> {
   Completer<GoogleMapController> _controller = Completer();
   List<Marker> allMarkers = [];
   final now = DateTime.now();
+  var latitude;
+  var longitude;
 
   @override
   void initState() {
@@ -37,13 +39,12 @@ class _BodyState extends State<Body> {
     else {
       _chosenDateTime = new DateTime(now.year, now.month, now.day, 18, 00);
     }
+    latitude = widget.store['location'].latitude.toDouble();
+    longitude = widget.store['location'].longitude.toDouble();
     allMarkers.add(Marker(
         markerId: MarkerId('myMarker'),
         draggable: true,
-        onTap: () {
-          print('Marker Tapped');
-        },
-        position: LatLng(37.54658, 127.07564)));
+        position: LatLng(latitude, longitude)));
   }
 
   void _showDatePicker(context) {
@@ -206,7 +207,7 @@ class _BodyState extends State<Body> {
                   opacity: 0.8,
                   child: GoogleMap(
                     initialCameraPosition: CameraPosition(
-                        target: LatLng(37.54658, 127.07564), zoom: 16),
+                        target: LatLng(latitude, longitude), zoom: 16),
                     onMapCreated: (GoogleMapController controller) {
                       _controller.complete(controller);
                     },
