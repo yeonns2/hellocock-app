@@ -39,6 +39,7 @@ class _MenuCardState extends State<MenuCard> {
             children: [
               Text(
                 widget.store['food'][widget.index]['name'],
+                textScaleFactor: 1,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 13,
@@ -46,6 +47,7 @@ class _MenuCardState extends State<MenuCard> {
               ),
               Text(
                 "소시지, 양파, 피클, 케첩, 머스타드",
+                textScaleFactor: 1,
                 style: TextStyle(fontSize: 12),
               ),
               Row(
@@ -61,8 +63,9 @@ class _MenuCardState extends State<MenuCard> {
                       child: Text(
                         widget.store['food'][widget.index]['price'].toString() +
                             "원",
+                        textScaleFactor: 1,
                         style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 13,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFFFA195F)),
                       ),

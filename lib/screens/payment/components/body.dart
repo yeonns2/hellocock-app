@@ -105,13 +105,14 @@ class _BodyState extends State<Body> {
               VerticalSpacing(of: 480),
               PrimaryButton(
                 press: () {
+                  setState(() {});
                   FirebaseFirestore.instance.collection("order").doc().set({
                     'number': "",
                     'name': widget.cart['name'],
                     'email': widget.cart.id,
                     'date': Timestamp.now(),
                     'total_price': _totalprice,
-                    'pickup_time': widget.cart['pickup_time'],
+                    //'pickup_time': widget.cart['pickup_time'],
                     'pickup_store': widget.cart['store'],
                     'pickedup': false,
                     'cocktail': widget.cart['cocktail']

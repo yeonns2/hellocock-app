@@ -7,6 +7,7 @@ import 'package:hellocock/screens/order/order_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
+import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
   final User user;
@@ -19,9 +20,15 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   //List<dynamic> _foodlist = List<dynamic>.from(widget.storedocument['food']);
-  DateTime _chosenDateTime =
-      DateTime.now().add(Duration(minutes: 30 - DateTime.now().minute % 30));
+  final now = new DateTime.now();
+  DateTime _chosenDateTime;
   int count = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _chosenDateTime = DateTime(now.year, now.month, now.day, 18, 0);
+  }
 
   void _showDatePicker(context) {
     // showCupertinoModalPopup is a built-in function of the cupertino library
@@ -35,13 +42,14 @@ class _BodyState extends State<Body> {
                   Container(
                     height: 200,
                     child: CupertinoDatePicker(
-                        mode: CupertinoDatePickerMode.dateAndTime,
+                        mode: CupertinoDatePickerMode.time,
                         minuteInterval: 30,
-                        minimumDate: DateTime.now(),
-                        maximumDate: DateTime.now().add(Duration(hours: 6)),
+                        minimumDate:
+                            DateTime(now.year, now.month, now.day, 18, 0),
+                        maximumDate:
+                            DateTime(now.year, now.month, now.day, 22, 0),
                         use24hFormat: true,
-                        initialDateTime: DateTime.now().add(
-                            Duration(minutes: 30 - DateTime.now().minute % 30)),
+                        initialDateTime: _chosenDateTime,
                         onDateTimeChanged: (val) {
                           setState(() {
                             _chosenDateTime = val;
@@ -63,7 +71,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(25.0),
+        padding: const EdgeInsets.only(left: 25, bottom: 25, top: 25),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,11 +126,10 @@ class _BodyState extends State<Body> {
                               height: 30,
                               child: RaisedButton(
                                 child: Text(
-                                  _chosenDateTime.hour.toString() +
-                                      ":" +
-                                      _chosenDateTime.minute.toString(),
+                                  DateFormat('HH:mm').format(_chosenDateTime),
+                                  textScaleFactor: 1,
                                   style: TextStyle(
-                                      fontSize: 11,
+                                      fontSize: 12,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.grey[700]),
                                 ),
@@ -139,20 +146,26 @@ class _BodyState extends State<Body> {
                               child: RaisedButton(
                                 child: Text(
                                   "수령하기",
+                                  textScaleFactor: 1,
                                   style: TextStyle(
                                       fontSize: 11,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                                 ),
-                                onPressed: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => OrderScreen(
-                                      widget.user,
-                                      widget.storedocument,
-                                    ),
-                                  ),
-                                ),
+                                onPressed: () {
+                                  FirebaseFirestore.instance
+                                      .collection("cart")
+                                      .doc(widget.user.email)
+                                      .update({'pickup_time': _chosenDateTime});
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => OrderScreen(
+                                          widget.user,
+                                          widget.storedocument,
+                                        ),
+                                      ));
+                                },
                                 color: kActiveColor,
                               ),
                             ),

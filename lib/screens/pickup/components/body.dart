@@ -10,6 +10,7 @@ import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:hellocock/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hellocock/size_config.dart';
+import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
   final User user;
@@ -22,16 +23,20 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  var _chosenDateTime;
+  DateTime _chosenDateTime;
   Completer<GoogleMapController> _controller = Completer();
   List<Marker> allMarkers = [];
+  final now = DateTime.now();
 
   @override
   void initState() {
     super.initState();
 
-    _chosenDateTime =
-        DateTime.now().add(Duration(minutes: 30 - DateTime.now().minute % 30));
+    if (widget.cart['pickup_time'] != null)
+      _chosenDateTime = widget.cart['pickup_time'].toDate();
+    else {
+      _chosenDateTime = new DateTime(now.year, now.month, now.day, 18, 00);
+    }
     allMarkers.add(Marker(
         markerId: MarkerId('myMarker'),
         draggable: true,
@@ -53,13 +58,14 @@ class _BodyState extends State<Body> {
                   Container(
                     height: 200,
                     child: CupertinoDatePicker(
-                        mode: CupertinoDatePickerMode.dateAndTime,
+                        mode: CupertinoDatePickerMode.time,
                         minuteInterval: 30,
-                        minimumDate: DateTime.now(),
-                        maximumDate: DateTime.now().add(Duration(hours: 6)),
+                        minimumDate:
+                            DateTime(now.year, now.month, now.day, 18, 0),
+                        maximumDate:
+                            DateTime(now.year, now.month, now.day, 22, 0),
                         use24hFormat: true,
-                        initialDateTime: DateTime.now().add(
-                            Duration(minutes: 30 - DateTime.now().minute % 30)),
+                        initialDateTime: _chosenDateTime,
                         onDateTimeChanged: (val) {
                           setState(() {
                             _chosenDateTime = val;
@@ -144,9 +150,7 @@ class _BodyState extends State<Body> {
                         children: [
                           SvgPicture.asset("assets/icons/arrow_dropdown.svg"),
                           Text(
-                            _chosenDateTime.hour.toString() +
-                                ":" +
-                                _chosenDateTime.minute.toString(),
+                            DateFormat('HH:mm').format(_chosenDateTime),
                             style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
