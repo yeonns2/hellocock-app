@@ -145,7 +145,7 @@ class _SignInFormState extends State<SignInForm> {
           showErrDialog(context, '비밀번호가 올바르지 않습니다.');
           break;
         case 'user-not-found':
-          showErrDialog(context, '사용자 계정을 찾을 수 없습니다.');
+          showErrDialog(context, '가입된 이메일이 아닙니다.');
           break;
         case 'user-disabled':
           showErrDialog(context, e.code);

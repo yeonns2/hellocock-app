@@ -87,139 +87,147 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 50,
-              ),
-              Text(
-                "수령 정보 확인",
-                textScaleFactor: 1,
-                style: TextStyle(
-                    color: kActiveColor,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-              VerticalSpacing(
-                of: 30,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "수령인",
-                    textScaleFactor: 1,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: kBodyTextColor,
-                      fontSize: 15,
-                    ),
-                  ),
-                  Text(
-                    widget.cart['name'],
-                    textScaleFactor: 1,
-                    style: TextStyle(
-                        color: kBodyTextColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15),
-                  )
-                ],
-              ),
-              VerticalSpacing(of: 15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "수령시간",
-                    textScaleFactor: 1,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: kBodyTextColor,
-                      fontSize: 15,
-                    ),
-                  ),
                   SizedBox(
-                    width: 90,
-                    height: 30,
-                    child: RaisedButton(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          SvgPicture.asset("assets/icons/arrow_dropdown.svg"),
-                          Text(
-                            DateFormat('HH:mm').format(_chosenDateTime),
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey[600]),
-                          ),
-                        ],
+                    height: 50,
+                  ),
+                  Text(
+                    "수령 정보 확인",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                        color: kActiveColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  VerticalSpacing(
+                    of: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "수령인",
+                        textScaleFactor: 1,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: kBodyTextColor,
+                          fontSize: 15,
+                        ),
                       ),
-                      onPressed: () => _showDatePicker(context),
-                      color: Colors.white,
+                      Text(
+                        widget.cart['name'],
+                        textScaleFactor: 1,
+                        style: TextStyle(
+                            color: kBodyTextColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15),
+                      )
+                    ],
+                  ),
+                  VerticalSpacing(of: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "수령시간",
+                        textScaleFactor: 1,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: kBodyTextColor,
+                          fontSize: 15,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 90,
+                        height: 30,
+                        child: RaisedButton(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SvgPicture.asset(
+                                  "assets/icons/arrow_dropdown.svg"),
+                              Text(
+                                DateFormat('HH:mm').format(_chosenDateTime),
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey[600]),
+                              ),
+                            ],
+                          ),
+                          onPressed: () => _showDatePicker(context),
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                  VerticalSpacing(of: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "수령지",
+                        textScaleFactor: 1,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: kBodyTextColor,
+                          fontSize: 15,
+                        ),
+                      ),
+                      Text(
+                        widget.store['name'],
+                        textScaleFactor: 1,
+                        style: TextStyle(
+                            color: kBodyTextColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15),
+                      )
+                    ],
+                  ),
+                  VerticalSpacing(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        widget.store['address'].replaceAll("\\n", '\n'),
+                        textAlign: TextAlign.end,
+                        style: TextStyle(color: kBodyTextColor, fontSize: 12),
+                      ),
+                    ],
+                  ),
+                  VerticalSpacing(of: 30),
+                  Container(
+                    width: 300,
+                    height: 300,
+                    child: Opacity(
+                      opacity: 0.8,
+                      child: GoogleMap(
+                        initialCameraPosition: CameraPosition(
+                            target: LatLng(latitude, longitude), zoom: 16),
+                        onMapCreated: (GoogleMapController controller) {
+                          _controller.complete(controller);
+                        },
+                        markers: Set.from(allMarkers),
+                        myLocationButtonEnabled: false,
+                      ),
                     ),
                   ),
-                ],
-              ),
-              VerticalSpacing(of: 15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "수령지",
-                    textScaleFactor: 1,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: kBodyTextColor,
-                      fontSize: 15,
-                    ),
-                  ),
-                  Text(
-                    widget.store['name'],
-                    textScaleFactor: 1,
-                    style: TextStyle(
-                        color: kBodyTextColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15),
-                  )
-                ],
-              ),
-              VerticalSpacing(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    widget.store['address'].replaceAll("\\n", '\n'),
-                    textAlign: TextAlign.end,
-                    style: TextStyle(color: kBodyTextColor, fontSize: 12),
+                  VerticalSpacing(
+                    of: 140,
                   ),
                 ],
               ),
-              VerticalSpacing(of: 30),
-              Container(
-                width: 300,
-                height: 300,
-                child: Opacity(
-                  opacity: 0.8,
-                  child: GoogleMap(
-                    initialCameraPosition: CameraPosition(
-                        target: LatLng(latitude, longitude), zoom: 16),
-                    onMapCreated: (GoogleMapController controller) {
-                      _controller.complete(controller);
-                    },
-                    markers: Set.from(allMarkers),
-                    myLocationButtonEnabled: false,
-                  ),
-                ),
-              ),
-              VerticalSpacing(
-                of: 140,
-              ),
-              PrimaryButton(
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: PrimaryButton(
                 press: () {
                   FirebaseFirestore.instance
                       .collection('cart')
@@ -233,11 +241,8 @@ class _BodyState extends State<Body> {
                 },
                 text: "확인완료",
               ),
-              VerticalSpacing(
-                of: 50,
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

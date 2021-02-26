@@ -80,7 +80,8 @@ class _BodyState extends State<Body> {
     User user =
         (await _firebaseAuth.signInWithCredential(oauthCredential)).user;
 
-    await user.updateProfile(displayName: Scope.fullName.toString());
+    await user.updateProfile(displayName: appleCredential.familyName);
+    print(appleCredential.familyName + appleCredential.givenName);
     return user;
   }
 
