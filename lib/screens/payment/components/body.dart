@@ -20,6 +20,10 @@ class _BodyState extends State<Body> {
     // TODO: implement initState
     super.initState();
     _totalprice = widget.cart['cocktail']['price'];
+    for (int i = 0; i < widget.cart['food'].length; i++) {
+      _totalprice += widget.cart['food'][i]['price'].toInt();
+    }
+    print(_totalprice);
   }
 
   @override
@@ -61,7 +65,11 @@ class _BodyState extends State<Body> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("주문금액",
+                      Text(
+                          widget.cart['cocktail']['name'] +
+                              " 키트 " +
+                              widget.cart['cocktail']['quantity'].toString() +
+                              "개",
                           textScaleFactor: 1,
                           style: TextStyle(
                               fontSize: 15,
@@ -113,19 +121,20 @@ class _BodyState extends State<Body> {
               alignment: Alignment.bottomCenter,
               child: PrimaryButton(
                 press: () {
-                  setState(() {});
-                  FirebaseFirestore.instance.collection("order").doc().set({
-                    'number': "",
+                  FirebaseFirestore.instance
+                      .collection("order")
+                      .doc(DateTime.now().millisecondsSinceEpoch.toString())
+                      .set({
+                    'number': DateTime.now().millisecondsSinceEpoch,
                     'name': widget.cart['name'],
                     'email': widget.cart.id,
                     'date': Timestamp.now(),
                     'total_price': _totalprice,
-                    //'pickup_time': widget.cart['pickup_time'],
+                    'pickup_time': widget.cart['pickup_time'],
                     'pickup_store': widget.cart['store'],
                     'pickedup': false,
                     'cocktail': widget.cart['cocktail']
                   });
-
                   Navigator.push(
                     context,
                     MaterialPageRoute(

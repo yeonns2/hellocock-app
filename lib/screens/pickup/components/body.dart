@@ -23,10 +23,11 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  final now = DateTime.now();
   DateTime _chosenDateTime;
   Completer<GoogleMapController> _controller = Completer();
   List<Marker> allMarkers = [];
-  final now = DateTime.now();
+
   var latitude;
   var longitude;
 

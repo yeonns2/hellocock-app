@@ -57,31 +57,21 @@ class _BodyState extends State<Body> {
                       VerticalSpacing(
                         of: 120,
                       ),
-                      Divider(
-                        thickness: 1,
-                        color: kActiveColor,
-                      ),
-                      VerticalSpacing(
-                        of: 135,
-                      ),
-                      Divider(
-                        thickness: 1,
-                        color: kActiveColor,
-                      ),
-                      VerticalSpacing(
-                        of: 135,
-                      ),
-                      Divider(
-                        thickness: 1,
-                        color: kActiveColor,
-                      ),
-                      VerticalSpacing(
-                        of: 135,
-                      ),
-                      Divider(
-                        thickness: 1,
-                        color: kActiveColor,
-                      ),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          itemCount:
+                              (snapshot.data.docs.length / 4 + 1).toInt(),
+                          itemBuilder: (BuildContext context, int index) {
+                            return Column(children: [
+                              Divider(
+                                thickness: 1,
+                                color: kActiveColor,
+                              ),
+                              VerticalSpacing(
+                                of: 135,
+                              ),
+                            ]);
+                          }),
                     ],
                   ),
                   Center(
@@ -93,7 +83,9 @@ class _BodyState extends State<Body> {
                       padding: const EdgeInsets.only(top: 30.0),
                       crossAxisSpacing: 1,
                       children: List.generate(
-                          snapshot.data.docs.length, (index) => MyCocktail()),
+                          snapshot.data.docs.length,
+                          (index) =>
+                              MyCocktail(snapshot.data.docs.toList(), index)),
                     ),
                   ),
                 ],

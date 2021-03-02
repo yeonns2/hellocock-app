@@ -21,32 +21,17 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              VerticalSpacing(of: 30),
-              StreamBuilder<DocumentSnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection("user")
-                      .doc(widget.user.email)
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData)
-                      return CircularProgressIndicator(
-                        valueColor:
-                            new AlwaysStoppedAnimation<Color>(kActiveColor),
-                      );
-                    return ModifyForm(widget.user, snapshot.data);
-                  }),
-            ],
-          ),
-        ),
-      ),
-    );
+    return StreamBuilder<DocumentSnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection("user")
+            .doc(widget.user.email)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData)
+            return CircularProgressIndicator(
+              valueColor: new AlwaysStoppedAnimation<Color>(kActiveColor),
+            );
+          return ModifyForm(widget.user, snapshot.data);
+        });
   }
 }

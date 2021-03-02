@@ -9,7 +9,6 @@ import 'package:hellocock/screens/mycock/mycock_screen.dart';
 import 'package:hellocock/screens/notice/notice_screen.dart';
 import 'package:hellocock/screens/profile/profile_screen.dart';
 import 'package:hellocock/screens/root.dart';
-import 'package:hellocock/screens/signIn/sign_in_screen.dart';
 import '../size_config.dart';
 import '../constants.dart';
 
@@ -49,83 +48,97 @@ class _BottomNavBarState extends State<BottomNavBar> {
         width: 226,
         child: Drawer(
           elevation: 10.0,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              SizedBox(
-                height: 246,
-                child: DrawerHeader(
-                  child: null,
-                  margin: EdgeInsets.zero,
-                  padding: EdgeInsets.zero,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage("assets/images/imyourcocktail.png"),
+          child: Stack(
+            children: [
+              ListView(
+                padding: EdgeInsets.zero,
+                children: <Widget>[
+                  SizedBox(
+                    height: 246,
+                    child: DrawerHeader(
+                      child: null,
+                      margin: EdgeInsets.zero,
+                      padding: EdgeInsets.zero,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage("assets/images/imyourcocktail.png"),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  VerticalSpacing(of: 10),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        InkWell(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NoticeScreen(),
+                            ),
+                          ),
+                          child: Text(
+                            "- 공지사항",
+                            textScaleFactor: 1,
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: kBodyTextColor,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        VerticalSpacing(of: 20),
+                        InkWell(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => InquiryScreen(),
+                            ),
+                          ),
+                          child: Text(
+                            "- 1:1 문의 ",
+                            textScaleFactor: 1,
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: kBodyTextColor,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        VerticalSpacing(of: 20),
+                        InkWell(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ManualScreen(),
+                            ),
+                          ),
+                          child: Text(
+                            "- 이용방법",
+                            textScaleFactor: 1,
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: kBodyTextColor,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              VerticalSpacing(of: 10),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    InkWell(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NoticeScreen(),
-                        ),
-                      ),
-                      child: Text(
-                        "- 공지사항",
-                        textScaleFactor: 1,
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: kBodyTextColor,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    VerticalSpacing(of: 20),
-                    InkWell(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => InquiryScreen(),
-                        ),
-                      ),
-                      child: Text(
-                        "- 1:1 문의 ",
-                        textScaleFactor: 1,
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: kBodyTextColor,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    VerticalSpacing(of: 20),
-                    InkWell(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ManualScreen(),
-                        ),
-                      ),
-                      child: Text(
-                        "- 이용방법",
-                        textScaleFactor: 1,
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: kBodyTextColor,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                  ],
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.all(50.0),
+                  child: Text(
+                    'v 1.0.0',
+                    style: TextStyle(color: kBodyTextColor),
+                  ),
                 ),
-              ),
+              )
             ],
           ),
         ),

@@ -126,7 +126,8 @@ class Body extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        pickup_time,
+                        DateFormat('yyyy-MM-dd hh:mm')
+                            .format(document['pickup_time'].toDate()),
                         textScaleFactor: 1,
                         style: TextStyle(
                           color: kBodyTextColor,

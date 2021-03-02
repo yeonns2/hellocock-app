@@ -28,8 +28,6 @@ class _BodyState extends State<Body> {
     FirebaseFirestore.instance.collection('store').get().then((store) {
       if (store.docs.isNotEmpty) {
         for (int i = 0; i < store.docs.length; i++) {
-          print(store.docs[i]['name']);
-          print(allMarkers);
           setState(() {
             allMarkers.add(Marker(
                 markerId: MarkerId(store.docs[i]['name']),

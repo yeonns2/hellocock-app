@@ -186,6 +186,12 @@ class _StorePanelState extends State<StorePanel> {
                             .update(
                           {
                             'store': document['name'],
+                            'pickup_time': DateTime(
+                                DateTime.now().year,
+                                DateTime.now().month,
+                                DateTime.now().day,
+                                18,
+                                00),
                           },
                         );
                         Navigator.push(

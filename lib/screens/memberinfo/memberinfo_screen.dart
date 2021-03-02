@@ -26,7 +26,9 @@ class MemberInfoScreen extends StatelessWidget {
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             )),
           ),
-          Body(user),
+          Expanded(
+            child: Body(user),
+          )
         ],
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
@@ -59,7 +59,8 @@ class PickUpCard extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            "2020/12/05 pm19:45",
+                            DateFormat('yyyy/MM/dd')
+                                .format(order['date'].toDate()),
                             textScaleFactor: 1,
                             style: TextStyle(
                                 fontSize: 14,
@@ -81,7 +82,7 @@ class PickUpCard extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            "B0D051135",
+                            order['number'].toString(),
                             textScaleFactor: 1,
                             style: TextStyle(
                                 fontSize: 14,
@@ -125,7 +126,8 @@ class PickUpCard extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            "pm20:30",
+                            DateFormat.jm()
+                                .format(order['pickup_time'].toDate()),
                             textScaleFactor: 1,
                             style: TextStyle(
                                 fontSize: 14,

@@ -20,6 +20,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  bool food = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -121,26 +122,32 @@ class _BodyState extends State<Body> {
                   VerticalSpacing(
                     of: 30,
                   ),
-                  Text(
-                    "안주",
-                    textScaleFactor: 1,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: kBodyTextColor,
-                      fontSize: 17,
-                    ),
-                  ),
-                  VerticalSpacing(of: 30),
-                  ListView.builder(
-                    itemCount: widget.cart['food'] == null
-                        ? 0
-                        : widget.cart['food'].length,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return foodwidget(index);
-                    },
-                  ),
-                  VerticalSpacing(of: 30),
+                  food
+                      ? Column(
+                          children: [
+                            Text(
+                              "안주",
+                              textScaleFactor: 1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: kBodyTextColor,
+                                fontSize: 17,
+                              ),
+                            ),
+                            VerticalSpacing(of: 30),
+                            ListView.builder(
+                              itemCount: widget.cart['food'] == null
+                                  ? 0
+                                  : widget.cart['food'].length,
+                              shrinkWrap: true,
+                              itemBuilder: (BuildContext context, int index) {
+                                return foodwidget(index);
+                              },
+                            ),
+                            VerticalSpacing(of: 30),
+                          ],
+                        )
+                      : VerticalSpacing(of: 30),
                 ],
               ),
             ),
