@@ -14,16 +14,23 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   int _totalprice = 0;
+  bool food = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _totalprice = widget.cart['cocktail']['price'];
+    _totalprice =
+        widget.cart['cocktail']['price'] * widget.cart['cocktail']['quantity'];
     for (int i = 0; i < widget.cart['food'].length; i++) {
-      _totalprice += widget.cart['food'][i]['price'].toInt();
+      _totalprice +=
+          (widget.cart['food'][i]['price'] * widget.cart['food'][i]['quantity'])
+              .toInt();
     }
-    print(_totalprice);
+    if (widget.cart['food'].toList() == [])
+      food = false;
+    else
+      food = true;
   }
 
   @override
@@ -52,7 +59,7 @@ class _BodyState extends State<Body> {
                     of: 30,
                   ),
                   Text(
-                    "결제금액",
+                    "주문 금액",
                     textScaleFactor: 1,
                     style: TextStyle(
                         fontSize: 17,
@@ -76,7 +83,10 @@ class _BodyState extends State<Body> {
                               color: kBodyTextColor,
                               fontWeight: FontWeight.w500)),
                       Text(
-                        _totalprice.toString() + "원",
+                        (widget.cart['cocktail']['price'] *
+                                    widget.cart['cocktail']['quantity'])
+                                .toString() +
+                            "원",
                         textScaleFactor: 1,
                         style: TextStyle(
                             color: Color(0xFFFA195A),
@@ -84,12 +94,52 @@ class _BodyState extends State<Body> {
                       )
                     ],
                   ),
-                  VerticalSpacing(of: 5),
+                  ListView.builder(
+                    itemCount: widget.cart['food'] == null
+                        ? 0
+                        : widget.cart['food'].length,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        children: [
+                          VerticalSpacing(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                  widget.cart['food'][index]['name'] +
+                                      " " +
+                                      widget.cart['food'][index]['quantity']
+                                          .toString() +
+                                      "개",
+                                  textScaleFactor: 1,
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: kBodyTextColor,
+                                      fontWeight: FontWeight.w500)),
+                              Text(
+                                (widget.cart['food'][index]['price'] *
+                                            widget.cart['food'][index]
+                                                ['quantity'])
+                                        .toString() +
+                                    "원",
+                                textScaleFactor: 1,
+                                style: TextStyle(
+                                    color: Color(0xFFFA195A),
+                                    fontWeight: FontWeight.w500),
+                              )
+                            ],
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  VerticalSpacing(),
                   Divider(
                     thickness: 1.5,
                     color: kBodyTextColor,
                   ),
-                  VerticalSpacing(of: 5),
+                  VerticalSpacing(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

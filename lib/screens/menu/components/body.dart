@@ -11,9 +11,9 @@ import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
   final User user;
-  final DocumentSnapshot cocktaildocument;
-  final DocumentSnapshot storedocument;
-  Body(this.user, this.cocktaildocument, this.storedocument);
+  final DocumentSnapshot cocktail;
+  final DocumentSnapshot store;
+  Body(this.user, this.cocktail, this.store);
   @override
   _BodyState createState() => _BodyState();
 }
@@ -92,7 +92,7 @@ class _BodyState extends State<Body> {
                   ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       child: Image.asset(
-                        widget.storedocument['image'],
+                        widget.store['image'],
                         height: 140,
                         width: 140,
                         fit: BoxFit.fitWidth,
@@ -103,20 +103,19 @@ class _BodyState extends State<Body> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.storedocument['name'],
+                          widget.store['name'],
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
                               color: kBodyTextColor),
                         ),
                         Text(
-                          widget.storedocument['explain']
-                              .replaceAll("\\n", "\n"),
+                          widget.store['explain'].replaceAll("\\n", "\n"),
                           style: TextStyle(
                               fontSize: 13, color: kBodyTextColor, height: 1.3),
                         ),
                         Text(
-                          widget.storedocument['opening_hours'],
+                          widget.store['opening_hours'],
                           style: TextStyle(fontSize: 13, color: kBodyTextColor),
                         ),
                         Row(
@@ -156,13 +155,16 @@ class _BodyState extends State<Body> {
                                   FirebaseFirestore.instance
                                       .collection("cart")
                                       .doc(widget.user.email)
-                                      .update({'pickup_time': _chosenDateTime});
+                                      .update({
+                                    'pickup_time': _chosenDateTime,
+                                    'store': widget.store['name']
+                                  });
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => OrderScreen(
                                           widget.user,
-                                          widget.storedocument,
+                                          widget.store,
                                         ),
                                       ));
                                 },
@@ -190,7 +192,7 @@ class _BodyState extends State<Body> {
                 itemCount: 5,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
-                  return MenuCard(widget.storedocument, index, widget.user);
+                  return MenuCard(widget.store, index, widget.user);
                 },
               ),
             ]),

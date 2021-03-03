@@ -27,23 +27,105 @@ class _FindPWScreenState extends State<FindPWScreen> {
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.all(40),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        VerticalSpacing(of: 60),
-        Text(
-          "비밀번호 찾기",
-          textScaleFactor: 1,
-          style: TextStyle(
-              color: kActiveColor, fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        VerticalSpacing(
-          of: 50,
-        ),
-        !finded
-            ? _build1(context)
-            : isemail
-                ? _build2(context, email)
-                : _build3(context),
-      ]),
+      child: Stack(
+        children: [
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            VerticalSpacing(of: 60),
+            Text(
+              "비밀번호 찾기",
+              textScaleFactor: 1,
+              style: TextStyle(
+                  color: kActiveColor,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            ),
+            VerticalSpacing(
+              of: 50,
+            ),
+            !finded
+                ? _build1(context)
+                : isemail
+                    ? _build2(context, email)
+                    : _build3(context),
+          ]),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: !finded
+                  ? PrimaryButton(
+                      text: "확인",
+                      press: () async {
+                        if (_formKey.currentState.validate()) {
+                          setState(() {
+                            FirebaseFirestore.instance
+                                .collection("user")
+                                .where('name', isEqualTo: _nameController.text)
+                                .where('phone',
+                                    isEqualTo: _phoneController.text)
+                                .get()
+                                .then((value) {
+                              if (value.size != 0)
+                                email = value.docs[0]['email'];
+                            });
+                          });
+                          await Future.delayed(Duration(seconds: 1));
+
+                          setState(() {
+                            finded = true;
+                            if (email != "") isemail = true;
+                          });
+                        }
+                      })
+                  : isemail
+                      ? PrimaryButton(
+                          text: "인증메일 보내기",
+                          press: () {
+                            resetPassword(email);
+                            showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (context) {
+                                  return CupertinoAlertDialog(
+                                    title: Text(
+                                      "전송 완료",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    content: Text(
+                                      "비밀번호 재설정을 위한 \n이메일을 발송하였습니다.",
+                                      style:
+                                          TextStyle(fontSize: 13, height: 1.3),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    actions: <Widget>[
+                                      new CupertinoDialogAction(
+                                          child: Text(
+                                            '확인',
+                                            style: TextStyle(fontSize: 15),
+                                          ),
+                                          onPressed: () {
+                                            int count = 0;
+                                            Navigator.popUntil(context,
+                                                (route) {
+                                              return count++ == 2;
+                                            });
+                                          }),
+                                    ],
+                                  );
+                                });
+                          })
+                      : PrimaryButton(
+                          text: "회원가입 하기",
+                          press: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SignUpScreen(),
+                                ));
+                          })),
+        ],
+      ),
     ));
   }
 
@@ -92,31 +174,6 @@ class _FindPWScreenState extends State<FindPWScreen> {
             return null;
           },
         ),
-        VerticalSpacing(of: 500),
-        Align(
-            alignment: Alignment.bottomCenter,
-            child: PrimaryButton(
-                text: "확인",
-                press: () async {
-                  if (_formKey.currentState.validate()) {
-                    setState(() {
-                      FirebaseFirestore.instance
-                          .collection("user")
-                          .where('name', isEqualTo: _nameController.text)
-                          .where('phone', isEqualTo: _phoneController.text)
-                          .get()
-                          .then((value) {
-                        if (value.size != 0) email = value.docs[0]['email'];
-                      });
-                    });
-                    await Future.delayed(Duration(seconds: 1));
-
-                    setState(() {
-                      finded = true;
-                      if (email != "") isemail = true;
-                    });
-                  }
-                }))
       ]),
     );
   }
@@ -139,47 +196,6 @@ class _FindPWScreenState extends State<FindPWScreen> {
             fontWeight: FontWeight.bold,
             height: 2.0),
       ),
-      VerticalSpacing(of: 500),
-      Align(
-        alignment: Alignment.bottomCenter,
-        child: PrimaryButton(
-            text: "인증메일 보내기",
-            press: () {
-              resetPassword(email);
-              showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (context) {
-                    return CupertinoAlertDialog(
-                      title: Text(
-                        "전송 완료",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                      ),
-                      content: Text(
-                        "비밀번호 재설정을 위한 \n이메일을 발송하였습니다.",
-                        style: TextStyle(fontSize: 13, height: 1.3),
-                        textAlign: TextAlign.center,
-                      ),
-                      actions: <Widget>[
-                        new CupertinoDialogAction(
-                            child: Text(
-                              '확인',
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            onPressed: () {
-                              int count = 0;
-                              Navigator.popUntil(context, (route) {
-                                return count++ == 2;
-                              });
-                            }),
-                      ],
-                    );
-                  });
-            }),
-      ),
     ]);
   }
 
@@ -193,18 +209,6 @@ class _FindPWScreenState extends State<FindPWScreen> {
             fontWeight: FontWeight.bold,
             height: 2.5),
       ),
-      VerticalSpacing(of: 550),
-      Align(
-          alignment: Alignment.bottomCenter,
-          child: PrimaryButton(
-              text: "회원가입 하기",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SignUpScreen(),
-                    ));
-              }))
     ]);
   }
 }

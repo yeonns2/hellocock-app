@@ -25,6 +25,10 @@ class _BodyState extends State<Body> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    if (widget.cart['food'].toList().isEmpty)
+      food = false;
+    else
+      food = true;
   }
 
   @override
@@ -124,6 +128,7 @@ class _BodyState extends State<Body> {
                   ),
                   food
                       ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               "안주",

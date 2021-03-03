@@ -12,7 +12,6 @@ class Body extends StatelessWidget {
   Body(this.document);
   @override
   Widget build(BuildContext context) {
-    //var date = document['pickup_time'].toDate();
     var pickup_time = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
     return SafeArea(
       child: Padding(

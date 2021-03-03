@@ -24,10 +24,11 @@ class _FindIDScreenState extends State<FindIDScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Padding(
-          padding: const EdgeInsets.all(40),
-          child: Column(
+        body: Padding(
+      padding: const EdgeInsets.all(40),
+      child: Stack(
+        children: [
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               VerticalSpacing(of: 60),
@@ -46,7 +47,51 @@ class _FindIDScreenState extends State<FindIDScreen> {
                       ? _build2(context, email)
                       : _build3(context),
             ],
-          )),
+          ),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: !finded
+                  ? PrimaryButton(
+                      text: "확인",
+                      press: () async {
+                        if (_formKey.currentState.validate()) {
+                          setState(() {
+                            FirebaseFirestore.instance
+                                .collection("user")
+                                .where('name', isEqualTo: _nameController.text)
+                                .where('phone',
+                                    isEqualTo: _phoneController.text)
+                                .get()
+                                .then((value) {
+                              if (value.size != 0)
+                                email = value.docs[0]['email'];
+                            });
+                          });
+                          await Future.delayed(Duration(seconds: 1));
+
+                          setState(() {
+                            finded = true;
+                            if (email != "") isemail = true;
+                          });
+                        }
+                      })
+                  : isemail
+                      ? PrimaryButton(
+                          text: "로그인 하기",
+                          press: () {
+                            Navigator.pop(context);
+                          })
+                      : PrimaryButton(
+                          text: "회원가입 하기",
+                          press: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SignUpScreen(),
+                                ));
+                          }))
+        ],
+      ),
     ));
   }
 
@@ -91,31 +136,7 @@ class _FindIDScreenState extends State<FindIDScreen> {
             return null;
           },
         ),
-        VerticalSpacing(of: 500),
-        Align(
-            alignment: Alignment.bottomCenter,
-            child: PrimaryButton(
-                text: "확인",
-                press: () async {
-                  if (_formKey.currentState.validate()) {
-                    setState(() {
-                      FirebaseFirestore.instance
-                          .collection("user")
-                          .where('name', isEqualTo: _nameController.text)
-                          .where('phone', isEqualTo: _phoneController.text)
-                          .get()
-                          .then((value) {
-                        if (value.size != 0) email = value.docs[0]['email'];
-                      });
-                    });
-                    await Future.delayed(Duration(seconds: 1));
-
-                    setState(() {
-                      finded = true;
-                      if (email != "") isemail = true;
-                    });
-                  }
-                }))
+        VerticalSpacing(of: 50),
       ]),
     );
   }
@@ -135,14 +156,6 @@ class _FindIDScreenState extends State<FindIDScreen> {
         style: TextStyle(
             color: kActiveColor, fontSize: 17, fontWeight: FontWeight.bold),
       ),
-      VerticalSpacing(of: 530),
-      Align(
-          alignment: Alignment.bottomCenter,
-          child: PrimaryButton(
-              text: "로그인 하기",
-              press: () {
-                Navigator.pop(context);
-              }))
     ]);
   }
 
@@ -156,18 +169,6 @@ class _FindIDScreenState extends State<FindIDScreen> {
             fontWeight: FontWeight.bold,
             height: 2.5),
       ),
-      VerticalSpacing(of: 550),
-      Align(
-          alignment: Alignment.bottomCenter,
-          child: PrimaryButton(
-              text: "회원가입 하기",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SignUpScreen(),
-                    ));
-              }))
     ]);
   }
 }

@@ -153,11 +153,18 @@ class _MenuCardState extends State<MenuCard> {
       'price': widget.store['food'][widget.index]['price'],
       'quantity': count
     };
-
+    print(food.contains({'name': widget.store['food'][widget.index]['name']}));
+    // if (food.any()) {
+    //   FirebaseFirestore.instance
+    //       .collection("cart")
+    //       .doc(widget.user.email)
+    //       .update({'food': updateData});
+    // } else {
     food.add(updateData);
     FirebaseFirestore.instance
         .collection("cart")
         .doc(widget.user.email)
-        .update({'food': food, 'store': widget.store['name']});
+        .update({'food': food});
+    //}
   }
 }
