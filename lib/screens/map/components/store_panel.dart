@@ -101,7 +101,7 @@ class _StorePanelState extends State<StorePanel> {
                 document['image'],
                 height: 145,
                 width: 145,
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.cover,
               )),
           HorizontalSpacing(),
           Column(

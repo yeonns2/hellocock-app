@@ -95,7 +95,7 @@ class _BodyState extends State<Body> {
                         widget.store['image'],
                         height: 140,
                         width: 140,
-                        fit: BoxFit.fitWidth,
+                        fit: BoxFit.cover,
                       )),
                   HorizontalSpacing(),
                   Column(
@@ -189,7 +189,7 @@ class _BodyState extends State<Body> {
               VerticalSpacing(of: 10),
               ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: 5,
+                itemCount: widget.store['food'].length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return MenuCard(widget.store, index, widget.user);

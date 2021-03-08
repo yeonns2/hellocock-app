@@ -30,7 +30,7 @@ class _MenuCardState extends State<MenuCard> {
               widget.store['food'][widget.index]['image'],
               height: 82,
               width: 123,
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.cover,
             )),
         HorizontalSpacing(),
         Column(
@@ -46,9 +46,10 @@ class _MenuCardState extends State<MenuCard> {
                     color: kBodyTextColor),
               ),
               Text(
-                "소시지, 양파, 피클, 케첩, 머스타드",
+                widget.store['food'][widget.index]['explain']
+                    .replaceAll("\\n", '\n'),
                 textScaleFactor: 1,
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(fontSize: 12, color: kBodyTextColor),
               ),
               Row(
                 children: [

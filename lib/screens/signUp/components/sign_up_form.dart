@@ -10,6 +10,7 @@ import 'package:hellocock/size_config.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:kopo/kopo.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -25,6 +26,7 @@ class _SignUpFormState extends State<SignUpForm> {
   TextEditingController _confirm = TextEditingController();
   TextEditingController _name = TextEditingController();
   TextEditingController _phone = TextEditingController();
+  TextEditingController _sms = TextEditingController();
   TextEditingController _address1 = TextEditingController();
   TextEditingController _address2 = TextEditingController();
 
@@ -34,6 +36,10 @@ class _SignUpFormState extends State<SignUpForm> {
   bool _value2 = false;
   bool _value3 = false;
   KopoModel model;
+  String _message = '';
+  String _verificationId;
+
+  final SmsAutoFill _autoFill = SmsAutoFill();
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +135,7 @@ class _SignUpFormState extends State<SignUpForm> {
               if (value.isEmpty) {
                 return '비밀번호를 입력해주세요';
               }
-              if (value.length != 6) {
+              if (value.length < 6) {
                 return "6자리 이상 입력해주세요";
               }
               return null;
@@ -208,19 +214,7 @@ class _SignUpFormState extends State<SignUpForm> {
               VerticalSpacing(),
               SizedBox(
                   width: 100,
-                  child: PrimaryButton(
-                      text: "인증요청",
-                      press: () async {
-                        await _auth.verifyPhoneNumber(
-                          phoneNumber: '+44 7123 123 456',
-                          timeout: const Duration(seconds: 60),
-                          verificationCompleted:
-                              (PhoneAuthCredential credential) {},
-                          verificationFailed: (FirebaseAuthException e) {},
-                          codeSent: (String verificationId, int resendToken) {},
-                          codeAutoRetrievalTimeout: (String verificationId) {},
-                        );
-                      }))
+                  child: PrimaryButton(text: "인증요청", press: () async {}))
             ],
           ),
           VerticalSpacing(of: 10),
@@ -230,6 +224,7 @@ class _SignUpFormState extends State<SignUpForm> {
               SizedBox(
                 width: SizeConfig.screenWidth - 200,
                 child: TextFormField(
+                  controller: _sms,
                   style: TextStyle(fontSize: 13),
                   cursorColor: kActiveColor,
                   decoration: InputDecoration(
@@ -248,7 +243,8 @@ class _SignUpFormState extends State<SignUpForm> {
               ),
               VerticalSpacing(),
               SizedBox(
-                  width: 100, child: PrimaryButton(text: "인증완료", press: () {}))
+                  width: 100,
+                  child: PrimaryButton(text: "인증완료", press: () async {})),
             ],
           ),
           VerticalSpacing(of: 20),

@@ -22,7 +22,7 @@ class Body extends StatelessWidget {
           child: SingleChildScrollView(
             child: Image.asset(
               document['detail'],
-              fit: BoxFit.cover,
+              fit: BoxFit.fitWidth,
             ),
           ),
         ),

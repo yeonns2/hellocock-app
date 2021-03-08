@@ -15,6 +15,9 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   int _totalprice = 0;
   bool food = false;
+  bool value_all = false;
+  bool value1 = false;
+  bool value2 = false;
 
   @override
   void initState() {
@@ -158,11 +161,97 @@ class _BodyState extends State<Body> {
                       )
                     ],
                   ),
-                  VerticalSpacing(of: 30),
+                  VerticalSpacing(of: 15),
                   Text(
                     "위 내용을 확인하였으며 결제에 동의합니다.",
                     textScaleFactor: 1,
-                    style: TextStyle(fontSize: 13),
+                    style: TextStyle(fontSize: 12, color: kBodyTextColor),
+                  ),
+                  VerticalSpacing(of: 30),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: Checkbox(
+                          value: value_all,
+                          onChanged: (bool value) {
+                            setState(() {
+                              value_all = !value_all;
+                              if (value_all = true) {
+                                value1 = true;
+                                value2 = true;
+                              }
+                            });
+                          },
+                          hoverColor: kActiveColor,
+                          focusColor: kActiveColor,
+                          activeColor: kActiveColor,
+                        ),
+                      ),
+                      Text(
+                        " 모든 약관 동의",
+                        textScaleFactor: 1,
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: kBodyTextColor),
+                      ),
+                    ],
+                  ),
+                  Divider(
+                    thickness: 1.5,
+                    color: kBodyTextColor,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: Checkbox(
+                          value: value1,
+                          onChanged: (bool value) {
+                            setState(() {
+                              value1 = !value1;
+                              if (value1 == false) value_all = false;
+                            });
+                          },
+                          hoverColor: kActiveColor,
+                          focusColor: kActiveColor,
+                          activeColor: kActiveColor,
+                        ),
+                      ),
+                      Text(
+                        " [필수] 술픽업 이용약관",
+                        textScaleFactor: 1,
+                        style: TextStyle(fontSize: 13, color: kBodyTextColor),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: Checkbox(
+                          value: value2,
+                          onChanged: (bool value) {
+                            setState(() {
+                              value2 = !value2;
+                              if (value2 == false) value_all = false;
+                            });
+                          },
+                          hoverColor: kActiveColor,
+                          focusColor: kActiveColor,
+                          activeColor: kActiveColor,
+                        ),
+                      ),
+                      Text(
+                        " [필수] 청약철회방침",
+                        textScaleFactor: 1,
+                        style: TextStyle(fontSize: 13, color: kBodyTextColor),
+                      ),
+                    ],
                   ),
                 ],
               ),

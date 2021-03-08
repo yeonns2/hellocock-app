@@ -33,51 +33,14 @@ class _BodyState extends State<Body> {
             Padding(
               padding: const EdgeInsets.only(left: 25.0),
               child: Text(
-                "오늘의 추천 칵테일   >",
+                "키트로 칵테일 즐기기   >",
                 style: TextStyle(fontSize: 16, color: kBodyTextColor),
                 textScaleFactor: 1,
               ),
             ),
             VerticalSpacing(),
             Container(
-              height: 324.0,
-              child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection('cocktail')
-                      //.where('today', isEqualTo: true)
-                      .orderBy('name_eng', descending: true)
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          valueColor:
-                              new AlwaysStoppedAnimation<Color>(kActiveColor),
-                        ),
-                      );
-                    }
-                    return ListView.builder(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: snapshot.data.docs.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return _buildListItem(snapshot.data.docs[index]);
-                      },
-                    );
-                  }),
-            ),
-            VerticalSpacing(of: 30),
-            Padding(
-              padding: const EdgeInsets.only(left: 25.0),
-              child: Text(
-                "이번주 새로운 칵테일   >",
-                style: TextStyle(fontSize: 16, color: kBodyTextColor),
-                textScaleFactor: 1,
-              ),
-            ),
-            VerticalSpacing(),
-            Container(
-              height: 320,
+              height: 330.0,
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('cocktail')
@@ -93,11 +56,47 @@ class _BodyState extends State<Body> {
                       );
                     }
                     return ListView.builder(
+                      shrinkWrap: true,
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       scrollDirection: Axis.horizontal,
                       itemCount: snapshot.data.docs.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return _buildListItem(snapshot.data.docs[index]);
+                        return _buildListKitItem(snapshot.data.docs[index]);
+                      },
+                    );
+                  }),
+            ),
+            VerticalSpacing(of: 30),
+            Padding(
+              padding: const EdgeInsets.only(left: 25.0),
+              child: Text(
+                "칵테일 레시피 보기   >",
+                style: TextStyle(fontSize: 16, color: kBodyTextColor),
+                textScaleFactor: 1,
+              ),
+            ),
+            VerticalSpacing(),
+            Container(
+              height: 330,
+              child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('cocktail')
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              new AlwaysStoppedAnimation<Color>(kActiveColor),
+                        ),
+                      );
+                    }
+                    return ListView.builder(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: snapshot.data.docs.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return _buildListRecipeItem(snapshot.data.docs[index]);
                       },
                     );
                   }),
@@ -111,7 +110,7 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget _buildListItem(DocumentSnapshot document) {
+  Widget _buildListKitItem(DocumentSnapshot document) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: InkWellCard(
@@ -124,41 +123,123 @@ class _BodyState extends State<Body> {
         ),
         child: Container(
           width: 285,
-          height: 285,
-          padding: EdgeInsets.only(top: 25, left: 20, right: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child:
-                    SizedBox(width: 150, child: Image.asset(document['image'])),
-              ),
-              VerticalSpacing(of: 15),
-              Padding(
-                padding: const EdgeInsets.all(5),
-                child: Text(
-                  document['name'],
-                  textScaleFactor: 1,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 21,
-                      color: kBodyTextColor),
+          height: 298,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: SizedBox(
+                      width: 150, child: Image.asset(document['image'])),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(5),
-                child: Text(
-                  document['explain'].replaceAll('\\n', '\n'),
-                  textScaleFactor: 1,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                      color: kBodyTextColor,
-                      height: 1.5),
+                VerticalSpacing(of: 20),
+                Padding(
+                  padding: const EdgeInsets.only(left: 25.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        document['name_eng'],
+                        textScaleFactor: 1,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 21,
+                            color: kBodyTextColor),
+                      ),
+                      Text(
+                        "19,000원/1~2잔",
+                        textScaleFactor: 1,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                            color: kActiveColor,
+                            height: 1.5),
+                      ),
+                      Text(
+                        document['explain'].replaceAll('\\n', '\n'),
+                        textScaleFactor: 1,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13,
+                            color: kBodyTextColor,
+                            height: 1.5),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildListRecipeItem(DocumentSnapshot document) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: InkWellCard(
+        circular: 30,
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailScreen(widget.user, document),
+          ),
+        ),
+        child: Container(
+          width: 285,
+          height: 298,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Center(
+                  child: Text(
+                    "recipe",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                        fontSize: 17,
+                        color: kActiveColor,
+                        height: 1.5),
+                  ),
+                ),
+                Center(
+                  child: SizedBox(
+                      width: 150, child: Image.asset(document['image'])),
+                ),
+                VerticalSpacing(of: 10),
+                Center(
+                  child: Text(
+                    document['name_eng'],
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 21,
+                        color: kBodyTextColor),
+                  ),
+                ),
+                VerticalSpacing(of: 10),
+                Center(
+                  child: Text(
+                    document['explain'].replaceAll('\\n', '\n'),
+                    textScaleFactor: 1,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 13,
+                        color: kBodyTextColor,
+                        height: 1.5),
+                  ),
+                ),
+              ],
+            ),
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30.0),
