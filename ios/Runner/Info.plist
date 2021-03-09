@@ -91,5 +91,28 @@
 	<string>hellocock</string>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
+	
+	<key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string>com.example.hellocock</string> 
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>hellocock</string> 
+            </array>
+        </dict>
+    </array>
+    <key>NSFaceIDUsageDescription</key>
+    <string>생체인증 결제 진행시 권한이 필요합니다</string>
+
+
 </dict>
 </plist>

@@ -40,7 +40,7 @@ class _BodyState extends State<Body> {
             ),
             VerticalSpacing(),
             Container(
-              height: 330.0,
+              height: 350.0,
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('cocktail')
@@ -77,7 +77,7 @@ class _BodyState extends State<Body> {
             ),
             VerticalSpacing(),
             Container(
-              height: 330,
+              height: 350,
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('cocktail')
@@ -122,54 +122,53 @@ class _BodyState extends State<Body> {
           ),
         ),
         child: Container(
-          width: 285,
-          height: 298,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: SizedBox(
-                      width: 150, child: Image.asset(document['image'])),
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          width: 300,
+          height: 300,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Image.asset(document['image'],
+                    width: double.infinity, fit: BoxFit.fitWidth),
+              ),
+              VerticalSpacing(of: 10),
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      document['name_eng'],
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 21,
+                          color: kBodyTextColor),
+                    ),
+                    Text(
+                      "19,000원 / 1~2잔",
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13,
+                          color: kActiveColor,
+                          height: 1.5),
+                    ),
+                    Text(
+                      document['explain'].replaceAll('\\n', '\n'),
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
+                          color: kBodyTextColor,
+                          height: 1.5),
+                    ),
+                  ],
                 ),
-                VerticalSpacing(of: 20),
-                Padding(
-                  padding: const EdgeInsets.only(left: 25.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        document['name_eng'],
-                        textScaleFactor: 1,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 21,
-                            color: kBodyTextColor),
-                      ),
-                      Text(
-                        "19,000원/1~2잔",
-                        textScaleFactor: 1,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                            color: kActiveColor,
-                            height: 1.5),
-                      ),
-                      Text(
-                        document['explain'].replaceAll('\\n', '\n'),
-                        textScaleFactor: 1,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 13,
-                            color: kBodyTextColor,
-                            height: 1.5),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30.0),
@@ -191,8 +190,8 @@ class _BodyState extends State<Body> {
           ),
         ),
         child: Container(
-          width: 285,
-          height: 298,
+          width: 300,
+          height: 300,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -93,16 +93,13 @@ class _BodyState extends State<Body> {
                         FirebaseFirestore.instance
                             .collection("cart")
                             .doc(widget.user.email)
-                            .update(
-                          {
-                            'cocktail': {
-                              'name': widget.cart['cocktail']['name'],
-                              'price': widget.cart['cocktail']['price'] *
-                                  widget.cart['cocktail']['quantity'],
-                              'quantity': widget.cart['cocktail']['quantity']
-                            },
+                            .update({
+                          'cocktail': {
+                            'name': widget.cart['cocktail']['name'],
+                            'price': widget.cart['cocktail']['price'],
+                            'quantity': widget.cart['cocktail']['quantity'] - 1
                           },
-                        );
+                        });
                       });
                     },
                     onpressed2: () {
@@ -114,9 +111,9 @@ class _BodyState extends State<Body> {
                           {
                             'cocktail': {
                               'name': widget.cart['cocktail']['name'],
-                              'price': widget.cart['cocktail']['price'] *
-                                  widget.cart['cocktail']['quantity'],
-                              'quantity': widget.cart['cocktail']['quantity']
+                              'price': widget.cart['cocktail']['price'],
+                              'quantity':
+                                  widget.cart['cocktail']['quantity'] + 1
                             },
                           },
                         );
@@ -199,21 +196,51 @@ class _BodyState extends State<Body> {
             )
           ],
         ),
-        // VerticalSpacing(),
-        // Text("소시지, 양파, 피클, 케첩, 머스타드",
-        //     textScaleFactor: 1,
-        //     style: TextStyle(
-        //       color: kBodyTextColor,
-        //       fontSize: 13,
-        //     )),
         VerticalSpacing(of: 15),
         QuantityCard(
           quantity: widget.cart['food'][index]['quantity'],
-          onpressed1: () {},
-          onpressed2: () {},
+          onpressed1: () {
+            _updatefood(index);
+          },
+          onpressed2: () {
+            setState(() {
+              _updatefood(index);
+            });
+          },
         ),
         VerticalSpacing(of: 30)
       ],
     );
+  }
+
+  void _updatefood(int index) async {
+    var data;
+
+    FirebaseFirestore.instance
+        .collection('cart')
+        .doc(widget.user.email)
+        .get()
+        .then((DocumentSnapshot ds) {
+      data = ds['food'];
+    });
+    await Future.delayed(Duration(seconds: 1));
+
+    final List food = List<Map>.from(data ?? []);
+    final deleteData = {
+      'name': widget.store['food'][index]['name'],
+      'price': widget.store['food'][index]['price'],
+      'quantity': widget.store['food'][index]['quantity']
+    };
+    final updateData = {
+      'name': widget.store['food'][index]['name'],
+      'price': widget.store['food'][index]['price'],
+      'quantity': widget.store['food'][index]['quantity'] + 1
+    };
+    food.remove(deleteData);
+    food.add(updateData);
+    FirebaseFirestore.instance
+        .collection("cart")
+        .doc(widget.user.email)
+        .update({'food': food});
   }
 }
