@@ -7,7 +7,9 @@ import 'package:bootpay_api/model/item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/screens/order_completed/order_completed_screen.dart';
-import 'package:hellocock/screens/service_policy/service_policy_screen.dart';
+import 'package:hellocock/screens/policy/payment_policy/payment_policy_screen.dart';
+import 'package:hellocock/screens/policy/pickup_policy/pickup_policy_screen.dart';
+import 'package:hellocock/screens/policy/service_policy/service_policy_screen.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -248,7 +250,7 @@ class _BodyState extends State<Body> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ServicePolicyScreen(),
+                                builder: (context) => PickupPolicyScreen(),
                               ),
                             );
                           },
@@ -293,7 +295,7 @@ class _BodyState extends State<Body> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ServicePolicyScreen(),
+                                builder: (context) => PaymentPolicyScreen(),
                               ),
                             );
                           },
@@ -309,26 +311,6 @@ class _BodyState extends State<Body> {
               child: PrimaryButton(
                 press: () {
                   goBootpayRequest(context);
-                  // FirebaseFirestore.instance
-                  //     .collection("order")
-                  //     .doc(DateTime.now().millisecondsSinceEpoch.toString())
-                  //     .set({
-                  //   'number': DateTime.now().millisecondsSinceEpoch,
-                  //   'name': widget.cart['name'],
-                  //   'email': widget.cart.id,
-                  //   'date': Timestamp.now(),
-                  //   'total_price': _totalprice,
-                  //   'pickup_time': widget.cart['pickup_time'],
-                  //   'pickup_store': widget.cart['store'],
-                  //   'pickedup': false,
-                  //   'cocktail': widget.cart['cocktail']
-                  // });
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => OrderCompletedScreen(widget.cart),
-                  //   ),
-                  // );
                 },
                 text: _totalprice.toString() + "원 결제하기",
               ),
@@ -344,9 +326,18 @@ class _BodyState extends State<Body> {
     payload.androidApplicationId = '5feaba562fa5c20027038fc5';
     payload.iosApplicationId = '5feaba562fa5c20027038fc6';
 
-    payload.methods = ['card', 'phone', 'vbank', 'bank'];
-    payload.name = 'testUser';
-    payload.price = 100;
+    payload.method = 'easy_card';
+    // payload.methods = [
+    //   'card',
+    //   'phone',
+    //   'vbank',
+    //   'bank',
+    //   'easy',
+    //   'auth',
+    //   'easy_card'
+    // ];
+    payload.name = '헬로콕';
+    payload.price = _totalprice.toDouble();
     payload.orderId = DateTime.now().millisecondsSinceEpoch.toString();
 //    payload.params = {
 //      "callbackParam1" : "value12",
@@ -363,6 +354,9 @@ class _BodyState extends State<Body> {
 
     Extra extra = Extra();
     extra.appScheme = 'hellocock';
+    extra.theme = 'custom';
+    extra.custom_background = '#00c8ff';
+    extra.custom_font_color = '#ffffff';
 
     Item item1 = Item();
     item1.itemName = "시브리즈 키트"; // 주문정보에 담길 상품명
@@ -380,6 +374,26 @@ class _BodyState extends State<Body> {
       items: itemList,
       onDone: (String json) {
         print('onDone: $json');
+        FirebaseFirestore.instance
+            .collection("order")
+            .doc(DateTime.now().millisecondsSinceEpoch.toString())
+            .set({
+          'number': DateTime.now().millisecondsSinceEpoch,
+          'name': widget.cart['name'],
+          'email': widget.cart.id,
+          'date': Timestamp.now(),
+          'total_price': _totalprice,
+          'pickup_time': widget.cart['pickup_time'],
+          'pickup_store': widget.cart['store'],
+          'pickedup': false,
+          'cocktail': widget.cart['cocktail']
+        });
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OrderCompletedScreen(widget.cart),
+          ),
+        );
       },
       onReady: (String json) {
         //flutter는 가상계좌가 발급되었을때  onReady가 호출되지 않는다. onDone에서 처리해주어야 한다.

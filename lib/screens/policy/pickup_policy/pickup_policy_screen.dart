@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
-import '../../size_config.dart';
+import '../../../constants.dart';
+import '../../../size_config.dart';
 import 'components/body.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class PrivacyPolicyScreen extends StatelessWidget {
+class PickupPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +17,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
           color: kActiveColor,
           child: Center(
               child: Text(
-            "개인정보처리방침",
+            "술픽업 이용약관",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           )),
         ),

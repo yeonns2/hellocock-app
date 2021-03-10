@@ -8,8 +8,8 @@ import 'package:hellocock/screens/memberinfo/memberinfo_screen.dart';
 import 'package:hellocock/screens/notification_setting/notification_setting_screen.dart';
 import 'package:hellocock/screens/orderlist/orderlist_screen.dart';
 import 'package:hellocock/screens/pickuplist/pickuplist_screen.dart';
-import 'package:hellocock/screens/privacy_policy/privacy_policy_screen.dart';
-import 'package:hellocock/screens/service_policy/service_policy_screen.dart';
+import 'package:hellocock/screens/policy/privacy_policy/privacy_policy_screen.dart';
+import 'package:hellocock/screens/policy/service_policy/service_policy_screen.dart';
 import 'package:hellocock/size_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

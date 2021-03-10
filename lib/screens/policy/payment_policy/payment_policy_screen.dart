@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
-import '../../size_config.dart';
+import '../../../constants.dart';
+import '../../../size_config.dart';
 import 'components/body.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ServicePolicyScreen extends StatelessWidget {
+class PaymentPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +17,7 @@ class ServicePolicyScreen extends StatelessWidget {
           color: kActiveColor,
           child: Center(
               child: Text(
-            "서비스 이용약관",
+            "청약철회방침",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           )),
         ),
