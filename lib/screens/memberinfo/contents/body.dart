@@ -28,79 +28,107 @@ class _BodyState extends State<Body> {
         child: Stack(
           children: [
             SingleChildScrollView(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    VerticalSpacing(of: 40),
-                    Text(
-                      "이름",
-                      textScaleFactor: 1,
-                      style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: kBodyTextColor),
-                    ),
-                    VerticalSpacing(),
-                    TextFormField(
-                      initialValue: widget.user.displayName,
-                      style: TextStyle(fontSize: 14, color: kBodyTextColor),
-                      keyboardType: TextInputType.name,
-                      readOnly: true,
-                      cursorColor: kActiveColor,
-                      decoration: InputDecoration(
-                        fillColor: Colors.grey[100],
-                        contentPadding:
-                            EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32.0)),
-                      ),
-                    ),
-                    VerticalSpacing(of: 20),
-                    Text(
-                      "이메일",
-                      textScaleFactor: 1,
-                      style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: kBodyTextColor),
-                    ),
-                    VerticalSpacing(),
-                    TextFormField(
-                      initialValue: widget.user.email,
-                      style: TextStyle(fontSize: 14, color: kBodyTextColor),
-                      keyboardType: TextInputType.name,
-                      readOnly: true,
-                      cursorColor: kActiveColor,
-                      decoration: InputDecoration(
-                        fillColor: Colors.grey[100],
-                        contentPadding:
-                            EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32.0)),
-                      ),
-                    ),
-                    VerticalSpacing(
-                      of: 30,
-                    ),
-                    Text(
-                      "핸드폰",
-                      textScaleFactor: 1,
-                      style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: kBodyTextColor),
-                    ),
-                    VerticalSpacing(),
-                    StreamBuilder<DocumentSnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection("user")
-                            .doc(widget.user.email)
-                            .snapshots(),
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData)
-                            return CircularProgressIndicator();
-                          return TextFormField(
+              child: StreamBuilder<DocumentSnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection("user")
+                      .doc(widget.user.email)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) return CircularProgressIndicator();
+                    return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          VerticalSpacing(of: 40),
+                          Text(
+                            "이름",
+                            textScaleFactor: 1,
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: kBodyTextColor),
+                          ),
+                          VerticalSpacing(),
+                          TextFormField(
+                            initialValue: widget.user.displayName,
+                            style:
+                                TextStyle(fontSize: 14, color: kBodyTextColor),
+                            keyboardType: TextInputType.name,
+                            readOnly: true,
+                            cursorColor: kActiveColor,
+                            decoration: InputDecoration(
+                              fillColor: Colors.grey[100],
+                              contentPadding:
+                                  EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(32.0)),
+                            ),
+                          ),
+                          VerticalSpacing(of: 20),
+                          Text(
+                            "이메일",
+                            textScaleFactor: 1,
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: kBodyTextColor),
+                          ),
+                          VerticalSpacing(),
+                          TextFormField(
+                            initialValue: widget.user.email,
+                            style:
+                                TextStyle(fontSize: 14, color: kBodyTextColor),
+                            keyboardType: TextInputType.name,
+                            readOnly: true,
+                            cursorColor: kActiveColor,
+                            decoration: InputDecoration(
+                              fillColor: Colors.grey[100],
+                              contentPadding:
+                                  EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(32.0)),
+                            ),
+                          ),
+                          VerticalSpacing(
+                            of: 30,
+                          ),
+                          Text(
+                            "생년월일",
+                            textScaleFactor: 1,
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: kBodyTextColor),
+                          ),
+                          VerticalSpacing(),
+                          TextFormField(
+                            initialValue: snapshot.data['birth'] ?? "",
+                            style:
+                                TextStyle(fontSize: 14, color: kBodyTextColor),
+                            keyboardType: TextInputType.name,
+                            readOnly: true,
+                            cursorColor: kActiveColor,
+                            decoration: InputDecoration(
+                              fillColor: Colors.grey[100],
+                              contentPadding:
+                                  EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(32.0)),
+                            ),
+                          ),
+                          VerticalSpacing(
+                            of: 30,
+                          ),
+                          Text(
+                            "핸드폰",
+                            textScaleFactor: 1,
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: kBodyTextColor),
+                          ),
+                          VerticalSpacing(),
+                          TextFormField(
                             initialValue: snapshot.data['phone'] ?? "",
                             style:
                                 TextStyle(fontSize: 14, color: kBodyTextColor),
@@ -114,29 +142,20 @@ class _BodyState extends State<Body> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(32.0)),
                             ),
-                          );
-                        }),
-                    VerticalSpacing(
-                      of: 30,
-                    ),
-                    Text(
-                      "주소",
-                      textScaleFactor: 1,
-                      style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: kBodyTextColor),
-                    ),
-                    VerticalSpacing(),
-                    StreamBuilder<DocumentSnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection("user")
-                            .doc(widget.user.email)
-                            .snapshots(),
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData)
-                            return CircularProgressIndicator();
-                          return TextFormField(
+                          ),
+                          VerticalSpacing(
+                            of: 30,
+                          ),
+                          Text(
+                            "주소",
+                            textScaleFactor: 1,
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: kBodyTextColor),
+                          ),
+                          VerticalSpacing(),
+                          TextFormField(
                             initialValue: snapshot.data['address1'] ?? "",
                             style:
                                 TextStyle(fontSize: 14, color: kBodyTextColor),
@@ -150,18 +169,9 @@ class _BodyState extends State<Body> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(32.0)),
                             ),
-                          );
-                        }),
-                    VerticalSpacing(),
-                    StreamBuilder<DocumentSnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection("user")
-                            .doc(widget.user.email)
-                            .snapshots(),
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData)
-                            return CircularProgressIndicator();
-                          return TextFormField(
+                          ),
+                          VerticalSpacing(),
+                          TextFormField(
                             initialValue: snapshot.data['address2'] ?? "",
                             style:
                                 TextStyle(fontSize: 14, color: kBodyTextColor),
@@ -175,12 +185,9 @@ class _BodyState extends State<Body> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(32.0)),
                             ),
-                          );
-                        }),
-                    VerticalSpacing(
-                      of: 150,
-                    ),
-                  ]),
+                          ),
+                        ]);
+                  }),
             ),
             Align(
               alignment: Alignment.bottomCenter,

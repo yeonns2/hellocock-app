@@ -20,9 +20,10 @@ class Body extends StatelessWidget {
         ),
         Expanded(
           child: SingleChildScrollView(
+            padding: EdgeInsets.zero,
             child: Image.asset(
               document['detail'],
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.cover,
             ),
           ),
         ),

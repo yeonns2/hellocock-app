@@ -20,6 +20,7 @@ class _BodyState extends State<Body> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          VerticalSpacing(of: 30),
           StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection('order')
@@ -52,7 +53,7 @@ class _BodyState extends State<Body> {
                   child: ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     padding:
-                        const EdgeInsets.only(top: 50, left: 10, right: 10),
+                        const EdgeInsets.only(top: 20, left: 10, right: 10),
                     itemCount: snapshot.data.docs.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Column(

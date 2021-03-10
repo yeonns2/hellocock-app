@@ -21,13 +21,15 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   bool food = false;
+  int count = 0;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    if (widget.cart['food'].toList().isEmpty)
+
+    if (widget.cart['food'].toList().isEmpty) {
       food = false;
-    else
+    } else
       food = true;
   }
 
@@ -142,14 +144,15 @@ class _BodyState extends State<Body> {
                                   ? 0
                                   : widget.cart['food'].length,
                               shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
                               itemBuilder: (BuildContext context, int index) {
                                 return foodwidget(index);
                               },
                             ),
-                            VerticalSpacing(of: 30),
+                            VerticalSpacing(of: 100),
                           ],
                         )
-                      : VerticalSpacing(of: 30),
+                      : VerticalSpacing(of: 50),
                 ],
               ),
             ),
@@ -173,6 +176,7 @@ class _BodyState extends State<Body> {
   }
 
   Widget foodwidget(int index) {
+    int qty = widget.cart['food'][index]['quantity'];
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -198,14 +202,18 @@ class _BodyState extends State<Body> {
         ),
         VerticalSpacing(of: 15),
         QuantityCard(
-          quantity: widget.cart['food'][index]['quantity'],
+          quantity: qty,
           onpressed1: () {
-            _updatefood(index);
+            //_updatefood(index);
+            count -= 1;
+            setState(() {});
           },
           onpressed2: () {
-            setState(() {
-              _updatefood(index);
-            });
+            //_updatefood(index);
+            count += 1;
+            qty += count;
+            setState(() {});
+            _updatefood(index);
           },
         ),
         VerticalSpacing(of: 30)
@@ -226,21 +234,19 @@ class _BodyState extends State<Body> {
     await Future.delayed(Duration(seconds: 1));
 
     final List food = List<Map>.from(data ?? []);
-    final deleteData = {
-      'name': widget.store['food'][index]['name'],
-      'price': widget.store['food'][index]['price'],
-      'quantity': widget.store['food'][index]['quantity']
-    };
+
     final updateData = {
-      'name': widget.store['food'][index]['name'],
-      'price': widget.store['food'][index]['price'],
-      'quantity': widget.store['food'][index]['quantity'] + 1
+      'name': widget.cart['food'][index]['name'],
+      'price': widget.cart['food'][index]['price'],
+      'quantity': widget.cart['food'][index]['quantity'] + 1
     };
-    food.remove(deleteData);
+
     food.add(updateData);
     FirebaseFirestore.instance
         .collection("cart")
         .doc(widget.user.email)
-        .update({'food': food});
+        .update({
+      'food': [food]
+    });
   }
 }

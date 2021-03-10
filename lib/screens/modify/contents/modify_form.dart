@@ -25,6 +25,7 @@ class _ModifyFormState extends State<ModifyForm> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _phone = TextEditingController();
+  final TextEditingController _birth = TextEditingController();
   final TextEditingController _address1 = TextEditingController();
   final TextEditingController _address2 = TextEditingController();
 
@@ -104,68 +105,36 @@ class _ModifyFormState extends State<ModifyForm> {
                     VerticalSpacing(
                       of: 30,
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(8.0),
-                    //   child: Text(
-                    //     "비밀번호",
-                    //     style:
-                    //         TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
-                    //   ),
-                    // ),
-                    // TextFormField(
-                    //   style: TextStyle(fontSize: 13),
-                    //   cursorColor: kActiveColor,
-                    //   controller: _password,
-                    //   decoration: InputDecoration(
-                    //     fillColor: Colors.grey[100],
-                    //     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    //     hintText: "6자리 이상 입력해주세요.",
-                    //     border: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(32.0),
-                    //     ),
-                    //   ),
-                    //   validator: (String value) {
-                    //     if (value.isEmpty) {
-                    //       return '비밀번호를 입력해주세요';
-                    //     }
-                    //     return null;
-                    //   },
-                    //   obscureText: true,
-                    // ),
-                    // VerticalSpacing(
-                    //   of: 20,
-                    // ),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(8.0),
-                    //   child: Text(
-                    //     "비밀번호 확인",
-                    //     style:
-                    //         TextStyle(fontWeight: FontWeight.bold, color: kBodyTextColor),
-                    //   ),
-                    // ),
-                    // TextFormField(
-                    //   style: TextStyle(fontSize: 13),
-                    //   cursorColor: kActiveColor,
-                    //   controller: _confirm,
-                    //   decoration: InputDecoration(
-                    //     fillColor: Colors.grey[100],
-                    //     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    //     hintText: "6자리 이상 입력해주세요.",
-                    //     border:
-                    //         OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                    //   ),
-                    //   validator: (String value) {
-                    //     if (value.isEmpty) {
-                    //       return '비밀번호를 입력해주세요';
-                    //     }
-                    //     if (value != _password.text) {
-                    //       return '비밀번호가 맞지 않습니다.';
-                    //     }
-                    //     return null;
-                    //   },
-                    //   obscureText: true,
-                    // ),
-                    // VerticalSpacing(),
+                    Text(
+                      "생년월일",
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: kBodyTextColor),
+                    ),
+                    VerticalSpacing(),
+                    TextFormField(
+                      controller: _birth,
+                      style: TextStyle(fontSize: 13, color: kBodyTextColor),
+                      cursorColor: kActiveColor,
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey[100],
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0)),
+                      ),
+                      validator: (String value) {
+                        if (value.isEmpty) {
+                          return '생년월일을 입력해주세요';
+                        }
+                        return null;
+                      },
+                    ),
+                    VerticalSpacing(
+                      of: 30,
+                    ),
                     Text(
                       "핸드폰 번호",
                       textScaleFactor: 1,
@@ -175,29 +144,25 @@ class _ModifyFormState extends State<ModifyForm> {
                           color: kBodyTextColor),
                     ),
                     VerticalSpacing(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: 280,
-                          child: TextFormField(
-                            controller: _phone,
-                            style:
-                                TextStyle(fontSize: 13, color: kBodyTextColor),
-                            cursorColor: kActiveColor,
-                            decoration: InputDecoration(
-                              fillColor: Colors.grey[100],
-                              contentPadding:
-                                  EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(32.0)),
-                            ),
-                          ),
-                        ),
-                        // SizedBox(
-                        //     width: 95, child: PrimaryButton(text: "인증요청", press: () {}))
-                      ],
+                    TextFormField(
+                      controller: _phone,
+                      style: TextStyle(fontSize: 13, color: kBodyTextColor),
+                      cursorColor: kActiveColor,
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey[100],
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0)),
+                      ),
+                      validator: (String value) {
+                        if (value.isEmpty) {
+                          return '핸드폰 번호를 입력해주세요';
+                        }
+                        return null;
+                      },
                     ),
+
                     // VerticalSpacing(),
                     // Row(
                     //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -303,7 +268,7 @@ class _ModifyFormState extends State<ModifyForm> {
                       },
                     ),
                     VerticalSpacing(
-                      of: 150,
+                      of: 100,
                     ),
                   ],
                 ),
@@ -322,6 +287,7 @@ class _ModifyFormState extends State<ModifyForm> {
                         'address1': _address1.text,
                         'address2': _address2.text,
                         'phone': _phone.text,
+                        'birth': _birth.text
                       });
                       showDialog(
                           context: context,

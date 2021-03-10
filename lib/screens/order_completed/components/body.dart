@@ -8,11 +8,11 @@ import 'package:intl/intl.dart';
 
 class Body extends StatelessWidget {
   final DocumentSnapshot document;
-
-  Body(this.document);
+  final String ordernumber;
+  Body(this.document, this.ordernumber);
   @override
   Widget build(BuildContext context) {
-    var pickup_time = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
+    var ordertime = DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now());
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
@@ -59,7 +59,7 @@ class Body extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        pickup_time,
+                        ordertime,
                         textScaleFactor: 1,
                         style: TextStyle(
                           color: kBodyTextColor,
@@ -81,7 +81,7 @@ class Body extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "B0D051135",
+                        ordernumber,
                         textScaleFactor: 1,
                         style: TextStyle(
                           color: kBodyTextColor,

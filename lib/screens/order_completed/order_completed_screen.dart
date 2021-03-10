@@ -5,7 +5,8 @@ import 'components/body.dart';
 
 class OrderCompletedScreen extends StatelessWidget {
   final DocumentSnapshot cart;
-  OrderCompletedScreen(this.cart);
+  final String ordernumber;
+  OrderCompletedScreen(this.cart, this.ordernumber);
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -15,7 +16,7 @@ class OrderCompletedScreen extends StatelessWidget {
           stream:
               FirebaseFirestore.instance.collection("order").doc().snapshots(),
           builder: (context, snapshot) {
-            return Body(cart);
+            return Body(cart, ordernumber);
           }),
     );
   }

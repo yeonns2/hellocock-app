@@ -20,6 +20,12 @@ class MenuCard extends StatefulWidget {
 class _MenuCardState extends State<MenuCard> {
   int count = 0;
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 100,
@@ -66,9 +72,10 @@ class _MenuCardState extends State<MenuCard> {
                             "원",
                         textScaleFactor: 1,
                         style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFFA195F)),
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFFF4D4D),
+                        ),
                       ),
                     ),
                   ),
@@ -112,7 +119,7 @@ class _MenuCardState extends State<MenuCard> {
                             ),
                             SizedBox(
                               width: 35,
-                              child: FlatButton(
+                              child: TextButton(
                                   onPressed: () {
                                     count += 1;
                                     _addfood();

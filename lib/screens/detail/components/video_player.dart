@@ -13,36 +13,36 @@ class VideoPlayer extends StatefulWidget {
 }
 
 class _VideoPlayerState extends State<VideoPlayer> {
-  YoutubePlayerController _controller;
-
-  //String videoId = YoutubePlayer.convertUrlToId(widget.document['youtube_url']);
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = YoutubePlayerController(
-      initialVideoId: YoutubePlayer.convertUrlToId(
-        widget.document['youtube_url'],
-      ),
-      flags: YoutubePlayerFlags(
-        mute: false,
-        autoPlay: false,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return YoutubePlayer(
-      progressColors: ProgressBarColors(
-          backgroundColor: kBodyTextColor,
-          playedColor: kActiveColor,
-          handleColor: kActiveColor),
-      controller: _controller,
-      //showVideoProgressIndicator: true,
-      onReady: () {
-        print('Player is ready.');
-      },
-    );
+    return FutureBuilder(
+        future: getVideoUrl(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData == false) {
+            return CircularProgressIndicator();
+          }
+          return YoutubePlayer(
+            progressColors: ProgressBarColors(
+                backgroundColor: kBodyTextColor,
+                playedColor: kActiveColor,
+                handleColor: kActiveColor),
+            controller: YoutubePlayerController(
+              initialVideoId: YoutubePlayer.convertUrlToId(snapshot.data),
+              flags: YoutubePlayerFlags(
+                mute: false,
+                autoPlay: false,
+              ),
+            ),
+            //showVideoProgressIndicator: true,
+            onReady: () {
+              print('Player is ready.');
+            },
+          );
+        });
+  }
+
+  Future<String> getVideoUrl() async {
+    String videourl = widget.document['youtube_url'];
+    return videourl;
   }
 }

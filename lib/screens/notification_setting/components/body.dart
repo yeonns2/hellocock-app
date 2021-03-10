@@ -14,7 +14,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  bool _value = false;
   final FirebaseMessaging fcm = FirebaseMessaging();
 
   @override
@@ -67,23 +66,33 @@ class _BodyState extends State<Body> {
                     fontWeight: FontWeight.bold,
                     color: kBodyTextColor),
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: AdvancedSwitch(
-                  width: 48.0,
-                  height: 24.0,
-                  value: _value,
-                  onChanged: (bool newValue) {
-                    setState(() {
-                      _value = newValue;
-                      FirebaseFirestore.instance
-                          .collection("user")
-                          .doc(widget.user.email)
-                          .update({'marketing_agreemnet': _value});
-                    });
-                  },
-                  activeColor: kActiveColor,
-                ),
+              Container(
+                width: 48.0,
+                height: 24.0,
+                child: StreamBuilder<DocumentSnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection("user")
+                        .doc(widget.user.email)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) return CircularProgressIndicator();
+                      bool _value = snapshot.data['marketing_agreement'];
+                      return AdvancedSwitch(
+                        width: 48.0,
+                        height: 24.0,
+                        value: _value,
+                        onChanged: (bool newValue) {
+                          setState(() {
+                            _value = newValue;
+                            FirebaseFirestore.instance
+                                .collection("user")
+                                .doc(widget.user.email)
+                                .update({'marketing_agreement': _value});
+                          });
+                        },
+                        activeColor: kActiveColor,
+                      );
+                    }),
               ),
             ],
           ),

@@ -24,6 +24,7 @@ class _SignUpFormState extends State<SignUpForm> {
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
   TextEditingController _confirm = TextEditingController();
+  TextEditingController _birth = TextEditingController();
   TextEditingController _name = TextEditingController();
   TextEditingController _phone = TextEditingController();
   TextEditingController _sms = TextEditingController();
@@ -180,6 +181,42 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           VerticalSpacing(of: 20),
           Text(
+            " 생년월일",
+            textScaleFactor: 1,
+            style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: kBodyTextColor),
+          ),
+          VerticalSpacing(),
+          TextFormField(
+            style: TextStyle(fontSize: 15),
+            cursorColor: kActiveColor,
+            controller: _birth,
+            decoration: InputDecoration(
+              fillColor: Colors.grey[100],
+              contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+              hintText: "생년월일 8자리",
+              hintStyle: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey[500]),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+            ),
+            validator: (String value) {
+              if (value.isEmpty) {
+                return '생년월일 입력해주세요';
+              }
+              if (value.length != 8) {
+                return '생년월일 8자리를 입력해주세요';
+              }
+              return null;
+            },
+            obscureText: true,
+          ),
+          VerticalSpacing(of: 20),
+          Text(
             " 핸드폰 번호",
             textScaleFactor: 1,
             style: TextStyle(
@@ -188,65 +225,87 @@ class _SignUpFormState extends State<SignUpForm> {
                 color: kBodyTextColor),
           ),
           VerticalSpacing(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(
-                width: SizeConfig.screenWidth - 200,
-                child: TextFormField(
-                  controller: _phone,
-                  style: TextStyle(fontSize: 15),
-                  cursorColor: kActiveColor,
-                  decoration: InputDecoration(
-                    fillColor: Colors.grey[100],
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0)),
-                  ),
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return '핸드폰 번호를 입력해주세요';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              VerticalSpacing(),
-              SizedBox(
-                  width: 100,
-                  child: PrimaryButton(text: "인증요청", press: () async {}))
-            ],
+          TextFormField(
+            controller: _phone,
+            style: TextStyle(fontSize: 15),
+            cursorColor: kActiveColor,
+            decoration: InputDecoration(
+              hintText: "숫자만 입력해주세요",
+              hintStyle: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey[500]),
+              fillColor: Colors.grey[100],
+              contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+            ),
+            validator: (String value) {
+              if (value.isEmpty) {
+                return '핸드폰 번호를 입력해주세요';
+              }
+              return null;
+            },
           ),
-          VerticalSpacing(of: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(
-                width: SizeConfig.screenWidth - 200,
-                child: TextFormField(
-                  controller: _sms,
-                  style: TextStyle(fontSize: 13),
-                  cursorColor: kActiveColor,
-                  decoration: InputDecoration(
-                    fillColor: Colors.grey[100],
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0)),
-                  ),
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return '인증 번호를 입력해주세요.';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              VerticalSpacing(),
-              SizedBox(
-                  width: 100,
-                  child: PrimaryButton(text: "인증완료", press: () async {})),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //   children: [
+          //     SizedBox(
+          //       width: SizeConfig.screenWidth - 200,
+          //       child: TextFormField(
+          //         controller: _phone,
+          //         style: TextStyle(fontSize: 15),
+          //         cursorColor: kActiveColor,
+          //         decoration: InputDecoration(
+          //           fillColor: Colors.grey[100],
+          //           contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+          //           border: OutlineInputBorder(
+          //               borderRadius: BorderRadius.circular(32.0)),
+          //         ),
+          //         validator: (String value) {
+          //           if (value.isEmpty) {
+          //             return '핸드폰 번호를 입력해주세요';
+          //           }
+          //           return null;
+          //         },
+          //       ),
+          //     ),
+          //     VerticalSpacing(),
+          //     SizedBox(
+          //         width: 100,
+          //         child: PrimaryButton(text: "인증요청", press: () async {}))
+          //   ],
+          // ),
+          // VerticalSpacing(of: 10),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //   children: [
+          //     SizedBox(
+          //       width: SizeConfig.screenWidth - 200,
+          //       child: TextFormField(
+          //         controller: _sms,
+          //         style: TextStyle(fontSize: 13),
+          //         cursorColor: kActiveColor,
+          //         decoration: InputDecoration(
+          //           fillColor: Colors.grey[100],
+          //           contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+          //           border: OutlineInputBorder(
+          //               borderRadius: BorderRadius.circular(32.0)),
+          //         ),
+          //         validator: (String value) {
+          //           if (value.isEmpty) {
+          //             return '인증 번호를 입력해주세요.';
+          //           }
+          //           return null;
+          //         },
+          //       ),
+          //     ),
+          //     VerticalSpacing(),
+          //     SizedBox(
+          //         width: 100,
+          //         child: PrimaryButton(text: "인증완료", press: () async {})),
+          //   ],
+          // ),
           VerticalSpacing(of: 20),
           Text(
             " 주소",
@@ -512,6 +571,7 @@ class _SignUpFormState extends State<SignUpForm> {
                                 .set({
                               'name': _name.text,
                               'email': _email.text,
+                              'birth': _birth.text,
                               'address1': _address1.text,
                               'address2': _address2.text,
                               'phone': _phone.text,

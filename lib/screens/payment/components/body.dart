@@ -5,6 +5,7 @@ import 'package:bootpay_api/model/user.dart';
 import 'package:bootpay_api/model/item.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/screens/order_completed/order_completed_screen.dart';
 import 'package:hellocock/screens/policy/payment_policy/payment_policy_screen.dart';
@@ -102,7 +103,7 @@ class _BodyState extends State<Body> {
                             "원",
                         textScaleFactor: 1,
                         style: TextStyle(
-                            color: Color(0xFFFA195A),
+                            color: Color(0xFFFF4D4D),
                             fontWeight: FontWeight.w500),
                       )
                     ],
@@ -138,7 +139,7 @@ class _BodyState extends State<Body> {
                                     "원",
                                 textScaleFactor: 1,
                                 style: TextStyle(
-                                    color: Color(0xFFFA195A),
+                                    color: Color(0xFFFF4D4D),
                                     fontWeight: FontWeight.w500),
                               )
                             ],
@@ -166,7 +167,7 @@ class _BodyState extends State<Body> {
                         _totalprice.toString() + "원",
                         textScaleFactor: 1,
                         style: TextStyle(
-                            color: Color(0xFFFA195A),
+                            color: Color(0xFFFF4D4D),
                             fontWeight: FontWeight.bold),
                       )
                     ],
@@ -310,7 +311,36 @@ class _BodyState extends State<Body> {
               alignment: Alignment.bottomCenter,
               child: PrimaryButton(
                 press: () {
-                  goBootpayRequest(context);
+                  if (value1 == true && value2 == true)
+                    goBootpayRequest(context);
+                  else {
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) {
+                          return CupertinoAlertDialog(
+                            content: Text(
+                              "약관에 동의해야 결제가 가능합니다.",
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: kBodyTextColor,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            actions: <Widget>[
+                              new CupertinoDialogAction(
+                                child: Text(
+                                  '확인',
+                                  style: TextStyle(fontSize: 15),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        });
+                  }
                 },
                 text: _totalprice.toString() + "원 결제하기",
               ),
@@ -347,10 +377,9 @@ class _BodyState extends State<Body> {
 //    };
 
     User user = User();
-    user.username = "사용자 이름";
-    user.email = "user1234@gmail.com";
-    user.area = "서울";
-    user.phone = "010-1234-4567";
+    user.username = widget.cart['name'];
+    user.email = widget.cart.id;
+    user.area = widget.cart['store'];
 
     Extra extra = Extra();
     extra.appScheme = 'hellocock';
@@ -358,27 +387,27 @@ class _BodyState extends State<Body> {
     extra.custom_background = '#00c8ff';
     extra.custom_font_color = '#ffffff';
 
-    Item item1 = Item();
-    item1.itemName = "시브리즈 키트"; // 주문정보에 담길 상품명
-    item1.qty = 1; // 해당 상품의 주문 수량
-    item1.unique = "ITEM_CODE_SEABREEZE"; // 해당 상품의 고유 키
-    item1.price = 19000; // 상품의 가격
+    // Item item1 = Item();
+    // item1.itemName = "시브리즈 키트"; // 주문정보에 담길 상품명
+    // item1.qty = 1; // 해당 상품의 주문 수량
+    // item1.unique = "ITEM_CODE_SEABREEZE"; // 해당 상품의 고유 키
+    // item1.price = 19000; // 상품의 가격
 
-    List<Item> itemList = [item1];
+    // List<Item> itemList = [item1];
 
     BootpayApi.request(
       context,
       payload,
       extra: extra,
       user: user,
-      items: itemList,
+      //items: itemList,
       onDone: (String json) {
         print('onDone: $json');
         FirebaseFirestore.instance
             .collection("order")
-            .doc(DateTime.now().millisecondsSinceEpoch.toString())
+            .doc(payload.orderId)
             .set({
-          'number': DateTime.now().millisecondsSinceEpoch,
+          'number': payload.orderId,
           'name': widget.cart['name'],
           'email': widget.cart.id,
           'date': Timestamp.now(),
@@ -391,7 +420,8 @@ class _BodyState extends State<Body> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => OrderCompletedScreen(widget.cart),
+            builder: (context) =>
+                OrderCompletedScreen(widget.cart, payload.orderId),
           ),
         );
       },

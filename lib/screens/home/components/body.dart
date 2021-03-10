@@ -44,7 +44,7 @@ class _BodyState extends State<Body> {
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('cocktail')
-                      .where('new', isEqualTo: true)
+                      .where('kit', isEqualTo: true)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -81,6 +81,7 @@ class _BodyState extends State<Body> {
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('cocktail')
+                      .where('recipe', isEqualTo: true)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -130,7 +131,7 @@ class _BodyState extends State<Body> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: Image.asset(document['image'],
+                child: Image.asset(document['kit_image'],
                     width: double.infinity, fit: BoxFit.fitWidth),
               ),
               VerticalSpacing(of: 10),
