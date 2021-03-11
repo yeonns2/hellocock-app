@@ -182,6 +182,7 @@ class _BodyState extends State<Body> {
                         'email': user.email,
                         'certificated': false,
                         'phone': user.phoneNumber,
+                        'birth': "",
                         'address1': "",
                         'address2': "",
                         'marketing_agreement': false
@@ -215,6 +216,7 @@ class _BodyState extends State<Body> {
                         'email': user.email,
                         'certificated': false,
                         'phone': user.phoneNumber,
+                        'birth': "",
                         'address1': "",
                         'address2': "",
                         'marketing_agreement': false

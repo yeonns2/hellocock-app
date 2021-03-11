@@ -24,23 +24,6 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
-
-    FirebaseFirestore.instance.collection('store').get().then((store) {
-      if (store.docs.isNotEmpty) {
-        for (int i = 0; i < store.docs.length; i++) {
-          setState(() {
-            allMarkers.add(Marker(
-                markerId: MarkerId(store.docs[i]['name']),
-                draggable: true,
-                infoWindow: InfoWindow(
-                    title: store.docs[i]['name'],
-                    snippet: store.docs[i]['address']),
-                position: LatLng(store.docs[i]['location'].latitude.toDouble(),
-                    store.docs[i]['location'].longitude.toDouble())));
-          });
-        }
-      }
-    });
   }
 
   @override
@@ -60,14 +43,31 @@ class _BodyState extends State<Body> {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      child: GoogleMap(
-        initialCameraPosition:
-            CameraPosition(target: LatLng(37.54658, 127.07564), zoom: 15),
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
-        markers: Set.from(allMarkers),
-      ),
+      child: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance.collection('store').snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) return CircularProgressIndicator();
+
+            var store = snapshot.data.docs;
+            for (int i = 0; i < snapshot.data.docs.length; i++) {
+              allMarkers.add(Marker(
+                  markerId: MarkerId(store[i]['name']),
+                  draggable: true,
+                  infoWindow: InfoWindow(
+                      title: store[i]['name'], snippet: store[i]['address']),
+                  position: LatLng(store[i]['location'].latitude.toDouble(),
+                      store[i]['location'].longitude.toDouble())));
+            }
+
+            return GoogleMap(
+              initialCameraPosition:
+                  CameraPosition(target: LatLng(37.54658, 127.07564), zoom: 15),
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+              },
+              markers: Set.from(allMarkers),
+            );
+          }),
     );
   }
 }

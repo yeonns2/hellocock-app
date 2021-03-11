@@ -28,6 +28,11 @@ class _BodyState extends State<Body> {
     // TODO: implement initState
     super.initState();
     _chosenDateTime = DateTime(now.year, now.month, now.day, 18, 0);
+
+    FirebaseFirestore.instance
+        .collection("cart")
+        .doc(widget.user.email)
+        .update({'food': []});
   }
 
   void _showDatePicker(context) {
@@ -189,8 +194,8 @@ class _BodyState extends State<Body> {
               VerticalSpacing(of: 10),
               ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: widget.store['food'].length,
                 shrinkWrap: true,
+                itemCount: widget.store['food'].length,
                 itemBuilder: (BuildContext context, int index) {
                   return MenuCard(widget.store, index, widget.user);
                 },

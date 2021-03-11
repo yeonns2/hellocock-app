@@ -19,10 +19,19 @@ class MenuCard extends StatefulWidget {
 
 class _MenuCardState extends State<MenuCard> {
   int count = 0;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseFirestore.instance
+        .collection("cart")
+        .doc(widget.user.email)
+        .update({'food': []});
+
+    setState(() {
+      count = 0;
+    });
   }
 
   @override
@@ -98,6 +107,7 @@ class _MenuCardState extends State<MenuCard> {
                                     if (count > 0) {
                                       setState(() {
                                         count -= 1;
+
                                         _addfood();
                                       });
                                     }
@@ -119,7 +129,7 @@ class _MenuCardState extends State<MenuCard> {
                             ),
                             SizedBox(
                               width: 35,
-                              child: TextButton(
+                              child: FlatButton(
                                   onPressed: () {
                                     count += 1;
                                     _addfood();
@@ -145,7 +155,7 @@ class _MenuCardState extends State<MenuCard> {
 
   void _addfood() async {
     var data;
-
+    var foodname;
     FirebaseFirestore.instance
         .collection('cart')
         .doc(widget.user.email)
@@ -156,23 +166,25 @@ class _MenuCardState extends State<MenuCard> {
     await Future.delayed(Duration(seconds: 1));
 
     final List food = List<Map>.from(data ?? []);
-    final updateData = {
-      'name': widget.store['food'][widget.index]['name'],
-      'price': widget.store['food'][widget.index]['price'],
-      'quantity': count
-    };
-    print(food.contains({'name': widget.store['food'][widget.index]['name']}));
-    // if (food.any()) {
-    //   FirebaseFirestore.instance
-    //       .collection("cart")
-    //       .doc(widget.user.email)
-    //       .update({'food': updateData});
-    // } else {
-    food.add(updateData);
+
+    for (int i = 0; i < food.length; i++) {
+      if (food[i]['name'] == widget.store['food'][widget.index]['name'])
+        food.removeAt(i);
+    }
+
+    if (count != 0) {
+      final updateData = {
+        'name': widget.store['food'][widget.index]['name'],
+        'price': widget.store['food'][widget.index]['price'],
+        'quantity': count
+      };
+      print(food);
+
+      food.add(updateData);
+    }
     FirebaseFirestore.instance
         .collection("cart")
         .doc(widget.user.email)
         .update({'food': food});
-    //}
   }
 }
