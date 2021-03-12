@@ -16,10 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    Timer(
-        Duration(seconds: 3),
-        () => Navigator.of(context).pushReplacement(new MaterialPageRoute(
-            builder: (context) => new IntroScreen()))); //checkFirstSeen());
+    Timer(Duration(seconds: 3), () => checkFirstSeen());
   }
 
   Future checkFirstSeen() async {

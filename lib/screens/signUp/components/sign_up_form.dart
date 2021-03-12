@@ -213,7 +213,6 @@ class _SignUpFormState extends State<SignUpForm> {
               }
               return null;
             },
-            obscureText: true,
           ),
           VerticalSpacing(of: 20),
           Text(

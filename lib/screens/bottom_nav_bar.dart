@@ -209,7 +209,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                 style: TextStyle(fontSize: 15),
                               ),
                               onPressed: () async {
-                                await FirebaseAuth.instance.signOut();
                                 Navigator.pop(context);
                               }),
                           new CupertinoDialogAction(

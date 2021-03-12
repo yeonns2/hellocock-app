@@ -2,6 +2,7 @@ import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hellocock/constants.dart';
@@ -9,9 +10,7 @@ import 'package:hellocock/screens/bottom_nav_bar.dart';
 import 'package:hellocock/screens/find_id/find_id_screen.dart';
 import 'package:hellocock/screens/find_password/find_pw_screen.dart';
 import 'package:hellocock/screens/loading_screen.dart';
-import 'package:hellocock/screens/modify/modify.dart';
 import 'package:hellocock/widgets/buttons/social_button.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../../size_config.dart';
 import '../../../screens/signUp/sign_up_screen.dart';
 import 'sign_in_form.dart';
@@ -64,25 +63,44 @@ class _BodyState extends State<Body> {
     }
   }
 
-  Future<User> signInWithApple() async {
-    final appleCredential = await SignInWithApple.getAppleIDCredential(
-      scopes: [
-        AppleIDAuthorizationScopes.email,
-        AppleIDAuthorizationScopes.fullName,
-      ],
-    );
+  Future<User> signInWithApple({List<Scope> scopes = const []}) async {
+    // 1. perform the sign-in request
+    final result = await AppleSignIn.performRequests(
+        [AppleIdRequest(requestedScopes: scopes)]);
+    // 2. check the result
+    switch (result.status) {
+      case AuthorizationStatus.authorized:
+        final appleIdCredential = result.credential;
+        final oAuthProvider = OAuthProvider('apple.com');
+        final credential = oAuthProvider.credential(
+          idToken: String.fromCharCodes(appleIdCredential.identityToken),
+          accessToken:
+              String.fromCharCodes(appleIdCredential.authorizationCode),
+        );
+        final authResult = await _firebaseAuth.signInWithCredential(credential);
+        final firebaseUser = authResult.user;
 
-    final oauthCredential = OAuthProvider("apple.com").credential(
-      idToken: appleCredential.identityToken,
-      accessToken: appleCredential.authorizationCode,
-    );
+        if (scopes.contains(Scope.fullName)) {
+          final displayName =
+              '${appleIdCredential.fullName.givenName} ${appleIdCredential.fullName.familyName}';
 
-    User user =
-        (await _firebaseAuth.signInWithCredential(oauthCredential)).user;
+          await firebaseUser.updateProfile(displayName: displayName);
+        }
+        return firebaseUser;
+      case AuthorizationStatus.error:
+        throw PlatformException(
+          code: 'ERROR_AUTHORIZATION_DENIED',
+          message: result.error.toString(),
+        );
 
-    await user.updateProfile(displayName: appleCredential.familyName);
-    print(appleCredential.familyName + appleCredential.givenName);
-    return user;
+      case AuthorizationStatus.cancelled:
+        throw PlatformException(
+          code: 'ERROR_ABORTED_BY_USER',
+          message: 'Sign in aborted by user',
+        );
+      default:
+        throw UnimplementedError();
+    }
   }
 
   @override
@@ -191,7 +209,7 @@ class _BodyState extends State<Body> {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ModifyScreen(user)));
+                            builder: (context) => BottomNavBar(user)));
                   });
                 },
                 color: Colors.white,
