@@ -37,6 +37,7 @@ class MyCocktail extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 5, bottom: 10),
                 child: Text(
                   date,
+                  textScaleFactor: 1,
                   style: TextStyle(color: kActiveColor, fontSize: 10),
                 ),
               ),

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hellocock/widgets/alert.dart';
 
 class LikeButton extends StatefulWidget {
   final User user;
@@ -20,10 +21,12 @@ class _LikeButtonState extends State<LikeButton> {
     super.initState();
     List likedUsers = List<String>.from(widget.document['likedUsers']);
 
-    if (likedUsers.contains(widget.user.email))
-      isliked = true;
-    else
-      isliked = false;
+    if (widget.user != null) {
+      if (likedUsers.contains(widget.user.email))
+        isliked = true;
+      else
+        isliked = false;
+    }
   }
 
   @override
@@ -32,18 +35,31 @@ class _LikeButtonState extends State<LikeButton> {
       height: 60,
       minWidth: 130,
       child: SvgPicture.asset(
-        isliked ? "assets/icons/like_full.svg" : "assets/icons/like.svg",
+        widget.user == null
+            ? "assets/icons/like.svg"
+            : isliked
+                ? "assets/icons/like_full.svg"
+                : "assets/icons/like.svg",
         height: 20,
         width: 20,
       ),
       onPressed: () {
-        setState(() {
-          if (!isliked) {
-            _like();
-          } else {
-            _unlike();
-          }
-        });
+        if (widget.user == null)
+          showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) {
+                return LoginAlert();
+              });
+        else {
+          setState(() {
+            if (!isliked) {
+              _like();
+            } else {
+              _unlike();
+            }
+          });
+        }
       },
     );
   }

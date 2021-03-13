@@ -49,19 +49,6 @@ class _BodyState extends State<Body> {
                         ? kActiveColor
                         : kBodyTextColor),
               ),
-              VerticalSpacing(
-                of: 350,
-              ),
-              widget.document['certificated']
-                  ? VerticalSpacing()
-                  : PrimaryButton(
-                      text: "성인인증 하러가기",
-                      press: () {
-                        FirebaseFirestore.instance
-                            .collection("user")
-                            .doc(widget.user.email)
-                            .update({'certificated': true});
-                      }),
             ],
           ),
           if (widget.document['certificated'])

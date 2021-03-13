@@ -36,6 +36,7 @@ class _BodyState extends State<Body> {
   bool value_all = false;
   bool value1 = false;
   bool value2 = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -59,66 +60,100 @@ class _BodyState extends State<Body> {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Order(widget.user, widget.cart, widget.store),
+              QuantityCard(
+                quantity: widget.cart['cocktail']['quantity'],
+                onpressed1: () {
+                  if (widget.cart['cocktail']['quantity'] > 1) {
+                    setState(() {
+                      FirebaseFirestore.instance
+                          .collection("cart")
+                          .doc(widget.user.email)
+                          .update({
+                        'cocktail': {
+                          'name': widget.cart['cocktail']['name'],
+                          'price': widget.cart['cocktail']['price'],
+                          'quantity': widget.cart['cocktail']['quantity'] - 1
+                        },
+                      });
+                      _totalprice =
+                          _totalprice - widget.cart['cocktail']['price'];
+                    });
+                  }
+                },
+                onpressed2: () {
+                  setState(() {
+                    FirebaseFirestore.instance
+                        .collection("cart")
+                        .doc(widget.user.email)
+                        .update(
+                      {
+                        'cocktail': {
+                          'name': widget.cart['cocktail']['name'],
+                          'price': widget.cart['cocktail']['price'],
+                          'quantity': widget.cart['cocktail']['quantity'] + 1
+                        },
+                      },
+                    );
+                    _totalprice =
+                        _totalprice + widget.cart['cocktail']['price'];
+                  });
+                },
+              ),
+              Pickup(widget.user, widget.cart, widget.store),
+              Payment(widget.cart, _totalprice),
+              Row(
                 children: [
-                  Order(widget.user, widget.cart, widget.store),
-                  QuantityCard(
-                    quantity: widget.cart['cocktail']['quantity'],
-                    onpressed1: () {
-                      setState(() {
-                        FirebaseFirestore.instance
-                            .collection("cart")
-                            .doc(widget.user.email)
-                            .update({
-                          'cocktail': {
-                            'name': widget.cart['cocktail']['name'],
-                            'price': widget.cart['cocktail']['price'],
-                            'quantity': widget.cart['cocktail']['quantity'] - 1
-                          },
+                  SizedBox(
+                    width: 30,
+                    height: 30,
+                    child: Checkbox(
+                      value: value_all,
+                      onChanged: (bool value) {
+                        setState(() {
+                          value_all = !value_all;
+                          if (value_all = true) {
+                            value1 = true;
+                            value2 = true;
+                          }
                         });
-                        _totalprice =
-                            _totalprice - widget.cart['cocktail']['price'];
-                      });
-                    },
-                    onpressed2: () {
-                      setState(() {
-                        FirebaseFirestore.instance
-                            .collection("cart")
-                            .doc(widget.user.email)
-                            .update(
-                          {
-                            'cocktail': {
-                              'name': widget.cart['cocktail']['name'],
-                              'price': widget.cart['cocktail']['price'],
-                              'quantity':
-                                  widget.cart['cocktail']['quantity'] + 1
-                            },
-                          },
-                        );
-                        _totalprice =
-                            _totalprice + widget.cart['cocktail']['price'];
-                      });
-                    },
+                      },
+                      hoverColor: kActiveColor,
+                      focusColor: kActiveColor,
+                      activeColor: kActiveColor,
+                    ),
                   ),
-                  Pickup(widget.user, widget.cart, widget.store),
-                  Payment(widget.cart, _totalprice),
+                  Text(
+                    " 모든 약관 동의",
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: kBodyTextColor),
+                  ),
+                ],
+              ),
+              Divider(
+                thickness: 1.5,
+                color: kBodyTextColor,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
                   Row(
                     children: [
                       SizedBox(
                         width: 30,
                         height: 30,
                         child: Checkbox(
-                          value: value_all,
+                          value: value1,
                           onChanged: (bool value) {
                             setState(() {
-                              value_all = !value_all;
-                              if (value_all = true) {
-                                value1 = true;
-                                value2 = true;
-                              }
+                              value1 = !value1;
+                              if (value1 == false) value_all = false;
                             });
                           },
                           hoverColor: kActiveColor,
@@ -127,118 +162,76 @@ class _BodyState extends State<Body> {
                         ),
                       ),
                       Text(
-                        " 모든 약관 동의",
+                        " [필수] 술픽업 이용약관",
                         textScaleFactor: 1,
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: kBodyTextColor),
+                        style: TextStyle(fontSize: 13, color: kBodyTextColor),
                       ),
                     ],
                   ),
-                  Divider(
-                    thickness: 1.5,
-                    color: kBodyTextColor,
+                  SizedBox(
+                    height: 30,
+                    child: IconButton(
+                      icon: SvgPicture.asset("assets/icons/arrow_next.svg"),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PickupPolicyScreen(),
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 30,
-                            height: 30,
-                            child: Checkbox(
-                              value: value1,
-                              onChanged: (bool value) {
-                                setState(() {
-                                  value1 = !value1;
-                                  if (value1 == false) value_all = false;
-                                });
-                              },
-                              hoverColor: kActiveColor,
-                              focusColor: kActiveColor,
-                              activeColor: kActiveColor,
-                            ),
-                          ),
-                          Text(
-                            " [필수] 술픽업 이용약관",
-                            textScaleFactor: 1,
-                            style:
-                                TextStyle(fontSize: 13, color: kBodyTextColor),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 30,
-                        child: IconButton(
-                          icon: SvgPicture.asset("assets/icons/arrow_next.svg"),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PickupPolicyScreen(),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 30,
-                            height: 30,
-                            child: Checkbox(
-                              value: value2,
-                              onChanged: (bool value) {
-                                setState(() {
-                                  value2 = !value2;
-                                  if (value2 == false) value_all = false;
-                                });
-                              },
-                              hoverColor: kActiveColor,
-                              focusColor: kActiveColor,
-                              activeColor: kActiveColor,
-                            ),
-                          ),
-                          Text(
-                            " [필수] 청약철회방침",
-                            textScaleFactor: 1,
-                            style:
-                                TextStyle(fontSize: 13, color: kBodyTextColor),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 30,
-                        child: IconButton(
-                          icon: SvgPicture.asset("assets/icons/arrow_next.svg"),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PaymentPolicyScreen(),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  VerticalSpacing(
-                    of: 100,
-                  )
                 ],
               ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: PrimaryButton(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: Checkbox(
+                          value: value2,
+                          onChanged: (bool value) {
+                            setState(() {
+                              value2 = !value2;
+                              if (value2 == false) value_all = false;
+                            });
+                          },
+                          hoverColor: kActiveColor,
+                          focusColor: kActiveColor,
+                          activeColor: kActiveColor,
+                        ),
+                      ),
+                      Text(
+                        " [필수] 청약철회방침",
+                        textScaleFactor: 1,
+                        style: TextStyle(fontSize: 13, color: kBodyTextColor),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                    child: IconButton(
+                      icon: SvgPicture.asset("assets/icons/arrow_next.svg"),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PaymentPolicyScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              VerticalSpacing(
+                of: 50,
+              ),
+              PrimaryButton(
                 press: () {
                   if (value1 == true && value2 == true)
                     goBootpayRequest(context);
@@ -273,8 +266,8 @@ class _BodyState extends State<Body> {
                 },
                 text: "결제하기",
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -135,26 +135,31 @@ class _PickupState extends State<Pickup> {
                 fontSize: 15,
               ),
             ),
-            SizedBox(
-              width: 90,
-              height: 30,
-              child: RaisedButton(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SvgPicture.asset("assets/icons/arrow_dropdown.svg"),
-                    Text(
-                      DateFormat('HH:mm').format(_chosenDateTime),
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[600]),
+            Row(
+              children: [
+                SizedBox(
+                  width: 90,
+                  height: 30,
+                  child: RaisedButton(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SvgPicture.asset("assets/icons/arrow_dropdown.svg"),
+                        Text(
+                          DateFormat('HH:mm').format(_chosenDateTime),
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[600]),
+                        ),
+                      ],
                     ),
-                  ],
+                    onPressed: () => _showDatePicker(context),
+                    color: Colors.white,
+                  ),
                 ),
-                onPressed: () => _showDatePicker(context),
-                color: Colors.white,
-              ),
+                HorizontalSpacing(of: 3),
+              ],
             ),
           ],
         ),

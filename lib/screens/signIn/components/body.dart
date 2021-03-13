@@ -86,18 +86,21 @@ class _BodyState extends State<Body> {
 
           await firebaseUser.updateProfile(displayName: displayName);
         }
+
         return firebaseUser;
+        break;
       case AuthorizationStatus.error:
         throw PlatformException(
           code: 'ERROR_AUTHORIZATION_DENIED',
           message: result.error.toString(),
         );
-
+        break;
       case AuthorizationStatus.cancelled:
         throw PlatformException(
           code: 'ERROR_ABORTED_BY_USER',
           message: 'Sign in aborted by user',
         );
+        break;
       default:
         throw UnimplementedError();
     }
@@ -187,7 +190,7 @@ class _BodyState extends State<Body> {
             ),
 
             SocialButton(
-                text: "Apple 계정으로 로그인",
+                text: "Apple로 로그인",
                 image: "assets/icons/apple.svg",
                 press: () {
                   signInWithApple().then((User user) {
@@ -217,7 +220,7 @@ class _BodyState extends State<Body> {
 
             VerticalSpacing(),
             SocialButton(
-                text: "구글 이메일로 로그인",
+                text: "Google로 로그인",
                 image: "assets/icons/google.svg",
                 press: () {
                   _googlelogin().then((User user) {

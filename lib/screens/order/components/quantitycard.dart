@@ -19,12 +19,10 @@ class QuantityCard extends StatefulWidget {
 }
 
 class _QuantityCardState extends State<QuantityCard> {
-  int count;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    count = widget.quantity;
   }
 
   @override
@@ -51,7 +49,7 @@ class _QuantityCardState extends State<QuantityCard> {
                         fontWeight: FontWeight.bold),
                   )),
               Text(
-                "$count",
+                widget.quantity.toString(),
                 style: TextStyle(
                     color: kBodyTextColor,
                     fontSize: 13,

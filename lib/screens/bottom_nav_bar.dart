@@ -180,7 +180,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ),
       title: SvgPicture.asset("assets/icons/hellocock_title.svg"),
       actions: [
-        if (_selectedIndex == 2)
+        if (_selectedIndex == 2 && widget.user != null)
           IconButton(
               icon: SvgPicture.asset("assets/icons/signout.svg"),
               color: kActiveColor,

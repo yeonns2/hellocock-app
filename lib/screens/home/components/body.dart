@@ -210,6 +210,7 @@ class _BodyState extends State<Body> {
                         height: 1.5),
                   ),
                 ),
+                VerticalSpacing(of: 10),
                 Center(
                   child: SizedBox(
                       width: 150, child: Image.asset(document['image'])),

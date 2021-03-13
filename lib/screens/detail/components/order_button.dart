@@ -8,6 +8,7 @@ import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/map/map_screen.dart';
 import 'package:hellocock/size_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hellocock/widgets/alert.dart';
 
 class OrderButton extends StatefulWidget {
   final User user;
@@ -23,14 +24,16 @@ class _OrderButtonState extends State<OrderButton> {
   @override
   void initState() {
     super.initState();
-    FirebaseFirestore.instance
-        .collection("user")
-        .doc(widget.user.email)
-        .get()
-        .then((DocumentSnapshot ds) {
-      _certificated = ds['certificated'];
-      print(_certificated);
-    });
+
+    if (widget.user != null)
+      FirebaseFirestore.instance
+          .collection("user")
+          .doc(widget.user.email)
+          .get()
+          .then((DocumentSnapshot ds) {
+        _certificated = ds['certificated'];
+        print(_certificated);
+      });
   }
 
   @override
@@ -65,72 +68,82 @@ class _OrderButtonState extends State<OrderButton> {
         textColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
         onPressed: () async {
-          setState(() {
-            FirebaseFirestore.instance
-                .collection("user")
-                .doc(widget.user.email)
-                .get()
-                .then((DocumentSnapshot ds) {
-              _certificated = ds['certificated'];
-              print(_certificated);
-            });
-          });
-          await Future.delayed(Duration(seconds: 1));
-          if (_certificated == false) {
+          if (widget.user == null) {
             showDialog(
                 context: context,
                 barrierDismissible: false,
                 builder: (context) {
-                  return CupertinoAlertDialog(
-                    content: Text(
-                      "[주류의 통신판매에 관한 명령위임고시]에 따라 본인인증을 한 회원들에게만 판매하고 있습니다. 본인 인증을 먼저 해주세요.",
-                      style: TextStyle(fontSize: 13, height: 1.5),
-                      textAlign: TextAlign.center,
-                    ),
-                    actions: <Widget>[
-                      new CupertinoDialogAction(
-                          child: Text(
-                            '다음에 할래요',
-                            style: TextStyle(fontSize: 15),
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          }),
-                      new CupertinoDialogAction(
-                          child: Text(
-                            '본인 인증하기',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      CertificationScreen(widget.user),
-                                ));
-                          }),
-                    ],
-                  );
+                  return LoginAlert();
                 });
           } else {
-            FirebaseFirestore.instance
-                .collection("cart")
-                .doc(widget.user.email)
-                .set({
-              'name': widget.user.displayName,
-              'cocktail': {
-                'name': widget.document['name'],
-                'price': widget.document['price'],
-                'quantity': 1
-              },
-              'food': FieldValue.arrayUnion([])
+            setState(() {
+              FirebaseFirestore.instance
+                  .collection("user")
+                  .doc(widget.user.email)
+                  .get()
+                  .then((DocumentSnapshot ds) {
+                _certificated = ds['certificated'];
+                print(_certificated);
+              });
             });
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MapScreen(widget.user, widget.document),
-                ));
+            await Future.delayed(Duration(seconds: 1));
+            if (_certificated == false) {
+              showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return CupertinoAlertDialog(
+                      content: Text(
+                        "[주류의 통신판매에 관한 명령위임고시]에 따라 본인인증을 한 회원들에게만 판매하고 있습니다. 본인 인증을 먼저 해주세요.",
+                        style: TextStyle(fontSize: 13, height: 1.5),
+                        textAlign: TextAlign.center,
+                      ),
+                      actions: <Widget>[
+                        new CupertinoDialogAction(
+                            child: Text(
+                              '다음에 할래요',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            }),
+                        new CupertinoDialogAction(
+                            child: Text(
+                              '본인 인증하기',
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        CertificationScreen(widget.user),
+                                  ));
+                            }),
+                      ],
+                    );
+                  });
+            } else {
+              FirebaseFirestore.instance
+                  .collection("cart")
+                  .doc(widget.user.email)
+                  .set({
+                'name': widget.user.displayName,
+                'cocktail': {
+                  'name': widget.document['name'],
+                  'price': widget.document['price'],
+                  'quantity': 1
+                },
+                'food': FieldValue.arrayUnion([])
+              });
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        MapScreen(widget.user, widget.document),
+                  ));
+            }
           }
         });
   }

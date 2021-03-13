@@ -24,7 +24,7 @@ class RootPage extends StatelessWidget {
             if (snapshot.hasData) {
               return BottomNavBar(snapshot.data);
             } else {
-              return SignInScreen();
+              return BottomNavBar(snapshot.data);
             }
           }
         });

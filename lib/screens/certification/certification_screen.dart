@@ -25,15 +25,17 @@ class CertificationScreen extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           )),
         ),
-        StreamBuilder<DocumentSnapshot>(
-            stream: FirebaseFirestore.instance
-                .collection("user")
-                .doc(user.email)
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) return CircularProgressIndicator();
-              return Body(user, snapshot.data);
-            }),
+        Expanded(
+          child: StreamBuilder<DocumentSnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection("user")
+                  .doc(user.email)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) return CircularProgressIndicator();
+                return Body(user, snapshot.data);
+              }),
+        ),
       ]),
     );
   }
