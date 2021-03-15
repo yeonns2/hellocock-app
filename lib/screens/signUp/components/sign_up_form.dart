@@ -10,7 +10,7 @@ import 'package:hellocock/size_config.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:kopo/kopo.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sms_autofill/sms_autofill.dart';
+
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -37,10 +37,6 @@ class _SignUpFormState extends State<SignUpForm> {
   bool _value2 = false;
   bool _value3 = false;
   KopoModel model;
-  String _message = '';
-  String _verificationId;
-
-  final SmsAutoFill _autoFill = SmsAutoFill();
 
   @override
   Widget build(BuildContext context) {

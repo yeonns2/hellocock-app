@@ -2,15 +2,16 @@ import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hellocock/constants.dart';
+import 'package:hellocock/screens/agreement/agreement_screen.dart';
 import 'package:hellocock/screens/bottom_nav_bar.dart';
 import 'package:hellocock/screens/find_id/find_id_screen.dart';
 import 'package:hellocock/screens/find_password/find_pw_screen.dart';
 import 'package:hellocock/screens/loading_screen.dart';
 import 'package:hellocock/widgets/buttons/social_button.dart';
+
 import '../../../size_config.dart';
 import '../../../screens/signUp/sign_up_screen.dart';
 import 'sign_in_form.dart';
@@ -63,47 +64,46 @@ class _BodyState extends State<Body> {
     }
   }
 
-  Future<User> signInWithApple({List<Scope> scopes = const []}) async {
-    // 1. perform the sign-in request
-    final result = await AppleSignIn.performRequests(
-        [AppleIdRequest(requestedScopes: scopes)]);
-    // 2. check the result
-    switch (result.status) {
+  Future<User> signInWithApple() async {
+    // 로그인 요청
+
+    AuthorizationRequest authorizationRequest =
+        AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName]);
+    AuthorizationResult authorizationResult =
+        await AppleSignIn.performRequests([authorizationRequest]);
+
+    switch (authorizationResult.status) {
+      // 성공
       case AuthorizationStatus.authorized:
-        final appleIdCredential = result.credential;
-        final oAuthProvider = OAuthProvider('apple.com');
-        final credential = oAuthProvider.credential(
-          idToken: String.fromCharCodes(appleIdCredential.identityToken),
-          accessToken:
-              String.fromCharCodes(appleIdCredential.authorizationCode),
+        AppleIdCredential appleCredential = authorizationResult.credential;
+
+        OAuthProvider provider = new OAuthProvider("apple.com");
+
+        AuthCredential credential = provider.credential(
+          idToken: String.fromCharCodes(appleCredential.identityToken),
+          accessToken: String.fromCharCodes(appleCredential.authorizationCode),
         );
-        final authResult = await _firebaseAuth.signInWithCredential(credential);
-        final firebaseUser = authResult.user;
 
-        if (scopes.contains(Scope.fullName)) {
-          final displayName =
-              '${appleIdCredential.fullName.givenName} ${appleIdCredential.fullName.familyName}';
+        // 인증에 성공한 유저 정보
 
-          await firebaseUser.updateProfile(displayName: displayName);
-        }
+        User user = (await _firebaseAuth.signInWithCredential(credential)).user;
 
-        return firebaseUser;
+        return user;
+
         break;
+
+      // 에러
       case AuthorizationStatus.error:
-        throw PlatformException(
-          code: 'ERROR_AUTHORIZATION_DENIED',
-          message: result.error.toString(),
-        );
+        print(
+            "Sign in failed: ${authorizationResult.error.localizedDescription}");
         break;
+
+      // 유저가 취소한 경우
       case AuthorizationStatus.cancelled:
-        throw PlatformException(
-          code: 'ERROR_ABORTED_BY_USER',
-          message: 'Sign in aborted by user',
-        );
+        print('User cancelled');
         break;
-      default:
-        throw UnimplementedError();
     }
+    return null;
   }
 
   @override
@@ -195,24 +195,11 @@ class _BodyState extends State<Body> {
                 press: () {
                   signInWithApple().then((User user) {
                     if (!user.emailVerified) {
-                      FirebaseFirestore.instance
-                          .collection("user")
-                          .doc(user.email)
-                          .set({
-                        'name': user.displayName,
-                        'email': user.email,
-                        'certificated': false,
-                        'phone': user.phoneNumber,
-                        'birth': "",
-                        'address1': "",
-                        'address2': "",
-                        'marketing_agreement': false
-                      });
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AgreementScreen(user)));
                     }
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BottomNavBar(user)));
                   });
                 },
                 color: Colors.white,
@@ -224,10 +211,6 @@ class _BodyState extends State<Body> {
                 image: "assets/icons/google.svg",
                 press: () {
                   _googlelogin().then((User user) {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => LoadingScreen()));
                     if (!user.emailVerified) {
                       FirebaseFirestore.instance
                           .collection("user")
@@ -243,6 +226,7 @@ class _BodyState extends State<Body> {
                         'marketing_agreement': false
                       });
                     }
+
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

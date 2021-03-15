@@ -58,6 +58,7 @@ dependencies:
   flutter_cupertino_date_picker: ^1.0.25
   intl: ^0.16.1
   bootpay_api: ^2.0.4
+  crypto: ^2.1.5
   
 
 dev_dependencies:
