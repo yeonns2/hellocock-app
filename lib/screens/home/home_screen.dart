@@ -29,15 +29,15 @@ class _HomeScreenState extends State<HomeScreen> {
       fcm.requestNotificationPermissions(
           IosNotificationSettings(sound: true, badge: true, alert: true));
       fcm.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
-        print("Settings registered: $settings");
+        // print("Settings registered: $settings");
       });
     }
     fcm.configure(onMessage: (Map<String, dynamic> message) async {
-      print("onMessage: $message");
+      //  print("onMessage: $message");
     }, onResume: (Map<String, dynamic> message) async {
-      print("onResume: $message");
+      // print("onResume: $message");
     }, onLaunch: (Map<String, dynamic> message) async {
-      print("onLaunch: $message");
+      //  print("onLaunch: $message");
     });
   }
 

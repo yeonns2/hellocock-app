@@ -86,7 +86,7 @@ class _SignInFormState extends State<SignInForm> {
             obscureText: true,
           ),
           VerticalSpacing(
-            of: 20,
+            of: 30,
           ),
           PrimaryButton(
             text: "로그인",

@@ -230,7 +230,7 @@ class _AgreementScreenState extends State<AgreementScreen> {
                 } else {
                   FirebaseFirestore.instance
                       .collection("user")
-                      .doc(widget.user.email)
+                      .doc(widget.user.uid)
                       .set({'marketing_agreement': false});
                   Navigator.push(
                       context,

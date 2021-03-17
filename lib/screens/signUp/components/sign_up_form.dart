@@ -11,7 +11,6 @@ import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:kopo/kopo.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class SignUpForm extends StatefulWidget {
@@ -534,11 +533,7 @@ class _SignUpFormState extends State<SignUpForm> {
                             builder: (context) {
                               return CupertinoAlertDialog(
                                 content: Text(
-                                  "\n약관에 동의해주세요",
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    color: kBodyTextColor,
-                                  ),
+                                  "약관에 동의해주세요",
                                   textAlign: TextAlign.center,
                                 ),
                                 actions: <Widget>[
@@ -570,7 +565,7 @@ class _SignUpFormState extends State<SignUpForm> {
                               'address1': _address1.text,
                               'address2': _address2.text,
                               'phone': _phone.text,
-                              'certificated': false,
+                              'certificated': true,
                               'marketing_agreement': _value3
                             });
                             showDialog(
@@ -579,11 +574,7 @@ class _SignUpFormState extends State<SignUpForm> {
                                 builder: (context) {
                                   return CupertinoAlertDialog(
                                     content: Text(
-                                      "\n회원가입을 축하드립니다!",
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        color: kBodyTextColor,
-                                      ),
+                                      "회원가입을 축하드립니다!",
                                       textAlign: TextAlign.center,
                                     ),
                                     actions: <Widget>[

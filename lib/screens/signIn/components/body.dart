@@ -1,16 +1,14 @@
-import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hellocock/constants.dart';
-import 'package:hellocock/screens/agreement/agreement_screen.dart';
 import 'package:hellocock/screens/bottom_nav_bar.dart';
 import 'package:hellocock/screens/find_id/find_id_screen.dart';
 import 'package:hellocock/screens/find_password/find_pw_screen.dart';
-import 'package:hellocock/screens/loading_screen.dart';
 import 'package:hellocock/widgets/buttons/social_button.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../../../size_config.dart';
 import '../../../screens/signUp/sign_up_screen.dart';
@@ -65,45 +63,25 @@ class _BodyState extends State<Body> {
   }
 
   Future<User> signInWithApple() async {
-    // 로그인 요청
+    final appleCredential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+    );
 
-    AuthorizationRequest authorizationRequest =
-        AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName]);
-    AuthorizationResult authorizationResult =
-        await AppleSignIn.performRequests([authorizationRequest]);
+    final oauthCredential = OAuthProvider("apple.com").credential(
+      idToken: appleCredential.identityToken,
+      accessToken: appleCredential.authorizationCode,
+    );
 
-    switch (authorizationResult.status) {
-      // 성공
-      case AuthorizationStatus.authorized:
-        AppleIdCredential appleCredential = authorizationResult.credential;
+    User user =
+        (await _firebaseAuth.signInWithCredential(oauthCredential)).user;
 
-        OAuthProvider provider = new OAuthProvider("apple.com");
-
-        AuthCredential credential = provider.credential(
-          idToken: String.fromCharCodes(appleCredential.identityToken),
-          accessToken: String.fromCharCodes(appleCredential.authorizationCode),
-        );
-
-        // 인증에 성공한 유저 정보
-
-        User user = (await _firebaseAuth.signInWithCredential(credential)).user;
-
-        return user;
-
-        break;
-
-      // 에러
-      case AuthorizationStatus.error:
-        print(
-            "Sign in failed: ${authorizationResult.error.localizedDescription}");
-        break;
-
-      // 유저가 취소한 경우
-      case AuthorizationStatus.cancelled:
-        print('User cancelled');
-        break;
-    }
-    return null;
+    final displayName =
+        '${appleCredential.givenName} ${appleCredential.familyName}';
+    await user.updateProfile(displayName: displayName);
+    return user;
   }
 
   @override
@@ -114,7 +92,7 @@ class _BodyState extends State<Body> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            VerticalSpacing(of: 100),
+            VerticalSpacing(of: 150),
             SignInForm(),
             VerticalSpacing(
               of: 20,
@@ -189,54 +167,74 @@ class _BodyState extends State<Body> {
               of: 100,
             ),
 
-            SocialButton(
-                text: "Apple로 로그인",
-                image: "assets/icons/apple.svg",
-                press: () {
-                  signInWithApple().then((User user) {
-                    if (!user.emailVerified) {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AgreementScreen(user)));
-                    }
-                  });
-                },
-                color: Colors.white,
-                textcolor: Colors.grey),
+            // SocialButton(
+            //     text: "Apple로 로그인",
+            //     image: "assets/icons/apple.svg",
+            //     press: () {
+            //       signInWithApple().then((User user) async {
+            //         if (user != null) {
+            //           user.providerData.forEach((profile) {
+            //             print("Sign-in provider: " + profile.providerId);
+            //             print("  Provider-specific UID: " + profile.uid);
+            //             print("  Name: " + profile.displayName);
+            //             print("  Email: " + profile.email);
+            //             print("  Photo URL: " + profile.photoURL);
+            //           });
 
-            VerticalSpacing(),
-            SocialButton(
-                text: "Google로 로그인",
-                image: "assets/icons/google.svg",
-                press: () {
-                  _googlelogin().then((User user) {
-                    if (!user.emailVerified) {
-                      FirebaseFirestore.instance
-                          .collection("user")
-                          .doc(user.email)
-                          .set({
-                        'name': user.displayName,
-                        'email': user.email,
-                        'certificated': false,
-                        'phone': user.phoneNumber,
-                        'birth': "",
-                        'address1': "",
-                        'address2': "",
-                        'marketing_agreement': false
-                      });
-                    }
+            //           Navigator.pushReplacement(
+            //               context,
+            //               MaterialPageRoute(
+            //                   builder: (context) => BottomNavBar(user)));
+            //           // Navigator.pushReplacement(
+            //           //     context,
+            //           //     MaterialPageRoute(
+            //           //         builder: (context) => AgreementScreen(user)));
+            //         } else {
+            //           // Navigator.pushReplacement(
+            //           //     context,
+            //           //     MaterialPageRoute(
+            //           //         builder: (context) => BottomNavBar(user)));
+            //         }
+            //       });
+            //     },
+            //     color: Colors.white,
+            //     textcolor: Colors.grey),
 
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BottomNavBar(user)));
-                  });
-                },
-                color: Colors.white,
-                textcolor: Colors.grey),
+            // VerticalSpacing(),
+            // SocialButton(
+            //     text: "Google로 로그인",
+            //     image: "assets/icons/google.svg",
+            //     press: () {
+            //       _googlelogin().then((User user) {
+            //         if (user != null) {
+            //           user.providerData.forEach((profile) {
+            //             FirebaseFirestore.instance
+            //                 .collection("user")
+            //                 .doc(user.email)
+            //                 .set({'name': profile.displayName});
 
-            VerticalSpacing(),
+            //             // print("Sign-in provider: " + profile.providerId);
+            //             // print("  Provider-specific UID: " + profile.uid);
+            //             // print("  Name: " + profile.displayName);
+            //             // print("  Email: " + profile.email);
+            //             // print("  Photo URL: " + profile.photoURL);
+            //           });
+
+            //           Navigator.pushReplacement(
+            //               context,
+            //               MaterialPageRoute(
+            //                   builder: (context) => BottomNavBar(user)));
+            //           // Navigator.pushReplacement(
+            //           //     context,
+            //           //     MaterialPageRoute(
+            //           //         builder: (context) => AgreementScreen(user)));
+            //         }
+            //       });
+            //     },
+            //     color: Colors.white,
+            //     textcolor: Colors.grey),
+
+            // VerticalSpacing(),
             // SizedBox(
             //   height: 40,
             //   child: SocialButton(
