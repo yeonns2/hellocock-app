@@ -20,8 +20,9 @@ class _VideoPlayerState extends State<VideoPlayer> {
             return CircularProgressIndicator();
           }
           return YoutubePlayer(
+            showVideoProgressIndicator: false,
             progressColors: ProgressBarColors(
-                backgroundColor: kBodyTextColor,
+                backgroundColor: Colors.white,
                 playedColor: kActiveColor,
                 handleColor: kActiveColor),
             controller: YoutubePlayerController(
@@ -40,7 +41,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
   }
 
   Future<String> getVideoUrl() async {
-    String videourl = widget.document['url'];
+    String videourl = widget.document['youtube_url'];
     return videourl;
   }
 }

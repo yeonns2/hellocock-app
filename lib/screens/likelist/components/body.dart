@@ -20,7 +20,7 @@ class Body extends StatelessWidget {
               VerticalSpacing(of: 30),
               StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
-                      .collection('cocktail')
+                      .collection('cocktailkit')
                       .where('likedUsers', arrayContains: user.email)
                       .snapshots(),
                   builder: (context, snapshot) {

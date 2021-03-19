@@ -39,8 +39,7 @@ class _OrderBarState extends State<OrderBar> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             LikeButton(widget.user, widget.document),
-            if (widget.document['kit'] == true)
-              OrderButton(widget.user, widget.document),
+            OrderButton(widget.user, widget.document),
           ],
         ),
       ),

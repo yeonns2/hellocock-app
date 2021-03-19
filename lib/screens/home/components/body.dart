@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
+import 'package:hellocock/screens/recipe/recipe_screen.dart';
 import 'package:hellocock/widgets/cards/card.dart';
 import 'package:hellocock/screens/detail/detail_screen.dart';
 import 'package:hellocock/size_config.dart';
@@ -43,8 +44,7 @@ class _BodyState extends State<Body> {
               height: 350.0,
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
-                      .collection('cocktail')
-                      .where('kit', isEqualTo: true)
+                      .collection('cocktailkit')
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -81,7 +81,7 @@ class _BodyState extends State<Body> {
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('cocktail')
-                      .where('recipe', isEqualTo: true)
+                      .where("haverecipe", isEqualTo: true)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -131,7 +131,7 @@ class _BodyState extends State<Body> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: Image.asset(document['kit_image'],
+                child: Image.asset(document['image'],
                     width: double.infinity, fit: BoxFit.fitWidth),
               ),
               VerticalSpacing(of: 10),
@@ -149,7 +149,10 @@ class _BodyState extends State<Body> {
                           color: kBodyTextColor),
                     ),
                     Text(
-                      "19,000원 / 1~2잔",
+                      document['price'].toString() +
+                          "원 / " +
+                          document['quantity'] +
+                          "잔",
                       textScaleFactor: 1,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -187,7 +190,7 @@ class _BodyState extends State<Body> {
         onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailScreen(widget.user, document),
+            builder: (context) => RecipeScreen(document),
           ),
         ),
         child: Container(

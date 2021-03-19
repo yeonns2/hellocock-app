@@ -30,14 +30,15 @@ class _SplashScreenState extends State<SplashScreen> {
       fcm.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
         print("Settings registered: $settings");
       });
-    }
-    fcm.configure(onMessage: (Map<String, dynamic> message) async {
+      fcm.configure(onMessage: (Map<String, dynamic> message) async {
       print("onMessage: $message");
     }, onResume: (Map<String, dynamic> message) async {
       print("onResume: $message");
     }, onLaunch: (Map<String, dynamic> message) async {
       print("onLaunch: $message");
     });
+    }
+    
 
     if (_seen) {
       Navigator.of(context).pushReplacement(
@@ -52,7 +53,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Image.asset('assets/images/splash.png'),
+      child: Image.asset(
+        'assets/images/splash.png',
+        fit: BoxFit.fitWidth,
+      ),
     );
   }
 }

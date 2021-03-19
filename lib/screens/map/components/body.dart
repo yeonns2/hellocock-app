@@ -54,7 +54,8 @@ class _BodyState extends State<Body> {
                   markerId: MarkerId(store[i]['name']),
                   draggable: true,
                   infoWindow: InfoWindow(
-                      title: store[i]['name'], snippet: store[i]['address']),
+                      title: store[i]['name'],
+                      snippet: store[i]['address'].replaceAll("\\n", "\n")),
                   position: LatLng(store[i]['location'].latitude.toDouble(),
                       store[i]['location'].longitude.toDouble())));
             }

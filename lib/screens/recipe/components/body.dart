@@ -1,13 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
-import 'package:hellocock/screens/detail/components/order_bar.dart';
 import 'package:hellocock/screens/detail/components/video_player.dart';
 
 class Body extends StatelessWidget {
-  final User user;
   final DocumentSnapshot document;
-  Body(this.user, this.document);
+  Body(this.document);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -15,14 +13,13 @@ class Body extends StatelessWidget {
         Column(
           children: <Widget>[
             VideoPlayer(document),
-            OrderBar(user, document),
           ],
         ),
         Expanded(
           child: SingleChildScrollView(
             padding: EdgeInsets.zero,
             child: Image.asset(
-              document['detail'],
+              document['recipe'],
               fit: BoxFit.cover,
             ),
           ),
