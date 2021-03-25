@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/screens/order/components/order.dart';
-import 'package:hellocock/screens/order/components/payment.dart';
 import 'package:hellocock/screens/order/components/pickup.dart';
 import 'package:hellocock/screens/order/components/quantitycard.dart';
 import 'package:hellocock/screens/order_completed/order_completed_screen.dart';
@@ -49,6 +48,7 @@ class _BodyState extends State<Body> {
           (widget.cart['food'][i]['price'] * widget.cart['food'][i]['quantity'])
               .toInt();
     }
+
     if (widget.cart['food'].toList().isEmpty) {
       food = false;
     } else
@@ -104,7 +104,131 @@ class _BodyState extends State<Body> {
                 },
               ),
               Pickup(widget.user, widget.cart, widget.store),
-              Payment(widget.cart, _totalprice),
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                SizedBox(
+                  height: 50,
+                ),
+                Text(
+                  "결제 진행",
+                  textScaleFactor: 1,
+                  style: TextStyle(
+                      color: kActiveColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+                VerticalSpacing(
+                  of: 30,
+                ),
+                Text(
+                  "주문 금액",
+                  textScaleFactor: 1,
+                  style: TextStyle(
+                      fontSize: 17,
+                      color: kBodyTextColor,
+                      fontWeight: FontWeight.bold),
+                ),
+                VerticalSpacing(
+                  of: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                        widget.cart['cocktail']['name'] +
+                            " 키트 " +
+                            widget.cart['cocktail']['quantity'].toString() +
+                            "개",
+                        textScaleFactor: 1,
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: kBodyTextColor,
+                            fontWeight: FontWeight.w500)),
+                    Text(
+                      (widget.cart['cocktail']['price'] *
+                                  widget.cart['cocktail']['quantity'])
+                              .toString() +
+                          "원",
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                          color: Color(0xFFFF4D4D),
+                          fontWeight: FontWeight.w500),
+                    )
+                  ],
+                ),
+                ListView.builder(
+                  itemCount: widget.cart['food'] == null
+                      ? 0
+                      : widget.cart['food'].length,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: [
+                        VerticalSpacing(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                                widget.cart['food'][index]['name'] +
+                                    " " +
+                                    widget.cart['food'][index]['quantity']
+                                        .toString() +
+                                    "개",
+                                textScaleFactor: 1,
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: kBodyTextColor,
+                                    fontWeight: FontWeight.w500)),
+                            Text(
+                              (widget.cart['food'][index]['price'] *
+                                          widget.cart['food'][index]
+                                              ['quantity'])
+                                      .toString() +
+                                  "원",
+                              textScaleFactor: 1,
+                              style: TextStyle(
+                                  color: Color(0xFFFF4D4D),
+                                  fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
+                      ],
+                    );
+                  },
+                ),
+                VerticalSpacing(),
+                Divider(
+                  thickness: 1.5,
+                  color: kBodyTextColor,
+                ),
+                VerticalSpacing(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("총 결제 금액",
+                        textScaleFactor: 1,
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: kBodyTextColor)),
+                    Text(
+                      _totalprice.toString() + "원",
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                          color: Color(0xFFFF4D4D),
+                          fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+                VerticalSpacing(of: 15),
+                Text(
+                  "위 내용을 확인하였으며 결제에 동의합니다.",
+                  textScaleFactor: 1,
+                  style: TextStyle(fontSize: 12, color: kBodyTextColor),
+                ),
+                VerticalSpacing(
+                  of: 30,
+                )
+              ]),
               Row(
                 children: [
                   SizedBox(
@@ -354,22 +478,10 @@ class _BodyState extends State<Body> {
     payload.androidApplicationId = '5feaba562fa5c20027038fc5';
     payload.iosApplicationId = '5feaba562fa5c20027038fc6';
 
-    payload.method = 'easy_card';
-    // payload.methods = [
-    //   'card',
-    //   'phone',
-    //   'vbank',
-    //   'bank',
-    // ];
+    payload.method = 'card';
     payload.name = '헬로콕';
     payload.price = _totalprice.toDouble();
     payload.orderId = DateTime.now().millisecondsSinceEpoch.toString();
-//    payload.params = {
-//      "callbackParam1" : "value12",
-//      "callbackParam2" : "value34",
-//      "callbackParam3" : "value56",
-//      "callbackParam4" : "value78",
-//    };
 
     bootpay.User user = bootpay.User();
     user.username = widget.cart['name'];

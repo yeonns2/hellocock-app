@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hellocock/screens/order/components/quantitycard.dart';
-
 import '../../../constants.dart';
 import '../../../size_config.dart';
 

@@ -45,6 +45,7 @@ class _BodyState extends State<Body> {
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('cocktailkit')
+                      //.orderBy('name_eng', descending: true)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -132,7 +133,7 @@ class _BodyState extends State<Body> {
             children: [
               Expanded(
                 child: Image.asset(document['image'],
-                    width: double.infinity, fit: BoxFit.fitWidth),
+                    width: double.infinity, fit: BoxFit.cover),
               ),
               VerticalSpacing(of: 10),
               Padding(

@@ -68,14 +68,20 @@ class Body extends StatelessWidget {
         );
       },
       child: Container(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
         width: 154,
         height: 261,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(width: 200, child: Image.asset(document['image'])),
-            VerticalSpacing(),
+            Expanded(
+              child: Image.asset(document['image'],
+                  width: double.infinity, fit: BoxFit.fitHeight),
+            ),
+            VerticalSpacing(
+              of: 20,
+            ),
             Text(
               document['name_eng'],
               textScaleFactor: 1,
@@ -84,13 +90,12 @@ class Body extends StatelessWidget {
                   fontSize: 14,
                   color: kBodyTextColor),
             ),
-            VerticalSpacing(
-              of: 20,
-            ),
+            VerticalSpacing(),
             Icon(
               Icons.favorite,
               color: kActiveColor,
-            )
+            ),
+            VerticalSpacing(),
           ],
         ),
         decoration: BoxDecoration(

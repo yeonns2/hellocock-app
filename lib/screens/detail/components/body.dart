@@ -14,7 +14,10 @@ class Body extends StatelessWidget {
       children: <Widget>[
         Column(
           children: <Widget>[
-            VideoPlayer(document),
+            SingleChildScrollView(
+              padding: EdgeInsets.zero,
+              child: VideoPlayer(document),
+            ),
             OrderBar(user, document),
           ],
         ),

@@ -102,7 +102,7 @@ class _BodyState extends State<Body> {
                                     children: [
                                       StreamBuilder<QuerySnapshot>(
                                           stream: FirebaseFirestore.instance
-                                              .collection("cocktail")
+                                              .collection("cocktailkit")
                                               .where('likedUsers',
                                                   arrayContains:
                                                       widget.user.email)
