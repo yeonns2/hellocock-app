@@ -106,6 +106,12 @@ class _BodyState extends State<Body> {
             VerticalSpacing(
               of: 20,
             ),
+            Image.asset(
+              "assets/images/hellocock_info.png",
+            ),
+            VerticalSpacing(
+              of: 20,
+            ),
           ],
         ),
       ),
@@ -135,7 +141,7 @@ class _BodyState extends State<Body> {
                 child: Image.asset(document['image'],
                     width: double.infinity, fit: BoxFit.cover),
               ),
-              VerticalSpacing(of: 10),
+              VerticalSpacing(of: 15),
               Padding(
                 padding: const EdgeInsets.only(left: 25.0),
                 child: Column(
@@ -219,7 +225,7 @@ class _BodyState extends State<Body> {
                   child: SizedBox(
                       width: 150, child: Image.asset(document['image'])),
                 ),
-                VerticalSpacing(of: 10),
+                VerticalSpacing(of: 15),
                 Center(
                   child: Text(
                     document['name_eng'],

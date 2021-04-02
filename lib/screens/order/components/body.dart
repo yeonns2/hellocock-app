@@ -58,9 +58,9 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-        child: SingleChildScrollView(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
           child: Column(
             children: [
               Order(widget.user, widget.cart, widget.store),
@@ -389,6 +389,9 @@ class _BodyState extends State<Body> {
                   }
                 },
                 text: "결제하기",
+              ),
+              VerticalSpacing(
+                of: 50,
               ),
             ],
           ),

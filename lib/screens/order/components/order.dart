@@ -19,7 +19,7 @@ class _OrderState extends State<Order> {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       SizedBox(
-        height: 50,
+        height: 10,
       ),
       Text(
         "주문내역 확인",

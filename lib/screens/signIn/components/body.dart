@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+//import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/bottom_nav_bar.dart';
@@ -22,7 +22,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FacebookLogin _facebookLogin = FacebookLogin();
+  //final FacebookLogin _facebookLogin = FacebookLogin();
 
   Future<User> _googlelogin() async {
     GoogleSignInAccount googleUser = await _googleSignIn.signIn();
@@ -38,29 +38,29 @@ class _BodyState extends State<Body> {
     return user;
   }
 
-  Future<User> _facebooklogin() async {
-    FacebookLoginResult result =
-        await _facebookLogin.logIn(['email', 'public_profile']);
+  // Future<User> _facebooklogin() async {
+  //   FacebookLoginResult result =
+  //       await _facebookLogin.logIn(['email', 'public_profile']);
 
-    switch (result.status) {
-      case FacebookLoginStatus.loggedIn:
-        final FacebookAccessToken accessToken = result.accessToken;
-        AuthCredential credential =
-            FacebookAuthProvider.credential(result.accessToken.token);
-        User user = (await _firebaseAuth.signInWithCredential(credential)).user;
-        return user;
-        break;
-      case FacebookLoginStatus.cancelledByUser:
-        print('Login cancelled by the user.');
-        return null;
-        break;
-      case FacebookLoginStatus.error:
-        print('Something went wrong with the login process.\n'
-            'Here\'s the error Facebook gave us: ${result.errorMessage}');
-        return null;
-        break;
-    }
-  }
+  //   switch (result.status) {
+  //     case FacebookLoginStatus.loggedIn:
+  //       final FacebookAccessToken accessToken = result.accessToken;
+  //       AuthCredential credential =
+  //           FacebookAuthProvider.credential(result.accessToken.token);
+  //       User user = (await _firebaseAuth.signInWithCredential(credential)).user;
+  //       return user;
+  //       break;
+  //     case FacebookLoginStatus.cancelledByUser:
+  //       print('Login cancelled by the user.');
+  //       return null;
+  //       break;
+  //     case FacebookLoginStatus.error:
+  //       print('Something went wrong with the login process.\n'
+  //           'Here\'s the error Facebook gave us: ${result.errorMessage}');
+  //       return null;
+  //       break;
+  //   }
+  // }
 
   Future<User> signInWithApple() async {
     final appleCredential = await SignInWithApple.getAppleIDCredential(

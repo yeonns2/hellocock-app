@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,21 +18,23 @@ Future<void> main() async {
 }
 
 void _initNotiSetting() async {
-  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  final initSettingsAndroid = AndroidInitializationSettings('app_icon');
-  final initSettingsIOS = IOSInitializationSettings(
-    requestSoundPermission: false,
-    requestBadgePermission: false,
-    requestAlertPermission: false,
-  );
-  final initSettings = InitializationSettings(
-    android: initSettingsAndroid,
-    iOS: initSettingsIOS,
-  );
+  if (Platform.isIOS) {
+    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    final initSettingsAndroid = AndroidInitializationSettings('app_icon');
+    final initSettingsIOS = IOSInitializationSettings(
+      requestSoundPermission: false,
+      requestBadgePermission: false,
+      requestAlertPermission: false,
+    );
+    final initSettings = InitializationSettings(
+      android: initSettingsAndroid,
+      iOS: initSettingsIOS,
+    );
 
-  await flutterLocalNotificationsPlugin.initialize(
-    initSettings,
-  );
+    await flutterLocalNotificationsPlugin.initialize(
+      initSettings,
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {

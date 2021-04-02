@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/screens/signUp/sign_up_screen.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants.dart';
 import '../../size_config.dart';
 
@@ -24,75 +24,87 @@ class _FindIDScreenState extends State<FindIDScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.all(40),
-      child: Stack(
+      appBar: AppBar(
+        elevation: 0,
+        leading: IconButton(
+            icon: SvgPicture.asset("assets/icons/arrow_back.svg"),
+            color: kActiveColor,
+            onPressed: () => Navigator.pop(context)),
+      ),
+      body: Stack(
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              VerticalSpacing(of: 60),
-              Text(
-                "이메일 찾기",
-                textScaleFactor: 1,
-                style: TextStyle(
-                    color: kActiveColor,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-              VerticalSpacing(of: 50),
-              !finded
-                  ? _build1(context)
-                  : isemail
-                      ? _build2(context, email)
-                      : _build3(context),
-            ],
+          Padding(
+            padding: const EdgeInsets.only(left: 40, right: 40),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                VerticalSpacing(of: 10),
+                Text(
+                  "이메일 찾기",
+                  textScaleFactor: 1,
+                  style: TextStyle(
+                      color: kActiveColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+                VerticalSpacing(of: 50),
+                !finded
+                    ? _build1(context)
+                    : isemail
+                        ? _build2(context, email)
+                        : _build3(context),
+              ],
+            ),
           ),
-          Align(
-              alignment: Alignment.bottomCenter,
-              child: !finded
-                  ? PrimaryButton(
-                      text: "확인",
-                      press: () async {
-                        if (_formKey.currentState.validate()) {
-                          setState(() {
-                            FirebaseFirestore.instance
-                                .collection("user")
-                                .where('name', isEqualTo: _nameController.text)
-                                .where('phone',
-                                    isEqualTo: _phoneController.text)
-                                .get()
-                                .then((value) {
-                              if (value.size != 0)
-                                email = value.docs[0]['email'];
+          Padding(
+            padding: const EdgeInsets.all(40.0),
+            child: Align(
+                alignment: Alignment.bottomCenter,
+                child: !finded
+                    ? PrimaryButton(
+                        text: "확인",
+                        press: () async {
+                          if (_formKey.currentState.validate()) {
+                            setState(() {
+                              FirebaseFirestore.instance
+                                  .collection("user")
+                                  .where('name',
+                                      isEqualTo: _nameController.text)
+                                  .where('phone',
+                                      isEqualTo: _phoneController.text)
+                                  .get()
+                                  .then((value) {
+                                if (value.size != 0)
+                                  email = value.docs[0]['email'];
+                              });
                             });
-                          });
-                          await Future.delayed(Duration(seconds: 1));
+                            await Future.delayed(Duration(seconds: 1));
 
-                          setState(() {
-                            finded = true;
-                            if (email != "") isemail = true;
-                          });
-                        }
-                      })
-                  : isemail
-                      ? PrimaryButton(
-                          text: "로그인 하기",
-                          press: () {
-                            Navigator.pop(context);
-                          })
-                      : PrimaryButton(
-                          text: "회원가입 하기",
-                          press: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SignUpScreen(),
-                                ));
-                          }))
+                            setState(() {
+                              finded = true;
+                              if (email != "") isemail = true;
+                            });
+                          }
+                        })
+                    : isemail
+                        ? PrimaryButton(
+                            text: "로그인 하기",
+                            press: () {
+                              Navigator.pop(context);
+                            })
+                        : PrimaryButton(
+                            text: "회원가입 하기",
+                            press: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SignUpScreen(),
+                                  ));
+                            })),
+          )
         ],
       ),
-    ));
+    );
   }
 
   Widget _build1(BuildContext context) {

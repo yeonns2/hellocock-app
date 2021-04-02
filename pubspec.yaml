@@ -46,7 +46,6 @@ dependencies:
   google_sign_in: ^4.5.9
   introduction_screen: ^1.0.9
   shared_preferences: ^0.5.12+4
-  flutter_facebook_login: ^3.0.0
   geolocator: ^6.0.0
   flutter_svg_provider: ^0.1.8
   flutter_local_notifications: ^3.0.1+2

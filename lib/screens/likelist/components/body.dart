@@ -76,8 +76,8 @@ class Body extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: Image.asset(document['image'],
-                  width: double.infinity, fit: BoxFit.fitHeight),
+              child: Image.asset(document['cocktail_image'],
+                  width: double.infinity, fit: BoxFit.fitWidth),
             ),
             VerticalSpacing(
               of: 20,

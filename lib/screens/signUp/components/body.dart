@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:hellocock/size_config.dart';
-
 import '../../../constants.dart';
-
 import 'sign_up_form.dart';
 
 class Body extends StatefulWidget {
@@ -21,8 +18,8 @@ class _BodyState extends State<Body> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 50,
+              VerticalSpacing(
+                of: 10,
               ),
               Text(
                 "회원가입",
