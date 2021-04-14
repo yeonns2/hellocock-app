@@ -137,6 +137,7 @@ class _OrderButtonState extends State<OrderButton> {
                 },
                 'food': FieldValue.arrayUnion([])
               });
+
               Navigator.push(
                   context,
                   MaterialPageRoute(

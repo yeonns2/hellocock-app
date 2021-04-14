@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -97,8 +98,8 @@ class _StorePanelState extends State<StorePanel> {
         children: [
           ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(12)),
-              child: Image.asset(
-                document['image'],
+              child: CachedNetworkImage(
+                imageUrl: document['image'],
                 height: 145,
                 width: 145,
                 fit: BoxFit.cover,

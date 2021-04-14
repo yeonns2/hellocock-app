@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -61,9 +62,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                       padding: EdgeInsets.zero,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage("assets/images/imyourcocktail.png"),
-                        ),
+                            fit: BoxFit.fill,
+                            image: CachedNetworkImageProvider(
+                                "https://firebasestorage.googleapis.com/v0/b/hellocock-6b1dd.appspot.com/o/images%2Fimyourcocktail.png?alt=media&token=c161be7a-e11b-4178-b660-5f462016c43f")),
                       ),
                     ),
                   ),

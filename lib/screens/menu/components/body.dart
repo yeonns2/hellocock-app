@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -96,8 +97,8 @@ class _BodyState extends State<Body> {
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                   ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
-                      child: Image.asset(
-                        widget.store['image'],
+                      child: CachedNetworkImage(
+                        imageUrl: widget.store['image'],
                         height: 140,
                         width: 140,
                         fit: BoxFit.cover,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -28,7 +29,8 @@ class MyCocktail extends StatelessWidget {
                     if (!snapshot.hasData) return CircularProgressIndicator();
                     return SizedBox(
                         width: 80,
-                        child: Image.asset(snapshot.data.docs[0]['image']));
+                        child: CachedNetworkImage(
+                            imageUrl: snapshot.data.docs[0]['image']));
                   }),
               SizedBox(
                 height: 20,

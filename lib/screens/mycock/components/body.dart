@@ -5,7 +5,6 @@ import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/mycock/components/contents.dart';
 import 'package:hellocock/screens/signIn/sign_in_screen.dart';
 import 'package:hellocock/size_config.dart';
-import 'package:hellocock/widgets/alert.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 
 class Body extends StatefulWidget {

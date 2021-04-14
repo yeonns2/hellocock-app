@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/screens/root.dart';
@@ -141,7 +142,9 @@ class Body extends StatelessWidget {
                     child: Container(
                       width: 300,
                       height: 200,
-                      child: Image.asset("assets/images/identification.png"),
+                      child: CachedNetworkImage(
+                          imageUrl:
+                              "https://firebasestorage.googleapis.com/v0/b/hellocock-6b1dd.appspot.com/o/images%2Fidentification.png?alt=media&token=a93a6a96-0e34-4361-92ed-14cc761753a6"),
                     ),
                   ),
                   VerticalSpacing(of: 10),

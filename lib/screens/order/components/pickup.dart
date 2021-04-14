@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,39 +49,60 @@ class _PickupState extends State<Pickup> {
 
   void _showDatePicker(context) {
     // showCupertinoModalPopup is a built-in function of the cupertino library
-    showCupertinoModalPopup(
-        context: context,
-        builder: (_) => Container(
-              height: MediaQuery.of(context).size.height * 0.32,
-              color: Color.fromARGB(255, 255, 255, 255),
-              child: Column(
-                children: [
-                  Container(
-                    height: 200,
-                    child: CupertinoDatePicker(
-                        mode: CupertinoDatePickerMode.time,
-                        minuteInterval: 30,
-                        minimumDate:
-                            DateTime(now.year, now.month, now.day, 18, 0),
-                        maximumDate:
-                            DateTime(now.year, now.month, now.day, 22, 0),
-                        use24hFormat: true,
-                        initialDateTime: _chosenDateTime,
-                        onDateTimeChanged: (val) {
-                          setState(() {
-                            _chosenDateTime = val;
-                          });
-                        }),
-                  ),
+    if (Platform.isIOS)
+      showCupertinoModalPopup(
+          context: context,
+          builder: (_) => Container(
+                height: MediaQuery.of(context).size.height * 0.32,
+                color: Color.fromARGB(255, 255, 255, 255),
+                child: Column(
+                  children: [
+                    Container(
+                        height: 200,
+                        child: CupertinoDatePicker(
+                            mode: CupertinoDatePickerMode.time,
+                            minuteInterval: 30,
+                            minimumDate:
+                                DateTime(now.year, now.month, now.day, 18, 0),
+                            maximumDate:
+                                DateTime(now.year, now.month, now.day, 22, 0),
+                            use24hFormat: true,
+                            initialDateTime: _chosenDateTime,
+                            onDateTimeChanged: (val) {
+                              setState(() {
+                                _chosenDateTime = val;
+                              });
+                            })),
 
-                  // Close the modal
-                  CupertinoButton(
-                    child: Text('OK'),
-                    onPressed: () => Navigator.of(context).pop(),
-                  )
-                ],
-              ),
-            ));
+                    // Close the modal
+                    CupertinoButton(
+                      child: Text('OK'),
+                      onPressed: () => Navigator.of(context).pop(),
+                    )
+                  ],
+                ),
+              ));
+    if (Platform.isAndroid)
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            return Container(
+                height: 200,
+                color: Colors.white,
+                child: CupertinoDatePicker(
+                    mode: CupertinoDatePickerMode.time,
+                    minuteInterval: 30,
+                    minimumDate: DateTime(now.year, now.month, now.day, 18, 0),
+                    maximumDate: DateTime(now.year, now.month, now.day, 22, 0),
+                    use24hFormat: true,
+                    initialDateTime: _chosenDateTime,
+                    onDateTimeChanged: (val) {
+                      setState(() {
+                        _chosenDateTime = val;
+                      });
+                    }));
+          });
   }
 
   @override

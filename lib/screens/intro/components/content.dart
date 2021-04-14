@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
 
@@ -29,7 +30,7 @@ class OnboardContent extends StatelessWidget {
                   )
                 : AspectRatio(
                     aspectRatio: 1,
-                    child: Image.asset(illustration),
+                    child: CachedNetworkImage(imageUrl: illustration),
                   ),
           ),
           Text(

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -41,8 +42,8 @@ class _MenuCardState extends State<MenuCard> {
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
         ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(12)),
-            child: Image.asset(
-              widget.store['food'][widget.index]['image'],
+            child: CachedNetworkImage(
+              imageUrl: widget.store['food'][widget.index]['image'],
               height: 82,
               width: 123,
               fit: BoxFit.cover,

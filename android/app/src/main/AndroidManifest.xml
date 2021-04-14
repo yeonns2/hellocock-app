@@ -11,9 +11,6 @@
         android:label="hellocock"
         android:icon="@mipmap/ic_launcher">
 
-        <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyDcvfj75KT9k_jhGjai_j1cNLbuHN2weWE"/>
-
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -53,5 +50,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyA6W7jbQqCXJiNOqjiYGcw3jfJLXnhpZPs"/>
     </application>
 </manifest>

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
@@ -18,8 +19,8 @@ class Body extends StatelessWidget {
         Expanded(
           child: SingleChildScrollView(
             padding: EdgeInsets.zero,
-            child: Image.asset(
-              document['recipe'],
+            child: CachedNetworkImage(
+              imageUrl: document['recipe'],
               fit: BoxFit.cover,
             ),
           ),

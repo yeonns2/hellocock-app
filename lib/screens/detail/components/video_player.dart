@@ -27,11 +27,12 @@ class _VideoPlayerState extends State<VideoPlayer> {
             controller: YoutubePlayerController(
               initialVideoId: YoutubePlayer.convertUrlToId(snapshot.data),
               flags: YoutubePlayerFlags(
-                mute: false,
-                autoPlay: false,
+                hideControls: true,
+                controlsVisibleAtStart: true,
+                autoPlay: true,
               ),
             ),
-            //showVideoProgressIndicator: true,
+            showVideoProgressIndicator: false,
             onReady: () {
               print('Player is ready.');
             },

@@ -73,17 +73,20 @@ class _BodyState extends State<Body> {
 
 List<Map<String, dynamic>> demoData = [
   {
-    "illustration": "assets/images/intro1.png",
+    "illustration":
+        "https://firebasestorage.googleapis.com/v0/b/hellocock-6b1dd.appspot.com/o/images%2Fintro1.png?alt=media&token=99069cd0-489e-4cef-8983-a4274610880f",
     "title": "달콤하게 취하고 싶은 오늘밤",
     "text": "내일이 두려운 소주말고 \n 배부른 맥주말고 달콤하게 취해요",
   },
   {
-    "illustration": "assets/images/intro2.png",
+    "illustration":
+        "https://firebasestorage.googleapis.com/v0/b/hellocock-6b1dd.appspot.com/o/images%2Fintro2.png?alt=media&token=7c6f472e-6699-4fa9-a486-8cfc331fc93b",
     "title": "집에서 한 잔으로 즐기는 칵테일",
     "text": "전문 칵테일바가 아닌 내 집에서 \n 마실 수 있는 칵테일 한 잔",
   },
   {
-    "illustration": "assets/images/intro3.png",
+    "illustration":
+        "https://firebasestorage.googleapis.com/v0/b/hellocock-6b1dd.appspot.com/o/images%2Fintro3.png?alt=media&token=5bee3568-0b90-4937-a636-2dcf494a7dea",
     "title": "돌아가는 길, 데려가는 칵테일",
     "text": "집에 가기 전 스마트 오더 서비스로 \n 미리 주문하는 칵테일 키트",
   },

@@ -6,6 +6,7 @@ import 'package:hellocock/screens/recipe/recipe_screen.dart';
 import 'package:hellocock/widgets/cards/card.dart';
 import 'package:hellocock/screens/detail/detail_screen.dart';
 import 'package:hellocock/size_config.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class Body extends StatefulWidget {
   final User user;
@@ -45,7 +46,7 @@ class _BodyState extends State<Body> {
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('cocktailkit')
-                      //.orderBy('name_eng', descending: true)
+                      .where("isnull", isEqualTo: true)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -106,9 +107,9 @@ class _BodyState extends State<Body> {
             VerticalSpacing(
               of: 20,
             ),
-            Image.asset(
-              "assets/images/hellocock_info.png",
-            ),
+            CachedNetworkImage(
+                imageUrl:
+                    "https://firebasestorage.googleapis.com/v0/b/hellocock-6b1dd.appspot.com/o/images%2Fhellocock_info.png?alt=media&token=03a1dd83-b702-48e6-bf06-53135e25c090"),
             VerticalSpacing(
               of: 20,
             ),
@@ -138,8 +139,10 @@ class _BodyState extends State<Body> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: Image.asset(document['image'],
-                    width: double.infinity, fit: BoxFit.cover),
+                child: CachedNetworkImage(
+                    imageUrl: document['image'],
+                    width: double.infinity,
+                    fit: BoxFit.cover),
               ),
               VerticalSpacing(of: 15),
               Padding(
@@ -223,7 +226,10 @@ class _BodyState extends State<Body> {
                 VerticalSpacing(of: 10),
                 Center(
                   child: SizedBox(
-                      width: 150, child: Image.asset(document['image'])),
+                      width: 150,
+                      child: CachedNetworkImage(
+                        imageUrl: document['image'],
+                      )),
                 ),
                 VerticalSpacing(of: 15),
                 Center(
