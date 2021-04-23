@@ -53,7 +53,7 @@ class _PickupState extends State<Pickup> {
       showCupertinoModalPopup(
           context: context,
           builder: (_) => Container(
-                height: MediaQuery.of(context).size.height * 0.32,
+                height: 275,
                 color: Color.fromARGB(255, 255, 255, 255),
                 child: Column(
                   children: [

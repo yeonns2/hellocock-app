@@ -40,14 +40,6 @@ class _BodyState extends State<Body> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _totalprice =
-        widget.cart['cocktail']['price'] * widget.cart['cocktail']['quantity'];
-
-    for (int i = 0; i < widget.cart['food'].length; i++) {
-      _totalprice +=
-          (widget.cart['food'][i]['price'] * widget.cart['food'][i]['quantity'])
-              .toInt();
-    }
 
     if (widget.cart['food'].toList().isEmpty) {
       food = false;
@@ -201,24 +193,37 @@ class _BodyState extends State<Body> {
                   color: kBodyTextColor,
                 ),
                 VerticalSpacing(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("총 결제 금액",
-                        textScaleFactor: 1,
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: kBodyTextColor)),
-                    Text(
-                      _totalprice.toString() + "원",
-                      textScaleFactor: 1,
-                      style: TextStyle(
-                          color: Color(0xFFFF4D4D),
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
+                StreamBuilder<Object>(
+                    stream: FirebaseFirestore.instance
+                        .collection("cart")
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      _totalprice = widget.cart['cocktail']['price'] *
+                          widget.cart['cocktail']['quantity'];
+
+                      for (int i = 0; i < widget.cart['food'].length; i++) {
+                        _totalprice += (widget.cart['food'][i]['price'] *
+                            widget.cart['food'][i]['quantity']);
+                      }
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("총 결제 금액",
+                              textScaleFactor: 1,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: kBodyTextColor)),
+                          Text(
+                            _totalprice.toString() + "원",
+                            textScaleFactor: 1,
+                            style: TextStyle(
+                                color: Color(0xFFFF4D4D),
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      );
+                    }),
                 VerticalSpacing(of: 15),
                 Text(
                   "위 내용을 확인하였으며 결제에 동의합니다.",
