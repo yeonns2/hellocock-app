@@ -1,4 +1,4 @@
-package com.example.hellocock
+package com.hellocock.hellocock
 
 import io.flutter.embedding.android.FlutterActivity
 

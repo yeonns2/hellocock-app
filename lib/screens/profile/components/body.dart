@@ -252,7 +252,7 @@ class _BodyState extends State<Body> {
                                     foregroundColor: Colors.white,
                                     backgroundColor: Colors.white,
                                     child: SvgPicture.asset(
-                                        "assets/images/whoru.svg"))),
+                                        "assets/icons/whoru.svg"))),
                             Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,

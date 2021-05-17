@@ -28,7 +28,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.example.hellocock</string>
+			<string>com.hellocock.hellocock</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>hellocock</string>
