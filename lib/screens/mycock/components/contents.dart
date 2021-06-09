@@ -21,7 +21,7 @@ class MyCocktail extends StatelessWidget {
             children: [
               StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
-                      .collection("cocktail")
+                      .collection("cocktailkit")
                       .where('name',
                           isEqualTo: order[index]['cocktail']['name'])
                       .snapshots(),
@@ -30,7 +30,7 @@ class MyCocktail extends StatelessWidget {
                     return SizedBox(
                         width: 80,
                         child: CachedNetworkImage(
-                            imageUrl: snapshot.data.docs[0]['image']));
+                            imageUrl: snapshot.data.docs[0]['cocktail_image']));
                   }),
               SizedBox(
                 height: 20,

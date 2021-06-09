@@ -11,6 +11,31 @@ class VideoPlayer extends StatefulWidget {
 }
 
 class _VideoPlayerState extends State<VideoPlayer> {
+  YoutubePlayerController _controller;
+  String videoId = "";
+
+  @override
+  void initState() {
+    super.initState();
+    videoId = widget.document['url'];
+    _controller = YoutubePlayerController(
+        initialVideoId: YoutubePlayer.convertUrlToId(videoId),
+        flags: const YoutubePlayerFlags(
+          autoPlay: false,
+          loop: false,
+          isLive: false,
+          forceHD: false,
+          enableCaption: true,
+        ));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -19,24 +44,26 @@ class _VideoPlayerState extends State<VideoPlayer> {
           if (snapshot.hasData == false) {
             return CircularProgressIndicator();
           }
-          return YoutubePlayer(
-            progressColors: ProgressBarColors(
-                backgroundColor: kBodyTextColor,
-                playedColor: kActiveColor,
-                handleColor: kActiveColor),
-            controller: YoutubePlayerController(
-              initialVideoId: YoutubePlayer.convertUrlToId(snapshot.data),
-              flags: YoutubePlayerFlags(
-                hideControls: true,
-                controlsVisibleAtStart: true,
-                autoPlay: true,
+          return Stack(children: [
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Container(
+                width: 100,
+                height: 100,
+                color: Colors.white,
               ),
             ),
-            showVideoProgressIndicator: false,
-            onReady: () {
-              print('Player is ready.');
-            },
-          );
+            YoutubePlayer(
+                aspectRatio: 16 / 9,
+                onEnded: (data) {
+                  _controller.pause();
+                },
+                progressColors: ProgressBarColors(
+                    backgroundColor: kBodyTextColor,
+                    playedColor: kActiveColor,
+                    handleColor: kActiveColor),
+                controller: _controller)
+          ]);
         });
   }
 

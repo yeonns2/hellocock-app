@@ -25,6 +25,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   List<Map<String, dynamic>> _navitems = [
     {"icon": "assets/icons/home.svg", "title": "Home"},
+    //{"icon": "assets/icons/mycock.svg", "title": "Virgin"},
     {"icon": "assets/icons/mycock.svg", "title": "My cock"},
     {"icon": "assets/icons/profile.svg", "title": "Profile"},
   ];
@@ -35,6 +36,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     super.initState();
     _screens = [
       HomeScreen(widget.user),
+      // HomeScreen(widget.user),
       MyCockScreen(widget.user),
       ProfileScreen(widget.user),
     ];
@@ -146,6 +148,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ),
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         elevation: 4,
         onTap: _onItemTapped,
         currentIndex: _selectedIndex,

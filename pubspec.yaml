@@ -48,12 +48,12 @@ dependencies:
   flutter_advanced_switch: ^0.0.9+4
   firebase_messaging: ^7.0.3
   sign_in_with_apple: ^2.5.4
-  apple_sign_in: ^0.1.0
   flutter_cupertino_date_picker: ^1.0.25
   intl: ^0.16.1
   bootpay_api: ^2.0.7
   crypto: ^2.1.5
   cached_network_image: ^2.5.0
+  web_socket_channel: ^1.2.0
   
 
 dev_dependencies:
