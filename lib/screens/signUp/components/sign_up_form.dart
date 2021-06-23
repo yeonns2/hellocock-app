@@ -325,7 +325,9 @@ class _SignUpFormState extends State<SignUpForm> {
                     );
                     _address1.text = this.model?.address;
 
-                    setState(() {});
+                    setState(() {
+                      _address1.text = this.model?.address;
+                    });
                   },
                   validator: (String value) {
                     if (value.isEmpty) {

@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellocock/constants.dart';
+
+import 'package:hellocock/screens/certification/components/verify_auth_state.dart';
 import 'package:hellocock/size_config.dart';
 import 'package:hellocock/widgets/buttons/primary_button.dart';
 import 'package:http/http.dart' as http;
@@ -17,25 +19,10 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  var _url = 'https://hellocock-certification.herokuapp.com/api/user';
+
   @override
   Widget build(BuildContext context) {
-    final String _url = "https://hellocock-server.herokuapp.com/";
-
-    Future fetch() async {
-      var data = {
-        "RecieverBirthDay": "970520",
-        "RecieverHP": "01076761687",
-        //"RecieverName": "안정연"
-      };
-
-      var res = await http.get(
-        "$_url/data",
-        headers: data,
-      );
-
-      return json.decode(json.encode(res.headers));
-    }
-
     return Padding(
         padding: const EdgeInsets.all(40.0),
         child: Stack(
@@ -79,23 +66,18 @@ class _BodyState extends State<Body> {
                 child: PrimaryButton(
                     text: "성인인증 하러가기",
                     press: () async {
-                      Map data = {
-                        "RecieverBirthDay": "970520",
-                        "RecieverHP": "01076761687",
-                        //"RecieverName": "안정연"
-                      };
+                      http.Response _res =
+                          await http.get("$_url/" + widget.user.email);
 
-                      String body = json.encode(data);
-                      http.Response response = await http.post(
-                        _url,
-                        headers: {"Content-Type": "application/json"},
-                        body: body,
-                      );
-                      print(response.body);
-                      // FirebaseFirestore.instance
-                      //     .collection("user")
-                      //     .doc(widget.user.email)
-                      //     .update({'certificated': true});
+                      String responsebody = _res.body;
+
+                      Map<String, dynamic> list = jsonDecode(responsebody);
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => VerifyAuthState(
+                                  widget.user, list['receiptId'])));
                     }),
               ),
           ],

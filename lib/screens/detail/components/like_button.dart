@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hellocock/widgets/alert.dart';
+import 'package:hellocock/widgets/login_alert.dart';
 
 class LikeButton extends StatefulWidget {
   final User user;

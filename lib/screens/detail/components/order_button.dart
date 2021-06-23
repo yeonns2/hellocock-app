@@ -8,7 +8,7 @@ import 'package:hellocock/constants.dart';
 import 'package:hellocock/screens/map/map_screen.dart';
 import 'package:hellocock/size_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hellocock/widgets/alert.dart';
+import 'package:hellocock/widgets/login_alert.dart';
 
 class OrderButton extends StatefulWidget {
   final User user;

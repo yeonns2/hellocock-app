@@ -1,21 +1,13 @@
 class Certification {
-  String recieverBirthDay;
-  String recieverHP;
-  String recieverName;
+  final String path;
+  final String recieptId;
 
-  Certification({this.recieverBirthDay, this.recieverHP, this.recieverName});
+  Certification({this.path, this.recieptId});
 
-  Certification.fromJson(Map<String, dynamic> json) {
-    recieverBirthDay = json['RecieverBirthDay'];
-    recieverHP = json['RecieverHP'];
-    recieverName = json['RecieverName'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['RecieverBirthDay'] = this.recieverBirthDay;
-    data['RecieverHP'] = this.recieverHP;
-    data['RecieverName'] = this.recieverName;
-    return data;
+  factory Certification.fromJson(Map<String, dynamic> json) {
+    return Certification(
+      recieptId: json['recieptId'],
+      path: json['path'],
+    );
   }
 }
