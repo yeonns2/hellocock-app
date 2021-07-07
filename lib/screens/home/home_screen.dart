@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future checkFirstSeen() async {
     final FirebaseMessaging fcm = FirebaseMessaging();
+    await Future.delayed(const Duration(seconds: 2));
     if (Platform.isIOS) {
       // 권한이 설정되지 않았으면 요청하는 창을 띄움
       fcm.requestNotificationPermissions(

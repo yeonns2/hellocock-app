@@ -10,6 +10,7 @@ import 'package:hellocock/screens/mycock/mycock_screen.dart';
 import 'package:hellocock/screens/notice/notice_screen.dart';
 import 'package:hellocock/screens/profile/profile_screen.dart';
 import 'package:hellocock/screens/root.dart';
+import 'package:hellocock/screens/virgin_cocktail/virgin_cocktail_screen.dart';
 import '../size_config.dart';
 import '../constants.dart';
 
@@ -25,7 +26,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   List<Map<String, dynamic>> _navitems = [
     {"icon": "assets/icons/home.svg", "title": "Home"},
-    //{"icon": "assets/icons/mycock.svg", "title": "Virgin"},
+    {"icon": "assets/icons/mycock.svg", "title": "Virgin"},
     {"icon": "assets/icons/mycock.svg", "title": "My cock"},
     {"icon": "assets/icons/profile.svg", "title": "Profile"},
   ];
@@ -36,7 +37,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     super.initState();
     _screens = [
       HomeScreen(widget.user),
-      // HomeScreen(widget.user),
+      VirginCocktailScreen(),
       MyCockScreen(widget.user),
       ProfileScreen(widget.user),
     ];
@@ -47,109 +48,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
     SizeConfig().init(context);
     return Scaffold(
       appBar: buildAppBar(context),
-      drawer: SizedBox(
-        width: 226,
-        child: Drawer(
-          elevation: 10.0,
-          child: Stack(
-            children: [
-              ListView(
-                padding: EdgeInsets.zero,
-                children: <Widget>[
-                  SizedBox(
-                    height: 246,
-                    child: DrawerHeader(
-                      child: null,
-                      margin: EdgeInsets.zero,
-                      padding: EdgeInsets.zero,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: CachedNetworkImageProvider(
-                                "https://firebasestorage.googleapis.com/v0/b/hellocock-6b1dd.appspot.com/o/images%2Fimyourcocktail.png?alt=media&token=c161be7a-e11b-4178-b660-5f462016c43f")),
-                      ),
-                    ),
-                  ),
-                  VerticalSpacing(of: 10),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        InkWell(
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => NoticeScreen(),
-                            ),
-                          ),
-                          child: Text(
-                            "- 공지사항",
-                            textScaleFactor: 1,
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: kBodyTextColor,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                        VerticalSpacing(of: 20),
-                        InkWell(
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => InquiryScreen(),
-                            ),
-                          ),
-                          child: Text(
-                            "- 1:1 문의 ",
-                            textScaleFactor: 1,
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: kBodyTextColor,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                        VerticalSpacing(of: 20),
-                        InkWell(
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ManualScreen(),
-                            ),
-                          ),
-                          child: Text(
-                            "- 이용방법",
-                            textScaleFactor: 1,
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: kBodyTextColor,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(50.0),
-                  child: Text(
-                    'v 1.0.0',
-                    style: TextStyle(color: kBodyTextColor),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+      drawer: buildDrawer(context),
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        elevation: 4,
         onTap: _onItemTapped,
         currentIndex: _selectedIndex,
         backgroundColor: Colors.white,
@@ -157,6 +58,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         selectedItemColor: kActiveColor,
         showSelectedLabels: false,
         showUnselectedLabels: false,
+        type: BottomNavigationBarType.fixed,
         items: List.generate(
           _navitems.length,
           (index) => BottomNavigationBarItem(
@@ -249,6 +151,108 @@ class _BottomNavBarState extends State<BottomNavBar> {
       height: 20,
       width: 20,
       color: kActiveColor,
+    );
+  }
+
+  Widget buildDrawer(BuildContext context) {
+    return SizedBox(
+      width: 226,
+      child: Drawer(
+        elevation: 10.0,
+        child: Stack(
+          children: [
+            ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                SizedBox(
+                  height: 246,
+                  child: DrawerHeader(
+                    child: null,
+                    margin: EdgeInsets.zero,
+                    padding: EdgeInsets.zero,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: CachedNetworkImageProvider(
+                              "https://firebasestorage.googleapis.com/v0/b/hellocock-6b1dd.appspot.com/o/images%2Fimyourcocktail.png?alt=media&token=c161be7a-e11b-4178-b660-5f462016c43f")),
+                    ),
+                  ),
+                ),
+                VerticalSpacing(of: 10),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InkWell(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NoticeScreen(),
+                          ),
+                        ),
+                        child: Text(
+                          "- 공지사항",
+                          textScaleFactor: 1,
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: kBodyTextColor,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      VerticalSpacing(of: 20),
+                      InkWell(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => InquiryScreen(),
+                          ),
+                        ),
+                        child: Text(
+                          "- 1:1 문의 ",
+                          textScaleFactor: 1,
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: kBodyTextColor,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      VerticalSpacing(of: 20),
+                      InkWell(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ManualScreen(),
+                          ),
+                        ),
+                        child: Text(
+                          "- 이용방법",
+                          textScaleFactor: 1,
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: kBodyTextColor,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(50.0),
+                child: Text(
+                  'v 1.0.0',
+                  style: TextStyle(color: kBodyTextColor),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

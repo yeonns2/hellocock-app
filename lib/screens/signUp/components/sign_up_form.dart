@@ -567,7 +567,7 @@ class _SignUpFormState extends State<SignUpForm> {
                               'address1': _address1.text,
                               'address2': _address2.text,
                               'phone': _phone.text,
-                              'certificated': true,
+                              'certificated': false,
                               'marketing_agreement': _value3
                             });
                             showDialog(

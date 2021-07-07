@@ -68,16 +68,17 @@ class _BodyState extends State<Body> {
                     press: () async {
                       http.Response _res =
                           await http.get("$_url/" + widget.user.email);
+                      if (_res.statusCode == 200) {
+                        String responsebody = _res.body;
 
-                      String responsebody = _res.body;
+                        Map<String, dynamic> list = jsonDecode(responsebody);
 
-                      Map<String, dynamic> list = jsonDecode(responsebody);
-
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => VerifyAuthState(
-                                  widget.user, list['receiptId'])));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => VerifyAuthState(
+                                    widget.user, list['receiptId'])));
+                      } else {}
                     }),
               ),
           ],
