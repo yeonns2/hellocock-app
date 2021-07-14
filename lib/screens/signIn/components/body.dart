@@ -1,15 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+//import 'package:google_sign_in/google_sign_in.dart';
+//import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:hellocock/constants.dart';
-import 'package:hellocock/screens/bottom_nav_bar.dart';
 import 'package:hellocock/screens/find_id/find_id_screen.dart';
 import 'package:hellocock/screens/find_password/find_pw_screen.dart';
-import 'package:hellocock/widgets/buttons/social_button.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-
 import '../../../size_config.dart';
 import '../../../screens/signUp/sign_up_screen.dart';
 import 'sign_in_form.dart';
@@ -20,23 +16,23 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  //final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   //final FacebookLogin _facebookLogin = FacebookLogin();
 
-  Future<User> _googlelogin() async {
-    GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    User user = (await _firebaseAuth.signInWithCredential(
-            GoogleAuthProvider.credential(
-                idToken: googleAuth.idToken,
-                accessToken: googleAuth.accessToken)))
-        .user;
+  // Future<User> _googlelogin() async {
+  //   GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+  //   GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+  //   User user = (await _firebaseAuth.signInWithCredential(
+  //           GoogleAuthProvider.credential(
+  //               idToken: googleAuth.idToken,
+  //               accessToken: googleAuth.accessToken)))
+  //       .user;
 
-    // 로그인 정보를 출력하는 로그
-    print("signed in " + user.displayName);
-    return user;
-  }
+  //   // 로그인 정보를 출력하는 로그
+  //   print("signed in " + user.displayName);
+  //   return user;
+  // }
 
   // Future<User> _facebooklogin() async {
   //   FacebookLoginResult result =
@@ -62,27 +58,27 @@ class _BodyState extends State<Body> {
   //   }
   // }
 
-  Future<User> signInWithApple() async {
-    final appleCredential = await SignInWithApple.getAppleIDCredential(
-      scopes: [
-        AppleIDAuthorizationScopes.email,
-        AppleIDAuthorizationScopes.fullName,
-      ],
-    );
+  // Future<User> signInWithApple() async {
+  //   final appleCredential = await SignInWithApple.getAppleIDCredential(
+  //     scopes: [
+  //       AppleIDAuthorizationScopes.email,
+  //       AppleIDAuthorizationScopes.fullName,
+  //     ],
+  //   );
 
-    final oauthCredential = OAuthProvider("apple.com").credential(
-      idToken: appleCredential.identityToken,
-      accessToken: appleCredential.authorizationCode,
-    );
+  //   final oauthCredential = OAuthProvider("apple.com").credential(
+  //     idToken: appleCredential.identityToken,
+  //     accessToken: appleCredential.authorizationCode,
+  //   );
 
-    User user =
-        (await _firebaseAuth.signInWithCredential(oauthCredential)).user;
+  //   User user =
+  //       (await _firebaseAuth.signInWithCredential(oauthCredential)).user;
 
-    final displayName =
-        '${appleCredential.givenName} ${appleCredential.familyName}';
-    await user.updateProfile(displayName: displayName);
-    return user;
-  }
+  //   final displayName =
+  //       '${appleCredential.givenName} ${appleCredential.familyName}';
+  //   await user.updateProfile(displayName: displayName);
+  //   return user;
+  // }
 
   @override
   Widget build(BuildContext context) {

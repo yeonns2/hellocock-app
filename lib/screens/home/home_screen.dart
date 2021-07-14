@@ -23,23 +23,20 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future checkFirstSeen() async {
-    final FirebaseMessaging fcm = FirebaseMessaging();
-    await Future.delayed(const Duration(seconds: 2));
+    final FirebaseMessaging fcm = FirebaseMessaging.instance;
+    NotificationSettings settings = await fcm.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
     if (Platform.isIOS) {
       // 권한이 설정되지 않았으면 요청하는 창을 띄움
-      fcm.requestNotificationPermissions(
-          IosNotificationSettings(sound: true, badge: true, alert: true));
-      fcm.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
-        // print("Settings registered: $settings");
-      });
+      fcm.requestPermission();
     }
-    fcm.configure(onMessage: (Map<String, dynamic> message) async {
-      //  print("onMessage: $message");
-    }, onResume: (Map<String, dynamic> message) async {
-      // print("onResume: $message");
-    }, onLaunch: (Map<String, dynamic> message) async {
-      //  print("onLaunch: $message");
-    });
   }
 
   @override

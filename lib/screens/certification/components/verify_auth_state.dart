@@ -19,7 +19,13 @@ class VerifyAuthState extends StatefulWidget {
 }
 
 class _VerifyAuthStateState extends State<VerifyAuthState> {
-  var _url = 'https://hellocock-certification.herokuapp.com/api/user/verify';
+  @override
+  void initState() {
+    // TODO: implement initState
+    var _url = 'https://hellocock-certification.herokuapp.com/api/user/verify' +
+        widget.user.email;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +51,9 @@ class _VerifyAuthStateState extends State<VerifyAuthState> {
                           var data = {"receiptId": widget.recieptId};
                           var body = json.encode(data);
                           http.Response _res = await http.post(
-                              "$_url/" + widget.user.email,
+                              Uri.parse(
+                                  "https://hellocock-certification.herokuapp.com/api/user/verify" +
+                                      widget.user.email),
                               headers: {"Content-Type": "application/json"},
                               body: body);
 

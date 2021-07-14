@@ -20,7 +20,7 @@ Future<Certification> fetchPost() async {
 
   //해당 URL의 데이터를 수신.
   //await 처리: 응답 메시지가 도착하거나 타임아웃이 발생할 때까지 대기
-  final response = await http.get(url);
+  final response = await http.get(Uri.parse(url));
 
   //응답이 성공하면 json.decode 로 응답의 body를 JSON 으로 만들고
   //Post 클래스에서 만든 fromJson 메소드로 초기화한다.

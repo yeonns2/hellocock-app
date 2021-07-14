@@ -66,8 +66,8 @@ class _BodyState extends State<Body> {
                 child: PrimaryButton(
                     text: "성인인증 하러가기",
                     press: () async {
-                      http.Response _res =
-                          await http.get("$_url/" + widget.user.email);
+                      http.Response _res = await http
+                          .get(Uri.parse("$_url/" + widget.user.email));
                       if (_res.statusCode == 200) {
                         String responsebody = _res.body;
 
