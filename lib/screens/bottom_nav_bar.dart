@@ -26,7 +26,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   List<Map<String, dynamic>> _navitems = [
     {"icon": "assets/icons/home.svg", "title": "Home"},
-    //  {"icon": "assets/icons/virgin.svg", "title": "Virgin"},
+    {"icon": "assets/icons/virgin.svg", "title": "Virgin"},
     {"icon": "assets/icons/mycock.svg", "title": "My cock"},
     {"icon": "assets/icons/profile.svg", "title": "Profile"},
   ];
@@ -37,7 +37,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     super.initState();
     _screens = [
       HomeScreen(widget.user),
-      //   VirginCocktailScreen(),
+      VirginCocktailScreen(widget.user),
       MyCockScreen(widget.user),
       ProfileScreen(widget.user),
     ];
