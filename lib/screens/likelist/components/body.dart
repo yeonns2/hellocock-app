@@ -21,7 +21,7 @@ class Body extends StatelessWidget {
               VerticalSpacing(of: 30),
               StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
-                      .collection('cocktailkit')
+                      .collection('cocktail')
                       .where('likedUsers', arrayContains: user.email)
                       .snapshots(),
                   builder: (context, snapshot) {
@@ -78,12 +78,12 @@ class Body extends StatelessWidget {
           children: [
             Expanded(
               child: CachedNetworkImage(
-                  imageUrl: document['cocktail_image'],
+                  imageUrl: document['image'],
                   width: double.infinity,
                   fit: BoxFit.fitWidth),
             ),
             VerticalSpacing(
-              of: 20,
+              of: 10,
             ),
             Text(
               document['name_eng'],

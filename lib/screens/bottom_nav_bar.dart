@@ -86,7 +86,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ),
       title: SvgPicture.asset("assets/icons/hellocock_title.svg"),
       actions: [
-        if (_selectedIndex == 2 && widget.user != null)
+        if (_selectedIndex == 3 && widget.user != null)
           IconButton(
               icon: SvgPicture.asset("assets/icons/signout.svg"),
               color: kActiveColor,
@@ -146,12 +146,19 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   SvgPicture buildSvgIcon({@required String src, bool isActive = false}) {
-    return SvgPicture.asset(
-      src,
-      width: 20,
-      height: 20,
-      color: kActiveColor,
-    );
+    return src != "assets/icons/virgin.svg"
+        ? SvgPicture.asset(
+            src,
+            width: 20,
+            height: 20,
+            color: kActiveColor,
+          )
+        : SvgPicture.asset(
+            src,
+            width: 20,
+            height: 25,
+            color: kActiveColor,
+          );
   }
 
   Widget buildDrawer(BuildContext context) {

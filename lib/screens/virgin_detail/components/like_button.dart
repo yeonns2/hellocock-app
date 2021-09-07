@@ -74,7 +74,7 @@ class _LikeButtonState extends State<LikeButton> {
       'likedUsers': likedUsers,
     };
     FirebaseFirestore.instance
-        .collection('cocktailkit')
+        .collection('virgin')
         .doc(widget.document.id)
         .update(updateData);
     isliked = true;
@@ -90,7 +90,7 @@ class _LikeButtonState extends State<LikeButton> {
       'likedUsers': likedUsers,
     };
     FirebaseFirestore.instance
-        .collection('cocktail')
+        .collection('virgin')
         .doc(widget.document.id)
         .update(updateData);
     isliked = false;

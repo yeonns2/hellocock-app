@@ -244,7 +244,7 @@ class _BodyState extends State<Body> {
                         ),
                       ),
                       Text(
-                        " [필수] 술픽업 이용약관",
+                        " [필수] 배송 이용약관",
                         textScaleFactor: 1,
                         style: TextStyle(fontSize: 13, color: kBodyTextColor),
                       ),
@@ -358,82 +358,6 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget foodwidget(int index) {
-    int qty = widget.cart['food'][index]['quantity'];
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(widget.cart['food'][index]['name'],
-                textScaleFactor: 1,
-                style: TextStyle(
-                    color: kBodyTextColor,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold)),
-            Text(
-              widget.cart['food'][index]['price'].toString() + "원",
-              textScaleFactor: 1,
-              style: TextStyle(
-                  color: Color(0xFFFF4D4D),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600),
-            )
-          ],
-        ),
-        VerticalSpacing(of: 15),
-        QuantityCard(
-          quantity: qty,
-          onpressed1: () {
-            //_updatefood(index);
-            count -= 1;
-            setState(() {});
-          },
-          onpressed2: () {
-            //_updatefood(index);
-            count += 1;
-            qty += count;
-            setState(() {});
-            _updatefood(index);
-          },
-        ),
-        VerticalSpacing(of: 30)
-      ],
-    );
-  }
-
-  void _updatefood(int index) async {
-    var data;
-
-    FirebaseFirestore.instance
-        .collection('cart')
-        .doc(widget.user.email)
-        .get()
-        .then((DocumentSnapshot ds) {
-      data = ds['food'];
-    });
-    await Future.delayed(Duration(seconds: 1));
-
-    final List food = List<Map>.from(data ?? []);
-    print(food);
-
-    final updateData = {
-      'name': widget.cart['food'][index]['name'],
-      'price': widget.cart['food'][index]['price'],
-      'quantity': widget.cart['food'][index]['quantity'] + 1
-    };
-
-    food.add(updateData);
-    // FirebaseFirestore.instance
-    //     .collection("cart")
-    //     .doc(widget.user.email)
-    //     .update({
-    //   'food': [food]
-    // });
-  }
-
   void goBootpayRequest(BuildContext context) async {
     Payload payload = Payload();
     payload.androidApplicationId = '5feaba562fa5c20027038fc5';
@@ -447,7 +371,7 @@ class _BodyState extends State<Body> {
     bootpay.User user = bootpay.User();
     user.username = widget.cart['name'];
     user.email = widget.cart.id;
-    user.area = widget.cart['store'];
+    user.area = widget.cart['address'];
 
     Extra extra = Extra();
     extra.appScheme = 'hellocock';
@@ -474,15 +398,12 @@ class _BodyState extends State<Body> {
         FirebaseFirestore.instance
             .collection("order")
             .doc(payload.orderId)
-            .set({
+            .update({
           'number': payload.orderId,
           'name': widget.cart['name'],
           'email': widget.cart.id,
           'date': Timestamp.now(),
           'total_price': _totalprice,
-          'pickup_time': widget.cart['pickup_time'],
-          'pickup_store': widget.cart['store'],
-          'pickedup': false,
           'cocktail': widget.cart['cocktail']
         });
         Navigator.push(
